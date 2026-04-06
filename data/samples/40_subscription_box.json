@@ -1,0 +1,1454 @@
+{
+  "input": {
+    "title": "Subscription Box Service",
+    "technologies": [
+      "Next.js",
+      "Node.js",
+      "PostgreSQL",
+      "Stripe"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Customer Registration",
+        "requirements": [
+          "Implement complete customer registration functionality",
+          "All customer registration operations must be validated and authorized",
+          "System shall maintain audit log for customer registration actions",
+          "Support search and filtering within customer registration",
+          "Enable notifications for important customer registration events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all customer registration operations",
+          "System validates all customer registration inputs correctly",
+          "Error messages display clearly for customer registration failures"
+        ]
+      },
+      "FR-02": {
+        "title": "Quiz-based Preference Collection",
+        "requirements": [
+          "Implement complete quiz-based preference collection functionality",
+          "All quiz-based preference collection operations must be validated and authorized",
+          "System shall maintain audit log for quiz-based preference collection actions",
+          "Support search and filtering within quiz-based preference collection"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all quiz-based preference collection operations",
+          "System validates all quiz-based preference collection inputs correctly",
+          "Error messages display clearly for quiz-based preference collection failures"
+        ]
+      },
+      "FR-03": {
+        "title": "Subscription Plan Selection",
+        "requirements": [
+          "Implement complete subscription plan selection functionality",
+          "All subscription plan selection operations must be validated and authorized",
+          "System shall maintain audit log for subscription plan selection actions",
+          "Support search and filtering within subscription plan selection",
+          "Enable notifications for important subscription plan selection events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all subscription plan selection operations",
+          "System validates all subscription plan selection inputs correctly",
+          "Error messages display clearly for subscription plan selection failures"
+        ]
+      },
+      "FR-04": {
+        "title": "Custom Box Configuration",
+        "requirements": [
+          "Implement complete custom box configuration functionality",
+          "All custom box configuration operations must be validated and authorized",
+          "System shall maintain audit log for custom box configuration actions",
+          "Support search and filtering within custom box configuration"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all custom box configuration operations",
+          "System validates all custom box configuration inputs correctly",
+          "Error messages display clearly for custom box configuration failures"
+        ]
+      },
+      "FR-05": {
+        "title": "Recurring Billing Setup",
+        "requirements": [
+          "Implement complete recurring billing setup functionality",
+          "All recurring billing setup operations must be validated and authorized",
+          "System shall maintain audit log for recurring billing setup actions",
+          "Support search and filtering within recurring billing setup",
+          "Enable notifications for important recurring billing setup events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recurring billing setup operations",
+          "System validates all recurring billing setup inputs correctly",
+          "Error messages display clearly for recurring billing setup failures",
+          "recurring billing setup data persists correctly across sessions"
+        ]
+      },
+      "FR-06": {
+        "title": "Skip Month Option",
+        "requirements": [
+          "Implement complete skip month option functionality",
+          "All skip month option operations must be validated and authorized",
+          "System shall maintain audit log for skip month option actions",
+          "Support search and filtering within skip month option"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all skip month option operations",
+          "System validates all skip month option inputs correctly",
+          "Error messages display clearly for skip month option failures",
+          "skip month option data persists correctly across sessions"
+        ]
+      },
+      "FR-07": {
+        "title": "Pause Subscription",
+        "requirements": [
+          "Implement complete pause subscription functionality",
+          "All pause subscription operations must be validated and authorized",
+          "System shall maintain audit log for pause subscription actions",
+          "Support search and filtering within pause subscription",
+          "Enable notifications for important pause subscription events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all pause subscription operations",
+          "System validates all pause subscription inputs correctly",
+          "Error messages display clearly for pause subscription failures"
+        ]
+      },
+      "FR-08": {
+        "title": "Cancel Subscription with Survey",
+        "requirements": [
+          "Implement complete cancel subscription with survey functionality",
+          "All cancel subscription with survey operations must be validated and authorized",
+          "System shall maintain audit log for cancel subscription with survey actions",
+          "Support search and filtering within cancel subscription with survey",
+          "Enable notifications for important cancel subscription with survey events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cancel subscription with survey operations",
+          "System validates all cancel subscription with survey inputs correctly",
+          "Error messages display clearly for cancel subscription with survey failures",
+          "cancel subscription with survey data persists correctly across sessions"
+        ]
+      },
+      "FR-09": {
+        "title": "Payment Method Management",
+        "requirements": [
+          "Implement complete payment method management functionality",
+          "All payment method management operations must be validated and authorized",
+          "System shall maintain audit log for payment method management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all payment method management operations",
+          "System validates all payment method management inputs correctly",
+          "Error messages display clearly for payment method management failures",
+          "payment method management data persists correctly across sessions"
+        ]
+      },
+      "FR-10": {
+        "title": "Address Management",
+        "requirements": [
+          "Implement complete address management functionality",
+          "All address management operations must be validated and authorized",
+          "System shall maintain audit log for address management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all address management operations",
+          "System validates all address management inputs correctly",
+          "Error messages display clearly for address management failures"
+        ]
+      },
+      "FR-11": {
+        "title": "Gift Subscription Purchase",
+        "requirements": [
+          "Implement complete gift subscription purchase functionality",
+          "All gift subscription purchase operations must be validated and authorized",
+          "System shall maintain audit log for gift subscription purchase actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all gift subscription purchase operations",
+          "System validates all gift subscription purchase inputs correctly",
+          "Error messages display clearly for gift subscription purchase failures",
+          "gift subscription purchase data persists correctly across sessions"
+        ]
+      },
+      "FR-12": {
+        "title": "Gift Message and Delivery Date",
+        "requirements": [
+          "Implement complete gift message and delivery date functionality",
+          "All gift message and delivery date operations must be validated and authorized",
+          "System shall maintain audit log for gift message and delivery date actions",
+          "Support search and filtering within gift message and delivery date"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all gift message and delivery date operations",
+          "System validates all gift message and delivery date inputs correctly",
+          "Error messages display clearly for gift message and delivery date failures",
+          "gift message and delivery date data persists correctly across sessions"
+        ]
+      },
+      "FR-13": {
+        "title": "Box Curation by Admin",
+        "requirements": [
+          "Implement complete box curation by admin functionality",
+          "All box curation by admin operations must be validated and authorized",
+          "System shall maintain audit log for box curation by admin actions",
+          "Support search and filtering within box curation by admin",
+          "Enable notifications for important box curation by admin events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all box curation by admin operations",
+          "System validates all box curation by admin inputs correctly",
+          "Error messages display clearly for box curation by admin failures"
+        ]
+      },
+      "FR-14": {
+        "title": "Product Selection for Box",
+        "requirements": [
+          "Implement complete product selection for box functionality",
+          "All product selection for box operations must be validated and authorized",
+          "System shall maintain audit log for product selection for box actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all product selection for box operations",
+          "System validates all product selection for box inputs correctly",
+          "Error messages display clearly for product selection for box failures"
+        ]
+      },
+      "FR-15": {
+        "title": "Supplier Product Management",
+        "requirements": [
+          "Implement complete supplier product management functionality",
+          "All supplier product management operations must be validated and authorized",
+          "System shall maintain audit log for supplier product management actions",
+          "Support search and filtering within supplier product management",
+          "Enable notifications for important supplier product management events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all supplier product management operations",
+          "System validates all supplier product management inputs correctly",
+          "Error messages display clearly for supplier product management failures"
+        ]
+      },
+      "FR-16": {
+        "title": "Inventory for Box Items",
+        "requirements": [
+          "Implement complete inventory for box items functionality",
+          "All inventory for box items operations must be validated and authorized",
+          "System shall maintain audit log for inventory for box items actions",
+          "Support search and filtering within inventory for box items",
+          "Enable notifications for important inventory for box items events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all inventory for box items operations",
+          "System validates all inventory for box items inputs correctly",
+          "Error messages display clearly for inventory for box items failures",
+          "inventory for box items data persists correctly across sessions"
+        ]
+      },
+      "FR-17": {
+        "title": "Box Assembly Workflow",
+        "requirements": [
+          "Implement complete box assembly workflow functionality",
+          "All box assembly workflow operations must be validated and authorized",
+          "System shall maintain audit log for box assembly workflow actions",
+          "Support search and filtering within box assembly workflow"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all box assembly workflow operations",
+          "System validates all box assembly workflow inputs correctly",
+          "Error messages display clearly for box assembly workflow failures",
+          "box assembly workflow data persists correctly across sessions"
+        ]
+      },
+      "FR-18": {
+        "title": "Shipping Label Generation",
+        "requirements": [
+          "Implement complete shipping label generation functionality",
+          "All shipping label generation operations must be validated and authorized",
+          "System shall maintain audit log for shipping label generation actions",
+          "Support search and filtering within shipping label generation",
+          "Enable notifications for important shipping label generation events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all shipping label generation operations",
+          "System validates all shipping label generation inputs correctly",
+          "Error messages display clearly for shipping label generation failures"
+        ]
+      },
+      "FR-19": {
+        "title": "Tracking Integration",
+        "requirements": [
+          "Implement complete tracking integration functionality",
+          "All tracking integration operations must be validated and authorized",
+          "System shall maintain audit log for tracking integration actions",
+          "Support search and filtering within tracking integration",
+          "Enable notifications for important tracking integration events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all tracking integration operations",
+          "System validates all tracking integration inputs correctly",
+          "Error messages display clearly for tracking integration failures",
+          "tracking integration data persists correctly across sessions"
+        ]
+      },
+      "FR-20": {
+        "title": "Delivery Notification",
+        "requirements": [
+          "Implement complete delivery notification functionality",
+          "All delivery notification operations must be validated and authorized",
+          "System shall maintain audit log for delivery notification actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all delivery notification operations",
+          "System validates all delivery notification inputs correctly",
+          "Error messages display clearly for delivery notification failures",
+          "delivery notification data persists correctly across sessions"
+        ]
+      },
+      "FR-21": {
+        "title": "Unboxing Experience Rating",
+        "requirements": [
+          "Implement complete unboxing experience rating functionality",
+          "All unboxing experience rating operations must be validated and authorized",
+          "System shall maintain audit log for unboxing experience rating actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all unboxing experience rating operations",
+          "System validates all unboxing experience rating inputs correctly",
+          "Error messages display clearly for unboxing experience rating failures"
+        ]
+      },
+      "FR-22": {
+        "title": "Product Review per Item",
+        "requirements": [
+          "Implement complete product review per item functionality",
+          "All product review per item operations must be validated and authorized",
+          "System shall maintain audit log for product review per item actions",
+          "Support search and filtering within product review per item"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all product review per item operations",
+          "System validates all product review per item inputs correctly",
+          "Error messages display clearly for product review per item failures",
+          "product review per item data persists correctly across sessions"
+        ]
+      },
+      "FR-23": {
+        "title": "Preference Update from Ratings",
+        "requirements": [
+          "Implement complete preference update from ratings functionality",
+          "All preference update from ratings operations must be validated and authorized",
+          "System shall maintain audit log for preference update from ratings actions",
+          "Support search and filtering within preference update from ratings",
+          "Enable notifications for important preference update from ratings events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all preference update from ratings operations",
+          "System validates all preference update from ratings inputs correctly",
+          "Error messages display clearly for preference update from ratings failures",
+          "preference update from ratings data persists correctly across sessions"
+        ]
+      },
+      "FR-24": {
+        "title": "Referral Program",
+        "requirements": [
+          "Implement complete referral program functionality",
+          "All referral program operations must be validated and authorized",
+          "System shall maintain audit log for referral program actions",
+          "Support search and filtering within referral program"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all referral program operations",
+          "System validates all referral program inputs correctly",
+          "Error messages display clearly for referral program failures"
+        ]
+      },
+      "FR-25": {
+        "title": "Loyalty Points System",
+        "requirements": [
+          "Implement complete loyalty points system functionality",
+          "All loyalty points system operations must be validated and authorized",
+          "System shall maintain audit log for loyalty points system actions",
+          "Support search and filtering within loyalty points system"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all loyalty points system operations",
+          "System validates all loyalty points system inputs correctly",
+          "Error messages display clearly for loyalty points system failures",
+          "loyalty points system data persists correctly across sessions"
+        ]
+      },
+      "FR-26": {
+        "title": "Add-on Purchase with Subscription",
+        "requirements": [
+          "Implement complete add-on purchase with subscription functionality",
+          "All add-on purchase with subscription operations must be validated and authorized",
+          "System shall maintain audit log for add-on purchase with subscription actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all add-on purchase with subscription operations",
+          "System validates all add-on purchase with subscription inputs correctly",
+          "Error messages display clearly for add-on purchase with subscription failures",
+          "add-on purchase with subscription data persists correctly across sessions"
+        ]
+      },
+      "FR-27": {
+        "title": "Past Box Gallery",
+        "requirements": [
+          "Implement complete past box gallery functionality",
+          "All past box gallery operations must be validated and authorized",
+          "System shall maintain audit log for past box gallery actions",
+          "Support search and filtering within past box gallery"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all past box gallery operations",
+          "System validates all past box gallery inputs correctly",
+          "Error messages display clearly for past box gallery failures",
+          "past box gallery data persists correctly across sessions"
+        ]
+      },
+      "FR-28": {
+        "title": "Upcoming Box Preview",
+        "requirements": [
+          "Implement complete upcoming box preview functionality",
+          "All upcoming box preview operations must be validated and authorized",
+          "System shall maintain audit log for upcoming box preview actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all upcoming box preview operations",
+          "System validates all upcoming box preview inputs correctly",
+          "Error messages display clearly for upcoming box preview failures"
+        ]
+      },
+      "FR-29": {
+        "title": "Waitlist for Sold-out Plans",
+        "requirements": [
+          "Implement complete waitlist for sold-out plans functionality",
+          "All waitlist for sold-out plans operations must be validated and authorized",
+          "System shall maintain audit log for waitlist for sold-out plans actions",
+          "Support search and filtering within waitlist for sold-out plans"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all waitlist for sold-out plans operations",
+          "System validates all waitlist for sold-out plans inputs correctly",
+          "Error messages display clearly for waitlist for sold-out plans failures",
+          "waitlist for sold-out plans data persists correctly across sessions"
+        ]
+      },
+      "FR-30": {
+        "title": "Limited Edition Box Management",
+        "requirements": [
+          "Implement complete limited edition box management functionality",
+          "All limited edition box management operations must be validated and authorized",
+          "System shall maintain audit log for limited edition box management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all limited edition box management operations",
+          "System validates all limited edition box management inputs correctly",
+          "Error messages display clearly for limited edition box management failures"
+        ]
+      },
+      "FR-31": {
+        "title": "Collaboration Box with Brands",
+        "requirements": [
+          "Implement complete collaboration box with brands functionality",
+          "All collaboration box with brands operations must be validated and authorized",
+          "System shall maintain audit log for collaboration box with brands actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all collaboration box with brands operations",
+          "System validates all collaboration box with brands inputs correctly",
+          "Error messages display clearly for collaboration box with brands failures"
+        ]
+      },
+      "FR-32": {
+        "title": "Customer Support Chat",
+        "requirements": [
+          "Implement complete customer support chat functionality",
+          "All customer support chat operations must be validated and authorized",
+          "System shall maintain audit log for customer support chat actions",
+          "Support search and filtering within customer support chat"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all customer support chat operations",
+          "System validates all customer support chat inputs correctly",
+          "Error messages display clearly for customer support chat failures"
+        ]
+      },
+      "FR-33": {
+        "title": "FAQ and Help Center",
+        "requirements": [
+          "Implement complete faq and help center functionality",
+          "All faq and help center operations must be validated and authorized",
+          "System shall maintain audit log for faq and help center actions",
+          "Support search and filtering within faq and help center",
+          "Enable notifications for important faq and help center events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all faq and help center operations",
+          "System validates all faq and help center inputs correctly",
+          "Error messages display clearly for faq and help center failures",
+          "faq and help center data persists correctly across sessions"
+        ]
+      },
+      "FR-34": {
+        "title": "Return and Exchange",
+        "requirements": [
+          "Implement complete return and exchange functionality",
+          "All return and exchange operations must be validated and authorized",
+          "System shall maintain audit log for return and exchange actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all return and exchange operations",
+          "System validates all return and exchange inputs correctly",
+          "Error messages display clearly for return and exchange failures"
+        ]
+      },
+      "FR-35": {
+        "title": "Admin Dashboard",
+        "requirements": [
+          "Implement complete admin dashboard functionality",
+          "All admin dashboard operations must be validated and authorized",
+          "System shall maintain audit log for admin dashboard actions",
+          "Support search and filtering within admin dashboard"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all admin dashboard operations",
+          "System validates all admin dashboard inputs correctly",
+          "Error messages display clearly for admin dashboard failures",
+          "admin dashboard data persists correctly across sessions"
+        ]
+      },
+      "FR-36": {
+        "title": "Revenue and Churn Analytics",
+        "requirements": [
+          "Implement complete revenue and churn analytics functionality",
+          "All revenue and churn analytics operations must be validated and authorized",
+          "System shall maintain audit log for revenue and churn analytics actions",
+          "Support search and filtering within revenue and churn analytics"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all revenue and churn analytics operations",
+          "System validates all revenue and churn analytics inputs correctly",
+          "Error messages display clearly for revenue and churn analytics failures"
+        ]
+      },
+      "FR-37": {
+        "title": "Subscriber Demographics",
+        "requirements": [
+          "Implement complete subscriber demographics functionality",
+          "All subscriber demographics operations must be validated and authorized",
+          "System shall maintain audit log for subscriber demographics actions",
+          "Support search and filtering within subscriber demographics",
+          "Enable notifications for important subscriber demographics events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all subscriber demographics operations",
+          "System validates all subscriber demographics inputs correctly",
+          "Error messages display clearly for subscriber demographics failures",
+          "subscriber demographics data persists correctly across sessions"
+        ]
+      },
+      "FR-38": {
+        "title": "A/B Testing for Box Contents",
+        "requirements": [
+          "Implement complete a/b testing for box contents functionality",
+          "All a/b testing for box contents operations must be validated and authorized",
+          "System shall maintain audit log for a/b testing for box contents actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all a/b testing for box contents operations",
+          "System validates all a/b testing for box contents inputs correctly",
+          "Error messages display clearly for a/b testing for box contents failures",
+          "a/b testing for box contents data persists correctly across sessions"
+        ]
+      },
+      "FR-39": {
+        "title": "Email Marketing Campaigns",
+        "requirements": [
+          "Implement complete email marketing campaigns functionality",
+          "All email marketing campaigns operations must be validated and authorized",
+          "System shall maintain audit log for email marketing campaigns actions",
+          "Support search and filtering within email marketing campaigns"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all email marketing campaigns operations",
+          "System validates all email marketing campaigns inputs correctly",
+          "Error messages display clearly for email marketing campaigns failures",
+          "email marketing campaigns data persists correctly across sessions"
+        ]
+      },
+      "FR-40": {
+        "title": "Social Media Integration",
+        "requirements": [
+          "Implement complete social media integration functionality",
+          "All social media integration operations must be validated and authorized",
+          "System shall maintain audit log for social media integration actions",
+          "Support search and filtering within social media integration"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all social media integration operations",
+          "System validates all social media integration inputs correctly",
+          "Error messages display clearly for social media integration failures"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build Customer Registration API",
+        "description": "Create REST API endpoints for customer registration feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Build Customer Registration UI",
+        "description": "Create user interface components for customer registration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01"
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Quiz-based Preference Collection API",
+        "description": "Create REST API endpoints for quiz-based preference collection feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Build Quiz-based Preference Collection UI",
+        "description": "Create user interface components for quiz-based preference collection. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Write Quiz-based Preference Collection Tests",
+        "description": "Write unit and integration tests for quiz-based preference collection feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02"
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Build Subscription Plan Selection API",
+        "description": "Create REST API endpoints for subscription plan selection feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Build Subscription Plan Selection UI",
+        "description": "Create user interface components for subscription plan selection. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Design Subscription Plan Selection Database Schema",
+        "description": "Create database tables/collections for subscription plan selection. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03"
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Build Custom Box Configuration API",
+        "description": "Create REST API endpoints for custom box configuration feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Build Custom Box Configuration UI",
+        "description": "Create user interface components for custom box configuration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04"
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Build Recurring Billing Setup API",
+        "description": "Create REST API endpoints for recurring billing setup feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Build Recurring Billing Setup UI",
+        "description": "Create user interface components for recurring billing setup. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Write Recurring Billing Setup Tests",
+        "description": "Write unit and integration tests for recurring billing setup feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05"
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Skip Month Option API",
+        "description": "Create REST API endpoints for skip month option feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Build Skip Month Option UI",
+        "description": "Create user interface components for skip month option. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06"
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Pause Subscription API",
+        "description": "Create REST API endpoints for pause subscription feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Build Pause Subscription UI",
+        "description": "Create user interface components for pause subscription. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Write Pause Subscription Tests",
+        "description": "Write unit and integration tests for pause subscription feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07"
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Cancel Subscription with Survey API",
+        "description": "Create REST API endpoints for cancel subscription with survey feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Build Cancel Subscription with Survey UI",
+        "description": "Create user interface components for cancel subscription with survey. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-08"
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build Payment Method Management API",
+        "description": "Create REST API endpoints for payment method management feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Build Payment Method Management UI",
+        "description": "Create user interface components for payment method management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09"
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Address Management API",
+        "description": "Create REST API endpoints for address management feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Build Address Management UI",
+        "description": "Create user interface components for address management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Design Address Management Database Schema",
+        "description": "Create database tables/collections for address management. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10"
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Build Gift Subscription Purchase API",
+        "description": "Create REST API endpoints for gift subscription purchase feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Build Gift Subscription Purchase UI",
+        "description": "Create user interface components for gift subscription purchase. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Design Gift Subscription Purchase Database Schema",
+        "description": "Create database tables/collections for gift subscription purchase. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-11"
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Gift Message and Delivery Date API",
+        "description": "Create REST API endpoints for gift message and delivery date feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Build Gift Message and Delivery Date UI",
+        "description": "Create user interface components for gift message and delivery date. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Design Gift Message and Delivery Date Database Schema",
+        "description": "Create database tables/collections for gift message and delivery date. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-12"
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Build Box Curation by Admin API",
+        "description": "Create REST API endpoints for box curation by admin feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Build Box Curation by Admin UI",
+        "description": "Create user interface components for box curation by admin. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13"
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Build Product Selection for Box API",
+        "description": "Create REST API endpoints for product selection for box feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Build Product Selection for Box UI",
+        "description": "Create user interface components for product selection for box. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Write Product Selection for Box Tests",
+        "description": "Write unit and integration tests for product selection for box feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14"
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Build Supplier Product Management API",
+        "description": "Create REST API endpoints for supplier product management feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Build Supplier Product Management UI",
+        "description": "Create user interface components for supplier product management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Design Supplier Product Management Database Schema",
+        "description": "Create database tables/collections for supplier product management. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Write Supplier Product Management Tests",
+        "description": "Write unit and integration tests for supplier product management feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-15"
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Build Inventory for Box Items API",
+        "description": "Create REST API endpoints for inventory for box items feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Build Inventory for Box Items UI",
+        "description": "Create user interface components for inventory for box items. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Design Inventory for Box Items Database Schema",
+        "description": "Create database tables/collections for inventory for box items. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-16"
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Build Box Assembly Workflow API",
+        "description": "Create REST API endpoints for box assembly workflow feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Build Box Assembly Workflow UI",
+        "description": "Create user interface components for box assembly workflow. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Design Box Assembly Workflow Database Schema",
+        "description": "Create database tables/collections for box assembly workflow. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Write Box Assembly Workflow Tests",
+        "description": "Write unit and integration tests for box assembly workflow feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-17"
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Build Shipping Label Generation API",
+        "description": "Create REST API endpoints for shipping label generation feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Build Shipping Label Generation UI",
+        "description": "Create user interface components for shipping label generation. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Design Shipping Label Generation Database Schema",
+        "description": "Create database tables/collections for shipping label generation. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-18"
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Build Tracking Integration API",
+        "description": "Create REST API endpoints for tracking integration feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Build Tracking Integration UI",
+        "description": "Create user interface components for tracking integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Design Tracking Integration Database Schema",
+        "description": "Create database tables/collections for tracking integration. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Write Tracking Integration Tests",
+        "description": "Write unit and integration tests for tracking integration feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-19"
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Build Delivery Notification API",
+        "description": "Create REST API endpoints for delivery notification feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Build Delivery Notification UI",
+        "description": "Create user interface components for delivery notification. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Write Delivery Notification Tests",
+        "description": "Write unit and integration tests for delivery notification feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-20"
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Build Unboxing Experience Rating API",
+        "description": "Create REST API endpoints for unboxing experience rating feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Build Unboxing Experience Rating UI",
+        "description": "Create user interface components for unboxing experience rating. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Design Unboxing Experience Rating Database Schema",
+        "description": "Create database tables/collections for unboxing experience rating. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-21"
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Build Product Review per Item API",
+        "description": "Create REST API endpoints for product review per item feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Build Product Review per Item UI",
+        "description": "Create user interface components for product review per item. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-22"
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Build Preference Update from Ratings API",
+        "description": "Create REST API endpoints for preference update from ratings feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Build Preference Update from Ratings UI",
+        "description": "Create user interface components for preference update from ratings. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Write Preference Update from Ratings Tests",
+        "description": "Write unit and integration tests for preference update from ratings feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-23"
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Build Referral Program API",
+        "description": "Create REST API endpoints for referral program feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Build Referral Program UI",
+        "description": "Create user interface components for referral program. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-24"
+      }
+    ],
+    "FR-25": [
+      {
+        "title": "Build Loyalty Points System API",
+        "description": "Create REST API endpoints for loyalty points system feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Build Loyalty Points System UI",
+        "description": "Create user interface components for loyalty points system. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-25"
+      }
+    ],
+    "FR-26": [
+      {
+        "title": "Build Add-on Purchase with Subscription API",
+        "description": "Create REST API endpoints for add-on purchase with subscription feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Build Add-on Purchase with Subscription UI",
+        "description": "Create user interface components for add-on purchase with subscription. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Design Add-on Purchase with Subscription Database Schema",
+        "description": "Create database tables/collections for add-on purchase with subscription. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-26"
+      }
+    ],
+    "FR-27": [
+      {
+        "title": "Build Past Box Gallery API",
+        "description": "Create REST API endpoints for past box gallery feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Build Past Box Gallery UI",
+        "description": "Create user interface components for past box gallery. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Design Past Box Gallery Database Schema",
+        "description": "Create database tables/collections for past box gallery. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-27"
+      }
+    ],
+    "FR-28": [
+      {
+        "title": "Build Upcoming Box Preview API",
+        "description": "Create REST API endpoints for upcoming box preview feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Build Upcoming Box Preview UI",
+        "description": "Create user interface components for upcoming box preview. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Write Upcoming Box Preview Tests",
+        "description": "Write unit and integration tests for upcoming box preview feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-28"
+      }
+    ],
+    "FR-29": [
+      {
+        "title": "Build Waitlist for Sold-out Plans API",
+        "description": "Create REST API endpoints for waitlist for sold-out plans feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Build Waitlist for Sold-out Plans UI",
+        "description": "Create user interface components for waitlist for sold-out plans. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Design Waitlist for Sold-out Plans Database Schema",
+        "description": "Create database tables/collections for waitlist for sold-out plans. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-29"
+      }
+    ],
+    "FR-30": [
+      {
+        "title": "Build Limited Edition Box Management API",
+        "description": "Create REST API endpoints for limited edition box management feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Build Limited Edition Box Management UI",
+        "description": "Create user interface components for limited edition box management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-30"
+      }
+    ],
+    "FR-31": [
+      {
+        "title": "Build Collaboration Box with Brands API",
+        "description": "Create REST API endpoints for collaboration box with brands feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-31"
+      },
+      {
+        "title": "Build Collaboration Box with Brands UI",
+        "description": "Create user interface components for collaboration box with brands. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-31"
+      },
+      {
+        "title": "Design Collaboration Box with Brands Database Schema",
+        "description": "Create database tables/collections for collaboration box with brands. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-31"
+      },
+      {
+        "title": "Write Collaboration Box with Brands Tests",
+        "description": "Write unit and integration tests for collaboration box with brands feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-31"
+      }
+    ],
+    "FR-32": [
+      {
+        "title": "Build Customer Support Chat API",
+        "description": "Create REST API endpoints for customer support chat feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Build Customer Support Chat UI",
+        "description": "Create user interface components for customer support chat. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-32"
+      }
+    ],
+    "FR-33": [
+      {
+        "title": "Build FAQ and Help Center API",
+        "description": "Create REST API endpoints for faq and help center feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-33"
+      },
+      {
+        "title": "Build FAQ and Help Center UI",
+        "description": "Create user interface components for faq and help center. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-33"
+      }
+    ],
+    "FR-34": [
+      {
+        "title": "Build Return and Exchange API",
+        "description": "Create REST API endpoints for return and exchange feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-34"
+      },
+      {
+        "title": "Build Return and Exchange UI",
+        "description": "Create user interface components for return and exchange. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-34"
+      },
+      {
+        "title": "Write Return and Exchange Tests",
+        "description": "Write unit and integration tests for return and exchange feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-34"
+      }
+    ],
+    "FR-35": [
+      {
+        "title": "Build Admin Dashboard API",
+        "description": "Create REST API endpoints for admin dashboard feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Build Admin Dashboard UI",
+        "description": "Create user interface components for admin dashboard. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-35"
+      }
+    ],
+    "FR-36": [
+      {
+        "title": "Build Revenue and Churn Analytics API",
+        "description": "Create REST API endpoints for revenue and churn analytics feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Build Revenue and Churn Analytics UI",
+        "description": "Create user interface components for revenue and churn analytics. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-36"
+      }
+    ],
+    "FR-37": [
+      {
+        "title": "Build Subscriber Demographics API",
+        "description": "Create REST API endpoints for subscriber demographics feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-37"
+      },
+      {
+        "title": "Build Subscriber Demographics UI",
+        "description": "Create user interface components for subscriber demographics. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-37"
+      }
+    ],
+    "FR-38": [
+      {
+        "title": "Build A/B Testing for Box Contents API",
+        "description": "Create REST API endpoints for a/b testing for box contents feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Build A/B Testing for Box Contents UI",
+        "description": "Create user interface components for a/b testing for box contents. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Design A/B Testing for Box Contents Database Schema",
+        "description": "Create database tables/collections for a/b testing for box contents. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Write A/B Testing for Box Contents Tests",
+        "description": "Write unit and integration tests for a/b testing for box contents feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-38"
+      }
+    ],
+    "FR-39": [
+      {
+        "title": "Build Email Marketing Campaigns API",
+        "description": "Create REST API endpoints for email marketing campaigns feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-39"
+      },
+      {
+        "title": "Build Email Marketing Campaigns UI",
+        "description": "Create user interface components for email marketing campaigns. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-39"
+      },
+      {
+        "title": "Design Email Marketing Campaigns Database Schema",
+        "description": "Create database tables/collections for email marketing campaigns. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-39"
+      },
+      {
+        "title": "Write Email Marketing Campaigns Tests",
+        "description": "Write unit and integration tests for email marketing campaigns feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-39"
+      }
+    ],
+    "FR-40": [
+      {
+        "title": "Build Social Media Integration API",
+        "description": "Create REST API endpoints for social media integration feature in Subscription Box Service. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-40"
+      },
+      {
+        "title": "Build Social Media Integration UI",
+        "description": "Create user interface components for social media integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-40"
+      },
+      {
+        "title": "Write Social Media Integration Tests",
+        "description": "Write unit and integration tests for social media integration feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-40"
+      }
+    ]
+  }
+}

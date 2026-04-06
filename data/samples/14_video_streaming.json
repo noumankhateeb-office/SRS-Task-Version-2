@@ -1,0 +1,395 @@
+{
+  "input": {
+    "title": "Video Streaming Platform",
+    "technologies": [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "AWS S3",
+      "Redis"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "User Registration and Subscription",
+        "requirements": [
+          "Register with email or social login",
+          "Choose subscription plan (free, basic, premium)",
+          "Payment processing for paid plans",
+          "Free trial for 30 days"
+        ],
+        "acceptance_criteria": [
+          "Account created successfully",
+          "Plan selected and activated",
+          "Payment processes correctly",
+          "Trial starts and expires after 30 days"
+        ]
+      },
+      "FR-02": {
+        "title": "Video Upload and Processing",
+        "requirements": [
+          "Creators upload videos up to 4K resolution",
+          "Automatic transcoding to multiple qualities",
+          "Thumbnail generation from video frames",
+          "Video metadata: title, description, tags, category"
+        ],
+        "acceptance_criteria": [
+          "Upload completes for large files",
+          "Transcoding produces 360p to 4K variants",
+          "Thumbnails generated automatically",
+          "Metadata saved and searchable"
+        ]
+      },
+      "FR-03": {
+        "title": "Video Playback",
+        "requirements": [
+          "Adaptive bitrate streaming",
+          "Playback controls: play, pause, seek, volume, fullscreen",
+          "Playback speed adjustment (0.5x to 2x)",
+          "Picture-in-picture mode"
+        ],
+        "acceptance_criteria": [
+          "Quality adjusts based on bandwidth",
+          "All controls function correctly",
+          "Speed changes are smooth",
+          "PiP works while browsing other content"
+        ]
+      },
+      "FR-04": {
+        "title": "Content Discovery",
+        "requirements": [
+          "Personalized recommendations based on watch history",
+          "Trending and popular content sections",
+          "Search with autocomplete",
+          "Browse by category and genre"
+        ],
+        "acceptance_criteria": [
+          "Recommendations match user interests",
+          "Trending shows most-watched content",
+          "Search returns relevant results fast",
+          "Categories group content correctly"
+        ]
+      },
+      "FR-05": {
+        "title": "Watchlist and History",
+        "requirements": [
+          "Add videos to watchlist for later",
+          "Automatically track watch history",
+          "Continue watching from last position",
+          "Clear history option"
+        ],
+        "acceptance_criteria": [
+          "Videos added to watchlist",
+          "History records all watched videos",
+          "Playback resumes from last position",
+          "Clear history removes all records"
+        ]
+      },
+      "FR-06": {
+        "title": "Like, Comment, and Share",
+        "requirements": [
+          "Like and dislike videos",
+          "Threaded comments with replies",
+          "Share via link or social media",
+          "Creator can pin and delete comments"
+        ],
+        "acceptance_criteria": [
+          "Like count updates in real-time",
+          "Comments and replies display correctly",
+          "Share generates preview link",
+          "Pinned comment appears first"
+        ]
+      },
+      "FR-07": {
+        "title": "Channel Management",
+        "requirements": [
+          "Creators create and customize channel page",
+          "Channel banner and profile customization",
+          "Subscriber management and notifications",
+          "Channel analytics"
+        ],
+        "acceptance_criteria": [
+          "Channel page displays customizations",
+          "Banner and profile upload correctly",
+          "Subscriber count tracks accurately",
+          "Analytics show views, subscribers, and revenue"
+        ]
+      },
+      "FR-08": {
+        "title": "Live Streaming",
+        "requirements": [
+          "Start live stream from creator dashboard",
+          "Chat during live stream",
+          "Live stream recording and replay",
+          "Viewer count display in real-time"
+        ],
+        "acceptance_criteria": [
+          "Stream starts and viewers can watch",
+          "Chat messages appear in real-time",
+          "Recording available after stream ends",
+          "Viewer count updates live"
+        ]
+      },
+      "FR-09": {
+        "title": "Content Monetization",
+        "requirements": [
+          "Ad insertion before and during videos",
+          "Channel memberships with perks",
+          "Super chat during live streams",
+          "Revenue sharing with creators"
+        ],
+        "acceptance_criteria": [
+          "Ads play at configured intervals",
+          "Membership perks activated for subscribers",
+          "Super chats highlighted in live chat",
+          "Revenue reports show accurate earnings"
+        ]
+      },
+      "FR-10": {
+        "title": "Content Moderation",
+        "requirements": [
+          "Automated content scanning for violations",
+          "Community guidelines strike system",
+          "Appeal process for removed content",
+          "Age-restricted content gating"
+        ],
+        "acceptance_criteria": [
+          "Violations detected and flagged",
+          "Strikes accumulate with consequences",
+          "Appeals reviewed by moderators",
+          "Age-gated content requires verification"
+        ]
+      },
+      "FR-11": {
+        "title": "Offline Downloads",
+        "requirements": [
+          "Download videos for offline viewing (premium)",
+          "Download quality selection",
+          "Downloads expire after 30 days",
+          "DRM protection on downloads"
+        ],
+        "acceptance_criteria": [
+          "Videos download to device",
+          "Quality options available",
+          "Expired downloads auto-delete",
+          "DRM prevents unauthorized copying"
+        ]
+      },
+      "FR-12": {
+        "title": "Subtitle and Accessibility",
+        "requirements": [
+          "Auto-generated subtitles from speech",
+          "Manual subtitle upload (SRT/VTT)",
+          "Multiple language subtitle support",
+          "Accessibility: screen reader and keyboard navigation"
+        ],
+        "acceptance_criteria": [
+          "Auto subtitles sync with speech",
+          "Uploaded subtitles display correctly",
+          "Language selector switches subtitles",
+          "Screen reader describes video controls"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build Auth and Subscription API",
+        "description": "Create POST /api/auth/register, /api/auth/login, /api/auth/social. POST /api/subscriptions (plan selection and payment). Free trial with 30-day expiry. Subscription status checking middleware.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Build Registration and Plan Selection UI",
+        "description": "Create signup flow, plan comparison cards (free/basic/premium with features), payment form for paid plans, and trial activation screen.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01"
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Video Upload Pipeline",
+        "description": "Create POST /api/videos/upload (chunked upload to S3). Queue transcoding job (360p, 480p, 720p, 1080p, 4K). Generate thumbnails at intervals. Store metadata. Notify creator on completion.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Build Upload Interface",
+        "description": "Create upload page with drag-drop zone, progress bar, metadata form (title, description, tags, category, thumbnail selector from generated options), and publish/draft toggle.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Create Video Database Schema",
+        "description": "Design videos collection: id, creator_id, title, description, tags, category, thumbnail_url, sources (quality→URL map), duration, status (processing/published/private), views, likes, created_at.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02"
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Build Streaming API",
+        "description": "Create GET /api/videos/:id/stream (adaptive bitrate manifest HLS/DASH). Track playback position. CDN integration for global delivery. Bandwidth detection for quality selection.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Build Video Player",
+        "description": "Create custom player with adaptive streaming, progress bar with preview thumbnails, quality selector, speed control, volume, fullscreen, PiP, and keyboard shortcuts.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03"
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Build Recommendation Engine",
+        "description": "Create GET /api/recommendations (collaborative + content-based filtering from watch history). GET /api/trending (time-weighted view counts). GET /api/search (full-text with autocomplete). Browse by category.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Build Homepage and Browse UI",
+        "description": "Create homepage with recommendation rows (carousel), trending section, search bar with autocomplete dropdown, and category browse grid.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04"
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Build Watchlist and History API",
+        "description": "Create POST /api/watchlist/:videoId (toggle). GET /api/watchlist. Automatic history tracking via playback events. GET /api/history. POST /api/videos/:id/progress (save position). DELETE /api/history.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Build Watchlist and History Pages",
+        "description": "Create watchlist page with video cards and remove buttons. History page with date-grouped videos. Continue Watching row on homepage with progress indicators.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-05"
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Engagement API",
+        "description": "Create POST /api/videos/:id/like, /dislike (toggle). POST /api/videos/:id/comments (threaded with parent_id). Creator: POST /api/comments/:id/pin, DELETE. Share endpoint with metadata.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Build Engagement UI",
+        "description": "Create like/dislike buttons with counts, comment section with reply support, pinned comment highlight, and share modal with link copy and social buttons.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06"
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Channel API",
+        "description": "Create POST /api/channels (setup). PATCH /api/channels/:id (customize). POST /api/channels/:id/subscribe. GET /api/channels/:id/analytics (views, subs, revenue over time).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Build Channel Pages",
+        "description": "Create channel page with banner, avatar, sub count, tabs (Videos, Live, About). Creator studio with video manager, customization editor, and analytics dashboard.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07"
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Live Stream API",
+        "description": "Create POST /api/live/start (generate stream key and RTMP endpoint). WebSocket for live chat. POST /api/live/:id/end (save recording). Real-time viewer count via Redis.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Build Live Stream UI",
+        "description": "Create live viewer with stream player, real-time chat panel, viewer count badge. Creator dashboard with stream controls, chat moderation, and stream health indicators.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08"
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build Monetization API",
+        "description": "Create ad insertion service (pre-roll, mid-roll). POST /api/channels/:id/membership (tiers). POST /api/live/:id/superchat (highlighted message with payment). Revenue tracking and payout calculations.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Build Monetization Dashboard",
+        "description": "Create creator revenue page with earnings charts, ad revenue breakdown, membership stats, super chat history, and payout schedule.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-09"
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Moderation System",
+        "description": "Create content scanning pipeline for policy violations. Strike system: 1 warning, 2 upload restriction, 3 channel termination. POST /api/appeals (creator appeal). Age-restriction gate.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Build Moderation Dashboard",
+        "description": "Create admin moderation queue with flagged content, strike management, appeal review interface, and age-restriction toggle per video.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-10"
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Build Download API",
+        "description": "Create POST /api/videos/:id/download (premium only, quality selection). DRM packaging. Track downloads. Expire after 30 days. Limit concurrent downloads.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Build Download UI",
+        "description": "Create download button with quality selector. Downloads page showing downloaded videos with expiry countdown. Offline playback player.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-11"
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Subtitle Service",
+        "description": "Create auto-subtitle generation using speech-to-text API. POST /api/videos/:id/subtitles (SRT/VTT upload). Multi-language support. GET subtitle tracks by language.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Build Subtitle UI",
+        "description": "Create subtitle display overlay on player. Language selector in player controls. Subtitle styling options (font size, background). Screen reader ARIA labels for all controls.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-12"
+      }
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "input": {
+    "title": "Healthcare Patient Portal",
+    "technologies": ["Angular", "Spring Boot", "PostgreSQL"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Patient Registration",
+        "requirements": ["Register with personal details and insurance info", "Verify identity via email and phone", "Upload ID documents for verification", "Accept terms and privacy policy"],
+        "acceptance_criteria": ["Patient account is created", "Verification emails and SMS are sent", "Documents are uploaded and stored securely", "Terms acceptance is recorded with timestamp"]
+      },
+      "FR-02": {
+        "title": "Appointment Booking",
+        "requirements": ["View available time slots for each doctor", "Book appointments by selecting doctor, date, and time", "Confirmation email and SMS sent after booking", "Cancel or reschedule at least 24 hours before"],
+        "acceptance_criteria": ["Available slots display correctly", "Booking blocks the time slot", "Notifications sent within 1 minute", "Late cancellation is prevented"]
+      },
+      "FR-03": {
+        "title": "Medical Records Access",
+        "requirements": ["View complete medical history", "Records include diagnoses, treatments, lab results", "Records in reverse chronological order", "Download records as PDF"],
+        "acceptance_criteria": ["All records load correctly", "Lab results show normal range indicators", "PDF download is complete and formatted", "Access is logged for audit"]
+      },
+      "FR-04": {
+        "title": "Prescription Management",
+        "requirements": ["View current active prescriptions", "Request refills for eligible prescriptions", "Doctor approves refill requests", "Track refill history"],
+        "acceptance_criteria": ["Prescriptions display with medication details", "Refill request notifies doctor", "Approved refill updates record", "History shows all past requests"]
+      },
+      "FR-05": {
+        "title": "Secure Messaging",
+        "requirements": ["Send messages to assigned doctors", "Support text and file attachments up to 5MB", "All messages encrypted in transit and at rest", "Doctors can reply from their dashboard"],
+        "acceptance_criteria": ["Messages are delivered to recipient inbox", "Attachments upload and download correctly", "Encryption meets HIPAA standards", "Both parties receive notification for new messages"]
+      },
+      "FR-06": {
+        "title": "Lab Results Viewing",
+        "requirements": ["View lab test results with reference ranges", "Results flagged if outside normal range", "Historical trend charts for repeated tests", "Share results with other providers"],
+        "acceptance_criteria": ["Results display with correct values and ranges", "Abnormal values are highlighted in red", "Trend chart shows values over time", "Sharing generates secure link with expiry"]
+      },
+      "FR-07": {
+        "title": "Billing and Payments",
+        "requirements": ["View outstanding invoices and payment history", "Pay bills online via credit card or bank transfer", "Download itemized billing statements", "Set up payment plans for large bills"],
+        "acceptance_criteria": ["Invoice list shows correct amounts and dates", "Payment processes and updates balance", "Statement downloads as PDF", "Payment plan splits total into installments"]
+      },
+      "FR-08": {
+        "title": "Appointment Reminders",
+        "requirements": ["Send reminder 24 hours before appointment", "Send reminder 1 hour before appointment", "Reminders via email and SMS", "Include appointment details and location"],
+        "acceptance_criteria": ["24-hour reminder is sent on time", "1-hour reminder is sent on time", "Both email and SMS are received", "Reminder contains correct date, time, doctor, and location"]
+      },
+      "FR-09": {
+        "title": "Insurance Verification",
+        "requirements": ["Patients can add insurance provider details", "System verifies insurance eligibility", "Display coverage and copay information", "Update insurance information as needed"],
+        "acceptance_criteria": ["Insurance details are stored correctly", "Eligibility check returns correct status", "Coverage info matches insurance plan", "Updates reflect immediately"]
+      },
+      "FR-10": {
+        "title": "Emergency Contact Management",
+        "requirements": ["Add emergency contacts with name, phone, and relationship", "Multiple emergency contacts allowed", "Contacts accessible by medical staff in emergencies", "Contacts can be updated or removed"],
+        "acceptance_criteria": ["Emergency contact is saved successfully", "Multiple contacts are stored and displayed", "Staff can access contacts when authorized", "Updates and deletions work correctly"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Patient Registration API", "description": "Create POST /api/patients/register. Accept personal details, insurance info. Send verification email and SMS. Handle document upload for ID verification. Store with HIPAA-compliant encryption.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Registration Form", "description": "Create multi-step registration: Step 1 personal info, Step 2 insurance details, Step 3 ID document upload, Step 4 terms acceptance. Field validation at each step. Progress indicator.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Create Patient Database Schema", "description": "Design patients table: id, name, dob, email, phone, insurance_provider, insurance_id, id_document_url, verified, terms_accepted_at, created_at. Encrypt PII fields at rest.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Appointment Booking API", "description": "Create GET /api/doctors/:id/availability (available slots), POST /api/appointments (book), PATCH /api/appointments/:id (reschedule), DELETE /api/appointments/:id (cancel, enforce 24h rule). Send notifications.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Booking Interface", "description": "Create appointment booking flow: select doctor from list, view calendar with available slots, select date/time, confirm booking. Show confirmation with appointment details.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Medical Records API", "description": "Create GET /api/patients/:id/records (paginated, reverse chronological). Support filters by type (diagnosis/lab/treatment). GET /api/records/:id/pdf for download. Log all access for HIPAA audit.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Records Viewer", "description": "Create medical records page with timeline view showing record type icons, dates, and summaries. Detail view with full record data. PDF download button. Filter by record type.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Prescription API", "description": "Create GET /api/patients/:id/prescriptions (active list), POST /api/prescriptions/:id/refill (request refill), PATCH /api/prescriptions/:id/refill/:refillId (doctor approve/deny). Track refill history.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Prescription Screen", "description": "Create prescriptions page with active medication cards showing name, dosage, frequency, refills remaining. Request Refill button. Refill history tab with status for each request.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Secure Messaging API", "description": "Create messaging endpoints with end-to-end encryption (AES-256). POST /api/messages (send), GET /api/conversations (list), GET /api/conversations/:id (messages). Support file attachments up to 5MB.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Messaging Interface", "description": "Create HIPAA-compliant chat interface with conversation list, message thread view, text input with attachment button, and encryption indicator. Auto-logout after inactivity timeout.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Lab Results API", "description": "Create GET /api/patients/:id/labs (results with reference ranges). Flag abnormal values. GET /api/labs/:testType/trends for historical data. POST /api/labs/:id/share (generate secure link).", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Lab Results Viewer", "description": "Create lab results page with results table (value, range, status indicator). Trend charts using line graphs for repeated tests over time. Share button generating expiring link.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Billing API", "description": "Create GET /api/billing/invoices (outstanding and paid), POST /api/billing/pay (process payment), GET /api/billing/:id/statement (PDF), POST /api/billing/:id/payment-plan (create installments).", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Billing Page", "description": "Create billing page with outstanding invoices list, payment form with card/bank options, payment history table, statement download, and payment plan setup wizard.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Reminder Service", "description": "Create scheduled job that sends appointment reminders at 24h and 1h before. Send via email and SMS using notification service. Include appointment details, doctor name, and location map link.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Write Reminder Tests", "description": "Test 24-hour reminder is scheduled correctly. Test 1-hour reminder is scheduled. Test cancelled appointments don't trigger reminders. Test reminder content includes all details.", "priority": "medium", "type": "testing", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Insurance API", "description": "Create POST /api/patients/:id/insurance (add/update provider details), GET /api/insurance/verify (check eligibility with provider API), GET /api/insurance/coverage (display plan details and copay).", "priority": "medium", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Insurance Management Screen", "description": "Create insurance section in profile with provider selection dropdown, policy number input, verification status indicator, and coverage details display showing copay and deductible.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Build Emergency Contacts API", "description": "Create CRUD endpoints for emergency contacts: POST, GET, PATCH, DELETE /api/patients/:id/emergency-contacts. Support multiple contacts. Authorized staff access endpoint.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Emergency Contacts Screen", "description": "Create emergency contacts section with contact cards showing name, phone, relationship. Add/edit form. Delete with confirmation. Maximum 5 contacts.", "priority": "low", "type": "frontend", "related_requirement": "FR-10"}
+    ]
+  }
+}

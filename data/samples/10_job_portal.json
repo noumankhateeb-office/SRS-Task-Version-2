@@ -1,0 +1,84 @@
+{
+  "input": {
+    "title": "Job Portal Platform",
+    "technologies": ["Next.js", "Express", "PostgreSQL", "Elasticsearch"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Job Seeker Registration",
+        "requirements": ["Register with email and create profile", "Upload resume in PDF or DOCX format", "Add skills, experience, and education", "Set job preferences for alerts"],
+        "acceptance_criteria": ["Account created with complete profile", "Resume uploaded and parsed", "Skills and experience saved correctly", "Job alerts match preferences"]
+      },
+      "FR-02": {
+        "title": "Employer Registration",
+        "requirements": ["Register company with verification", "Add company profile with logo and description", "Company verification via business email domain", "Multiple recruiter accounts per company"],
+        "acceptance_criteria": ["Company account created", "Profile displays on job listings", "Domain verification passes", "Multiple recruiters share company postings"]
+      },
+      "FR-03": {
+        "title": "Job Posting",
+        "requirements": ["Post job with title, description, requirements, and salary range", "Set job type (full-time, part-time, contract, remote)", "Add required skills and experience level", "Set application deadline"],
+        "acceptance_criteria": ["Job published and searchable", "Job type filters work correctly", "Skills are tagged and filterable", "Expired jobs auto-close applications"]
+      },
+      "FR-04": {
+        "title": "Job Search and Discovery",
+        "requirements": ["Search jobs by keyword, location, and skills", "Filter by salary, job type, experience level, and date posted", "Save searches for quick access", "Recommended jobs based on profile"],
+        "acceptance_criteria": ["Search returns relevant results", "Filters narrow results correctly", "Saved searches are accessible", "Recommendations match user skills"]
+      },
+      "FR-05": {
+        "title": "Job Application",
+        "requirements": ["Apply with resume and cover letter", "Track application status", "Withdraw application before review", "Receive notifications on status changes"],
+        "acceptance_criteria": ["Application submitted with attachments", "Status shows applied, reviewed, shortlisted, rejected", "Withdrawal removes application", "Email sent on status change"]
+      },
+      "FR-06": {
+        "title": "Applicant Tracking for Employers",
+        "requirements": ["View all applicants for a job posting", "Filter applicants by skills and experience", "Move applicants through hiring pipeline stages", "Schedule interviews and send invitations"],
+        "acceptance_criteria": ["Applicant list shows all applications", "Filters work on applicant pool", "Pipeline stages update correctly", "Interview invite sent to applicant"]
+      },
+      "FR-07": {
+        "title": "Resume Builder",
+        "requirements": ["Guided resume builder with templates", "Auto-fill from profile data", "Multiple resume versions", "Download as PDF"],
+        "acceptance_criteria": ["Templates render correctly", "Profile data populates fields", "Multiple versions can be saved", "PDF download is formatted properly"]
+      },
+      "FR-08": {
+        "title": "Company Reviews",
+        "requirements": ["Employees can review companies anonymously", "Rate work-life balance, salary, culture, and management", "Company can respond to reviews", "Reviews visible on company profile"],
+        "acceptance_criteria": ["Review submitted anonymously", "Category ratings display correctly", "Company response appears under review", "Average rating updates"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Job Seeker Registration API", "description": "Create POST /api/auth/register (seeker type). POST /api/profile/resume (parse uploaded PDF/DOCX). PATCH /api/profile (skills, experience, education). POST /api/preferences (job type, location, salary).", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Seeker Profile Setup", "description": "Create multi-step profile wizard: Step 1 personal info, Step 2 resume upload with parsed preview, Step 3 skills/experience form, Step 4 job preferences. Progress indicator.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Implement Resume Parser", "description": "Build parser service that extracts text from PDF/DOCX. Use NLP to identify name, contact, skills, experience entries, and education. Auto-populate profile fields from parsed data.", "priority": "high", "type": "backend", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Employer Registration API", "description": "Create POST /api/auth/register (employer type, company name, domain). Email domain verification. POST /api/company/profile (logo, description, industry, size). POST /api/company/recruiters (invite).", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Company Profile Page", "description": "Create company profile with logo upload, description editor, industry/size selectors, office locations, and benefits list. Public profile page showing all info and job listings.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Job Posting API", "description": "Create POST /api/jobs (title, description, requirements, salary_min, salary_max, type, skills, experience_level, deadline). PATCH /api/jobs/:id. DELETE /api/jobs/:id. Auto-expire past deadline.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Job Posting Form", "description": "Create job posting form with rich text description editor, salary range slider, job type radio buttons, skills tag input, experience level dropdown, and deadline date picker. Preview before publishing.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"},
+      {"title": "Create Jobs Database Schema", "description": "Design jobs table: id, company_id, title, description, requirements, salary_min, salary_max, type (enum), skills (array), experience_level, deadline, status, created_at. Elasticsearch index for search.", "priority": "high", "type": "database", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Job Search API", "description": "Create GET /api/jobs/search using Elasticsearch. Support keyword, location (geo), skills, salary range, type, experience, date posted filters. Pagination. POST /api/searches (save). GET /api/jobs/recommended (profile match).", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Job Search Page", "description": "Create search page with search bar, filter sidebar (salary slider, type checkboxes, experience dropdown), results list with job cards (title, company, salary, type, posted date). Save search button.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Application API", "description": "Create POST /api/jobs/:id/apply (resume, cover_letter). GET /api/applications (user's applications with status). DELETE /api/applications/:id (withdraw). Notify on status change.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Application Flow UI", "description": "Create apply modal with resume selector (uploaded or builder), cover letter textarea, and submit. My Applications page with status badges (applied/reviewed/shortlisted/rejected). Withdraw button.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build ATS API", "description": "Create GET /api/jobs/:id/applicants (with filters). PATCH /api/applications/:id/stage (move pipeline: applied, screening, interview, offer, hired, rejected). POST /api/interviews/schedule.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build ATS Dashboard", "description": "Create Kanban-style pipeline view with columns per stage. Drag applicant cards between stages. Applicant detail with resume preview. Schedule interview dialog with date/time picker.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Resume Builder API", "description": "Create CRUD for resumes: POST /api/resumes (from template), PATCH /api/resumes/:id. GET /api/resumes/:id/pdf (generate download). Auto-fill from profile. Support multiple versions.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Resume Builder UI", "description": "Create resume editor with template gallery, section-based editor (personal, experience, education, skills), live preview panel, and download PDF button. Auto-populate from profile data.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Company Review API", "description": "Create POST /api/companies/:id/reviews (anonymous, category ratings, text). Company: POST /api/reviews/:id/response. GET /api/companies/:id/reviews (paginated). Calculate averages.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Review Section UI", "description": "Create company review page with category rating bars (work-life, salary, culture, management), individual review cards (anonymous), and review form with star selectors per category.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+    ]
+  }
+}

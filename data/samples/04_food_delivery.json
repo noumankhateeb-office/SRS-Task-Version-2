@@ -1,0 +1,119 @@
+{
+  "input": {
+    "title": "Food Delivery Application",
+    "technologies": ["Flutter", "Node.js", "PostgreSQL", "Redis"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Customer Registration and Login",
+        "requirements": ["Register with phone number and OTP verification", "Login via phone OTP or email/password", "Social login with Google", "Profile with name, email, and saved addresses"],
+        "acceptance_criteria": ["OTP is received within 30 seconds", "Login grants access to app features", "Social login creates account automatically", "Profile data is saved correctly"]
+      },
+      "FR-02": {
+        "title": "Restaurant Browsing",
+        "requirements": ["Display nearby restaurants based on user location", "Filter by cuisine, rating, delivery time, and price range", "Sort by distance, rating, or popularity", "Show restaurant details: menu, rating, delivery time, minimum order"],
+        "acceptance_criteria": ["Nearby restaurants load based on GPS location", "Filters narrow down restaurant list correctly", "Sort order updates immediately", "Restaurant details are accurate and complete"]
+      },
+      "FR-03": {
+        "title": "Menu and Item Selection",
+        "requirements": ["Display restaurant menu with categories", "Each item shows name, description, price, and image", "Items can have customization options (size, toppings)", "Add items to cart with quantity selection"],
+        "acceptance_criteria": ["Menu loads with correct categories and items", "Item details display accurately", "Customizations are reflected in price", "Cart updates with selected items and quantities"]
+      },
+      "FR-04": {
+        "title": "Shopping Cart and Checkout",
+        "requirements": ["Cart shows selected items with quantities and prices", "Users can modify quantities or remove items", "Apply promo codes for discounts", "Select delivery address and payment method"],
+        "acceptance_criteria": ["Cart displays accurate items and total", "Quantity changes update total immediately", "Valid promo code deducts discount", "Order can be placed with address and payment"]
+      },
+      "FR-05": {
+        "title": "Real-time Order Tracking",
+        "requirements": ["Live map showing delivery driver location", "Order status updates: confirmed, preparing, picked up, delivered", "Estimated delivery time with real-time updates", "Push notifications for status changes"],
+        "acceptance_criteria": ["Map shows driver position updating live", "Status changes reflect immediately in UI", "ETA adjusts based on driver location", "Notifications arrive for each status change"]
+      },
+      "FR-06": {
+        "title": "Payment Processing",
+        "requirements": ["Support credit/debit card payments", "Cash on delivery option", "Digital wallet integration", "Payment receipt generated for each order"],
+        "acceptance_criteria": ["Card payment processes successfully", "COD orders are created without payment", "Wallet balance deducts correctly", "Receipt is available in order history"]
+      },
+      "FR-07": {
+        "title": "Rating and Review",
+        "requirements": ["Rate restaurant with 1-5 stars after delivery", "Rate delivery driver separately", "Write optional text review", "View restaurant ratings before ordering"],
+        "acceptance_criteria": ["Rating is submitted after delivery", "Driver rating is separate from restaurant", "Review is displayed on restaurant page", "Average rating updates correctly"]
+      },
+      "FR-08": {
+        "title": "Restaurant Owner Dashboard",
+        "requirements": ["Restaurant owners can manage menu items", "View and accept/reject incoming orders", "Update restaurant hours and availability", "View sales analytics and revenue reports"],
+        "acceptance_criteria": ["Menu changes reflect in customer app", "Orders can be accepted or rejected with reason", "Availability status prevents new orders when closed", "Analytics show accurate revenue and order data"]
+      },
+      "FR-09": {
+        "title": "Delivery Driver App",
+        "requirements": ["Driver receives order assignment notifications", "Navigation to restaurant and customer address", "Driver can mark order as picked up and delivered", "Earnings tracking and daily summary"],
+        "acceptance_criteria": ["Driver receives push notification for new orders", "Navigation opens with correct addresses", "Status updates reflect in customer tracking", "Earnings display accurately with breakdown"]
+      },
+      "FR-10": {
+        "title": "Order History",
+        "requirements": ["View past orders with details and status", "Reorder from previous orders with one tap", "Download invoice for each order", "Filter orders by date range"],
+        "acceptance_criteria": ["Order history shows all past orders", "Reorder adds same items to cart", "Invoice downloads as PDF", "Date filter returns correct orders"]
+      },
+      "FR-11": {
+        "title": "Favorites and Saved Restaurants",
+        "requirements": ["Users can save favorite restaurants", "Quick access to frequently ordered items", "Favorites list accessible from profile", "Suggested restaurants based on order history"],
+        "acceptance_criteria": ["Restaurant is saved to favorites", "Frequent items appear in quick order section", "Favorites list loads correctly", "Suggestions are relevant to user preferences"]
+      },
+      "FR-12": {
+        "title": "Customer Support Chat",
+        "requirements": ["In-app chat for order issues", "Chat with customer support agent", "Attach images of incorrect orders", "Chat history saved for reference"],
+        "acceptance_criteria": ["Chat opens for active order issues", "Messages are delivered in real-time", "Image attachments upload correctly", "Chat history persists across sessions"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build OTP Authentication API", "description": "Create POST /api/auth/send-otp (phone number), POST /api/auth/verify-otp (phone, code). Generate 6-digit OTP with 5-minute expiry. Send via SMS gateway. Create/login user on verification. Return JWT.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Auth Screens", "description": "Create phone number input screen with country code selector. OTP input screen with 6 digit fields and auto-submit. Profile setup screen for new users. Social login buttons.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Restaurant Listing API", "description": "Create GET /api/restaurants with lat/lng params. Calculate distance, filter by cuisine/rating/delivery_time/price, sort by distance/rating/popularity. Return paginated results with restaurant details.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Restaurant Browse Screen", "description": "Create restaurant list with cards showing name, image, cuisine tags, rating stars, delivery time, and minimum order. Filter drawer and sort dropdown. Location permission request on first load.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
+      {"title": "Implement Geolocation Service", "description": "Create location service using device GPS. Calculate distances using Haversine formula. Cache user location. Geo-index restaurants for efficient proximity queries.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Menu API", "description": "Create GET /api/restaurants/:id/menu returning categories with items. Each item has name, description, price, image_url, customizations (array of option groups). Support item availability toggle.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Menu Screen", "description": "Create menu screen with category tabs, item list with images, and item detail modal with customization options (radio/checkbox groups). Add to cart button with quantity selector. Sticky cart summary at bottom.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Cart and Checkout API", "description": "Create cart endpoints: POST /api/cart/items, PATCH /api/cart/items/:id, DELETE /api/cart/items/:id. POST /api/orders (create order from cart). POST /api/promo/validate for promo codes.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Cart and Checkout Screens", "description": "Create cart screen with item list, quantities, promo code input, order summary. Checkout flow: select address (map picker), select payment method, review and place order.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Order Tracking API", "description": "Create WebSocket endpoint for live tracking. Broadcast driver location updates. Update order status through lifecycle. Send push notifications on status changes. Calculate and update ETA.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Tracking Screen", "description": "Create order tracking screen with live map (driver marker, route line), order status timeline with timestamps, ETA display, and driver info card with call button.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Payment Processing API", "description": "Create POST /api/payments/process. Support card payments (Stripe/gateway integration), COD flag, wallet deduction. Generate payment receipt. Handle payment failures with retry.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Payment Selection UI", "description": "Create payment method screen with saved cards, add new card form, COD option, and wallet balance display. Payment processing indicator with success/failure feedback.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Rating API", "description": "Create POST /api/orders/:id/rate with restaurant_rating, driver_rating, review_text. Verify order is delivered. Update average ratings. One review per order.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Rating Screen", "description": "Create post-delivery rating prompt with star selectors for restaurant and driver separately. Optional text review. Submit button. Show after delivery confirmation.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Restaurant Owner API", "description": "Create owner endpoints: CRUD for menu items, GET /api/owner/orders (incoming), PATCH /api/owner/orders/:id (accept/reject), PATCH /api/owner/restaurant (hours/availability), GET /api/owner/analytics.", "priority": "high", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Restaurant Owner Dashboard", "description": "Create owner web dashboard with incoming orders panel (accept/reject buttons), menu manager, operating hours editor, and analytics charts (daily orders, revenue, popular items).", "priority": "high", "type": "frontend", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Driver App API", "description": "Create driver endpoints: GET /api/driver/orders (assigned), PATCH /api/driver/orders/:id/status (picked_up/delivered), POST /api/driver/location (update position), GET /api/driver/earnings.", "priority": "high", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Driver App Screens", "description": "Create driver app with order queue, navigation integration (Google Maps), order detail with pickup/delivery addresses, status update buttons (Picked Up, Delivered), and daily earnings summary.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Build Order History API", "description": "Create GET /api/orders with pagination and date filters. GET /api/orders/:id for detail. POST /api/orders/:id/reorder to clone items to cart. GET /api/orders/:id/invoice for PDF.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Order History Screen", "description": "Create order history list with order date, restaurant name, total, status. Detail view with items. Reorder button. Invoice download. Date range filter.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+    ],
+    "FR-11": [
+      {"title": "Build Favorites API", "description": "Create POST /api/favorites/:restaurantId (toggle), GET /api/favorites (list). GET /api/suggestions based on order history and preferences. Track frequently ordered items.", "priority": "low", "type": "backend", "related_requirement": "FR-11"},
+      {"title": "Build Favorites Screen", "description": "Create favorites page with saved restaurants grid. Quick reorder section with frequently ordered items. Suggestion carousel based on past orders.", "priority": "low", "type": "frontend", "related_requirement": "FR-11"}
+    ],
+    "FR-12": [
+      {"title": "Build Support Chat API", "description": "Create WebSocket chat for customer support. POST /api/support/tickets (create ticket for order). Support image attachments. Store chat history. Route to available agents.", "priority": "medium", "type": "backend", "related_requirement": "FR-12"},
+      {"title": "Build Support Chat Screen", "description": "Create in-app chat with message bubbles, text input, image attachment button, and order reference. Show agent name and status. Chat history persists across sessions.", "priority": "medium", "type": "frontend", "related_requirement": "FR-12"}
+    ]
+  }
+}

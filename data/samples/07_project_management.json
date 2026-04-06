@@ -1,0 +1,102 @@
+{
+  "input": {
+    "title": "Project Management Tool",
+    "technologies": ["React", "Node.js", "MongoDB"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Project Creation and Setup",
+        "requirements": ["Create project with name, description, and team members", "Set project start and end dates", "Choose project methodology (Agile, Kanban, Waterfall)", "Upload project documents and resources"],
+        "acceptance_criteria": ["Project is created and visible in dashboard", "Team members receive invitation notification", "Methodology selection configures board layout", "Documents are uploaded and accessible"]
+      },
+      "FR-02": {
+        "title": "Task Management",
+        "requirements": ["Create tasks with title, description, assignee, and due date", "Set task priority (low, medium, high, critical)", "Organize tasks into columns (To Do, In Progress, Done)", "Drag-and-drop task cards between columns"],
+        "acceptance_criteria": ["Task is created with all fields", "Priority is visually indicated on card", "Tasks display in correct columns", "Drag-and-drop updates task status"]
+      },
+      "FR-03": {
+        "title": "Sprint Planning",
+        "requirements": ["Create sprints with start/end dates and goals", "Add tasks to sprints from backlog", "Sprint burndown chart showing progress", "Sprint review with velocity metrics"],
+        "acceptance_criteria": ["Sprint is created with correct dates", "Tasks can be moved to sprint", "Burndown chart updates daily", "Velocity shows story points completed"]
+      },
+      "FR-04": {
+        "title": "Team Collaboration",
+        "requirements": ["Comment on tasks with mentions", "File attachments on tasks", "Activity log showing all changes", "Real-time updates when team members make changes"],
+        "acceptance_criteria": ["Comments appear on task detail", "Mentioned users receive notifications", "Activity log shows chronological changes", "Changes appear without page refresh"]
+      },
+      "FR-05": {
+        "title": "Time Tracking",
+        "requirements": ["Log time spent on tasks", "Start/stop timer for active work", "Weekly timesheet view", "Time reports per project and team member"],
+        "acceptance_criteria": ["Time entries are recorded accurately", "Timer tracks elapsed time", "Timesheet shows weekly breakdown", "Reports aggregate time correctly"]
+      },
+      "FR-06": {
+        "title": "Gantt Chart View",
+        "requirements": ["Visual timeline of tasks and milestones", "Task dependencies shown as connecting lines", "Drag to adjust task dates", "Critical path highlighting"],
+        "acceptance_criteria": ["Tasks display on correct timeline positions", "Dependencies are visually connected", "Dragging updates task dates", "Critical path is highlighted in red"]
+      },
+      "FR-07": {
+        "title": "Reporting Dashboard",
+        "requirements": ["Project status overview with completion percentage", "Team workload distribution chart", "Overdue tasks report", "Custom report builder with filters"],
+        "acceptance_criteria": ["Status percentage matches actual progress", "Workload shows task count per member", "Overdue tasks are accurately listed", "Custom reports filter correctly"]
+      },
+      "FR-08": {
+        "title": "Role-Based Access Control",
+        "requirements": ["Admin, Manager, and Member roles", "Admins can manage all projects and settings", "Managers can create and assign tasks", "Members can view and update their assigned tasks"],
+        "acceptance_criteria": ["Role permissions are enforced on all actions", "Admin has full access", "Manager cannot access admin settings", "Member cannot modify others' tasks"]
+      },
+      "FR-09": {
+        "title": "Integration with External Tools",
+        "requirements": ["Integrate with GitHub for commit linking", "Slack notifications for task updates", "Calendar sync for due dates", "Webhook support for custom integrations"],
+        "acceptance_criteria": ["GitHub commits link to relevant tasks", "Slack messages arrive for configured events", "Calendar shows task due dates", "Webhooks fire on configured events"]
+      },
+      "FR-10": {
+        "title": "Template System",
+        "requirements": ["Save project as template", "Create project from existing template", "Pre-built templates for common project types", "Templates include task structure and settings"],
+        "acceptance_criteria": ["Template is saved with all project structure", "New project from template includes all tasks", "Pre-built templates are available", "Template settings carry over to new project"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Project CRUD API", "description": "Create POST /api/projects (name, description, methodology, start/end dates, members). GET /api/projects (user's projects). PATCH /api/projects/:id. Send invitation emails to members.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Project Creation Wizard", "description": "Create project setup wizard: Step 1 name/description, Step 2 methodology selection with preview, Step 3 date range picker, Step 4 invite team members by email. Document upload section.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Create Project Database Schema", "description": "Design projects collection: id, name, description, methodology, start_date, end_date, owner_id, members (array of user_ids with roles), status, created_at. Members subdocument with role field.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Task CRUD API", "description": "Create CRUD for tasks: POST /api/tasks (title, description, assignee, due_date, priority, status). PATCH /api/tasks/:id (update any field including status for drag-drop). Support bulk updates.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Kanban Board", "description": "Create board view with columns (To Do, In Progress, Done). Task cards showing title, assignee avatar, priority indicator, due date. Drag-and-drop between columns using drag API.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
+      {"title": "Build Task Detail Modal", "description": "Create task detail view with all fields editable inline: title, description (rich text), assignee dropdown, priority selector, due date picker, labels. Comments section and activity log.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Sprint API", "description": "Create POST /api/sprints (name, goal, start/end dates). POST /api/sprints/:id/tasks (add tasks). GET /api/sprints/:id/burndown (daily data). GET /api/sprints/:id/velocity.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Sprint Planning UI", "description": "Create sprint planning view with backlog panel (unassigned tasks) and sprint panel. Drag tasks between them. Sprint header with goal, dates, and point total. Burndown chart component.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Comments and Activity API", "description": "Create POST /api/tasks/:id/comments (text with @mentions). File upload for attachments. GET /api/tasks/:id/activity (chronological log). WebSocket for real-time updates.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Collaboration UI", "description": "Create task detail comments section with mention autocomplete, file attachment button, and activity timeline. Real-time WebSocket connection for live updates across team.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Time Tracking API", "description": "Create POST /api/time-entries (task_id, duration, date). POST /api/timer/start, /api/timer/stop for active tracking. GET /api/timesheets/weekly. GET /api/reports/time with project and user filters.", "priority": "medium", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Time Tracking UI", "description": "Add timer button on task cards. Create timesheet page with weekly grid (rows: tasks, columns: days). Time entry modal for manual logging. Reports page with charts.", "priority": "medium", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Gantt Chart API", "description": "Create GET /api/projects/:id/gantt returning tasks with start/end dates, dependencies, and milestones. PATCH /api/tasks/:id/dates for drag updates. Calculate critical path.", "priority": "medium", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Gantt Chart Component", "description": "Create Gantt chart with horizontal task bars on timeline, dependency arrows between tasks, drag-to-resize for date changes, milestone diamonds, and critical path highlighting.", "priority": "medium", "type": "frontend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Reports API", "description": "Create GET /api/reports/status (completion stats), /api/reports/workload (per member), /api/reports/overdue (past due tasks), /api/reports/custom (filterable query builder).", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Reports Dashboard", "description": "Create reporting page with project status donut chart, team workload bar chart, overdue tasks table, and custom report builder with date/member/status filters and export to CSV.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Implement RBAC System", "description": "Create role-based middleware: Admin (full access), Manager (CRUD tasks, manage members), Member (view/update own tasks). Apply to all API endpoints. Store roles per project membership.", "priority": "high", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Role Management UI", "description": "Create team settings page where admins can invite members and assign roles. Role dropdown in member list. Permission denied messages for unauthorized actions.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Integration APIs", "description": "Create GitHub webhook receiver to link commits to tasks. Slack bot for posting task updates. Calendar feed (iCal) for due dates. Generic webhook system: POST /api/webhooks (configure events and URL).", "priority": "medium", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Integrations Settings Page", "description": "Create integrations page with connect/disconnect buttons for GitHub, Slack, Calendar. Webhook management UI to add custom endpoints and select trigger events.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Build Template API", "description": "Create POST /api/templates (save project as template with tasks/settings). GET /api/templates (list available). POST /api/projects/from-template/:id (create project from template). Include pre-built templates.", "priority": "low", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Template Selection UI", "description": "Create template gallery with pre-built options (Software Dev, Marketing Campaign, Event Planning) and user-saved templates. Preview showing task structure. Use Template button.", "priority": "low", "type": "frontend", "related_requirement": "FR-10"}
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "input": {
+    "title": "Banking Application",
+    "technologies": ["React", "Java Spring Boot", "Oracle DB"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Account Opening",
+        "requirements": ["Online application for savings and checking accounts", "KYC document upload and verification", "Initial deposit via card or transfer", "Account number generated upon approval"],
+        "acceptance_criteria": ["Application submitted with all required documents", "KYC verification completes within 24 hours", "Initial deposit is processed", "Account number is issued and communicated"]
+      },
+      "FR-02": {
+        "title": "Fund Transfer",
+        "requirements": ["Transfer between own accounts", "Transfer to other bank accounts via routing number", "Instant transfers within same bank", "Scheduled and recurring transfers"],
+        "acceptance_criteria": ["Internal transfers process instantly", "External transfers initiate within business hours", "Scheduled transfers execute on set date", "Recurring transfers repeat as configured"]
+      },
+      "FR-03": {
+        "title": "Bill Payment",
+        "requirements": ["Pay utility bills from account", "Save frequent billers for quick access", "Schedule recurring bill payments", "Payment confirmation and receipt"],
+        "acceptance_criteria": ["Bill is paid and balance deducted", "Saved billers appear in quick pay", "Recurring payments execute automatically", "Receipt is generated and downloadable"]
+      },
+      "FR-04": {
+        "title": "Transaction History",
+        "requirements": ["View all transactions with date, amount, and type", "Filter by date range, type, and amount", "Search transactions by description", "Export statement as PDF or CSV"],
+        "acceptance_criteria": ["All transactions display correctly", "Filters return accurate results", "Search matches transaction descriptions", "Export generates complete file"]
+      },
+      "FR-05": {
+        "title": "Two-Factor Authentication",
+        "requirements": ["OTP via SMS or authenticator app for login", "OTP required for fund transfers above threshold", "Biometric authentication option", "Recovery codes for lost device"],
+        "acceptance_criteria": ["OTP is required and validated on login", "High-value transfers require additional OTP", "Biometric auth works on supported devices", "Recovery codes grant access"]
+      },
+      "FR-06": {
+        "title": "Card Management",
+        "requirements": ["View linked debit and credit cards", "Freeze and unfreeze cards instantly", "Set spending limits per transaction and daily", "Report lost or stolen cards"],
+        "acceptance_criteria": ["All linked cards are displayed", "Freeze blocks all card transactions", "Spending limit blocks transactions above amount", "Lost card report triggers replacement"]
+      },
+      "FR-07": {
+        "title": "Loan Application",
+        "requirements": ["Apply for personal loan with amount and tenure", "System calculates EMI based on interest rate", "Upload income documents for verification", "Track application status"],
+        "acceptance_criteria": ["Application is submitted with required documents", "EMI calculation matches expected formula", "Documents are verified by loan officer", "Status updates as application progresses"]
+      },
+      "FR-08": {
+        "title": "Account Alerts and Notifications",
+        "requirements": ["Balance alerts for low balance threshold", "Transaction alerts for debits above set amount", "Login alerts for unrecognized devices", "Custom alert preferences"],
+        "acceptance_criteria": ["Low balance alert triggers at threshold", "Large debit alert is sent immediately", "Unrecognized login sends alert", "Preferences are saved and applied"]
+      },
+      "FR-09": {
+        "title": "Budget and Spending Analytics",
+        "requirements": ["Categorize transactions automatically", "Monthly spending breakdown by category", "Budget setting per category with alerts", "Spending trends over time"],
+        "acceptance_criteria": ["Transactions are categorized correctly", "Monthly breakdown matches actual spending", "Budget overspend triggers alert", "Trend charts show historical data"]
+      },
+      "FR-10": {
+        "title": "Customer Support",
+        "requirements": ["In-app chat with support agents", "Call back request feature", "FAQ and help articles section", "Complaint tracking with reference number"],
+        "acceptance_criteria": ["Chat connects to available agent", "Call back is received within 1 hour", "FAQ articles are searchable", "Complaint has reference number and status tracking"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Account Application API", "description": "Create POST /api/accounts/apply (type, personal details, KYC documents). Validate required fields. Store documents securely. Queue for KYC verification. Generate account number on approval.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Account Opening UI", "description": "Create multi-step application: Step 1 account type selection, Step 2 personal details form, Step 3 KYC document upload (ID, proof of address), Step 4 initial deposit. Application status tracker.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Create Accounts Database Schema", "description": "Design accounts table: id, account_number, user_id, type (savings/checking), balance, status (pending/active/frozen), opened_at. kyc_documents table: user_id, type, file_url, status, verified_at.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Transfer API", "description": "Create POST /api/transfers (from_account, to_account, amount, type). Internal transfers: instant. External: via ACH with routing number. POST /api/transfers/schedule for future and recurring. Enforce daily limits.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Transfer UI", "description": "Create transfer page with source account dropdown, destination (own account or external with routing/account number), amount input, schedule options (now/future/recurring), and confirmation screen with OTP.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
+      {"title": "Write Transfer Tests", "description": "Test internal transfer deducts and credits instantly. Test external transfer creates pending record. Test insufficient balance is rejected. Test scheduled transfer executes on date. Test daily limit enforcement.", "priority": "medium", "type": "testing", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Bill Payment API", "description": "Create POST /api/bills/pay (biller_id, amount, account_id). POST /api/billers (save frequent biller). POST /api/bills/schedule (recurring). Generate payment receipt. Deduct from account.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Bill Payment UI", "description": "Create bill pay page with biller search/selection, saved billers quick access, amount input, account selector, and schedule options. Payment confirmation with receipt download.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Transaction History API", "description": "Create GET /api/accounts/:id/transactions with pagination, filters (date_from, date_to, type, min_amount, max_amount), and search. GET /api/accounts/:id/statement for PDF/CSV export.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Transaction History UI", "description": "Create transaction list with date, description, amount (green credit/red debit), and running balance. Filter panel with date picker, type dropdown, amount range. Search bar. Export button.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build 2FA System", "description": "Implement OTP generation (6-digit, 5-min expiry) via SMS. Support TOTP authenticator apps. Biometric auth via device API. Generate 10 recovery codes on setup. Enforce 2FA on login and high-value transfers.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build 2FA Setup and Verification UI", "description": "Create 2FA setup flow with method selection (SMS/Authenticator/Biometric). QR code for authenticator setup. Recovery codes display with download option. OTP input screen for verification.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Card Management API", "description": "Create GET /api/cards (linked cards). POST /api/cards/:id/freeze, /api/cards/:id/unfreeze. PATCH /api/cards/:id/limits (per_transaction, daily). POST /api/cards/:id/report-lost.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Card Management UI", "description": "Create cards page with card display (masked number, type, status). Toggle switch for freeze/unfreeze. Limits input fields. Report Lost button with confirmation and replacement tracking.", "priority": "medium", "type": "frontend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Loan Application API", "description": "Create POST /api/loans/apply (amount, tenure, purpose). Calculate EMI using standard formula. Document upload for income proof. Track status (submitted/reviewing/approved/disbursed/rejected).", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Loan Application UI", "description": "Create loan application with amount slider, tenure selector, EMI calculator preview, income document upload, and submit. Status tracker showing application progress.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Alert System", "description": "Create notification service with alert types: low_balance, large_debit, unrecognized_login. Store alert preferences per user. Send via push, SMS, and email based on preference.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Alert Preferences UI", "description": "Create alert settings page with toggles for each alert type, threshold inputs for balance and debit amounts, channel selection (push/SMS/email), and test alert button.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Analytics API", "description": "Create GET /api/analytics/spending (monthly category breakdown). Auto-categorize transactions. POST /api/budgets (set per category). GET /api/analytics/trends (historical monthly totals).", "priority": "medium", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Spending Analytics Dashboard", "description": "Create analytics page with spending pie chart by category, monthly bar chart comparison, budget progress bars per category with alerts on overspend, and trend line chart.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Build Support System API", "description": "Create WebSocket chat endpoint for live support. POST /api/support/callback (request call back). GET /api/support/faq (searchable articles). POST /api/support/complaints (with tracking number).", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Support Center UI", "description": "Create support hub with live chat widget, callback request form with preferred time, searchable FAQ section, and complaint form with reference number tracking.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+    ]
+  }
+}

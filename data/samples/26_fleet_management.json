@@ -1,0 +1,1528 @@
+{
+  "input": {
+    "title": "Fleet Management System",
+    "technologies": [
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "InfluxDB"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Vehicle Registration",
+        "requirements": [
+          "Implement complete vehicle registration functionality",
+          "All vehicle registration operations must be validated and authorized",
+          "System shall maintain audit log for vehicle registration actions",
+          "Support search and filtering within vehicle registration",
+          "Enable notifications for important vehicle registration events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all vehicle registration operations",
+          "System validates all vehicle registration inputs correctly",
+          "Error messages display clearly for vehicle registration failures",
+          "vehicle registration data persists correctly across sessions"
+        ]
+      },
+      "FR-02": {
+        "title": "Driver Registration and Licensing",
+        "requirements": [
+          "Implement complete driver registration and licensing functionality",
+          "All driver registration and licensing operations must be validated and authorized",
+          "System shall maintain audit log for driver registration and licensing actions",
+          "Support search and filtering within driver registration and licensing",
+          "Enable notifications for important driver registration and licensing events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all driver registration and licensing operations",
+          "System validates all driver registration and licensing inputs correctly",
+          "Error messages display clearly for driver registration and licensing failures",
+          "driver registration and licensing data persists correctly across sessions"
+        ]
+      },
+      "FR-03": {
+        "title": "Vehicle Assignment to Driver",
+        "requirements": [
+          "Implement complete vehicle assignment to driver functionality",
+          "All vehicle assignment to driver operations must be validated and authorized",
+          "System shall maintain audit log for vehicle assignment to driver actions",
+          "Support search and filtering within vehicle assignment to driver",
+          "Enable notifications for important vehicle assignment to driver events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all vehicle assignment to driver operations",
+          "System validates all vehicle assignment to driver inputs correctly",
+          "Error messages display clearly for vehicle assignment to driver failures"
+        ]
+      },
+      "FR-04": {
+        "title": "GPS Real-time Tracking",
+        "requirements": [
+          "Implement complete gps real-time tracking functionality",
+          "All gps real-time tracking operations must be validated and authorized",
+          "System shall maintain audit log for gps real-time tracking actions",
+          "Support search and filtering within gps real-time tracking",
+          "Enable notifications for important gps real-time tracking events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all gps real-time tracking operations",
+          "System validates all gps real-time tracking inputs correctly",
+          "Error messages display clearly for gps real-time tracking failures"
+        ]
+      },
+      "FR-05": {
+        "title": "Route Planning and Optimization",
+        "requirements": [
+          "Implement complete route planning and optimization functionality",
+          "All route planning and optimization operations must be validated and authorized",
+          "System shall maintain audit log for route planning and optimization actions",
+          "Support search and filtering within route planning and optimization"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all route planning and optimization operations",
+          "System validates all route planning and optimization inputs correctly",
+          "Error messages display clearly for route planning and optimization failures"
+        ]
+      },
+      "FR-06": {
+        "title": "Trip Management",
+        "requirements": [
+          "Implement complete trip management functionality",
+          "All trip management operations must be validated and authorized",
+          "System shall maintain audit log for trip management actions",
+          "Support search and filtering within trip management"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all trip management operations",
+          "System validates all trip management inputs correctly",
+          "Error messages display clearly for trip management failures",
+          "trip management data persists correctly across sessions"
+        ]
+      },
+      "FR-07": {
+        "title": "Fuel Consumption Tracking",
+        "requirements": [
+          "Implement complete fuel consumption tracking functionality",
+          "All fuel consumption tracking operations must be validated and authorized",
+          "System shall maintain audit log for fuel consumption tracking actions",
+          "Support search and filtering within fuel consumption tracking",
+          "Enable notifications for important fuel consumption tracking events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all fuel consumption tracking operations",
+          "System validates all fuel consumption tracking inputs correctly",
+          "Error messages display clearly for fuel consumption tracking failures"
+        ]
+      },
+      "FR-08": {
+        "title": "Fuel Card Integration",
+        "requirements": [
+          "Implement complete fuel card integration functionality",
+          "All fuel card integration operations must be validated and authorized",
+          "System shall maintain audit log for fuel card integration actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all fuel card integration operations",
+          "System validates all fuel card integration inputs correctly",
+          "Error messages display clearly for fuel card integration failures",
+          "fuel card integration data persists correctly across sessions"
+        ]
+      },
+      "FR-09": {
+        "title": "Maintenance Scheduling",
+        "requirements": [
+          "Implement complete maintenance scheduling functionality",
+          "All maintenance scheduling operations must be validated and authorized",
+          "System shall maintain audit log for maintenance scheduling actions",
+          "Support search and filtering within maintenance scheduling"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all maintenance scheduling operations",
+          "System validates all maintenance scheduling inputs correctly",
+          "Error messages display clearly for maintenance scheduling failures",
+          "maintenance scheduling data persists correctly across sessions"
+        ]
+      },
+      "FR-10": {
+        "title": "Preventive Maintenance Alerts",
+        "requirements": [
+          "Implement complete preventive maintenance alerts functionality",
+          "All preventive maintenance alerts operations must be validated and authorized",
+          "System shall maintain audit log for preventive maintenance alerts actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all preventive maintenance alerts operations",
+          "System validates all preventive maintenance alerts inputs correctly",
+          "Error messages display clearly for preventive maintenance alerts failures",
+          "preventive maintenance alerts data persists correctly across sessions"
+        ]
+      },
+      "FR-11": {
+        "title": "Breakdown and Repair Logging",
+        "requirements": [
+          "Implement complete breakdown and repair logging functionality",
+          "All breakdown and repair logging operations must be validated and authorized",
+          "System shall maintain audit log for breakdown and repair logging actions",
+          "Support search and filtering within breakdown and repair logging",
+          "Enable notifications for important breakdown and repair logging events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all breakdown and repair logging operations",
+          "System validates all breakdown and repair logging inputs correctly",
+          "Error messages display clearly for breakdown and repair logging failures"
+        ]
+      },
+      "FR-12": {
+        "title": "Tire Management",
+        "requirements": [
+          "Implement complete tire management functionality",
+          "All tire management operations must be validated and authorized",
+          "System shall maintain audit log for tire management actions",
+          "Support search and filtering within tire management"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all tire management operations",
+          "System validates all tire management inputs correctly",
+          "Error messages display clearly for tire management failures",
+          "tire management data persists correctly across sessions"
+        ]
+      },
+      "FR-13": {
+        "title": "Vehicle Inspection Checklists",
+        "requirements": [
+          "Implement complete vehicle inspection checklists functionality",
+          "All vehicle inspection checklists operations must be validated and authorized",
+          "System shall maintain audit log for vehicle inspection checklists actions",
+          "Support search and filtering within vehicle inspection checklists"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all vehicle inspection checklists operations",
+          "System validates all vehicle inspection checklists inputs correctly",
+          "Error messages display clearly for vehicle inspection checklists failures",
+          "vehicle inspection checklists data persists correctly across sessions"
+        ]
+      },
+      "FR-14": {
+        "title": "Driver Behavior Monitoring",
+        "requirements": [
+          "Implement complete driver behavior monitoring functionality",
+          "All driver behavior monitoring operations must be validated and authorized",
+          "System shall maintain audit log for driver behavior monitoring actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all driver behavior monitoring operations",
+          "System validates all driver behavior monitoring inputs correctly",
+          "Error messages display clearly for driver behavior monitoring failures"
+        ]
+      },
+      "FR-15": {
+        "title": "Speed and Harsh Braking Alerts",
+        "requirements": [
+          "Implement complete speed and harsh braking alerts functionality",
+          "All speed and harsh braking alerts operations must be validated and authorized",
+          "System shall maintain audit log for speed and harsh braking alerts actions",
+          "Support search and filtering within speed and harsh braking alerts"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all speed and harsh braking alerts operations",
+          "System validates all speed and harsh braking alerts inputs correctly",
+          "Error messages display clearly for speed and harsh braking alerts failures"
+        ]
+      },
+      "FR-16": {
+        "title": "Geofencing Setup and Alerts",
+        "requirements": [
+          "Implement complete geofencing setup and alerts functionality",
+          "All geofencing setup and alerts operations must be validated and authorized",
+          "System shall maintain audit log for geofencing setup and alerts actions",
+          "Support search and filtering within geofencing setup and alerts"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all geofencing setup and alerts operations",
+          "System validates all geofencing setup and alerts inputs correctly",
+          "Error messages display clearly for geofencing setup and alerts failures"
+        ]
+      },
+      "FR-17": {
+        "title": "Idle Time Tracking",
+        "requirements": [
+          "Implement complete idle time tracking functionality",
+          "All idle time tracking operations must be validated and authorized",
+          "System shall maintain audit log for idle time tracking actions",
+          "Support search and filtering within idle time tracking"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all idle time tracking operations",
+          "System validates all idle time tracking inputs correctly",
+          "Error messages display clearly for idle time tracking failures",
+          "idle time tracking data persists correctly across sessions"
+        ]
+      },
+      "FR-18": {
+        "title": "Mileage Tracking",
+        "requirements": [
+          "Implement complete mileage tracking functionality",
+          "All mileage tracking operations must be validated and authorized",
+          "System shall maintain audit log for mileage tracking actions",
+          "Support search and filtering within mileage tracking",
+          "Enable notifications for important mileage tracking events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all mileage tracking operations",
+          "System validates all mileage tracking inputs correctly",
+          "Error messages display clearly for mileage tracking failures"
+        ]
+      },
+      "FR-19": {
+        "title": "Driver Scorecard",
+        "requirements": [
+          "Implement complete driver scorecard functionality",
+          "All driver scorecard operations must be validated and authorized",
+          "System shall maintain audit log for driver scorecard actions",
+          "Support search and filtering within driver scorecard",
+          "Enable notifications for important driver scorecard events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all driver scorecard operations",
+          "System validates all driver scorecard inputs correctly",
+          "Error messages display clearly for driver scorecard failures",
+          "driver scorecard data persists correctly across sessions"
+        ]
+      },
+      "FR-20": {
+        "title": "Trip History and Reports",
+        "requirements": [
+          "Implement complete trip history and reports functionality",
+          "All trip history and reports operations must be validated and authorized",
+          "System shall maintain audit log for trip history and reports actions",
+          "Support search and filtering within trip history and reports"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all trip history and reports operations",
+          "System validates all trip history and reports inputs correctly",
+          "Error messages display clearly for trip history and reports failures"
+        ]
+      },
+      "FR-21": {
+        "title": "Fuel Efficiency Reports",
+        "requirements": [
+          "Implement complete fuel efficiency reports functionality",
+          "All fuel efficiency reports operations must be validated and authorized",
+          "System shall maintain audit log for fuel efficiency reports actions",
+          "Support search and filtering within fuel efficiency reports"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all fuel efficiency reports operations",
+          "System validates all fuel efficiency reports inputs correctly",
+          "Error messages display clearly for fuel efficiency reports failures",
+          "fuel efficiency reports data persists correctly across sessions"
+        ]
+      },
+      "FR-22": {
+        "title": "Maintenance Cost Reports",
+        "requirements": [
+          "Implement complete maintenance cost reports functionality",
+          "All maintenance cost reports operations must be validated and authorized",
+          "System shall maintain audit log for maintenance cost reports actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all maintenance cost reports operations",
+          "System validates all maintenance cost reports inputs correctly",
+          "Error messages display clearly for maintenance cost reports failures"
+        ]
+      },
+      "FR-23": {
+        "title": "Vehicle Utilization Analytics",
+        "requirements": [
+          "Implement complete vehicle utilization analytics functionality",
+          "All vehicle utilization analytics operations must be validated and authorized",
+          "System shall maintain audit log for vehicle utilization analytics actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all vehicle utilization analytics operations",
+          "System validates all vehicle utilization analytics inputs correctly",
+          "Error messages display clearly for vehicle utilization analytics failures",
+          "vehicle utilization analytics data persists correctly across sessions"
+        ]
+      },
+      "FR-24": {
+        "title": "Fleet Dashboard Overview",
+        "requirements": [
+          "Implement complete fleet dashboard overview functionality",
+          "All fleet dashboard overview operations must be validated and authorized",
+          "System shall maintain audit log for fleet dashboard overview actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all fleet dashboard overview operations",
+          "System validates all fleet dashboard overview inputs correctly",
+          "Error messages display clearly for fleet dashboard overview failures",
+          "fleet dashboard overview data persists correctly across sessions"
+        ]
+      },
+      "FR-25": {
+        "title": "Driver License Expiry Alerts",
+        "requirements": [
+          "Implement complete driver license expiry alerts functionality",
+          "All driver license expiry alerts operations must be validated and authorized",
+          "System shall maintain audit log for driver license expiry alerts actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all driver license expiry alerts operations",
+          "System validates all driver license expiry alerts inputs correctly",
+          "Error messages display clearly for driver license expiry alerts failures"
+        ]
+      },
+      "FR-26": {
+        "title": "Insurance Renewal Tracking",
+        "requirements": [
+          "Implement complete insurance renewal tracking functionality",
+          "All insurance renewal tracking operations must be validated and authorized",
+          "System shall maintain audit log for insurance renewal tracking actions",
+          "Support search and filtering within insurance renewal tracking"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all insurance renewal tracking operations",
+          "System validates all insurance renewal tracking inputs correctly",
+          "Error messages display clearly for insurance renewal tracking failures",
+          "insurance renewal tracking data persists correctly across sessions"
+        ]
+      },
+      "FR-27": {
+        "title": "Registration Renewal Alerts",
+        "requirements": [
+          "Implement complete registration renewal alerts functionality",
+          "All registration renewal alerts operations must be validated and authorized",
+          "System shall maintain audit log for registration renewal alerts actions",
+          "Support search and filtering within registration renewal alerts"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all registration renewal alerts operations",
+          "System validates all registration renewal alerts inputs correctly",
+          "Error messages display clearly for registration renewal alerts failures",
+          "registration renewal alerts data persists correctly across sessions"
+        ]
+      },
+      "FR-28": {
+        "title": "Document Storage per Vehicle",
+        "requirements": [
+          "Implement complete document storage per vehicle functionality",
+          "All document storage per vehicle operations must be validated and authorized",
+          "System shall maintain audit log for document storage per vehicle actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all document storage per vehicle operations",
+          "System validates all document storage per vehicle inputs correctly",
+          "Error messages display clearly for document storage per vehicle failures"
+        ]
+      },
+      "FR-29": {
+        "title": "Accident and Incident Recording",
+        "requirements": [
+          "Implement complete accident and incident recording functionality",
+          "All accident and incident recording operations must be validated and authorized",
+          "System shall maintain audit log for accident and incident recording actions",
+          "Support search and filtering within accident and incident recording"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all accident and incident recording operations",
+          "System validates all accident and incident recording inputs correctly",
+          "Error messages display clearly for accident and incident recording failures",
+          "accident and incident recording data persists correctly across sessions"
+        ]
+      },
+      "FR-30": {
+        "title": "Driver Training Management",
+        "requirements": [
+          "Implement complete driver training management functionality",
+          "All driver training management operations must be validated and authorized",
+          "System shall maintain audit log for driver training management actions",
+          "Support search and filtering within driver training management"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all driver training management operations",
+          "System validates all driver training management inputs correctly",
+          "Error messages display clearly for driver training management failures"
+        ]
+      },
+      "FR-31": {
+        "title": "Compliance Reporting",
+        "requirements": [
+          "Implement complete compliance reporting functionality",
+          "All compliance reporting operations must be validated and authorized",
+          "System shall maintain audit log for compliance reporting actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all compliance reporting operations",
+          "System validates all compliance reporting inputs correctly",
+          "Error messages display clearly for compliance reporting failures",
+          "compliance reporting data persists correctly across sessions"
+        ]
+      },
+      "FR-32": {
+        "title": "Carbon Emission Tracking",
+        "requirements": [
+          "Implement complete carbon emission tracking functionality",
+          "All carbon emission tracking operations must be validated and authorized",
+          "System shall maintain audit log for carbon emission tracking actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all carbon emission tracking operations",
+          "System validates all carbon emission tracking inputs correctly",
+          "Error messages display clearly for carbon emission tracking failures",
+          "carbon emission tracking data persists correctly across sessions"
+        ]
+      },
+      "FR-33": {
+        "title": "Vehicle Disposal and Lifecycle",
+        "requirements": [
+          "Implement complete vehicle disposal and lifecycle functionality",
+          "All vehicle disposal and lifecycle operations must be validated and authorized",
+          "System shall maintain audit log for vehicle disposal and lifecycle actions",
+          "Support search and filtering within vehicle disposal and lifecycle",
+          "Enable notifications for important vehicle disposal and lifecycle events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all vehicle disposal and lifecycle operations",
+          "System validates all vehicle disposal and lifecycle inputs correctly",
+          "Error messages display clearly for vehicle disposal and lifecycle failures"
+        ]
+      },
+      "FR-34": {
+        "title": "Spare Parts Inventory",
+        "requirements": [
+          "Implement complete spare parts inventory functionality",
+          "All spare parts inventory operations must be validated and authorized",
+          "System shall maintain audit log for spare parts inventory actions",
+          "Support search and filtering within spare parts inventory"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all spare parts inventory operations",
+          "System validates all spare parts inventory inputs correctly",
+          "Error messages display clearly for spare parts inventory failures"
+        ]
+      },
+      "FR-35": {
+        "title": "Vendor Management for Repairs",
+        "requirements": [
+          "Implement complete vendor management for repairs functionality",
+          "All vendor management for repairs operations must be validated and authorized",
+          "System shall maintain audit log for vendor management for repairs actions",
+          "Support search and filtering within vendor management for repairs",
+          "Enable notifications for important vendor management for repairs events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all vendor management for repairs operations",
+          "System validates all vendor management for repairs inputs correctly",
+          "Error messages display clearly for vendor management for repairs failures"
+        ]
+      },
+      "FR-36": {
+        "title": "Driver Attendance and Shift Scheduling",
+        "requirements": [
+          "Implement complete driver attendance and shift scheduling functionality",
+          "All driver attendance and shift scheduling operations must be validated and authorized",
+          "System shall maintain audit log for driver attendance and shift scheduling actions",
+          "Support search and filtering within driver attendance and shift scheduling",
+          "Enable notifications for important driver attendance and shift scheduling events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all driver attendance and shift scheduling operations",
+          "System validates all driver attendance and shift scheduling inputs correctly",
+          "Error messages display clearly for driver attendance and shift scheduling failures"
+        ]
+      },
+      "FR-37": {
+        "title": "Mobile App for Drivers",
+        "requirements": [
+          "Implement complete mobile app for drivers functionality",
+          "All mobile app for drivers operations must be validated and authorized",
+          "System shall maintain audit log for mobile app for drivers actions",
+          "Support search and filtering within mobile app for drivers"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all mobile app for drivers operations",
+          "System validates all mobile app for drivers inputs correctly",
+          "Error messages display clearly for mobile app for drivers failures"
+        ]
+      },
+      "FR-38": {
+        "title": "Push Notifications",
+        "requirements": [
+          "Implement complete push notifications functionality",
+          "All push notifications operations must be validated and authorized",
+          "System shall maintain audit log for push notifications actions",
+          "Support search and filtering within push notifications"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all push notifications operations",
+          "System validates all push notifications inputs correctly",
+          "Error messages display clearly for push notifications failures",
+          "push notifications data persists correctly across sessions"
+        ]
+      },
+      "FR-39": {
+        "title": "API Integration for Telematics",
+        "requirements": [
+          "Implement complete api integration for telematics functionality",
+          "All api integration for telematics operations must be validated and authorized",
+          "System shall maintain audit log for api integration for telematics actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all api integration for telematics operations",
+          "System validates all api integration for telematics inputs correctly",
+          "Error messages display clearly for api integration for telematics failures",
+          "api integration for telematics data persists correctly across sessions"
+        ]
+      },
+      "FR-40": {
+        "title": "Admin Role Management",
+        "requirements": [
+          "Implement complete admin role management functionality",
+          "All admin role management operations must be validated and authorized",
+          "System shall maintain audit log for admin role management actions",
+          "Support search and filtering within admin role management"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all admin role management operations",
+          "System validates all admin role management inputs correctly",
+          "Error messages display clearly for admin role management failures"
+        ]
+      },
+      "FR-41": {
+        "title": "Multi-depot Support",
+        "requirements": [
+          "Implement complete multi-depot support functionality",
+          "All multi-depot support operations must be validated and authorized",
+          "System shall maintain audit log for multi-depot support actions",
+          "Support search and filtering within multi-depot support",
+          "Enable notifications for important multi-depot support events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all multi-depot support operations",
+          "System validates all multi-depot support inputs correctly",
+          "Error messages display clearly for multi-depot support failures"
+        ]
+      },
+      "FR-42": {
+        "title": "Cost Per Kilometer Analysis",
+        "requirements": [
+          "Implement complete cost per kilometer analysis functionality",
+          "All cost per kilometer analysis operations must be validated and authorized",
+          "System shall maintain audit log for cost per kilometer analysis actions",
+          "Support search and filtering within cost per kilometer analysis"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cost per kilometer analysis operations",
+          "System validates all cost per kilometer analysis inputs correctly",
+          "Error messages display clearly for cost per kilometer analysis failures",
+          "cost per kilometer analysis data persists correctly across sessions"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build Vehicle Registration API",
+        "description": "Create REST API endpoints for vehicle registration feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Build Vehicle Registration UI",
+        "description": "Create user interface components for vehicle registration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-01"
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Driver Registration and Licensing API",
+        "description": "Create REST API endpoints for driver registration and licensing feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Build Driver Registration and Licensing UI",
+        "description": "Create user interface components for driver registration and licensing. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Write Driver Registration and Licensing Tests",
+        "description": "Write unit and integration tests for driver registration and licensing feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02"
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Build Vehicle Assignment to Driver API",
+        "description": "Create REST API endpoints for vehicle assignment to driver feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Build Vehicle Assignment to Driver UI",
+        "description": "Create user interface components for vehicle assignment to driver. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03"
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Build GPS Real-time Tracking API",
+        "description": "Create REST API endpoints for gps real-time tracking feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Build GPS Real-time Tracking UI",
+        "description": "Create user interface components for gps real-time tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Write GPS Real-time Tracking Tests",
+        "description": "Write unit and integration tests for gps real-time tracking feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04"
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Build Route Planning and Optimization API",
+        "description": "Create REST API endpoints for route planning and optimization feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Build Route Planning and Optimization UI",
+        "description": "Create user interface components for route planning and optimization. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Design Route Planning and Optimization Database Schema",
+        "description": "Create database tables/collections for route planning and optimization. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05"
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Trip Management API",
+        "description": "Create REST API endpoints for trip management feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Build Trip Management UI",
+        "description": "Create user interface components for trip management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-06"
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Fuel Consumption Tracking API",
+        "description": "Create REST API endpoints for fuel consumption tracking feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Build Fuel Consumption Tracking UI",
+        "description": "Create user interface components for fuel consumption tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Write Fuel Consumption Tracking Tests",
+        "description": "Write unit and integration tests for fuel consumption tracking feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07"
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Fuel Card Integration API",
+        "description": "Create REST API endpoints for fuel card integration feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Build Fuel Card Integration UI",
+        "description": "Create user interface components for fuel card integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Design Fuel Card Integration Database Schema",
+        "description": "Create database tables/collections for fuel card integration. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Write Fuel Card Integration Tests",
+        "description": "Write unit and integration tests for fuel card integration feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08"
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build Maintenance Scheduling API",
+        "description": "Create REST API endpoints for maintenance scheduling feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Build Maintenance Scheduling UI",
+        "description": "Create user interface components for maintenance scheduling. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Design Maintenance Scheduling Database Schema",
+        "description": "Create database tables/collections for maintenance scheduling. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09"
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Preventive Maintenance Alerts API",
+        "description": "Create REST API endpoints for preventive maintenance alerts feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Build Preventive Maintenance Alerts UI",
+        "description": "Create user interface components for preventive maintenance alerts. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Write Preventive Maintenance Alerts Tests",
+        "description": "Write unit and integration tests for preventive maintenance alerts feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10"
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Build Breakdown and Repair Logging API",
+        "description": "Create REST API endpoints for breakdown and repair logging feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Build Breakdown and Repair Logging UI",
+        "description": "Create user interface components for breakdown and repair logging. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11"
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Tire Management API",
+        "description": "Create REST API endpoints for tire management feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Build Tire Management UI",
+        "description": "Create user interface components for tire management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12"
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Build Vehicle Inspection Checklists API",
+        "description": "Create REST API endpoints for vehicle inspection checklists feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Build Vehicle Inspection Checklists UI",
+        "description": "Create user interface components for vehicle inspection checklists. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Design Vehicle Inspection Checklists Database Schema",
+        "description": "Create database tables/collections for vehicle inspection checklists. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Write Vehicle Inspection Checklists Tests",
+        "description": "Write unit and integration tests for vehicle inspection checklists feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13"
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Build Driver Behavior Monitoring API",
+        "description": "Create REST API endpoints for driver behavior monitoring feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Build Driver Behavior Monitoring UI",
+        "description": "Create user interface components for driver behavior monitoring. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14"
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Build Speed and Harsh Braking Alerts API",
+        "description": "Create REST API endpoints for speed and harsh braking alerts feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Build Speed and Harsh Braking Alerts UI",
+        "description": "Create user interface components for speed and harsh braking alerts. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Design Speed and Harsh Braking Alerts Database Schema",
+        "description": "Create database tables/collections for speed and harsh braking alerts. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-15"
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Build Geofencing Setup and Alerts API",
+        "description": "Create REST API endpoints for geofencing setup and alerts feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Build Geofencing Setup and Alerts UI",
+        "description": "Create user interface components for geofencing setup and alerts. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-16"
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Build Idle Time Tracking API",
+        "description": "Create REST API endpoints for idle time tracking feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Build Idle Time Tracking UI",
+        "description": "Create user interface components for idle time tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-17"
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Build Mileage Tracking API",
+        "description": "Create REST API endpoints for mileage tracking feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Build Mileage Tracking UI",
+        "description": "Create user interface components for mileage tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18"
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Build Driver Scorecard API",
+        "description": "Create REST API endpoints for driver scorecard feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Build Driver Scorecard UI",
+        "description": "Create user interface components for driver scorecard. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Design Driver Scorecard Database Schema",
+        "description": "Create database tables/collections for driver scorecard. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-19"
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Build Trip History and Reports API",
+        "description": "Create REST API endpoints for trip history and reports feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Build Trip History and Reports UI",
+        "description": "Create user interface components for trip history and reports. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Write Trip History and Reports Tests",
+        "description": "Write unit and integration tests for trip history and reports feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-20"
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Build Fuel Efficiency Reports API",
+        "description": "Create REST API endpoints for fuel efficiency reports feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Build Fuel Efficiency Reports UI",
+        "description": "Create user interface components for fuel efficiency reports. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Write Fuel Efficiency Reports Tests",
+        "description": "Write unit and integration tests for fuel efficiency reports feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-21"
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Build Maintenance Cost Reports API",
+        "description": "Create REST API endpoints for maintenance cost reports feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Build Maintenance Cost Reports UI",
+        "description": "Create user interface components for maintenance cost reports. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-22"
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Build Vehicle Utilization Analytics API",
+        "description": "Create REST API endpoints for vehicle utilization analytics feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Build Vehicle Utilization Analytics UI",
+        "description": "Create user interface components for vehicle utilization analytics. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Design Vehicle Utilization Analytics Database Schema",
+        "description": "Create database tables/collections for vehicle utilization analytics. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Write Vehicle Utilization Analytics Tests",
+        "description": "Write unit and integration tests for vehicle utilization analytics feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-23"
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Build Fleet Dashboard Overview API",
+        "description": "Create REST API endpoints for fleet dashboard overview feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Build Fleet Dashboard Overview UI",
+        "description": "Create user interface components for fleet dashboard overview. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Design Fleet Dashboard Overview Database Schema",
+        "description": "Create database tables/collections for fleet dashboard overview. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Write Fleet Dashboard Overview Tests",
+        "description": "Write unit and integration tests for fleet dashboard overview feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-24"
+      }
+    ],
+    "FR-25": [
+      {
+        "title": "Build Driver License Expiry Alerts API",
+        "description": "Create REST API endpoints for driver license expiry alerts feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Build Driver License Expiry Alerts UI",
+        "description": "Create user interface components for driver license expiry alerts. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-25"
+      }
+    ],
+    "FR-26": [
+      {
+        "title": "Build Insurance Renewal Tracking API",
+        "description": "Create REST API endpoints for insurance renewal tracking feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Build Insurance Renewal Tracking UI",
+        "description": "Create user interface components for insurance renewal tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Write Insurance Renewal Tracking Tests",
+        "description": "Write unit and integration tests for insurance renewal tracking feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-26"
+      }
+    ],
+    "FR-27": [
+      {
+        "title": "Build Registration Renewal Alerts API",
+        "description": "Create REST API endpoints for registration renewal alerts feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Build Registration Renewal Alerts UI",
+        "description": "Create user interface components for registration renewal alerts. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Write Registration Renewal Alerts Tests",
+        "description": "Write unit and integration tests for registration renewal alerts feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-27"
+      }
+    ],
+    "FR-28": [
+      {
+        "title": "Build Document Storage per Vehicle API",
+        "description": "Create REST API endpoints for document storage per vehicle feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Build Document Storage per Vehicle UI",
+        "description": "Create user interface components for document storage per vehicle. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Write Document Storage per Vehicle Tests",
+        "description": "Write unit and integration tests for document storage per vehicle feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-28"
+      }
+    ],
+    "FR-29": [
+      {
+        "title": "Build Accident and Incident Recording API",
+        "description": "Create REST API endpoints for accident and incident recording feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Build Accident and Incident Recording UI",
+        "description": "Create user interface components for accident and incident recording. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Design Accident and Incident Recording Database Schema",
+        "description": "Create database tables/collections for accident and incident recording. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Write Accident and Incident Recording Tests",
+        "description": "Write unit and integration tests for accident and incident recording feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-29"
+      }
+    ],
+    "FR-30": [
+      {
+        "title": "Build Driver Training Management API",
+        "description": "Create REST API endpoints for driver training management feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Build Driver Training Management UI",
+        "description": "Create user interface components for driver training management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-30"
+      }
+    ],
+    "FR-31": [
+      {
+        "title": "Build Compliance Reporting API",
+        "description": "Create REST API endpoints for compliance reporting feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-31"
+      },
+      {
+        "title": "Build Compliance Reporting UI",
+        "description": "Create user interface components for compliance reporting. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-31"
+      }
+    ],
+    "FR-32": [
+      {
+        "title": "Build Carbon Emission Tracking API",
+        "description": "Create REST API endpoints for carbon emission tracking feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Build Carbon Emission Tracking UI",
+        "description": "Create user interface components for carbon emission tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Design Carbon Emission Tracking Database Schema",
+        "description": "Create database tables/collections for carbon emission tracking. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-32"
+      }
+    ],
+    "FR-33": [
+      {
+        "title": "Build Vehicle Disposal and Lifecycle API",
+        "description": "Create REST API endpoints for vehicle disposal and lifecycle feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-33"
+      },
+      {
+        "title": "Build Vehicle Disposal and Lifecycle UI",
+        "description": "Create user interface components for vehicle disposal and lifecycle. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-33"
+      }
+    ],
+    "FR-34": [
+      {
+        "title": "Build Spare Parts Inventory API",
+        "description": "Create REST API endpoints for spare parts inventory feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-34"
+      },
+      {
+        "title": "Build Spare Parts Inventory UI",
+        "description": "Create user interface components for spare parts inventory. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-34"
+      }
+    ],
+    "FR-35": [
+      {
+        "title": "Build Vendor Management for Repairs API",
+        "description": "Create REST API endpoints for vendor management for repairs feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Build Vendor Management for Repairs UI",
+        "description": "Create user interface components for vendor management for repairs. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Design Vendor Management for Repairs Database Schema",
+        "description": "Create database tables/collections for vendor management for repairs. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Write Vendor Management for Repairs Tests",
+        "description": "Write unit and integration tests for vendor management for repairs feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-35"
+      }
+    ],
+    "FR-36": [
+      {
+        "title": "Build Driver Attendance and Shift Scheduling API",
+        "description": "Create REST API endpoints for driver attendance and shift scheduling feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Build Driver Attendance and Shift Scheduling UI",
+        "description": "Create user interface components for driver attendance and shift scheduling. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Design Driver Attendance and Shift Scheduling Database Schema",
+        "description": "Create database tables/collections for driver attendance and shift scheduling. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Write Driver Attendance and Shift Scheduling Tests",
+        "description": "Write unit and integration tests for driver attendance and shift scheduling feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-36"
+      }
+    ],
+    "FR-37": [
+      {
+        "title": "Build Mobile App for Drivers API",
+        "description": "Create REST API endpoints for mobile app for drivers feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-37"
+      },
+      {
+        "title": "Build Mobile App for Drivers UI",
+        "description": "Create user interface components for mobile app for drivers. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-37"
+      }
+    ],
+    "FR-38": [
+      {
+        "title": "Build Push Notifications API",
+        "description": "Create REST API endpoints for push notifications feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Build Push Notifications UI",
+        "description": "Create user interface components for push notifications. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Design Push Notifications Database Schema",
+        "description": "Create database tables/collections for push notifications. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-38"
+      }
+    ],
+    "FR-39": [
+      {
+        "title": "Build API Integration for Telematics API",
+        "description": "Create REST API endpoints for api integration for telematics feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-39"
+      },
+      {
+        "title": "Build API Integration for Telematics UI",
+        "description": "Create user interface components for api integration for telematics. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-39"
+      },
+      {
+        "title": "Design API Integration for Telematics Database Schema",
+        "description": "Create database tables/collections for api integration for telematics. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-39"
+      }
+    ],
+    "FR-40": [
+      {
+        "title": "Build Admin Role Management API",
+        "description": "Create REST API endpoints for admin role management feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-40"
+      },
+      {
+        "title": "Build Admin Role Management UI",
+        "description": "Create user interface components for admin role management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-40"
+      },
+      {
+        "title": "Write Admin Role Management Tests",
+        "description": "Write unit and integration tests for admin role management feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-40"
+      }
+    ],
+    "FR-41": [
+      {
+        "title": "Build Multi-depot Support API",
+        "description": "Create REST API endpoints for multi-depot support feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-41"
+      },
+      {
+        "title": "Build Multi-depot Support UI",
+        "description": "Create user interface components for multi-depot support. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-41"
+      }
+    ],
+    "FR-42": [
+      {
+        "title": "Build Cost Per Kilometer Analysis API",
+        "description": "Create REST API endpoints for cost per kilometer analysis feature in Fleet Management System. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-42"
+      },
+      {
+        "title": "Build Cost Per Kilometer Analysis UI",
+        "description": "Create user interface components for cost per kilometer analysis. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-42"
+      },
+      {
+        "title": "Design Cost Per Kilometer Analysis Database Schema",
+        "description": "Create database tables/collections for cost per kilometer analysis. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-42"
+      },
+      {
+        "title": "Write Cost Per Kilometer Analysis Tests",
+        "description": "Write unit and integration tests for cost per kilometer analysis feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-42"
+      }
+    ]
+  }
+}

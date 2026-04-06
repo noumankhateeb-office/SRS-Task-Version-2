@@ -1,0 +1,105 @@
+{
+  "input": {
+    "title": "Learning Management System",
+    "technologies": ["React", "Django", "PostgreSQL"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Student Registration and Enrollment",
+        "requirements": ["Students can register with email and password", "Students can browse available courses", "Students can enroll in courses", "System tracks enrollment history"],
+        "acceptance_criteria": ["Student account is created successfully", "Course catalog shows available courses", "Enrollment adds student to course", "Enrollment history is accurately maintained"]
+      },
+      "FR-02": {
+        "title": "Course Creation by Instructors",
+        "requirements": ["Instructors can create courses with title, description, and syllabus", "Courses support multiple modules and lessons", "Instructors can upload video lectures and documents", "Course can be published or kept as draft"],
+        "acceptance_criteria": ["Course is created with all required fields", "Modules and lessons can be ordered", "Video and document uploads work correctly", "Draft courses are not visible to students"]
+      },
+      "FR-03": {
+        "title": "Video Lecture Playback",
+        "requirements": ["Students can watch video lectures within the platform", "Video player supports pause, seek, and playback speed", "System tracks video progress per student", "Resume from last watched position"],
+        "acceptance_criteria": ["Video plays without buffering on stable connection", "Playback controls work correctly", "Progress is saved automatically", "Student resumes from last position on return"]
+      },
+      "FR-04": {
+        "title": "Quiz and Assessment System",
+        "requirements": ["Instructors can create quizzes with multiple choice questions", "Quizzes can have time limits", "System auto-grades multiple choice quizzes", "Students can view quiz results and correct answers"],
+        "acceptance_criteria": ["Quiz is created with correct questions and answers", "Timer enforces time limit", "Auto-grading produces correct scores", "Results show score and correct answers"]
+      },
+      "FR-05": {
+        "title": "Assignment Submission",
+        "requirements": ["Instructors can create assignments with due dates", "Students can submit files and text for assignments", "Late submissions are flagged", "Instructors can grade and provide feedback"],
+        "acceptance_criteria": ["Assignment is created with due date", "Students can upload files up to 25MB", "Late flag appears for overdue submissions", "Grade and feedback are visible to student"]
+      },
+      "FR-06": {
+        "title": "Progress Tracking Dashboard",
+        "requirements": ["Students can view course completion percentage", "Dashboard shows completed and pending lessons", "Progress bar for each enrolled course", "Certificate generated on course completion"],
+        "acceptance_criteria": ["Completion percentage matches actual progress", "Dashboard shows accurate lesson status", "Progress bar updates after each lesson", "Certificate is downloadable as PDF"]
+      },
+      "FR-07": {
+        "title": "Discussion Forum",
+        "requirements": ["Each course has a discussion forum", "Students and instructors can create threads", "Users can reply to threads", "Instructor answers are highlighted"],
+        "acceptance_criteria": ["Forum is accessible from course page", "Threads are created and displayed correctly", "Replies appear under correct thread", "Instructor replies have a distinct badge"]
+      },
+      "FR-08": {
+        "title": "Course Rating and Review",
+        "requirements": ["Students can rate courses with 1-5 stars", "Students can write text reviews", "Average rating displayed on course page", "Only enrolled students can review"],
+        "acceptance_criteria": ["Rating is submitted successfully", "Review text is displayed on course page", "Average updates after new rating", "Non-enrolled users cannot submit reviews"]
+      },
+      "FR-09": {
+        "title": "Payment and Subscription",
+        "requirements": ["Courses can be free or paid", "Payment via credit card or PayPal", "Subscription plans for unlimited access", "Refund within 30 days of purchase"],
+        "acceptance_criteria": ["Payment processes correctly", "Paid course access granted after payment", "Subscription unlocks all courses", "Refund reverses access and credits payment"]
+      },
+      "FR-10": {
+        "title": "Admin Analytics Dashboard",
+        "requirements": ["Admin can view total students, courses, and revenue", "Charts for enrollment trends over time", "Top-rated and most enrolled courses", "Instructor performance metrics"],
+        "acceptance_criteria": ["Dashboard shows accurate statistics", "Charts render correctly with real data", "Rankings are sorted correctly", "Data refreshes on page load"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Student Registration API", "description": "Create POST /api/auth/register for student accounts. POST /api/courses/:id/enroll for enrollment. GET /api/courses for browsable catalog with filters. Track enrollment in enrollments table.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Registration and Catalog Pages", "description": "Create registration form with validation. Course catalog page with cards showing title, instructor, rating, price, and enrollment count. Enroll button on each course.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Create Enrollment Database Schema", "description": "Design enrollments table: id, student_id (FK), course_id (FK), enrolled_at, progress_percentage, status (active/completed/dropped). Add indexes on student_id and course_id.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Course CRUD API", "description": "Create instructor endpoints: POST /api/courses (create), PATCH /api/courses/:id (update), DELETE /api/courses/:id. Nested: POST /api/courses/:id/modules, POST /api/modules/:id/lessons. Support file upload for videos and docs.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Course Builder UI", "description": "Create course creation wizard: Step 1 title/description/category. Step 2 module/lesson builder with drag-drop ordering. Step 3 media upload. Step 4 preview and publish/draft toggle.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
+      {"title": "Create Course Database Schema", "description": "Design courses table: id, instructor_id, title, description, category, price, status (draft/published), thumbnail_url, created_at. modules table: id, course_id, title, order. lessons table: id, module_id, title, type, content_url, duration, order.", "priority": "high", "type": "database", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Video Streaming Service", "description": "Implement video storage and streaming. Support adaptive bitrate. Create API to track watch progress: POST /api/lessons/:id/progress (timestamp, percentage). Resume from saved position.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Video Player Component", "description": "Create custom video player with play/pause, seek bar, playback speed selector (0.5x-2x), volume control, fullscreen toggle, and progress indicator. Auto-save position every 10 seconds.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Quiz API", "description": "Create POST /api/courses/:id/quizzes (instructor creates quiz with questions, options, correct answers, time_limit). POST /api/quizzes/:id/submit (student submits answers). Auto-grade and return score.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Quiz UI", "description": "Create quiz-taking interface with timer countdown, question navigation, radio buttons for options, submit button. Results page showing score, correct vs selected answers.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"},
+      {"title": "Create Quiz Database Schema", "description": "Design quizzes table: id, course_id, title, time_limit_minutes. questions table: id, quiz_id, text, options (JSON array), correct_option_index. quiz_submissions table: student_id, quiz_id, answers, score, submitted_at.", "priority": "high", "type": "database", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Assignment API", "description": "Create POST /api/courses/:id/assignments (instructor creates with title, description, due_date, max_points). POST /api/assignments/:id/submit (student uploads file). PATCH /api/submissions/:id/grade (instructor grades).", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Assignment UI", "description": "Create assignment page showing description, due date, and submission form with file upload (drag-drop, max 25MB). Submission status indicator. Instructor grading interface with score input and feedback textarea.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Progress Tracking API", "description": "Create GET /api/enrollments/:id/progress returning completed lessons, total lessons, percentage. Generate certificate on 100% completion. GET /api/certificates/:id for PDF download.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Student Dashboard", "description": "Create dashboard with enrolled courses grid, each showing progress bar, completion percentage, next lesson link. Certificates section for completed courses with download button.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"},
+      {"title": "Implement Certificate Generation", "description": "Create PDF certificate template with student name, course title, completion date, and unique certificate ID. Generate on course completion. Store in certificates table for verification.", "priority": "medium", "type": "backend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Forum API", "description": "Create CRUD for discussion threads: POST /api/courses/:id/threads, GET /api/courses/:id/threads (paginated), POST /api/threads/:id/replies. Mark instructor replies with is_instructor flag.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Forum UI", "description": "Create discussion page with thread list, new thread form, and thread detail with replies. Instructor badge on instructor replies. Sort by newest or most replies.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Course Review API", "description": "Create POST /api/courses/:id/reviews (rating 1-5, text). Verify enrollment. Calculate and cache average rating. GET /api/courses/:id/reviews with pagination and sort.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Review Section UI", "description": "Create review section on course page with star rating summary, individual review cards, and review submission form (star selector + textarea). Only visible to enrolled students.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Payment API", "description": "Create POST /api/payments/checkout (process course purchase). POST /api/subscriptions/create (subscription plan). POST /api/payments/:id/refund (within 30 days). Integrate payment gateway.", "priority": "high", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Payment UI", "description": "Create checkout page with course summary, payment method selection (card/PayPal), billing details form. Subscription plan comparison page. Purchase confirmation screen.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"},
+      {"title": "Create Payment Database Schema", "description": "Design payments table: id, user_id, course_id, amount, method, status, transaction_id, created_at. subscriptions table: user_id, plan, start_date, end_date, status. refunds table: payment_id, reason, status.", "priority": "high", "type": "database", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Build Admin Analytics API", "description": "Create GET /api/admin/analytics returning total users, courses, revenue, enrollment trends (monthly), top courses by rating and enrollment. Cache results for performance.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Admin Dashboard", "description": "Create admin analytics page with stat cards (total students, courses, revenue), line chart for enrollment trends, bar chart for top courses, table for instructor performance.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+    ]
+  }
+}

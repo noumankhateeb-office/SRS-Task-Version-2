@@ -1,0 +1,314 @@
+{
+  "input": {
+    "title": "E-Commerce Platform",
+    "technologies": ["Next.js", "Prisma", "MongoDB"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "User Login",
+        "requirements": [
+          "Two input fields for email and password",
+          "The email must be validated for the correct format",
+          "The password field should have a show/hide toggle"
+        ],
+        "acceptance_criteria": [
+          "User can successfully log in with a valid email and password",
+          "The system shows an error message for invalid credentials",
+          "User is redirected to the dashboard after successful login"
+        ]
+      },
+      "FR-02": {
+        "title": "User Registration",
+        "requirements": [
+          "Registration form with name, email, and password fields",
+          "Password must be at least 8 characters with one uppercase and one number",
+          "System shall send verification email after registration",
+          "Duplicate email addresses shall not be allowed"
+        ],
+        "acceptance_criteria": [
+          "User can register with valid details and receive confirmation",
+          "System rejects registration with existing email",
+          "Verification email is received within 60 seconds",
+          "User cannot login until email is verified"
+        ]
+      },
+      "FR-03": {
+        "title": "Product Catalog",
+        "requirements": [
+          "Display all products with name, image, price, and category",
+          "Users can filter products by category and price range",
+          "Users can sort products by price, name, and newest",
+          "Pagination with 20 products per page"
+        ],
+        "acceptance_criteria": [
+          "All active products are displayed with correct details",
+          "Filters correctly narrow down product list",
+          "Sort order changes immediately on selection",
+          "Pagination navigation works correctly"
+        ]
+      },
+      "FR-04": {
+        "title": "Product Detail Page",
+        "requirements": [
+          "Display product name, images, price, description, and reviews",
+          "Image gallery with zoom and thumbnail navigation",
+          "Add to cart button with quantity selector",
+          "Display average rating and individual reviews"
+        ],
+        "acceptance_criteria": [
+          "All product details load correctly",
+          "Image gallery allows zoom and navigation",
+          "Add to cart updates cart count in header",
+          "Reviews display with star rating, text, and author"
+        ]
+      },
+      "FR-05": {
+        "title": "Shopping Cart",
+        "requirements": [
+          "Users can add products to cart with quantity selection",
+          "Users can update item quantities in cart",
+          "Users can remove items from cart",
+          "Cart displays subtotal, tax, and grand total",
+          "Cart persists across sessions for logged-in users"
+        ],
+        "acceptance_criteria": [
+          "Product is added to cart with correct quantity",
+          "Quantity update reflects in cart total immediately",
+          "Item removal updates cart total correctly",
+          "Cart contents persist after logout and login"
+        ]
+      },
+      "FR-06": {
+        "title": "Checkout Process",
+        "requirements": [
+          "Multi-step checkout with shipping, payment, and review",
+          "Shipping address form with validation",
+          "Payment integration with credit card processing",
+          "Order review showing all items and totals before confirmation"
+        ],
+        "acceptance_criteria": [
+          "User can complete checkout in 3 steps",
+          "Invalid shipping address is rejected with errors",
+          "Payment processes correctly and shows confirmation",
+          "Order review shows accurate totals and items"
+        ]
+      },
+      "FR-07": {
+        "title": "Order Management",
+        "requirements": [
+          "Users can view order history with status",
+          "Order detail page shows items, shipping, and tracking",
+          "Users can cancel orders before shipping",
+          "System generates unique order ID for each order"
+        ],
+        "acceptance_criteria": [
+          "Order history lists all past orders with status",
+          "Order detail shows complete information",
+          "Cancellation is only possible before shipping status",
+          "Order confirmation email is sent with order ID"
+        ]
+      },
+      "FR-08": {
+        "title": "Product Search",
+        "requirements": [
+          "Search bar in header with auto-suggest",
+          "Full-text search across product names and descriptions",
+          "Search results page with filters and sorting",
+          "Recent search history for logged-in users"
+        ],
+        "acceptance_criteria": [
+          "Auto-suggest shows relevant results while typing",
+          "Search returns accurate results within 500ms",
+          "Filters work correctly on search results",
+          "Recent searches are saved and displayed"
+        ]
+      },
+      "FR-09": {
+        "title": "Product Reviews and Ratings",
+        "requirements": [
+          "Users can submit star rating (1-5) and text review",
+          "Only verified purchasers can leave reviews",
+          "Average rating displayed on product card and detail page",
+          "Reviews can be sorted by newest, highest, and lowest rating"
+        ],
+        "acceptance_criteria": [
+          "Review is submitted and displayed on product page",
+          "Non-purchasers cannot submit reviews",
+          "Average rating updates after new review",
+          "Sort options change review order correctly"
+        ]
+      },
+      "FR-10": {
+        "title": "Wishlist",
+        "requirements": [
+          "Users can add products to wishlist",
+          "Wishlist page shows all saved products",
+          "Users can move items from wishlist to cart",
+          "Wishlist persists across sessions"
+        ],
+        "acceptance_criteria": [
+          "Product is added to wishlist with heart icon toggle",
+          "Wishlist page displays all saved items",
+          "Move to cart adds item and removes from wishlist",
+          "Wishlist is synced across devices for logged-in users"
+        ]
+      },
+      "FR-11": {
+        "title": "User Profile Management",
+        "requirements": [
+          "Users can view and edit profile information",
+          "Users can change password with current password verification",
+          "Users can manage saved shipping addresses",
+          "Users can view and manage payment methods"
+        ],
+        "acceptance_criteria": [
+          "Profile updates are saved and reflected immediately",
+          "Password change requires correct current password",
+          "Multiple shipping addresses can be saved and set as default",
+          "Payment methods can be added and removed securely"
+        ]
+      },
+      "FR-12": {
+        "title": "Admin Product Management",
+        "requirements": [
+          "Admin can add new products with all details",
+          "Admin can edit existing product information",
+          "Admin can delete or deactivate products",
+          "Admin can manage product categories"
+        ],
+        "acceptance_criteria": [
+          "New product is created and visible in catalog",
+          "Product edits are saved and reflected in frontend",
+          "Deleted products are removed from catalog",
+          "Categories can be created, edited, and deleted"
+        ]
+      },
+      "FR-13": {
+        "title": "Coupon and Discount System",
+        "requirements": [
+          "Admin can create coupon codes with percentage or fixed discount",
+          "Coupons can have expiry date and usage limits",
+          "Users can apply coupon code at checkout",
+          "System validates coupon eligibility before applying"
+        ],
+        "acceptance_criteria": [
+          "Valid coupon deducts correct amount from total",
+          "Expired coupon shows error message",
+          "Coupon with reached usage limit is rejected",
+          "Discount is reflected in order summary"
+        ]
+      },
+      "FR-14": {
+        "title": "Email Notifications",
+        "requirements": [
+          "System sends order confirmation email after purchase",
+          "System sends shipping notification with tracking link",
+          "System sends password reset email when requested",
+          "System sends promotional emails to opted-in users"
+        ],
+        "acceptance_criteria": [
+          "Order confirmation email contains order details and ID",
+          "Shipping email includes tracking number and carrier link",
+          "Password reset link expires after 1 hour",
+          "Users can unsubscribe from promotional emails"
+        ]
+      },
+      "FR-15": {
+        "title": "Inventory Management",
+        "requirements": [
+          "System tracks stock quantity for each product",
+          "Out-of-stock products show unavailable badge",
+          "Admin receives low stock alerts",
+          "Stock updates automatically on order placement"
+        ],
+        "acceptance_criteria": [
+          "Stock count decreases after successful order",
+          "Out-of-stock products cannot be added to cart",
+          "Low stock alert sent when quantity below threshold",
+          "Admin can manually adjust stock quantities"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Login API Endpoint", "description": "Create POST /api/auth/login. Accept email and password in request body. Validate email format server-side. Verify credentials against database. Hash comparison using bcrypt. Return JWT token on success with user data. Return 401 with error message on failure.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Login Page UI", "description": "Create login page with email input field with format validation, password input field with show/hide toggle button. Add client-side validation for email format. Show inline error messages for invalid inputs. Redirect to dashboard on successful login. Display error toast on failed login.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Write Login Tests", "description": "Test successful login with valid credentials redirects to dashboard. Test invalid credentials show error message. Test email format validation rejects invalid emails. Test password show/hide toggle works correctly.", "priority": "medium", "type": "testing", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Registration API Endpoint", "description": "Create POST /api/auth/register. Accept name, email, password. Validate email uniqueness against database. Enforce password complexity (min 8 chars, 1 uppercase, 1 number). Hash password with bcrypt. Create user record with is_verified=false. Return 201 on success, 409 on duplicate email.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Registration Page UI", "description": "Create registration form with name, email, and password fields. Add real-time password strength indicator. Show password requirements checklist. Client-side validation for all fields. Show success message and prompt to check email.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
+      {"title": "Implement Email Verification Service", "description": "Generate unique verification token on registration. Store token with 24-hour expiry. Send verification email with clickable link. Create GET /api/auth/verify/:token endpoint. Mark user as verified on valid token.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Write Registration Tests", "description": "Test successful registration creates user and sends email. Test duplicate email returns 409. Test weak password is rejected. Test verification link activates account.", "priority": "medium", "type": "testing", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Product Listing API", "description": "Create GET /api/products with query params: category, min_price, max_price, sort_by, page, limit (default 20). Return paginated array with total count. Only return active products.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Create Product Card Component", "description": "Build reusable ProductCard component with product image (lazy loading), name, formatted price, and category badge. Add hover effect. Click navigates to detail page.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"},
+      {"title": "Build Filter and Sort UI", "description": "Create sidebar filter panel with category checkboxes, price range slider. Add sort dropdown with price, name, newest options. Update URL params on change and refetch.", "priority": "medium", "type": "frontend", "related_requirement": "FR-03"},
+      {"title": "Create Products Database Schema", "description": "Design products collection: name, description, price, image_url, category_id, stock_quantity, is_active, created_at, updated_at. Create categories collection. Add indexes on category_id, price, created_at.", "priority": "high", "type": "database", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Product Detail API", "description": "Create GET /api/products/:slug endpoint. Return product with all fields including images array, reviews, and average rating. Increment view count. Return 404 if not found.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Product Detail Page", "description": "Create product detail page with image gallery (main image + thumbnails with zoom), product info section (name, price, rating stars, description), quantity selector, and Add to Cart button. Show reviews section below.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"},
+      {"title": "Build Image Gallery Component", "description": "Create reusable image gallery with main image display, thumbnail strip navigation, zoom on hover or click, and swipe support for mobile. Handle image loading states.", "priority": "medium", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Cart API Endpoints", "description": "Create cart REST API: POST /api/cart/items (add item), PATCH /api/cart/items/:id (update quantity), DELETE /api/cart/items/:id (remove), GET /api/cart (get full cart with totals). Link to authenticated user.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Shopping Cart Page", "description": "Create cart page with item list showing product image, name, quantity selector, unit price, and line total. Remove button per item. Display subtotal, tax, and grand total. Continue Shopping and Checkout buttons.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"},
+      {"title": "Implement Cart Persistence", "description": "Store cart in database for logged-in users. On login merge local cart with server cart. Sync on page load. Handle concurrent updates.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Write Cart Tests", "description": "Test add item increases count. Test quantity update changes total. Test remove item updates correctly. Test cart persists after logout/login.", "priority": "medium", "type": "testing", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Checkout API", "description": "Create POST /api/checkout endpoint. Accept shipping address, payment method, and cart reference. Validate stock availability. Process payment. Create order record. Deduct stock. Clear cart. Return order confirmation.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Multi-Step Checkout UI", "description": "Create checkout flow: Step 1 - Shipping address form with saved address dropdown. Step 2 - Payment method selection with card form. Step 3 - Order review with all items, shipping, and totals. Place Order button.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"},
+      {"title": "Integrate Payment Processing", "description": "Implement payment gateway integration. Create payment intent on checkout start. Handle card validation. Process payment on order confirmation. Handle payment failures gracefully with user feedback.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Write Checkout Tests", "description": "Test successful checkout creates order. Test insufficient stock prevents order. Test invalid card shows error. Test order total matches cart total.", "priority": "medium", "type": "testing", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Order History API", "description": "Create GET /api/orders endpoint with pagination. Return user orders with status, total, date, and item count. Create GET /api/orders/:id for detail. Add PATCH /api/orders/:id/cancel for cancellation.", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Order History Page", "description": "Create order history page with list of orders showing order ID, date, status badge, item count, and total. Click opens order detail. Add cancel button for pending orders.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"},
+      {"title": "Build Order Detail Page", "description": "Create order detail view showing items with images and prices, shipping address, payment method, status timeline, tracking information, and order total breakdown.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"},
+      {"title": "Create Orders Database Schema", "description": "Design orders collection: order_id (unique), user_id, items array, shipping_address, payment_method, subtotal, tax, total, status (pending/confirmed/shipped/delivered/cancelled), tracking_number, created_at, updated_at.", "priority": "high", "type": "database", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Product Search API", "description": "Create GET /api/products/search with query parameter. Implement full-text search across name and description using MongoDB text index. Return results with relevance scoring. Support filters and pagination.", "priority": "high", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Search UI with Auto-suggest", "description": "Create search bar in header with debounced auto-suggest dropdown (300ms). Show product name, image thumbnail, and price in suggestions. Enter key or click navigates to search results page.", "priority": "high", "type": "frontend", "related_requirement": "FR-08"},
+      {"title": "Implement Search History", "description": "Store recent searches for logged-in users (last 10). Create GET /api/search/history and DELETE /api/search/history endpoints. Show recent searches in dropdown when search bar is focused.", "priority": "low", "type": "backend", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Reviews API", "description": "Create POST /api/products/:id/reviews (submit review with rating 1-5 and text). Verify user has purchased product. Create GET /api/products/:id/reviews with sort and pagination. Calculate average rating.", "priority": "high", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Review Submission Form", "description": "Create review form with star rating selector (clickable stars), text area for review, and submit button. Show only for verified purchasers. Display success message after submission.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"},
+      {"title": "Build Reviews Display Section", "description": "Create reviews section on product page with average rating summary bar, individual review cards with stars, text, author, and date. Add sort dropdown for newest, highest, lowest.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Build Wishlist API", "description": "Create POST /api/wishlist/:productId (add), DELETE /api/wishlist/:productId (remove), GET /api/wishlist (list all). POST /api/wishlist/:productId/move-to-cart to move item to cart.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Wishlist Page", "description": "Create wishlist page with product cards showing image, name, price, and action buttons (Move to Cart, Remove). Show empty state with link to browse products.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"},
+      {"title": "Add Wishlist Toggle to Product Cards", "description": "Add heart icon button on ProductCard and product detail page. Toggle between filled (in wishlist) and outline (not in wishlist). Optimistic UI update with API sync.", "priority": "low", "type": "frontend", "related_requirement": "FR-10"}
+    ],
+    "FR-11": [
+      {"title": "Build Profile API", "description": "Create GET /api/profile (get current user profile), PATCH /api/profile (update name, email, phone), PATCH /api/profile/password (change password with current password verification).", "priority": "high", "type": "backend", "related_requirement": "FR-11"},
+      {"title": "Build Profile Settings Page", "description": "Create profile settings page with editable fields for name, email, phone. Password change section with current password, new password, and confirm fields. Save button with validation.", "priority": "medium", "type": "frontend", "related_requirement": "FR-11"},
+      {"title": "Build Address Management", "description": "Create CRUD API for shipping addresses: GET /api/addresses, POST /api/addresses, PATCH /api/addresses/:id, DELETE /api/addresses/:id. Support setting default address.", "priority": "medium", "type": "backend", "related_requirement": "FR-11"}
+    ],
+    "FR-12": [
+      {"title": "Build Admin Product CRUD API", "description": "Create admin endpoints: POST /api/admin/products (create), PATCH /api/admin/products/:id (update), DELETE /api/admin/products/:id (soft delete). Validate admin role. Support image upload.", "priority": "high", "type": "backend", "related_requirement": "FR-12"},
+      {"title": "Build Admin Product Dashboard", "description": "Create admin product management page with data table showing name, price, stock, status. Add/Edit forms with all product fields. Delete with confirmation dialog. Bulk actions support.", "priority": "high", "type": "frontend", "related_requirement": "FR-12"},
+      {"title": "Build Category Management", "description": "Create CRUD API for categories: GET, POST, PATCH, DELETE /api/admin/categories. Admin UI with category list, add/edit form, and delete confirmation. Handle products in deleted categories.", "priority": "medium", "type": "backend", "related_requirement": "FR-12"}
+    ],
+    "FR-13": [
+      {"title": "Build Coupon API", "description": "Create admin endpoints: POST /api/admin/coupons (create), GET /api/admin/coupons (list). Create POST /api/coupons/validate for user coupon application. Check expiry, usage limit, and minimum order amount.", "priority": "medium", "type": "backend", "related_requirement": "FR-13"},
+      {"title": "Build Coupon Input at Checkout", "description": "Add coupon code input field at checkout. Apply button that validates coupon. Show discount amount and updated total. Error message for invalid or expired coupons.", "priority": "medium", "type": "frontend", "related_requirement": "FR-13"},
+      {"title": "Create Coupons Database Schema", "description": "Design coupons collection: code (unique), type (percentage/fixed), value, min_order_amount, max_uses, current_uses, expiry_date, is_active, created_at. Add index on code.", "priority": "medium", "type": "database", "related_requirement": "FR-13"}
+    ],
+    "FR-14": [
+      {"title": "Build Email Notification Service", "description": "Create email service with template system. Implement templates for: order confirmation, shipping update, password reset, and promotional emails. Use queue system for reliable delivery.", "priority": "high", "type": "backend", "related_requirement": "FR-14"},
+      {"title": "Implement Password Reset Flow", "description": "Create POST /api/auth/forgot-password (send reset email), POST /api/auth/reset-password (reset with token). Generate token with 1-hour expiry. Build frontend forgot password and reset pages.", "priority": "high", "type": "backend", "related_requirement": "FR-14"},
+      {"title": "Build Email Preference Management", "description": "Create email preferences page in user profile. Toggle promotional emails on/off. Add unsubscribe link to promotional emails. Store preferences in user record.", "priority": "low", "type": "frontend", "related_requirement": "FR-14"}
+    ],
+    "FR-15": [
+      {"title": "Build Inventory Tracking System", "description": "Create inventory service that tracks stock per product. Auto-deduct on order placement using database transactions. Auto-increment on order cancellation. Create stock movement log.", "priority": "high", "type": "backend", "related_requirement": "FR-15"},
+      {"title": "Build Low Stock Alert System", "description": "Create configurable threshold per product (default 10). Scheduled check for low stock. Send email alert to admin with low stock item list. Add alert badge in admin dashboard.", "priority": "medium", "type": "backend", "related_requirement": "FR-15"},
+      {"title": "Build Admin Inventory Dashboard", "description": "Create admin inventory page with product stock table showing name, current quantity, threshold, and status indicator. Allow inline stock adjustment. Show stock movement history.", "priority": "medium", "type": "frontend", "related_requirement": "FR-15"}
+    ]
+  }
+}

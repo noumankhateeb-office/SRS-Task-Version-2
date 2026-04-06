@@ -1,0 +1,130 @@
+{
+  "input": {
+    "title": "Social Media Application",
+    "technologies": ["React Native", "Node.js", "Firebase"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "User Registration and Authentication",
+        "requirements": ["Users can register with email or social media accounts", "Password must be securely hashed", "System sends verification email after registration", "Social login via Google and Facebook"],
+        "acceptance_criteria": ["User can register and log in with correct credentials", "Verification email is received", "Social login creates account and logs in", "Login completes in under 3 seconds"]
+      },
+      "FR-02": {
+        "title": "User Profile Creation",
+        "requirements": ["Users can create profile with name, bio, and profile picture", "Profile picture supports JPEG and PNG up to 5MB", "Username must be unique and 3-20 characters", "Bio is optional with max 160 characters"],
+        "acceptance_criteria": ["Profile is created with all provided fields", "Duplicate username is rejected", "Oversized image upload shows error", "Profile is visible to other users"]
+      },
+      "FR-03": {
+        "title": "Post Creation and Sharing",
+        "requirements": ["Users can create posts with text, images, and videos", "Posts can be public or private", "Users can tag other users in posts", "Posts support hashtags for discoverability"],
+        "acceptance_criteria": ["Post is created and visible on feed", "Private posts only visible to creator", "Tagged users receive notifications", "Hashtags are clickable and show related posts"]
+      },
+      "FR-04": {
+        "title": "News Feed",
+        "requirements": ["Display posts from followed users in chronological order", "Infinite scroll loading for feed", "Pull-to-refresh for latest posts", "Show post author, content, like count, and comment count"],
+        "acceptance_criteria": ["Feed loads posts from followed users only", "Scrolling loads more posts seamlessly", "Pull-to-refresh fetches newest posts", "Post metadata displays correctly"]
+      },
+      "FR-05": {
+        "title": "Like and Comment System",
+        "requirements": ["Users can like and unlike posts", "Users can comment on posts", "Comments support text and emoji", "Post owner receives notification on like and comment"],
+        "acceptance_criteria": ["Like count updates in real-time", "Comment appears immediately after posting", "Notification is sent to post owner", "User can delete their own comments"]
+      },
+      "FR-06": {
+        "title": "Follow and Unfollow",
+        "requirements": ["Users can follow other users", "Users can unfollow users they follow", "Follower and following counts displayed on profile", "Private accounts require follow approval"],
+        "acceptance_criteria": ["Follow increases follower count", "Unfollow decreases follower count", "Private account shows pending request", "Approved follows grant access to private posts"]
+      },
+      "FR-07": {
+        "title": "Direct Messaging",
+        "requirements": ["Users can send private text messages", "Messages delivered in real-time", "Users can block and report abusive messages", "Read receipts show delivery status"],
+        "acceptance_criteria": ["Messages appear instantly", "Blocked users cannot send messages", "Read receipts show sent, delivered, read", "Reported messages flagged for admin review"]
+      },
+      "FR-08": {
+        "title": "Story Feature",
+        "requirements": ["Users can post stories that disappear after 24 hours", "Stories support images and short videos", "Stories show viewer list to the author", "Stories appear at top of the feed"],
+        "acceptance_criteria": ["Story is visible for exactly 24 hours", "Story supports image and video upload", "Author can see who viewed their story", "Stories display in chronological order"]
+      },
+      "FR-09": {
+        "title": "User Search and Discovery",
+        "requirements": ["Search bar to find users by name or username", "Explore page showing trending posts", "Suggested users based on mutual connections", "Search results show user avatar, name, and follower count"],
+        "acceptance_criteria": ["Search returns accurate results", "Explore page shows popular content", "Suggestions are relevant to user", "Results load within 500ms"]
+      },
+      "FR-10": {
+        "title": "Push Notifications",
+        "requirements": ["Notifications for likes, comments, follows, and messages", "Users can customize notification preferences", "Notification center shows all recent activity", "Badge count on app icon"],
+        "acceptance_criteria": ["Notifications arrive within 5 seconds", "Disabled notifications are not sent", "Notification center lists all activity", "Badge count updates correctly"]
+      },
+      "FR-11": {
+        "title": "Content Moderation",
+        "requirements": ["Users can report inappropriate content", "Admin dashboard for reviewing reports", "Automatic content filtering for profanity", "Admin can remove posts and ban users"],
+        "acceptance_criteria": ["Report is submitted and logged", "Admin can view and action reports", "Profanity filter catches common violations", "Banned users cannot access the platform"]
+      },
+      "FR-12": {
+        "title": "Privacy Settings",
+        "requirements": ["Users can set account to private", "Users can control who can message them", "Users can hide online status", "Users can download their data"],
+        "acceptance_criteria": ["Private account hides posts from non-followers", "Message settings restrict unwanted messages", "Online status is hidden when disabled", "Data download includes all user content"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Authentication API", "description": "Create POST /api/auth/register (email, password, name), POST /api/auth/login (email, password), POST /api/auth/social (provider, token). Hash passwords with bcrypt. Generate JWT tokens. Send verification email on register.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Auth Screens", "description": "Create login screen with email/password inputs and social login buttons (Google, Facebook). Create registration screen with name, email, password fields. Add password strength indicator and validation.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Implement Social OAuth Integration", "description": "Integrate Google Sign-In and Facebook Login SDKs. Handle OAuth flow, token exchange, and account creation. Link social accounts to existing email accounts if matching.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Write Auth Tests", "description": "Test registration with valid data. Test duplicate email rejection. Test login with correct and incorrect credentials. Test social login creates account. Test verification email is sent.", "priority": "medium", "type": "testing", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Profile API", "description": "Create POST /api/profiles (create profile), GET /api/profiles/:username (get profile), PATCH /api/profiles (update). Validate username uniqueness. Handle avatar upload to cloud storage.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Profile Setup Screen", "description": "Create profile setup flow with avatar upload circle, name input, username input with availability check, and bio textarea with 160 char counter. Show preview before saving.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
+      {"title": "Implement Image Upload Service", "description": "Create image service: validate type (JPEG/PNG), check size (max 5MB), compress, generate thumbnail, upload to Firebase Storage. Return public URL.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Post Creation API", "description": "Create POST /api/posts. Accept text (max 2000 chars), media files, visibility (public/private), tagged_users, hashtags. Store media in cloud storage. Auto-extract hashtags from text.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Post Composer UI", "description": "Create post creation screen with text area, media picker, visibility toggle, user tag autocomplete, and hashtag suggestions. Media preview thumbnails. Character counter. Post button.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"},
+      {"title": "Implement Hashtag System", "description": "Parse hashtags from text. Store in hashtags collection with post references. Create GET /api/hashtags/:tag for posts by hashtag. Track usage count for trending.", "priority": "medium", "type": "backend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build News Feed API", "description": "Create GET /api/feed with cursor-based pagination. Return posts from followed users ordered by created_at desc. Include author info, like/comment counts, and current user's like status.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Feed Screen", "description": "Create feed screen with FlatList/RecyclerView for posts. Each post card shows author avatar, name, content, media, like/comment buttons, and timestamp. Implement infinite scroll and pull-to-refresh.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"},
+      {"title": "Implement Feed Caching", "description": "Cache feed data locally for offline viewing. Implement optimistic updates for likes. Sync with server on connectivity restore. Show cached data while loading fresh content.", "priority": "medium", "type": "backend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Like API", "description": "Create POST /api/posts/:id/like (toggle like). Update like count atomically. Create notification for post owner. Return updated like status and count.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Comment API", "description": "Create POST /api/posts/:id/comments (add comment), GET /api/posts/:id/comments (list with pagination), DELETE /api/comments/:id (delete own). Create notification for post owner.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Like and Comment UI", "description": "Add like button with animation (heart fill). Show like count. Comment section with input field, send button, and comment list. Show commenter avatar, name, text, and timestamp.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Follow API", "description": "Create POST /api/users/:id/follow, DELETE /api/users/:id/follow. Handle private account follow requests. Update follower/following counts atomically. Send notification on follow.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Follow UI", "description": "Add Follow/Unfollow button on user profiles. Show follower and following counts. Show Requested state for private accounts. Followers and following list screens.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"},
+      {"title": "Implement Follow Request System", "description": "Create follow_requests collection for private accounts. Endpoints: GET /api/follow-requests, POST /api/follow-requests/:id/accept, POST /api/follow-requests/:id/reject.", "priority": "medium", "type": "backend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Messaging Backend", "description": "Set up Firebase Realtime Database for messages. Structure: conversations/:id/messages/:id. Create message with sender_id, content, status (sent/delivered/read), timestamp. Send push notification.", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Chat Screen", "description": "Create chat UI with message bubbles, text input, send button. Status indicators (ticks). Auto-scroll to latest. Show timestamps. Implement typing indicator.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"},
+      {"title": "Implement Block and Report", "description": "Create POST /api/users/:id/block, POST /api/messages/:id/report. Blocked users cannot send messages (403). Reports stored for admin review.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Story API", "description": "Create POST /api/stories (upload image/video, auto-expire after 24h), GET /api/stories/feed (stories from followed users), GET /api/stories/:id/viewers (viewer list). Scheduled cleanup for expired stories.", "priority": "high", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Story UI", "description": "Create story viewer with full-screen display, progress bar, tap to next/previous. Story creation with camera/gallery, text overlay. Story ring on profile avatars.", "priority": "high", "type": "frontend", "related_requirement": "FR-08"},
+      {"title": "Implement Story Expiry", "description": "Set TTL on story documents (24 hours). Run scheduled cleanup job. Track viewers in story_views collection. Remove expired stories from feed.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"}
+    ],
+    "FR-09": [
+      {"title": "Build Search API", "description": "Create GET /api/search/users?q= for user search. GET /api/explore for trending posts (sorted by engagement). GET /api/users/suggested for mutual connection recommendations.", "priority": "high", "type": "backend", "related_requirement": "FR-09"},
+      {"title": "Build Search and Explore Screens", "description": "Create search screen with search bar and results list (avatar, name, username, follower count). Explore tab with trending post grid. Suggested users carousel.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}
+    ],
+    "FR-10": [
+      {"title": "Implement Push Notification Service", "description": "Set up Firebase Cloud Messaging. Send notifications for likes, comments, follows, messages. Create notification records in database. Respect user notification preferences.", "priority": "high", "type": "backend", "related_requirement": "FR-10"},
+      {"title": "Build Notification Center", "description": "Create notification screen listing all activity: likes, comments, follows, messages. Group by type. Show unread badge. Mark as read on view. Navigate to relevant content on tap.", "priority": "high", "type": "frontend", "related_requirement": "FR-10"},
+      {"title": "Build Notification Settings", "description": "Create notification preferences screen with toggles for each type (likes, comments, follows, messages). Store preferences in user profile. API endpoint to update preferences.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+    ],
+    "FR-11": [
+      {"title": "Build Content Report API", "description": "Create POST /api/reports with content_type (post/comment/user), content_id, and reason. Store in reports collection. Notify admin. Create GET /api/admin/reports for admin dashboard.", "priority": "high", "type": "backend", "related_requirement": "FR-11"},
+      {"title": "Build Admin Moderation Dashboard", "description": "Create admin panel showing pending reports with content preview, reporter info, and action buttons (Remove Content, Ban User, Dismiss). Filter by report type and status.", "priority": "high", "type": "frontend", "related_requirement": "FR-11"},
+      {"title": "Implement Profanity Filter", "description": "Create content filtering middleware that checks post text and comments against profanity word list. Block or flag content with violations. Allow admin to manage word list.", "priority": "medium", "type": "backend", "related_requirement": "FR-11"}
+    ],
+    "FR-12": [
+      {"title": "Build Privacy Settings API", "description": "Create PATCH /api/settings/privacy. Support fields: is_private (boolean), allow_messages (everyone/followers/nobody), show_online_status (boolean). Apply settings across all relevant endpoints.", "priority": "high", "type": "backend", "related_requirement": "FR-12"},
+      {"title": "Build Privacy Settings Screen", "description": "Create settings screen with toggles: Private Account, Online Status. Dropdowns: Who Can Message Me. Data Download button. Clear descriptions for each setting.", "priority": "medium", "type": "frontend", "related_requirement": "FR-12"},
+      {"title": "Implement Data Export", "description": "Create POST /api/settings/export-data. Generate ZIP archive with user profile, posts, comments, messages, and media. Send download link via email. GDPR compliant.", "priority": "medium", "type": "backend", "related_requirement": "FR-12"}
+    ]
+  }
+}

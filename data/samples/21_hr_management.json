@@ -1,0 +1,944 @@
+{
+  "input": {
+    "title": "HR Management System",
+    "technologies": [
+      "React",
+      "Java Spring Boot",
+      "PostgreSQL"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Employee Onboarding",
+        "requirements": [
+          "Online onboarding form with personal and employment details",
+          "Document upload for ID, tax forms, and contracts",
+          "Onboarding checklist with task assignments",
+          "Welcome kit and IT setup requests"
+        ],
+        "acceptance_criteria": [
+          "Employee record created",
+          "Documents stored securely",
+          "Checklist tracks completion",
+          "Requests sent to respective departments"
+        ]
+      },
+      "FR-02": {
+        "title": "Employee Profile Management",
+        "requirements": [
+          "View and edit personal information",
+          "Emergency contact management",
+          "Profile photo upload",
+          "Employment history within company"
+        ],
+        "acceptance_criteria": [
+          "Info updates saved correctly",
+          "Emergency contacts accessible",
+          "Photo displays on profile",
+          "History shows role changes"
+        ]
+      },
+      "FR-03": {
+        "title": "Attendance and Time Tracking",
+        "requirements": [
+          "Clock in/out via web or mobile",
+          "GPS-based attendance for remote workers",
+          "Overtime calculation",
+          "Attendance reports and summaries"
+        ],
+        "acceptance_criteria": [
+          "Clock events recorded with timestamp",
+          "GPS validates location",
+          "Overtime calculated per policy",
+          "Reports show accurate data"
+        ]
+      },
+      "FR-04": {
+        "title": "Leave Management",
+        "requirements": [
+          "Apply for leave with type and dates",
+          "Manager approval workflow",
+          "Leave balance tracking per type",
+          "Holiday calendar integration"
+        ],
+        "acceptance_criteria": [
+          "Leave request submitted",
+          "Manager receives notification",
+          "Balance deducts on approval",
+          "Holidays shown on calendar"
+        ]
+      },
+      "FR-05": {
+        "title": "Payroll Processing",
+        "requirements": [
+          "Calculate salary with deductions and allowances",
+          "Tax calculation per jurisdiction",
+          "Payslip generation as PDF",
+          "Direct deposit to employee bank account"
+        ],
+        "acceptance_criteria": [
+          "Salary calculated correctly",
+          "Tax computed per rules",
+          "Payslip downloadable",
+          "Deposit processed on schedule"
+        ]
+      },
+      "FR-06": {
+        "title": "Performance Reviews",
+        "requirements": [
+          "Create review cycles (quarterly, annual)",
+          "Self-assessment and manager assessment forms",
+          "360-degree feedback from peers",
+          "Goal setting and tracking"
+        ],
+        "acceptance_criteria": [
+          "Review cycle created with timeline",
+          "Both assessments submitted",
+          "Peer feedback collected",
+          "Goals tracked with progress"
+        ]
+      },
+      "FR-07": {
+        "title": "Recruitment and Job Postings",
+        "requirements": [
+          "Post job openings internally and externally",
+          "Applicant tracking system",
+          "Interview scheduling",
+          "Offer letter generation"
+        ],
+        "acceptance_criteria": [
+          "Jobs posted to configured channels",
+          "Applicants tracked through stages",
+          "Interviews scheduled with calendar sync",
+          "Offer letter generated from template"
+        ]
+      },
+      "FR-08": {
+        "title": "Training and Development",
+        "requirements": [
+          "Create training programs with courses",
+          "Assign training to employees or departments",
+          "Track completion and certification",
+          "Training calendar and enrollment"
+        ],
+        "acceptance_criteria": [
+          "Programs created with modules",
+          "Assignments reach correct employees",
+          "Completion tracked per employee",
+          "Calendar shows scheduled training"
+        ]
+      },
+      "FR-09": {
+        "title": "Organization Chart",
+        "requirements": [
+          "Visual org chart with reporting structure",
+          "Department and team hierarchy",
+          "Click to view employee profile",
+          "Drag to reassign reporting lines"
+        ],
+        "acceptance_criteria": [
+          "Chart renders correctly",
+          "Hierarchy shows departments and teams",
+          "Profile opens on click",
+          "Reassignment updates database"
+        ]
+      },
+      "FR-10": {
+        "title": "Expense Management",
+        "requirements": [
+          "Submit expense claims with receipts",
+          "Expense categories and limits",
+          "Manager approval workflow",
+          "Reimbursement tracking"
+        ],
+        "acceptance_criteria": [
+          "Claim submitted with receipt images",
+          "Category limits enforced",
+          "Manager approves or rejects",
+          "Reimbursement status tracked"
+        ]
+      },
+      "FR-11": {
+        "title": "Employee Self-Service Portal",
+        "requirements": [
+          "View payslips and tax documents",
+          "Update personal information",
+          "Request HR documents (employment letter, etc.)",
+          "View company policies and handbook"
+        ],
+        "acceptance_criteria": [
+          "Payslips accessible for all periods",
+          "Updates saved and reflected",
+          "Document request fulfilled",
+          "Policies viewable and searchable"
+        ]
+      },
+      "FR-12": {
+        "title": "Shift Scheduling",
+        "requirements": [
+          "Create shift patterns and rotations",
+          "Assign employees to shifts",
+          "Shift swap requests between employees",
+          "Shift coverage alerts for gaps"
+        ],
+        "acceptance_criteria": [
+          "Shifts created with times",
+          "Employees assigned correctly",
+          "Swap approval workflow works",
+          "Gaps highlighted on schedule"
+        ]
+      },
+      "FR-13": {
+        "title": "Benefits Administration",
+        "requirements": [
+          "Define benefit plans (health, dental, retirement)",
+          "Employee enrollment during open period",
+          "Benefit cost calculation",
+          "Dependent management"
+        ],
+        "acceptance_criteria": [
+          "Plans configured correctly",
+          "Enrollment opens and closes on schedule",
+          "Costs calculate per selections",
+          "Dependents added to plans"
+        ]
+      },
+      "FR-14": {
+        "title": "Disciplinary Action Tracking",
+        "requirements": [
+          "Record verbal and written warnings",
+          "Progressive discipline workflow",
+          "Attach evidence documents",
+          "Employee acknowledgment tracking"
+        ],
+        "acceptance_criteria": [
+          "Warnings recorded with details",
+          "Workflow escalates correctly",
+          "Documents attached and stored",
+          "Acknowledgment logged with timestamp"
+        ]
+      },
+      "FR-15": {
+        "title": "Exit and Offboarding",
+        "requirements": [
+          "Resignation and termination processing",
+          "Exit interview scheduling and forms",
+          "Asset return checklist",
+          "Final settlement calculation"
+        ],
+        "acceptance_criteria": [
+          "Exit process initiated correctly",
+          "Interview scheduled and form submitted",
+          "Assets tracked for return",
+          "Settlement calculated with all components"
+        ]
+      },
+      "FR-16": {
+        "title": "Employee Directory",
+        "requirements": [
+          "Searchable directory of all employees",
+          "Filter by department, location, and role",
+          "Contact information display",
+          "Team member listing per department"
+        ],
+        "acceptance_criteria": [
+          "Search returns matching employees",
+          "Filters narrow results",
+          "Contact info shown correctly",
+          "Team lists are accurate"
+        ]
+      },
+      "FR-17": {
+        "title": "Document Management",
+        "requirements": [
+          "Store employee documents centrally",
+          "Document categorization and tagging",
+          "Version control for policies",
+          "Access control per document type"
+        ],
+        "acceptance_criteria": [
+          "Documents uploaded and organized",
+          "Tags enable filtering",
+          "Version history maintained",
+          "Access restricted per permissions"
+        ]
+      },
+      "FR-18": {
+        "title": "Compliance and Audit",
+        "requirements": [
+          "Track mandatory training compliance",
+          "License and certification expiry tracking",
+          "Audit trail for HR actions",
+          "Compliance reports and dashboards"
+        ],
+        "acceptance_criteria": [
+          "Non-compliant employees flagged",
+          "Expiry alerts sent before due date",
+          "Audit log records all actions",
+          "Reports show compliance status"
+        ]
+      },
+      "FR-19": {
+        "title": "Employee Surveys",
+        "requirements": [
+          "Create anonymous employee surveys",
+          "Multiple question types (MCQ, rating, text)",
+          "Survey distribution to groups",
+          "Result analytics and reports"
+        ],
+        "acceptance_criteria": [
+          "Survey created with questions",
+          "Anonymity preserved",
+          "Survey reaches target group",
+          "Results show aggregated data"
+        ]
+      },
+      "FR-20": {
+        "title": "Announcements and News",
+        "requirements": [
+          "Post company announcements",
+          "Target by department or location",
+          "Pin important announcements",
+          "Acknowledgment tracking"
+        ],
+        "acceptance_criteria": [
+          "Announcement published",
+          "Target audience receives notification",
+          "Pinned items show at top",
+          "Acknowledgments counted"
+        ]
+      },
+      "FR-21": {
+        "title": "Overtime Management",
+        "requirements": [
+          "Overtime request and pre-approval",
+          "Overtime hours tracking",
+          "Overtime pay rate configuration",
+          "Overtime reports per department"
+        ],
+        "acceptance_criteria": [
+          "Request submitted and approved",
+          "Hours logged accurately",
+          "Pay rate calculates correctly",
+          "Reports aggregate by department"
+        ]
+      },
+      "FR-22": {
+        "title": "Grievance Management",
+        "requirements": [
+          "Submit grievance with confidentiality option",
+          "Assign to HR representative",
+          "Resolution tracking with timeline",
+          "Escalation workflow"
+        ],
+        "acceptance_criteria": [
+          "Grievance submitted securely",
+          "HR rep receives assignment",
+          "Resolution steps tracked",
+          "Escalation triggers on SLA breach"
+        ]
+      },
+      "FR-23": {
+        "title": "Asset Management",
+        "requirements": [
+          "Track company assets assigned to employees",
+          "Asset categories (laptop, phone, badge)",
+          "Issue and return workflow",
+          "Asset condition tracking"
+        ],
+        "acceptance_criteria": [
+          "Assets linked to employees",
+          "Categories filter correctly",
+          "Issue/return updates records",
+          "Condition noted on return"
+        ]
+      },
+      "FR-24": {
+        "title": "HR Analytics Dashboard",
+        "requirements": [
+          "Headcount trends over time",
+          "Attrition rate and reasons analysis",
+          "Department-wise cost analysis",
+          "Diversity and demographics reports"
+        ],
+        "acceptance_criteria": [
+          "Headcount chart accurate",
+          "Attrition data matches records",
+          "Cost breakdown per department",
+          "Demographics display correctly"
+        ]
+      },
+      "FR-25": {
+        "title": "Workflow Automation",
+        "requirements": [
+          "Configurable approval workflows",
+          "Multi-level approval chains",
+          "Auto-escalation on timeout",
+          "Workflow templates"
+        ],
+        "acceptance_criteria": [
+          "Workflows trigger on events",
+          "Multi-level chains route correctly",
+          "Timeout escalation fires",
+          "Templates create workflows quickly"
+        ]
+      },
+      "FR-26": {
+        "title": "Mobile App Access",
+        "requirements": [
+          "Mobile app for attendance and leave",
+          "Push notifications for approvals",
+          "Manager approval on mobile",
+          "Payslip download on mobile"
+        ],
+        "acceptance_criteria": [
+          "Clock in/out works on mobile",
+          "Notifications received",
+          "Approvals process from app",
+          "Payslips download correctly"
+        ]
+      },
+      "FR-27": {
+        "title": "Integration APIs",
+        "requirements": [
+          "REST API for third-party integration",
+          "Payroll software integration",
+          "SSO integration (SAML/OAuth)",
+          "Calendar sync (Google/Outlook)"
+        ],
+        "acceptance_criteria": [
+          "API endpoints functional",
+          "Payroll data syncs",
+          "SSO login works",
+          "Calendar events sync"
+        ]
+      },
+      "FR-28": {
+        "title": "Multi-Location Support",
+        "requirements": [
+          "Manage employees across multiple offices",
+          "Location-specific policies and holidays",
+          "Cross-location transfer processing",
+          "Location-based reporting"
+        ],
+        "acceptance_criteria": [
+          "Employees assigned to locations",
+          "Policies apply per location",
+          "Transfers update records",
+          "Reports filter by location"
+        ]
+      },
+      "FR-29": {
+        "title": "Probation Management",
+        "requirements": [
+          "Track probation periods with end dates",
+          "Probation review scheduling",
+          "Confirmation or extension workflow",
+          "Probation-specific policies"
+        ],
+        "acceptance_criteria": [
+          "Probation dates tracked",
+          "Review scheduled before end date",
+          "Confirmation updates employee status",
+          "Policies apply during probation"
+        ]
+      },
+      "FR-30": {
+        "title": "Letter Generation",
+        "requirements": [
+          "Generate employment letters from templates",
+          "Offer letters, experience letters, salary certificates",
+          "Digital signature by HR/manager",
+          "Letter history per employee"
+        ],
+        "acceptance_criteria": [
+          "Letter generated from template",
+          "Employee data populates correctly",
+          "Digital signature applied",
+          "History shows all generated letters"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build Onboarding API",
+        "description": "Create POST /api/employees/onboard (personal, employment details). Document upload. Checklist CRUD with task assignments. Trigger IT and facilities requests.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Build Onboarding Flow",
+        "description": "Create multi-step onboarding wizard: personal info, document uploads, checklist with progress, and welcome screen. New hire dashboard.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01"
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Profile API",
+        "description": "Create GET/PATCH /api/employees/:id/profile. Emergency contacts CRUD. Photo upload. GET /api/employees/:id/history (role changes, promotions).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Build Profile Page",
+        "description": "Create employee profile with editable personal info, emergency contacts section, photo uploader, and employment history timeline.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02"
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Build Attendance API",
+        "description": "Create POST /api/attendance/clock-in, /clock-out with timestamp and optional GPS. Overtime calculation service. GET /api/attendance/report (filters: employee, date range).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Build Attendance UI",
+        "description": "Create clock in/out button with timer display, GPS map for remote check-in, attendance calendar view with color-coded days, and summary reports.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03"
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Build Leave API",
+        "description": "Create POST /api/leaves (type, from, to, reason). Manager approval endpoint. Balance tracking per leave type per year. Holiday calendar CRUD.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Build Leave UI",
+        "description": "Create leave application form with type selector, date range picker, balance display. Manager approval queue. Leave calendar showing team availability.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04"
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Build Payroll Engine",
+        "description": "Create payroll service: base salary + allowances - deductions - taxes. Tax computation with jurisdiction rules. Payslip PDF generation. Bank file for direct deposit.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Build Payroll UI",
+        "description": "Create payroll run interface for HR: review calculations, adjust if needed, approve, and process. Employee payslip viewer with download.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05"
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Performance API",
+        "description": "Create review cycle CRUD. Self and manager assessment endpoints. 360 feedback collection. Goal CRUD with progress tracking. Rating calculations.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Build Performance UI",
+        "description": "Create review cycle setup, assessment forms with rating scales, peer feedback request, goal setting with milestones, and performance summary dashboard.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06"
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Recruitment API",
+        "description": "Create job posting CRUD with channel publishing. ATS pipeline stages. Interview scheduling with calendar integration. Offer letter template engine.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Build Recruitment UI",
+        "description": "Create job posting form, applicant pipeline board, interview scheduler with calendar view, and offer letter preview/send.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07"
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Training API",
+        "description": "Create CRUD for programs and courses. Assignment endpoints (individual/department). Completion tracking. Certification generation. Training calendar.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Build Training UI",
+        "description": "Create training catalog, enrollment page, progress tracker per employee, certificate download, and training calendar with upcoming sessions.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-08"
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build Org Chart API",
+        "description": "Create GET /api/organization/chart (hierarchical data). PATCH /api/employees/:id/reporting-to (reassign). Department tree structure.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Build Org Chart UI",
+        "description": "Create interactive org chart with expandable nodes, employee cards (photo, name, title), click-to-profile, and drag-to-reassign with confirmation.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-09"
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Expense API",
+        "description": "Create POST /api/expenses (amount, category, receipt_image, description). Category limits. Manager approval. Reimbursement tracking and batch processing.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Build Expense UI",
+        "description": "Create expense submission form with receipt photo/scan, claim history list, manager approval queue, and reimbursement status tracker.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-10"
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Build Self-Service API",
+        "description": "Create GET /api/employees/me/payslips, /tax-documents. Personal info update. POST /api/document-requests (type: employment_letter, etc.). Policy document search.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Build Employee Portal",
+        "description": "Create self-service dashboard with payslip archive, tax document downloads, personal info editor, document request form, and policy library.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-11"
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Shift API",
+        "description": "Create CRUD for shifts and patterns. Employee assignment. POST /api/shifts/swap (request between employees). Coverage gap detection algorithm.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Build Shift UI",
+        "description": "Create shift calendar with drag-assign, employee availability view, swap request dialog, and gap alerts highlighted in red.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-12"
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Build Benefits API",
+        "description": "Create benefit plans CRUD. Enrollment period management. Cost calculation engine per employee selections. Dependent management.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Build Benefits UI",
+        "description": "Create benefits enrollment page with plan comparison, selection wizard, cost preview, dependent add form, and enrollment status.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-13"
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Build Disciplinary API",
+        "description": "Create POST /api/employees/:id/disciplinary (type, description, evidence). Progressive discipline workflow. Employee acknowledgment endpoint.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Build Disciplinary UI",
+        "description": "Create disciplinary record form with evidence upload, history timeline per employee, acknowledgment prompt, and escalation indicators.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-14"
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Build Offboarding API",
+        "description": "Create POST /api/employees/:id/exit (type: resignation/termination). Exit interview form. Asset return checklist. Final settlement calculation with all components.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Build Offboarding UI",
+        "description": "Create exit process wizard: initiation, exit interview form, asset return checklist, final settlement preview, and clearance status tracker.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-15"
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Build Directory API",
+        "description": "Create GET /api/employees/directory (searchable, filterable by department, location, role). Contact info. Team listing per department.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Build Directory UI",
+        "description": "Create searchable employee directory with cards (photo, name, department, contact), filters, and department team listing view.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-16"
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Build Document Storage API",
+        "description": "Create CRUD for employee documents with categories and tags. Version control. Access control per document type and role.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Build Document Manager UI",
+        "description": "Create document repository with category tree, upload with tagging, version history, and permission settings dialog.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-17"
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Build Compliance API",
+        "description": "Create compliance tracker: mandatory training status, license expiry alerts, audit log for all HR actions. Compliance dashboard endpoints.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Build Compliance Dashboard",
+        "description": "Create compliance overview with training completion rates, expiring certifications list, audit log viewer, and compliance score per department.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-18"
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Build Survey API",
+        "description": "Create survey CRUD with question types. Anonymous response collection. Distribution to groups. Result aggregation and analytics.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Build Survey UI",
+        "description": "Create survey builder with question types, preview, distribution settings. Survey-taking form. Results dashboard with charts.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-19"
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Build Announcements API",
+        "description": "Create CRUD for announcements. Target audience filtering. Pin/unpin. Acknowledgment tracking per employee.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Build Announcements UI",
+        "description": "Create announcement feed with pinned items at top, department filter, and acknowledge button. Admin composer with targeting.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-20"
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Build Overtime API",
+        "description": "Create POST /api/overtime/request (date, hours, reason). Approval workflow. Hours accumulation tracking. Pay rate configuration per overtime type.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Build Overtime UI",
+        "description": "Create OT request form, approval queue, hours summary per pay period, and department OT reports.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-21"
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Build Grievance API",
+        "description": "Create POST /api/grievances (description, confidential flag). HR assignment. Resolution steps tracking. SLA-based escalation.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Build Grievance UI",
+        "description": "Create confidential grievance form, HR case management view, resolution timeline, and escalation alerts.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-22"
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Build Asset Tracking API",
+        "description": "Create CRUD for company assets. POST /api/assets/:id/assign (to employee). POST /api/assets/:id/return (with condition note). Category and location tracking.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Build Asset Management UI",
+        "description": "Create asset inventory list, assignment dialog, return form with condition selector, and employee asset summary.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-23"
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Build HR Analytics API",
+        "description": "Create GET /api/analytics/headcount (trends), /attrition (rate and reasons), /cost (department breakdown), /diversity (demographics). Cached aggregations.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Build Analytics Dashboard",
+        "description": "Create HR dashboard with headcount trend line, attrition rate gauge with reasons pie chart, department cost bars, and diversity breakdown charts.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-24"
+      }
+    ],
+    "FR-25": [
+      {
+        "title": "Build Workflow Engine",
+        "description": "Create configurable approval engine. Multi-level chains with role-based routing. Auto-escalation scheduled job on timeout. Workflow template CRUD.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Build Workflow Admin UI",
+        "description": "Create workflow builder with step editor, approval chain configuration, timeout settings, and template management.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-25"
+      }
+    ],
+    "FR-26": [
+      {
+        "title": "Build Mobile API",
+        "description": "Create mobile-optimized endpoints for attendance, leave, approvals, and payslips. Push notification service for pending actions.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Build Mobile App",
+        "description": "Create mobile app with clock in/out, leave request, approval actions, payslip viewer, and push notification handling.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-26"
+      }
+    ],
+    "FR-27": [
+      {
+        "title": "Build Integration Layer",
+        "description": "Create REST API with authentication. Payroll software connector. SSO via SAML/OAuth. Calendar sync endpoints for Google/Outlook.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Build Integration Settings",
+        "description": "Create admin integration page with API key management, payroll sync config, SSO setup, and calendar connection.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-27"
+      }
+    ],
+    "FR-28": [
+      {
+        "title": "Build Multi-Location API",
+        "description": "Create location CRUD. Location-specific policy and holiday config. Transfer workflow between locations. Location filter on all reports.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Build Location Management UI",
+        "description": "Create location manager with policy overrides, holiday calendar per location, transfer request form, and location-filtered reports.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-28"
+      }
+    ],
+    "FR-29": [
+      {
+        "title": "Build Probation API",
+        "description": "Create probation tracking with dates. Review scheduling. POST /api/employees/:id/confirm or /extend-probation. Probation policy rules.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Build Probation UI",
+        "description": "Create probation tracker with end date countdown, review form, confirmation/extension buttons, and probation employee list for HR.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-29"
+      }
+    ],
+    "FR-30": [
+      {
+        "title": "Build Letter Generation API",
+        "description": "Create POST /api/letters/generate (template_id, employee_id). Template engine with merge fields. Digital signature integration. Letter history storage.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Build Letter Manager UI",
+        "description": "Create letter template selector, preview with employee data populated, digital signature option, and letter history per employee.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-30"
+      }
+    ]
+  }
+}

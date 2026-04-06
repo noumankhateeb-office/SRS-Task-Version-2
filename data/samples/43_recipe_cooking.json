@@ -1,0 +1,1330 @@
+{
+  "input": {
+    "title": "Recipe and Cooking Application",
+    "technologies": [
+      "React Native",
+      "Node.js",
+      "MongoDB"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "User Registration and Profile",
+        "requirements": [
+          "Implement complete user registration and profile functionality",
+          "All user registration and profile operations must be validated and authorized",
+          "System shall maintain audit log for user registration and profile actions",
+          "Support search and filtering within user registration and profile"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all user registration and profile operations",
+          "System validates all user registration and profile inputs correctly",
+          "Error messages display clearly for user registration and profile failures",
+          "user registration and profile data persists correctly across sessions"
+        ]
+      },
+      "FR-02": {
+        "title": "Recipe Browsing by Category",
+        "requirements": [
+          "Implement complete recipe browsing by category functionality",
+          "All recipe browsing by category operations must be validated and authorized",
+          "System shall maintain audit log for recipe browsing by category actions",
+          "Support search and filtering within recipe browsing by category",
+          "Enable notifications for important recipe browsing by category events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recipe browsing by category operations",
+          "System validates all recipe browsing by category inputs correctly",
+          "Error messages display clearly for recipe browsing by category failures"
+        ]
+      },
+      "FR-03": {
+        "title": "Recipe Search with Ingredients",
+        "requirements": [
+          "Implement complete recipe search with ingredients functionality",
+          "All recipe search with ingredients operations must be validated and authorized",
+          "System shall maintain audit log for recipe search with ingredients actions",
+          "Support search and filtering within recipe search with ingredients"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recipe search with ingredients operations",
+          "System validates all recipe search with ingredients inputs correctly",
+          "Error messages display clearly for recipe search with ingredients failures",
+          "recipe search with ingredients data persists correctly across sessions"
+        ]
+      },
+      "FR-04": {
+        "title": "Recipe Detail with Steps",
+        "requirements": [
+          "Implement complete recipe detail with steps functionality",
+          "All recipe detail with steps operations must be validated and authorized",
+          "System shall maintain audit log for recipe detail with steps actions",
+          "Support search and filtering within recipe detail with steps"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recipe detail with steps operations",
+          "System validates all recipe detail with steps inputs correctly",
+          "Error messages display clearly for recipe detail with steps failures",
+          "recipe detail with steps data persists correctly across sessions"
+        ]
+      },
+      "FR-05": {
+        "title": "Photo and Video for Recipes",
+        "requirements": [
+          "Implement complete photo and video for recipes functionality",
+          "All photo and video for recipes operations must be validated and authorized",
+          "System shall maintain audit log for photo and video for recipes actions",
+          "Support search and filtering within photo and video for recipes"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all photo and video for recipes operations",
+          "System validates all photo and video for recipes inputs correctly",
+          "Error messages display clearly for photo and video for recipes failures",
+          "photo and video for recipes data persists correctly across sessions"
+        ]
+      },
+      "FR-06": {
+        "title": "Cooking Timer Integration",
+        "requirements": [
+          "Implement complete cooking timer integration functionality",
+          "All cooking timer integration operations must be validated and authorized",
+          "System shall maintain audit log for cooking timer integration actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cooking timer integration operations",
+          "System validates all cooking timer integration inputs correctly",
+          "Error messages display clearly for cooking timer integration failures"
+        ]
+      },
+      "FR-07": {
+        "title": "Ingredient Quantity Scaling",
+        "requirements": [
+          "Implement complete ingredient quantity scaling functionality",
+          "All ingredient quantity scaling operations must be validated and authorized",
+          "System shall maintain audit log for ingredient quantity scaling actions",
+          "Support search and filtering within ingredient quantity scaling"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all ingredient quantity scaling operations",
+          "System validates all ingredient quantity scaling inputs correctly",
+          "Error messages display clearly for ingredient quantity scaling failures",
+          "ingredient quantity scaling data persists correctly across sessions"
+        ]
+      },
+      "FR-08": {
+        "title": "Nutritional Information Display",
+        "requirements": [
+          "Implement complete nutritional information display functionality",
+          "All nutritional information display operations must be validated and authorized",
+          "System shall maintain audit log for nutritional information display actions",
+          "Support search and filtering within nutritional information display",
+          "Enable notifications for important nutritional information display events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all nutritional information display operations",
+          "System validates all nutritional information display inputs correctly",
+          "Error messages display clearly for nutritional information display failures",
+          "nutritional information display data persists correctly across sessions"
+        ]
+      },
+      "FR-09": {
+        "title": "Dietary Filter",
+        "requirements": [
+          "Implement complete dietary filter functionality",
+          "All dietary filter operations must be validated and authorized",
+          "System shall maintain audit log for dietary filter actions",
+          "Support search and filtering within dietary filter",
+          "Enable notifications for important dietary filter events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all dietary filter operations",
+          "System validates all dietary filter inputs correctly",
+          "Error messages display clearly for dietary filter failures"
+        ]
+      },
+      "FR-10": {
+        "title": "Allergen Warning Display",
+        "requirements": [
+          "Implement complete allergen warning display functionality",
+          "All allergen warning display operations must be validated and authorized",
+          "System shall maintain audit log for allergen warning display actions",
+          "Support search and filtering within allergen warning display",
+          "Enable notifications for important allergen warning display events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all allergen warning display operations",
+          "System validates all allergen warning display inputs correctly",
+          "Error messages display clearly for allergen warning display failures"
+        ]
+      },
+      "FR-11": {
+        "title": "Shopping List Generation",
+        "requirements": [
+          "Implement complete shopping list generation functionality",
+          "All shopping list generation operations must be validated and authorized",
+          "System shall maintain audit log for shopping list generation actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all shopping list generation operations",
+          "System validates all shopping list generation inputs correctly",
+          "Error messages display clearly for shopping list generation failures",
+          "shopping list generation data persists correctly across sessions"
+        ]
+      },
+      "FR-12": {
+        "title": "Pantry Inventory Tracking",
+        "requirements": [
+          "Implement complete pantry inventory tracking functionality",
+          "All pantry inventory tracking operations must be validated and authorized",
+          "System shall maintain audit log for pantry inventory tracking actions",
+          "Support search and filtering within pantry inventory tracking",
+          "Enable notifications for important pantry inventory tracking events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all pantry inventory tracking operations",
+          "System validates all pantry inventory tracking inputs correctly",
+          "Error messages display clearly for pantry inventory tracking failures",
+          "pantry inventory tracking data persists correctly across sessions"
+        ]
+      },
+      "FR-13": {
+        "title": "Meal Planning Calendar",
+        "requirements": [
+          "Implement complete meal planning calendar functionality",
+          "All meal planning calendar operations must be validated and authorized",
+          "System shall maintain audit log for meal planning calendar actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all meal planning calendar operations",
+          "System validates all meal planning calendar inputs correctly",
+          "Error messages display clearly for meal planning calendar failures"
+        ]
+      },
+      "FR-14": {
+        "title": "Weekly Meal Plan Generator",
+        "requirements": [
+          "Implement complete weekly meal plan generator functionality",
+          "All weekly meal plan generator operations must be validated and authorized",
+          "System shall maintain audit log for weekly meal plan generator actions",
+          "Support search and filtering within weekly meal plan generator",
+          "Enable notifications for important weekly meal plan generator events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all weekly meal plan generator operations",
+          "System validates all weekly meal plan generator inputs correctly",
+          "Error messages display clearly for weekly meal plan generator failures",
+          "weekly meal plan generator data persists correctly across sessions"
+        ]
+      },
+      "FR-15": {
+        "title": "Recipe Rating and Review",
+        "requirements": [
+          "Implement complete recipe rating and review functionality",
+          "All recipe rating and review operations must be validated and authorized",
+          "System shall maintain audit log for recipe rating and review actions",
+          "Support search and filtering within recipe rating and review",
+          "Enable notifications for important recipe rating and review events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recipe rating and review operations",
+          "System validates all recipe rating and review inputs correctly",
+          "Error messages display clearly for recipe rating and review failures"
+        ]
+      },
+      "FR-16": {
+        "title": "Recipe Collection and Bookmarks",
+        "requirements": [
+          "Implement complete recipe collection and bookmarks functionality",
+          "All recipe collection and bookmarks operations must be validated and authorized",
+          "System shall maintain audit log for recipe collection and bookmarks actions",
+          "Support search and filtering within recipe collection and bookmarks"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recipe collection and bookmarks operations",
+          "System validates all recipe collection and bookmarks inputs correctly",
+          "Error messages display clearly for recipe collection and bookmarks failures"
+        ]
+      },
+      "FR-17": {
+        "title": "User Recipe Submission",
+        "requirements": [
+          "Implement complete user recipe submission functionality",
+          "All user recipe submission operations must be validated and authorized",
+          "System shall maintain audit log for user recipe submission actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all user recipe submission operations",
+          "System validates all user recipe submission inputs correctly",
+          "Error messages display clearly for user recipe submission failures",
+          "user recipe submission data persists correctly across sessions"
+        ]
+      },
+      "FR-18": {
+        "title": "Recipe Moderation",
+        "requirements": [
+          "Implement complete recipe moderation functionality",
+          "All recipe moderation operations must be validated and authorized",
+          "System shall maintain audit log for recipe moderation actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all recipe moderation operations",
+          "System validates all recipe moderation inputs correctly",
+          "Error messages display clearly for recipe moderation failures",
+          "recipe moderation data persists correctly across sessions"
+        ]
+      },
+      "FR-19": {
+        "title": "Step-by-step Cooking Mode",
+        "requirements": [
+          "Implement complete step-by-step cooking mode functionality",
+          "All step-by-step cooking mode operations must be validated and authorized",
+          "System shall maintain audit log for step-by-step cooking mode actions",
+          "Support search and filtering within step-by-step cooking mode"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all step-by-step cooking mode operations",
+          "System validates all step-by-step cooking mode inputs correctly",
+          "Error messages display clearly for step-by-step cooking mode failures"
+        ]
+      },
+      "FR-20": {
+        "title": "Voice-guided Cooking",
+        "requirements": [
+          "Implement complete voice-guided cooking functionality",
+          "All voice-guided cooking operations must be validated and authorized",
+          "System shall maintain audit log for voice-guided cooking actions",
+          "Support search and filtering within voice-guided cooking"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all voice-guided cooking operations",
+          "System validates all voice-guided cooking inputs correctly",
+          "Error messages display clearly for voice-guided cooking failures",
+          "voice-guided cooking data persists correctly across sessions"
+        ]
+      },
+      "FR-21": {
+        "title": "Social Sharing of Recipes",
+        "requirements": [
+          "Implement complete social sharing of recipes functionality",
+          "All social sharing of recipes operations must be validated and authorized",
+          "System shall maintain audit log for social sharing of recipes actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all social sharing of recipes operations",
+          "System validates all social sharing of recipes inputs correctly",
+          "Error messages display clearly for social sharing of recipes failures"
+        ]
+      },
+      "FR-22": {
+        "title": "Follow Other Cooks",
+        "requirements": [
+          "Implement complete follow other cooks functionality",
+          "All follow other cooks operations must be validated and authorized",
+          "System shall maintain audit log for follow other cooks actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all follow other cooks operations",
+          "System validates all follow other cooks inputs correctly",
+          "Error messages display clearly for follow other cooks failures",
+          "follow other cooks data persists correctly across sessions"
+        ]
+      },
+      "FR-23": {
+        "title": "Activity Feed",
+        "requirements": [
+          "Implement complete activity feed functionality",
+          "All activity feed operations must be validated and authorized",
+          "System shall maintain audit log for activity feed actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all activity feed operations",
+          "System validates all activity feed inputs correctly",
+          "Error messages display clearly for activity feed failures"
+        ]
+      },
+      "FR-24": {
+        "title": "Cooking Challenge Events",
+        "requirements": [
+          "Implement complete cooking challenge events functionality",
+          "All cooking challenge events operations must be validated and authorized",
+          "System shall maintain audit log for cooking challenge events actions",
+          "Support search and filtering within cooking challenge events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cooking challenge events operations",
+          "System validates all cooking challenge events inputs correctly",
+          "Error messages display clearly for cooking challenge events failures"
+        ]
+      },
+      "FR-25": {
+        "title": "Seasonal Recipe Collections",
+        "requirements": [
+          "Implement complete seasonal recipe collections functionality",
+          "All seasonal recipe collections operations must be validated and authorized",
+          "System shall maintain audit log for seasonal recipe collections actions",
+          "Support search and filtering within seasonal recipe collections"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all seasonal recipe collections operations",
+          "System validates all seasonal recipe collections inputs correctly",
+          "Error messages display clearly for seasonal recipe collections failures",
+          "seasonal recipe collections data persists correctly across sessions"
+        ]
+      },
+      "FR-26": {
+        "title": "Wine Pairing Suggestions",
+        "requirements": [
+          "Implement complete wine pairing suggestions functionality",
+          "All wine pairing suggestions operations must be validated and authorized",
+          "System shall maintain audit log for wine pairing suggestions actions",
+          "Support search and filtering within wine pairing suggestions",
+          "Enable notifications for important wine pairing suggestions events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all wine pairing suggestions operations",
+          "System validates all wine pairing suggestions inputs correctly",
+          "Error messages display clearly for wine pairing suggestions failures",
+          "wine pairing suggestions data persists correctly across sessions"
+        ]
+      },
+      "FR-27": {
+        "title": "Substitution Suggestions",
+        "requirements": [
+          "Implement complete substitution suggestions functionality",
+          "All substitution suggestions operations must be validated and authorized",
+          "System shall maintain audit log for substitution suggestions actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all substitution suggestions operations",
+          "System validates all substitution suggestions inputs correctly",
+          "Error messages display clearly for substitution suggestions failures"
+        ]
+      },
+      "FR-28": {
+        "title": "Cost Estimation per Recipe",
+        "requirements": [
+          "Implement complete cost estimation per recipe functionality",
+          "All cost estimation per recipe operations must be validated and authorized",
+          "System shall maintain audit log for cost estimation per recipe actions",
+          "Support search and filtering within cost estimation per recipe",
+          "Enable notifications for important cost estimation per recipe events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cost estimation per recipe operations",
+          "System validates all cost estimation per recipe inputs correctly",
+          "Error messages display clearly for cost estimation per recipe failures",
+          "cost estimation per recipe data persists correctly across sessions"
+        ]
+      },
+      "FR-29": {
+        "title": "Cooking Skill Level Tagging",
+        "requirements": [
+          "Implement complete cooking skill level tagging functionality",
+          "All cooking skill level tagging operations must be validated and authorized",
+          "System shall maintain audit log for cooking skill level tagging actions",
+          "Support search and filtering within cooking skill level tagging",
+          "Enable notifications for important cooking skill level tagging events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cooking skill level tagging operations",
+          "System validates all cooking skill level tagging inputs correctly",
+          "Error messages display clearly for cooking skill level tagging failures",
+          "cooking skill level tagging data persists correctly across sessions"
+        ]
+      },
+      "FR-30": {
+        "title": "Video Tutorial Integration",
+        "requirements": [
+          "Implement complete video tutorial integration functionality",
+          "All video tutorial integration operations must be validated and authorized",
+          "System shall maintain audit log for video tutorial integration actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all video tutorial integration operations",
+          "System validates all video tutorial integration inputs correctly",
+          "Error messages display clearly for video tutorial integration failures",
+          "video tutorial integration data persists correctly across sessions"
+        ]
+      },
+      "FR-31": {
+        "title": "Podcast Integration",
+        "requirements": [
+          "Implement complete podcast integration functionality",
+          "All podcast integration operations must be validated and authorized",
+          "System shall maintain audit log for podcast integration actions",
+          "Support search and filtering within podcast integration",
+          "Enable notifications for important podcast integration events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all podcast integration operations",
+          "System validates all podcast integration inputs correctly",
+          "Error messages display clearly for podcast integration failures",
+          "podcast integration data persists correctly across sessions"
+        ]
+      },
+      "FR-32": {
+        "title": "Chef Profile Pages",
+        "requirements": [
+          "Implement complete chef profile pages functionality",
+          "All chef profile pages operations must be validated and authorized",
+          "System shall maintain audit log for chef profile pages actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all chef profile pages operations",
+          "System validates all chef profile pages inputs correctly",
+          "Error messages display clearly for chef profile pages failures"
+        ]
+      },
+      "FR-33": {
+        "title": "Local Ingredient Sourcing",
+        "requirements": [
+          "Implement complete local ingredient sourcing functionality",
+          "All local ingredient sourcing operations must be validated and authorized",
+          "System shall maintain audit log for local ingredient sourcing actions",
+          "Support search and filtering within local ingredient sourcing"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all local ingredient sourcing operations",
+          "System validates all local ingredient sourcing inputs correctly",
+          "Error messages display clearly for local ingredient sourcing failures"
+        ]
+      },
+      "FR-34": {
+        "title": "Push Notifications",
+        "requirements": [
+          "Implement complete push notifications functionality",
+          "All push notifications operations must be validated and authorized",
+          "System shall maintain audit log for push notifications actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all push notifications operations",
+          "System validates all push notifications inputs correctly",
+          "Error messages display clearly for push notifications failures"
+        ]
+      },
+      "FR-35": {
+        "title": "Offline Recipe Access",
+        "requirements": [
+          "Implement complete offline recipe access functionality",
+          "All offline recipe access operations must be validated and authorized",
+          "System shall maintain audit log for offline recipe access actions",
+          "Support search and filtering within offline recipe access",
+          "Enable notifications for important offline recipe access events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all offline recipe access operations",
+          "System validates all offline recipe access inputs correctly",
+          "Error messages display clearly for offline recipe access failures",
+          "offline recipe access data persists correctly across sessions"
+        ]
+      },
+      "FR-36": {
+        "title": "Admin Content Management",
+        "requirements": [
+          "Implement complete admin content management functionality",
+          "All admin content management operations must be validated and authorized",
+          "System shall maintain audit log for admin content management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all admin content management operations",
+          "System validates all admin content management inputs correctly",
+          "Error messages display clearly for admin content management failures",
+          "admin content management data persists correctly across sessions"
+        ]
+      },
+      "FR-37": {
+        "title": "Analytics Dashboard",
+        "requirements": [
+          "Implement complete analytics dashboard functionality",
+          "All analytics dashboard operations must be validated and authorized",
+          "System shall maintain audit log for analytics dashboard actions",
+          "Support search and filtering within analytics dashboard"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all analytics dashboard operations",
+          "System validates all analytics dashboard inputs correctly",
+          "Error messages display clearly for analytics dashboard failures",
+          "analytics dashboard data persists correctly across sessions"
+        ]
+      },
+      "FR-38": {
+        "title": "Multi-language Recipes",
+        "requirements": [
+          "Implement complete multi-language recipes functionality",
+          "All multi-language recipes operations must be validated and authorized",
+          "System shall maintain audit log for multi-language recipes actions",
+          "Support search and filtering within multi-language recipes",
+          "Enable notifications for important multi-language recipes events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all multi-language recipes operations",
+          "System validates all multi-language recipes inputs correctly",
+          "Error messages display clearly for multi-language recipes failures"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build User Registration and Profile API",
+        "description": "Create REST API endpoints for user registration and profile feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Build User Registration and Profile UI",
+        "description": "Create user interface components for user registration and profile. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01"
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Recipe Browsing by Category API",
+        "description": "Create REST API endpoints for recipe browsing by category feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Build Recipe Browsing by Category UI",
+        "description": "Create user interface components for recipe browsing by category. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02"
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Build Recipe Search with Ingredients API",
+        "description": "Create REST API endpoints for recipe search with ingredients feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Build Recipe Search with Ingredients UI",
+        "description": "Create user interface components for recipe search with ingredients. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03"
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Build Recipe Detail with Steps API",
+        "description": "Create REST API endpoints for recipe detail with steps feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Build Recipe Detail with Steps UI",
+        "description": "Create user interface components for recipe detail with steps. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Write Recipe Detail with Steps Tests",
+        "description": "Write unit and integration tests for recipe detail with steps feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04"
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Build Photo and Video for Recipes API",
+        "description": "Create REST API endpoints for photo and video for recipes feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Build Photo and Video for Recipes UI",
+        "description": "Create user interface components for photo and video for recipes. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Design Photo and Video for Recipes Database Schema",
+        "description": "Create database tables/collections for photo and video for recipes. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Write Photo and Video for Recipes Tests",
+        "description": "Write unit and integration tests for photo and video for recipes feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05"
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Cooking Timer Integration API",
+        "description": "Create REST API endpoints for cooking timer integration feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Build Cooking Timer Integration UI",
+        "description": "Create user interface components for cooking timer integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Design Cooking Timer Integration Database Schema",
+        "description": "Create database tables/collections for cooking timer integration. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06"
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Ingredient Quantity Scaling API",
+        "description": "Create REST API endpoints for ingredient quantity scaling feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Build Ingredient Quantity Scaling UI",
+        "description": "Create user interface components for ingredient quantity scaling. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Write Ingredient Quantity Scaling Tests",
+        "description": "Write unit and integration tests for ingredient quantity scaling feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07"
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Nutritional Information Display API",
+        "description": "Create REST API endpoints for nutritional information display feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Build Nutritional Information Display UI",
+        "description": "Create user interface components for nutritional information display. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08"
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build Dietary Filter API",
+        "description": "Create REST API endpoints for dietary filter feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Build Dietary Filter UI",
+        "description": "Create user interface components for dietary filter. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09"
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Allergen Warning Display API",
+        "description": "Create REST API endpoints for allergen warning display feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Build Allergen Warning Display UI",
+        "description": "Create user interface components for allergen warning display. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10"
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Build Shopping List Generation API",
+        "description": "Create REST API endpoints for shopping list generation feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Build Shopping List Generation UI",
+        "description": "Create user interface components for shopping list generation. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11"
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Pantry Inventory Tracking API",
+        "description": "Create REST API endpoints for pantry inventory tracking feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Build Pantry Inventory Tracking UI",
+        "description": "Create user interface components for pantry inventory tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-12"
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Build Meal Planning Calendar API",
+        "description": "Create REST API endpoints for meal planning calendar feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Build Meal Planning Calendar UI",
+        "description": "Create user interface components for meal planning calendar. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Design Meal Planning Calendar Database Schema",
+        "description": "Create database tables/collections for meal planning calendar. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-13"
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Build Weekly Meal Plan Generator API",
+        "description": "Create REST API endpoints for weekly meal plan generator feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Build Weekly Meal Plan Generator UI",
+        "description": "Create user interface components for weekly meal plan generator. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Write Weekly Meal Plan Generator Tests",
+        "description": "Write unit and integration tests for weekly meal plan generator feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14"
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Build Recipe Rating and Review API",
+        "description": "Create REST API endpoints for recipe rating and review feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Build Recipe Rating and Review UI",
+        "description": "Create user interface components for recipe rating and review. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-15"
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Build Recipe Collection and Bookmarks API",
+        "description": "Create REST API endpoints for recipe collection and bookmarks feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Build Recipe Collection and Bookmarks UI",
+        "description": "Create user interface components for recipe collection and bookmarks. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Write Recipe Collection and Bookmarks Tests",
+        "description": "Write unit and integration tests for recipe collection and bookmarks feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-16"
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Build User Recipe Submission API",
+        "description": "Create REST API endpoints for user recipe submission feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Build User Recipe Submission UI",
+        "description": "Create user interface components for user recipe submission. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17"
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Build Recipe Moderation API",
+        "description": "Create REST API endpoints for recipe moderation feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Build Recipe Moderation UI",
+        "description": "Create user interface components for recipe moderation. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Write Recipe Moderation Tests",
+        "description": "Write unit and integration tests for recipe moderation feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-18"
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Build Step-by-step Cooking Mode API",
+        "description": "Create REST API endpoints for step-by-step cooking mode feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Build Step-by-step Cooking Mode UI",
+        "description": "Create user interface components for step-by-step cooking mode. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19"
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Build Voice-guided Cooking API",
+        "description": "Create REST API endpoints for voice-guided cooking feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Build Voice-guided Cooking UI",
+        "description": "Create user interface components for voice-guided cooking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20"
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Build Social Sharing of Recipes API",
+        "description": "Create REST API endpoints for social sharing of recipes feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Build Social Sharing of Recipes UI",
+        "description": "Create user interface components for social sharing of recipes. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Design Social Sharing of Recipes Database Schema",
+        "description": "Create database tables/collections for social sharing of recipes. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Write Social Sharing of Recipes Tests",
+        "description": "Write unit and integration tests for social sharing of recipes feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-21"
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Build Follow Other Cooks API",
+        "description": "Create REST API endpoints for follow other cooks feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Build Follow Other Cooks UI",
+        "description": "Create user interface components for follow other cooks. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Design Follow Other Cooks Database Schema",
+        "description": "Create database tables/collections for follow other cooks. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Write Follow Other Cooks Tests",
+        "description": "Write unit and integration tests for follow other cooks feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-22"
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Build Activity Feed API",
+        "description": "Create REST API endpoints for activity feed feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Build Activity Feed UI",
+        "description": "Create user interface components for activity feed. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Design Activity Feed Database Schema",
+        "description": "Create database tables/collections for activity feed. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-23"
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Build Cooking Challenge Events API",
+        "description": "Create REST API endpoints for cooking challenge events feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Build Cooking Challenge Events UI",
+        "description": "Create user interface components for cooking challenge events. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Write Cooking Challenge Events Tests",
+        "description": "Write unit and integration tests for cooking challenge events feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-24"
+      }
+    ],
+    "FR-25": [
+      {
+        "title": "Build Seasonal Recipe Collections API",
+        "description": "Create REST API endpoints for seasonal recipe collections feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Build Seasonal Recipe Collections UI",
+        "description": "Create user interface components for seasonal recipe collections. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Design Seasonal Recipe Collections Database Schema",
+        "description": "Create database tables/collections for seasonal recipe collections. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-25"
+      }
+    ],
+    "FR-26": [
+      {
+        "title": "Build Wine Pairing Suggestions API",
+        "description": "Create REST API endpoints for wine pairing suggestions feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Build Wine Pairing Suggestions UI",
+        "description": "Create user interface components for wine pairing suggestions. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Design Wine Pairing Suggestions Database Schema",
+        "description": "Create database tables/collections for wine pairing suggestions. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-26"
+      }
+    ],
+    "FR-27": [
+      {
+        "title": "Build Substitution Suggestions API",
+        "description": "Create REST API endpoints for substitution suggestions feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Build Substitution Suggestions UI",
+        "description": "Create user interface components for substitution suggestions. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-27"
+      }
+    ],
+    "FR-28": [
+      {
+        "title": "Build Cost Estimation per Recipe API",
+        "description": "Create REST API endpoints for cost estimation per recipe feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Build Cost Estimation per Recipe UI",
+        "description": "Create user interface components for cost estimation per recipe. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Design Cost Estimation per Recipe Database Schema",
+        "description": "Create database tables/collections for cost estimation per recipe. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-28"
+      }
+    ],
+    "FR-29": [
+      {
+        "title": "Build Cooking Skill Level Tagging API",
+        "description": "Create REST API endpoints for cooking skill level tagging feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Build Cooking Skill Level Tagging UI",
+        "description": "Create user interface components for cooking skill level tagging. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Write Cooking Skill Level Tagging Tests",
+        "description": "Write unit and integration tests for cooking skill level tagging feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-29"
+      }
+    ],
+    "FR-30": [
+      {
+        "title": "Build Video Tutorial Integration API",
+        "description": "Create REST API endpoints for video tutorial integration feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Build Video Tutorial Integration UI",
+        "description": "Create user interface components for video tutorial integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Design Video Tutorial Integration Database Schema",
+        "description": "Create database tables/collections for video tutorial integration. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-30"
+      }
+    ],
+    "FR-31": [
+      {
+        "title": "Build Podcast Integration API",
+        "description": "Create REST API endpoints for podcast integration feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-31"
+      },
+      {
+        "title": "Build Podcast Integration UI",
+        "description": "Create user interface components for podcast integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-31"
+      }
+    ],
+    "FR-32": [
+      {
+        "title": "Build Chef Profile Pages API",
+        "description": "Create REST API endpoints for chef profile pages feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Build Chef Profile Pages UI",
+        "description": "Create user interface components for chef profile pages. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Design Chef Profile Pages Database Schema",
+        "description": "Create database tables/collections for chef profile pages. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-32"
+      }
+    ],
+    "FR-33": [
+      {
+        "title": "Build Local Ingredient Sourcing API",
+        "description": "Create REST API endpoints for local ingredient sourcing feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-33"
+      },
+      {
+        "title": "Build Local Ingredient Sourcing UI",
+        "description": "Create user interface components for local ingredient sourcing. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-33"
+      }
+    ],
+    "FR-34": [
+      {
+        "title": "Build Push Notifications API",
+        "description": "Create REST API endpoints for push notifications feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-34"
+      },
+      {
+        "title": "Build Push Notifications UI",
+        "description": "Create user interface components for push notifications. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-34"
+      }
+    ],
+    "FR-35": [
+      {
+        "title": "Build Offline Recipe Access API",
+        "description": "Create REST API endpoints for offline recipe access feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Build Offline Recipe Access UI",
+        "description": "Create user interface components for offline recipe access. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Design Offline Recipe Access Database Schema",
+        "description": "Create database tables/collections for offline recipe access. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-35"
+      }
+    ],
+    "FR-36": [
+      {
+        "title": "Build Admin Content Management API",
+        "description": "Create REST API endpoints for admin content management feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Build Admin Content Management UI",
+        "description": "Create user interface components for admin content management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-36"
+      }
+    ],
+    "FR-37": [
+      {
+        "title": "Build Analytics Dashboard API",
+        "description": "Create REST API endpoints for analytics dashboard feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-37"
+      },
+      {
+        "title": "Build Analytics Dashboard UI",
+        "description": "Create user interface components for analytics dashboard. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-37"
+      }
+    ],
+    "FR-38": [
+      {
+        "title": "Build Multi-language Recipes API",
+        "description": "Create REST API endpoints for multi-language recipes feature in Recipe and Cooking Application. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Build Multi-language Recipes UI",
+        "description": "Create user interface components for multi-language recipes. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-38"
+      }
+    ]
+  }
+}

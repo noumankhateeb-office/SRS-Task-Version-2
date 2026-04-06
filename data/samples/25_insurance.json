@@ -1,0 +1,1616 @@
+{
+  "input": {
+    "title": "Insurance Management Platform",
+    "technologies": [
+      "React",
+      "Java Spring Boot",
+      "Oracle DB",
+      "RabbitMQ"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Policy Browsing and Comparison",
+        "requirements": [
+          "Implement complete policy browsing and comparison functionality",
+          "All policy browsing and comparison operations must be validated and authorized",
+          "System shall maintain audit log for policy browsing and comparison actions",
+          "Support search and filtering within policy browsing and comparison"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all policy browsing and comparison operations",
+          "System validates all policy browsing and comparison inputs correctly",
+          "Error messages display clearly for policy browsing and comparison failures",
+          "policy browsing and comparison data persists correctly across sessions"
+        ]
+      },
+      "FR-02": {
+        "title": "Quote Generation",
+        "requirements": [
+          "Implement complete quote generation functionality",
+          "All quote generation operations must be validated and authorized",
+          "System shall maintain audit log for quote generation actions",
+          "Support search and filtering within quote generation"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all quote generation operations",
+          "System validates all quote generation inputs correctly",
+          "Error messages display clearly for quote generation failures",
+          "quote generation data persists correctly across sessions"
+        ]
+      },
+      "FR-03": {
+        "title": "Online Policy Purchase",
+        "requirements": [
+          "Implement complete online policy purchase functionality",
+          "All online policy purchase operations must be validated and authorized",
+          "System shall maintain audit log for online policy purchase actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all online policy purchase operations",
+          "System validates all online policy purchase inputs correctly",
+          "Error messages display clearly for online policy purchase failures",
+          "online policy purchase data persists correctly across sessions"
+        ]
+      },
+      "FR-04": {
+        "title": "KYC Document Upload",
+        "requirements": [
+          "Implement complete kyc document upload functionality",
+          "All kyc document upload operations must be validated and authorized",
+          "System shall maintain audit log for kyc document upload actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all kyc document upload operations",
+          "System validates all kyc document upload inputs correctly",
+          "Error messages display clearly for kyc document upload failures"
+        ]
+      },
+      "FR-05": {
+        "title": "Premium Payment",
+        "requirements": [
+          "Implement complete premium payment functionality",
+          "All premium payment operations must be validated and authorized",
+          "System shall maintain audit log for premium payment actions",
+          "Support search and filtering within premium payment"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all premium payment operations",
+          "System validates all premium payment inputs correctly",
+          "Error messages display clearly for premium payment failures",
+          "premium payment data persists correctly across sessions"
+        ]
+      },
+      "FR-06": {
+        "title": "Policy Renewal",
+        "requirements": [
+          "Implement complete policy renewal functionality",
+          "All policy renewal operations must be validated and authorized",
+          "System shall maintain audit log for policy renewal actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all policy renewal operations",
+          "System validates all policy renewal inputs correctly",
+          "Error messages display clearly for policy renewal failures"
+        ]
+      },
+      "FR-07": {
+        "title": "Claims Submission",
+        "requirements": [
+          "Implement complete claims submission functionality",
+          "All claims submission operations must be validated and authorized",
+          "System shall maintain audit log for claims submission actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all claims submission operations",
+          "System validates all claims submission inputs correctly",
+          "Error messages display clearly for claims submission failures"
+        ]
+      },
+      "FR-08": {
+        "title": "Claims Document Upload",
+        "requirements": [
+          "Implement complete claims document upload functionality",
+          "All claims document upload operations must be validated and authorized",
+          "System shall maintain audit log for claims document upload actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all claims document upload operations",
+          "System validates all claims document upload inputs correctly",
+          "Error messages display clearly for claims document upload failures",
+          "claims document upload data persists correctly across sessions"
+        ]
+      },
+      "FR-09": {
+        "title": "Claims Assessment Workflow",
+        "requirements": [
+          "Implement complete claims assessment workflow functionality",
+          "All claims assessment workflow operations must be validated and authorized",
+          "System shall maintain audit log for claims assessment workflow actions",
+          "Support search and filtering within claims assessment workflow"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all claims assessment workflow operations",
+          "System validates all claims assessment workflow inputs correctly",
+          "Error messages display clearly for claims assessment workflow failures",
+          "claims assessment workflow data persists correctly across sessions"
+        ]
+      },
+      "FR-10": {
+        "title": "Claims Payment Processing",
+        "requirements": [
+          "Implement complete claims payment processing functionality",
+          "All claims payment processing operations must be validated and authorized",
+          "System shall maintain audit log for claims payment processing actions",
+          "Support search and filtering within claims payment processing"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all claims payment processing operations",
+          "System validates all claims payment processing inputs correctly",
+          "Error messages display clearly for claims payment processing failures"
+        ]
+      },
+      "FR-11": {
+        "title": "Policy Amendment",
+        "requirements": [
+          "Implement complete policy amendment functionality",
+          "All policy amendment operations must be validated and authorized",
+          "System shall maintain audit log for policy amendment actions",
+          "Support search and filtering within policy amendment",
+          "Enable notifications for important policy amendment events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all policy amendment operations",
+          "System validates all policy amendment inputs correctly",
+          "Error messages display clearly for policy amendment failures",
+          "policy amendment data persists correctly across sessions"
+        ]
+      },
+      "FR-12": {
+        "title": "Beneficiary Management",
+        "requirements": [
+          "Implement complete beneficiary management functionality",
+          "All beneficiary management operations must be validated and authorized",
+          "System shall maintain audit log for beneficiary management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all beneficiary management operations",
+          "System validates all beneficiary management inputs correctly",
+          "Error messages display clearly for beneficiary management failures",
+          "beneficiary management data persists correctly across sessions"
+        ]
+      },
+      "FR-13": {
+        "title": "Rider and Add-on Management",
+        "requirements": [
+          "Implement complete rider and add-on management functionality",
+          "All rider and add-on management operations must be validated and authorized",
+          "System shall maintain audit log for rider and add-on management actions",
+          "Support search and filtering within rider and add-on management"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all rider and add-on management operations",
+          "System validates all rider and add-on management inputs correctly",
+          "Error messages display clearly for rider and add-on management failures"
+        ]
+      },
+      "FR-14": {
+        "title": "Policy Cancellation and Surrender",
+        "requirements": [
+          "Implement complete policy cancellation and surrender functionality",
+          "All policy cancellation and surrender operations must be validated and authorized",
+          "System shall maintain audit log for policy cancellation and surrender actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all policy cancellation and surrender operations",
+          "System validates all policy cancellation and surrender inputs correctly",
+          "Error messages display clearly for policy cancellation and surrender failures",
+          "policy cancellation and surrender data persists correctly across sessions"
+        ]
+      },
+      "FR-15": {
+        "title": "Agent Portal",
+        "requirements": [
+          "Implement complete agent portal functionality",
+          "All agent portal operations must be validated and authorized",
+          "System shall maintain audit log for agent portal actions",
+          "Support search and filtering within agent portal"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all agent portal operations",
+          "System validates all agent portal inputs correctly",
+          "Error messages display clearly for agent portal failures"
+        ]
+      },
+      "FR-16": {
+        "title": "Agent Commission Tracking",
+        "requirements": [
+          "Implement complete agent commission tracking functionality",
+          "All agent commission tracking operations must be validated and authorized",
+          "System shall maintain audit log for agent commission tracking actions",
+          "Support search and filtering within agent commission tracking"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all agent commission tracking operations",
+          "System validates all agent commission tracking inputs correctly",
+          "Error messages display clearly for agent commission tracking failures",
+          "agent commission tracking data persists correctly across sessions"
+        ]
+      },
+      "FR-17": {
+        "title": "Underwriting Workflow",
+        "requirements": [
+          "Implement complete underwriting workflow functionality",
+          "All underwriting workflow operations must be validated and authorized",
+          "System shall maintain audit log for underwriting workflow actions",
+          "Support search and filtering within underwriting workflow",
+          "Enable notifications for important underwriting workflow events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all underwriting workflow operations",
+          "System validates all underwriting workflow inputs correctly",
+          "Error messages display clearly for underwriting workflow failures"
+        ]
+      },
+      "FR-18": {
+        "title": "Risk Assessment Engine",
+        "requirements": [
+          "Implement complete risk assessment engine functionality",
+          "All risk assessment engine operations must be validated and authorized",
+          "System shall maintain audit log for risk assessment engine actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all risk assessment engine operations",
+          "System validates all risk assessment engine inputs correctly",
+          "Error messages display clearly for risk assessment engine failures",
+          "risk assessment engine data persists correctly across sessions"
+        ]
+      },
+      "FR-19": {
+        "title": "Customer Portal Dashboard",
+        "requirements": [
+          "Implement complete customer portal dashboard functionality",
+          "All customer portal dashboard operations must be validated and authorized",
+          "System shall maintain audit log for customer portal dashboard actions",
+          "Support search and filtering within customer portal dashboard"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all customer portal dashboard operations",
+          "System validates all customer portal dashboard inputs correctly",
+          "Error messages display clearly for customer portal dashboard failures",
+          "customer portal dashboard data persists correctly across sessions"
+        ]
+      },
+      "FR-20": {
+        "title": "Communication Preferences",
+        "requirements": [
+          "Implement complete communication preferences functionality",
+          "All communication preferences operations must be validated and authorized",
+          "System shall maintain audit log for communication preferences actions",
+          "Support search and filtering within communication preferences"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all communication preferences operations",
+          "System validates all communication preferences inputs correctly",
+          "Error messages display clearly for communication preferences failures",
+          "communication preferences data persists correctly across sessions"
+        ]
+      },
+      "FR-21": {
+        "title": "Document Generation",
+        "requirements": [
+          "Implement complete document generation functionality",
+          "All document generation operations must be validated and authorized",
+          "System shall maintain audit log for document generation actions",
+          "Support search and filtering within document generation"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all document generation operations",
+          "System validates all document generation inputs correctly",
+          "Error messages display clearly for document generation failures"
+        ]
+      },
+      "FR-22": {
+        "title": "Email and SMS Notifications",
+        "requirements": [
+          "Implement complete email and sms notifications functionality",
+          "All email and sms notifications operations must be validated and authorized",
+          "System shall maintain audit log for email and sms notifications actions",
+          "Support search and filtering within email and sms notifications"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all email and sms notifications operations",
+          "System validates all email and sms notifications inputs correctly",
+          "Error messages display clearly for email and sms notifications failures"
+        ]
+      },
+      "FR-23": {
+        "title": "Payment Gateway Integration",
+        "requirements": [
+          "Implement complete payment gateway integration functionality",
+          "All payment gateway integration operations must be validated and authorized",
+          "System shall maintain audit log for payment gateway integration actions",
+          "Support search and filtering within payment gateway integration"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all payment gateway integration operations",
+          "System validates all payment gateway integration inputs correctly",
+          "Error messages display clearly for payment gateway integration failures",
+          "payment gateway integration data persists correctly across sessions"
+        ]
+      },
+      "FR-24": {
+        "title": "Auto-debit Setup for Premiums",
+        "requirements": [
+          "Implement complete auto-debit setup for premiums functionality",
+          "All auto-debit setup for premiums operations must be validated and authorized",
+          "System shall maintain audit log for auto-debit setup for premiums actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all auto-debit setup for premiums operations",
+          "System validates all auto-debit setup for premiums inputs correctly",
+          "Error messages display clearly for auto-debit setup for premiums failures"
+        ]
+      },
+      "FR-25": {
+        "title": "Grace Period Management",
+        "requirements": [
+          "Implement complete grace period management functionality",
+          "All grace period management operations must be validated and authorized",
+          "System shall maintain audit log for grace period management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all grace period management operations",
+          "System validates all grace period management inputs correctly",
+          "Error messages display clearly for grace period management failures"
+        ]
+      },
+      "FR-26": {
+        "title": "Lapse and Revival Process",
+        "requirements": [
+          "Implement complete lapse and revival process functionality",
+          "All lapse and revival process operations must be validated and authorized",
+          "System shall maintain audit log for lapse and revival process actions",
+          "Support search and filtering within lapse and revival process"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all lapse and revival process operations",
+          "System validates all lapse and revival process inputs correctly",
+          "Error messages display clearly for lapse and revival process failures"
+        ]
+      },
+      "FR-27": {
+        "title": "Reinsurance Management",
+        "requirements": [
+          "Implement complete reinsurance management functionality",
+          "All reinsurance management operations must be validated and authorized",
+          "System shall maintain audit log for reinsurance management actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all reinsurance management operations",
+          "System validates all reinsurance management inputs correctly",
+          "Error messages display clearly for reinsurance management failures",
+          "reinsurance management data persists correctly across sessions"
+        ]
+      },
+      "FR-28": {
+        "title": "Actuarial Reports",
+        "requirements": [
+          "Implement complete actuarial reports functionality",
+          "All actuarial reports operations must be validated and authorized",
+          "System shall maintain audit log for actuarial reports actions",
+          "Support search and filtering within actuarial reports"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all actuarial reports operations",
+          "System validates all actuarial reports inputs correctly",
+          "Error messages display clearly for actuarial reports failures",
+          "actuarial reports data persists correctly across sessions"
+        ]
+      },
+      "FR-29": {
+        "title": "Compliance Reporting",
+        "requirements": [
+          "Implement complete compliance reporting functionality",
+          "All compliance reporting operations must be validated and authorized",
+          "System shall maintain audit log for compliance reporting actions",
+          "Support search and filtering within compliance reporting"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all compliance reporting operations",
+          "System validates all compliance reporting inputs correctly",
+          "Error messages display clearly for compliance reporting failures"
+        ]
+      },
+      "FR-30": {
+        "title": "Audit Trail",
+        "requirements": [
+          "Implement complete audit trail functionality",
+          "All audit trail operations must be validated and authorized",
+          "System shall maintain audit log for audit trail actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all audit trail operations",
+          "System validates all audit trail inputs correctly",
+          "Error messages display clearly for audit trail failures",
+          "audit trail data persists correctly across sessions"
+        ]
+      },
+      "FR-31": {
+        "title": "Customer Grievance System",
+        "requirements": [
+          "Implement complete customer grievance system functionality",
+          "All customer grievance system operations must be validated and authorized",
+          "System shall maintain audit log for customer grievance system actions",
+          "Support search and filtering within customer grievance system"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all customer grievance system operations",
+          "System validates all customer grievance system inputs correctly",
+          "Error messages display clearly for customer grievance system failures",
+          "customer grievance system data persists correctly across sessions"
+        ]
+      },
+      "FR-32": {
+        "title": "Third-party Administrator Integration",
+        "requirements": [
+          "Implement complete third-party administrator integration functionality",
+          "All third-party administrator integration operations must be validated and authorized",
+          "System shall maintain audit log for third-party administrator integration actions",
+          "Support search and filtering within third-party administrator integration",
+          "Enable notifications for important third-party administrator integration events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all third-party administrator integration operations",
+          "System validates all third-party administrator integration inputs correctly",
+          "Error messages display clearly for third-party administrator integration failures",
+          "third-party administrator integration data persists correctly across sessions"
+        ]
+      },
+      "FR-33": {
+        "title": "Health Network Hospital Search",
+        "requirements": [
+          "Implement complete health network hospital search functionality",
+          "All health network hospital search operations must be validated and authorized",
+          "System shall maintain audit log for health network hospital search actions",
+          "Support search and filtering within health network hospital search",
+          "Enable notifications for important health network hospital search events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all health network hospital search operations",
+          "System validates all health network hospital search inputs correctly",
+          "Error messages display clearly for health network hospital search failures"
+        ]
+      },
+      "FR-34": {
+        "title": "Cashless Claim Authorization",
+        "requirements": [
+          "Implement complete cashless claim authorization functionality",
+          "All cashless claim authorization operations must be validated and authorized",
+          "System shall maintain audit log for cashless claim authorization actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all cashless claim authorization operations",
+          "System validates all cashless claim authorization inputs correctly",
+          "Error messages display clearly for cashless claim authorization failures",
+          "cashless claim authorization data persists correctly across sessions"
+        ]
+      },
+      "FR-35": {
+        "title": "Maturity and Survival Benefit Processing",
+        "requirements": [
+          "Implement complete maturity and survival benefit processing functionality",
+          "All maturity and survival benefit processing operations must be validated and authorized",
+          "System shall maintain audit log for maturity and survival benefit processing actions",
+          "Support search and filtering within maturity and survival benefit processing",
+          "Enable notifications for important maturity and survival benefit processing events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all maturity and survival benefit processing operations",
+          "System validates all maturity and survival benefit processing inputs correctly",
+          "Error messages display clearly for maturity and survival benefit processing failures"
+        ]
+      },
+      "FR-36": {
+        "title": "Nomination and Assignment",
+        "requirements": [
+          "Implement complete nomination and assignment functionality",
+          "All nomination and assignment operations must be validated and authorized",
+          "System shall maintain audit log for nomination and assignment actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all nomination and assignment operations",
+          "System validates all nomination and assignment inputs correctly",
+          "Error messages display clearly for nomination and assignment failures"
+        ]
+      },
+      "FR-37": {
+        "title": "Loan Against Policy",
+        "requirements": [
+          "Implement complete loan against policy functionality",
+          "All loan against policy operations must be validated and authorized",
+          "System shall maintain audit log for loan against policy actions",
+          "Support search and filtering within loan against policy",
+          "Enable notifications for important loan against policy events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all loan against policy operations",
+          "System validates all loan against policy inputs correctly",
+          "Error messages display clearly for loan against policy failures"
+        ]
+      },
+      "FR-38": {
+        "title": "Fund Transfer Between Plans",
+        "requirements": [
+          "Implement complete fund transfer between plans functionality",
+          "All fund transfer between plans operations must be validated and authorized",
+          "System shall maintain audit log for fund transfer between plans actions",
+          "Support search and filtering within fund transfer between plans",
+          "Enable notifications for important fund transfer between plans events"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all fund transfer between plans operations",
+          "System validates all fund transfer between plans inputs correctly",
+          "Error messages display clearly for fund transfer between plans failures"
+        ]
+      },
+      "FR-39": {
+        "title": "NAV Calculation for ULIP",
+        "requirements": [
+          "Implement complete nav calculation for ulip functionality",
+          "All nav calculation for ulip operations must be validated and authorized",
+          "System shall maintain audit log for nav calculation for ulip actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all nav calculation for ulip operations",
+          "System validates all nav calculation for ulip inputs correctly",
+          "Error messages display clearly for nav calculation for ulip failures"
+        ]
+      },
+      "FR-40": {
+        "title": "Premium Calculator Widget",
+        "requirements": [
+          "Implement complete premium calculator widget functionality",
+          "All premium calculator widget operations must be validated and authorized",
+          "System shall maintain audit log for premium calculator widget actions",
+          "Support search and filtering within premium calculator widget"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all premium calculator widget operations",
+          "System validates all premium calculator widget inputs correctly",
+          "Error messages display clearly for premium calculator widget failures",
+          "premium calculator widget data persists correctly across sessions"
+        ]
+      },
+      "FR-41": {
+        "title": "Mobile App Access",
+        "requirements": [
+          "Implement complete mobile app access functionality",
+          "All mobile app access operations must be validated and authorized",
+          "System shall maintain audit log for mobile app access actions",
+          "Support search and filtering within mobile app access"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all mobile app access operations",
+          "System validates all mobile app access inputs correctly",
+          "Error messages display clearly for mobile app access failures",
+          "mobile app access data persists correctly across sessions"
+        ]
+      },
+      "FR-42": {
+        "title": "Chat Support Integration",
+        "requirements": [
+          "Implement complete chat support integration functionality",
+          "All chat support integration operations must be validated and authorized",
+          "System shall maintain audit log for chat support integration actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all chat support integration operations",
+          "System validates all chat support integration inputs correctly",
+          "Error messages display clearly for chat support integration failures",
+          "chat support integration data persists correctly across sessions"
+        ]
+      },
+      "FR-43": {
+        "title": "Admin Analytics Dashboard",
+        "requirements": [
+          "Implement complete admin analytics dashboard functionality",
+          "All admin analytics dashboard operations must be validated and authorized",
+          "System shall maintain audit log for admin analytics dashboard actions",
+          "Support search and filtering within admin analytics dashboard"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all admin analytics dashboard operations",
+          "System validates all admin analytics dashboard inputs correctly",
+          "Error messages display clearly for admin analytics dashboard failures"
+        ]
+      },
+      "FR-44": {
+        "title": "Performance Reporting for Agents",
+        "requirements": [
+          "Implement complete performance reporting for agents functionality",
+          "All performance reporting for agents operations must be validated and authorized",
+          "System shall maintain audit log for performance reporting for agents actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all performance reporting for agents operations",
+          "System validates all performance reporting for agents inputs correctly",
+          "Error messages display clearly for performance reporting for agents failures"
+        ]
+      },
+      "FR-45": {
+        "title": "Bulk Policy Import",
+        "requirements": [
+          "Implement complete bulk policy import functionality",
+          "All bulk policy import operations must be validated and authorized",
+          "System shall maintain audit log for bulk policy import actions"
+        ],
+        "acceptance_criteria": [
+          "User can successfully perform all bulk policy import operations",
+          "System validates all bulk policy import inputs correctly",
+          "Error messages display clearly for bulk policy import failures",
+          "bulk policy import data persists correctly across sessions"
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build Policy Browsing and Comparison API",
+        "description": "Create REST API endpoints for policy browsing and comparison feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Build Policy Browsing and Comparison UI",
+        "description": "Create user interface components for policy browsing and comparison. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01"
+      },
+      {
+        "title": "Write Policy Browsing and Comparison Tests",
+        "description": "Write unit and integration tests for policy browsing and comparison feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01"
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Quote Generation API",
+        "description": "Create REST API endpoints for quote generation feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Build Quote Generation UI",
+        "description": "Create user interface components for quote generation. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-02"
+      },
+      {
+        "title": "Design Quote Generation Database Schema",
+        "description": "Create database tables/collections for quote generation. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02"
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Build Online Policy Purchase API",
+        "description": "Create REST API endpoints for online policy purchase feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Build Online Policy Purchase UI",
+        "description": "Create user interface components for online policy purchase. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-03"
+      },
+      {
+        "title": "Design Online Policy Purchase Database Schema",
+        "description": "Create database tables/collections for online policy purchase. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03"
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Build KYC Document Upload API",
+        "description": "Create REST API endpoints for kyc document upload feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Build KYC Document Upload UI",
+        "description": "Create user interface components for kyc document upload. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-04"
+      },
+      {
+        "title": "Design KYC Document Upload Database Schema",
+        "description": "Create database tables/collections for kyc document upload. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04"
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Build Premium Payment API",
+        "description": "Create REST API endpoints for premium payment feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Build Premium Payment UI",
+        "description": "Create user interface components for premium payment. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-05"
+      },
+      {
+        "title": "Write Premium Payment Tests",
+        "description": "Write unit and integration tests for premium payment feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05"
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Policy Renewal API",
+        "description": "Create REST API endpoints for policy renewal feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Build Policy Renewal UI",
+        "description": "Create user interface components for policy renewal. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-06"
+      },
+      {
+        "title": "Design Policy Renewal Database Schema",
+        "description": "Create database tables/collections for policy renewal. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06"
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Claims Submission API",
+        "description": "Create REST API endpoints for claims submission feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Build Claims Submission UI",
+        "description": "Create user interface components for claims submission. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07"
+      },
+      {
+        "title": "Design Claims Submission Database Schema",
+        "description": "Create database tables/collections for claims submission. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07"
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Claims Document Upload API",
+        "description": "Create REST API endpoints for claims document upload feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Build Claims Document Upload UI",
+        "description": "Create user interface components for claims document upload. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08"
+      },
+      {
+        "title": "Write Claims Document Upload Tests",
+        "description": "Write unit and integration tests for claims document upload feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08"
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build Claims Assessment Workflow API",
+        "description": "Create REST API endpoints for claims assessment workflow feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Build Claims Assessment Workflow UI",
+        "description": "Create user interface components for claims assessment workflow. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09"
+      },
+      {
+        "title": "Write Claims Assessment Workflow Tests",
+        "description": "Write unit and integration tests for claims assessment workflow feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09"
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Claims Payment Processing API",
+        "description": "Create REST API endpoints for claims payment processing feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10"
+      },
+      {
+        "title": "Build Claims Payment Processing UI",
+        "description": "Create user interface components for claims payment processing. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10"
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Build Policy Amendment API",
+        "description": "Create REST API endpoints for policy amendment feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Build Policy Amendment UI",
+        "description": "Create user interface components for policy amendment. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11"
+      },
+      {
+        "title": "Write Policy Amendment Tests",
+        "description": "Write unit and integration tests for policy amendment feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11"
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Beneficiary Management API",
+        "description": "Create REST API endpoints for beneficiary management feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12"
+      },
+      {
+        "title": "Build Beneficiary Management UI",
+        "description": "Create user interface components for beneficiary management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-12"
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Build Rider and Add-on Management API",
+        "description": "Create REST API endpoints for rider and add-on management feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Build Rider and Add-on Management UI",
+        "description": "Create user interface components for rider and add-on management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Design Rider and Add-on Management Database Schema",
+        "description": "Create database tables/collections for rider and add-on management. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-13"
+      },
+      {
+        "title": "Write Rider and Add-on Management Tests",
+        "description": "Write unit and integration tests for rider and add-on management feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13"
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Build Policy Cancellation and Surrender API",
+        "description": "Create REST API endpoints for policy cancellation and surrender feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14"
+      },
+      {
+        "title": "Build Policy Cancellation and Surrender UI",
+        "description": "Create user interface components for policy cancellation and surrender. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14"
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Build Agent Portal API",
+        "description": "Create REST API endpoints for agent portal feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15"
+      },
+      {
+        "title": "Build Agent Portal UI",
+        "description": "Create user interface components for agent portal. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-15"
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Build Agent Commission Tracking API",
+        "description": "Create REST API endpoints for agent commission tracking feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16"
+      },
+      {
+        "title": "Build Agent Commission Tracking UI",
+        "description": "Create user interface components for agent commission tracking. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-16"
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Build Underwriting Workflow API",
+        "description": "Create REST API endpoints for underwriting workflow feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17"
+      },
+      {
+        "title": "Build Underwriting Workflow UI",
+        "description": "Create user interface components for underwriting workflow. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17"
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Build Risk Assessment Engine API",
+        "description": "Create REST API endpoints for risk assessment engine feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-18"
+      },
+      {
+        "title": "Build Risk Assessment Engine UI",
+        "description": "Create user interface components for risk assessment engine. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-18"
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Build Customer Portal Dashboard API",
+        "description": "Create REST API endpoints for customer portal dashboard feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Build Customer Portal Dashboard UI",
+        "description": "Create user interface components for customer portal dashboard. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19"
+      },
+      {
+        "title": "Write Customer Portal Dashboard Tests",
+        "description": "Write unit and integration tests for customer portal dashboard feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-19"
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Build Communication Preferences API",
+        "description": "Create REST API endpoints for communication preferences feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20"
+      },
+      {
+        "title": "Build Communication Preferences UI",
+        "description": "Create user interface components for communication preferences. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20"
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Build Document Generation API",
+        "description": "Create REST API endpoints for document generation feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Build Document Generation UI",
+        "description": "Create user interface components for document generation. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Design Document Generation Database Schema",
+        "description": "Create database tables/collections for document generation. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-21"
+      },
+      {
+        "title": "Write Document Generation Tests",
+        "description": "Write unit and integration tests for document generation feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-21"
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Build Email and SMS Notifications API",
+        "description": "Create REST API endpoints for email and sms notifications feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Build Email and SMS Notifications UI",
+        "description": "Create user interface components for email and sms notifications. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-22"
+      },
+      {
+        "title": "Write Email and SMS Notifications Tests",
+        "description": "Write unit and integration tests for email and sms notifications feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-22"
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Build Payment Gateway Integration API",
+        "description": "Create REST API endpoints for payment gateway integration feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Build Payment Gateway Integration UI",
+        "description": "Create user interface components for payment gateway integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-23"
+      },
+      {
+        "title": "Write Payment Gateway Integration Tests",
+        "description": "Write unit and integration tests for payment gateway integration feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-23"
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Build Auto-debit Setup for Premiums API",
+        "description": "Create REST API endpoints for auto-debit setup for premiums feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24"
+      },
+      {
+        "title": "Build Auto-debit Setup for Premiums UI",
+        "description": "Create user interface components for auto-debit setup for premiums. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-24"
+      }
+    ],
+    "FR-25": [
+      {
+        "title": "Build Grace Period Management API",
+        "description": "Create REST API endpoints for grace period management feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Build Grace Period Management UI",
+        "description": "Create user interface components for grace period management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-25"
+      },
+      {
+        "title": "Write Grace Period Management Tests",
+        "description": "Write unit and integration tests for grace period management feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-25"
+      }
+    ],
+    "FR-26": [
+      {
+        "title": "Build Lapse and Revival Process API",
+        "description": "Create REST API endpoints for lapse and revival process feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-26"
+      },
+      {
+        "title": "Build Lapse and Revival Process UI",
+        "description": "Create user interface components for lapse and revival process. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-26"
+      }
+    ],
+    "FR-27": [
+      {
+        "title": "Build Reinsurance Management API",
+        "description": "Create REST API endpoints for reinsurance management feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-27"
+      },
+      {
+        "title": "Build Reinsurance Management UI",
+        "description": "Create user interface components for reinsurance management. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-27"
+      }
+    ],
+    "FR-28": [
+      {
+        "title": "Build Actuarial Reports API",
+        "description": "Create REST API endpoints for actuarial reports feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Build Actuarial Reports UI",
+        "description": "Create user interface components for actuarial reports. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-28"
+      },
+      {
+        "title": "Design Actuarial Reports Database Schema",
+        "description": "Create database tables/collections for actuarial reports. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-28"
+      }
+    ],
+    "FR-29": [
+      {
+        "title": "Build Compliance Reporting API",
+        "description": "Create REST API endpoints for compliance reporting feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-29"
+      },
+      {
+        "title": "Build Compliance Reporting UI",
+        "description": "Create user interface components for compliance reporting. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-29"
+      }
+    ],
+    "FR-30": [
+      {
+        "title": "Build Audit Trail API",
+        "description": "Create REST API endpoints for audit trail feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Build Audit Trail UI",
+        "description": "Create user interface components for audit trail. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Design Audit Trail Database Schema",
+        "description": "Create database tables/collections for audit trail. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-30"
+      },
+      {
+        "title": "Write Audit Trail Tests",
+        "description": "Write unit and integration tests for audit trail feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-30"
+      }
+    ],
+    "FR-31": [
+      {
+        "title": "Build Customer Grievance System API",
+        "description": "Create REST API endpoints for customer grievance system feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-31"
+      },
+      {
+        "title": "Build Customer Grievance System UI",
+        "description": "Create user interface components for customer grievance system. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-31"
+      }
+    ],
+    "FR-32": [
+      {
+        "title": "Build Third-party Administrator Integration API",
+        "description": "Create REST API endpoints for third-party administrator integration feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Build Third-party Administrator Integration UI",
+        "description": "Create user interface components for third-party administrator integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Design Third-party Administrator Integration Database Schema",
+        "description": "Create database tables/collections for third-party administrator integration. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-32"
+      },
+      {
+        "title": "Write Third-party Administrator Integration Tests",
+        "description": "Write unit and integration tests for third-party administrator integration feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-32"
+      }
+    ],
+    "FR-33": [
+      {
+        "title": "Build Health Network Hospital Search API",
+        "description": "Create REST API endpoints for health network hospital search feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-33"
+      },
+      {
+        "title": "Build Health Network Hospital Search UI",
+        "description": "Create user interface components for health network hospital search. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-33"
+      }
+    ],
+    "FR-34": [
+      {
+        "title": "Build Cashless Claim Authorization API",
+        "description": "Create REST API endpoints for cashless claim authorization feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-34"
+      },
+      {
+        "title": "Build Cashless Claim Authorization UI",
+        "description": "Create user interface components for cashless claim authorization. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-34"
+      }
+    ],
+    "FR-35": [
+      {
+        "title": "Build Maturity and Survival Benefit Processing API",
+        "description": "Create REST API endpoints for maturity and survival benefit processing feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Build Maturity and Survival Benefit Processing UI",
+        "description": "Create user interface components for maturity and survival benefit processing. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Design Maturity and Survival Benefit Processing Database Schema",
+        "description": "Create database tables/collections for maturity and survival benefit processing. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-35"
+      },
+      {
+        "title": "Write Maturity and Survival Benefit Processing Tests",
+        "description": "Write unit and integration tests for maturity and survival benefit processing feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-35"
+      }
+    ],
+    "FR-36": [
+      {
+        "title": "Build Nomination and Assignment API",
+        "description": "Create REST API endpoints for nomination and assignment feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Build Nomination and Assignment UI",
+        "description": "Create user interface components for nomination and assignment. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Design Nomination and Assignment Database Schema",
+        "description": "Create database tables/collections for nomination and assignment. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-36"
+      },
+      {
+        "title": "Write Nomination and Assignment Tests",
+        "description": "Write unit and integration tests for nomination and assignment feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-36"
+      }
+    ],
+    "FR-37": [
+      {
+        "title": "Build Loan Against Policy API",
+        "description": "Create REST API endpoints for loan against policy feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-37"
+      },
+      {
+        "title": "Build Loan Against Policy UI",
+        "description": "Create user interface components for loan against policy. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-37"
+      },
+      {
+        "title": "Design Loan Against Policy Database Schema",
+        "description": "Create database tables/collections for loan against policy. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-37"
+      }
+    ],
+    "FR-38": [
+      {
+        "title": "Build Fund Transfer Between Plans API",
+        "description": "Create REST API endpoints for fund transfer between plans feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Build Fund Transfer Between Plans UI",
+        "description": "Create user interface components for fund transfer between plans. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-38"
+      },
+      {
+        "title": "Design Fund Transfer Between Plans Database Schema",
+        "description": "Create database tables/collections for fund transfer between plans. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-38"
+      }
+    ],
+    "FR-39": [
+      {
+        "title": "Build NAV Calculation for ULIP API",
+        "description": "Create REST API endpoints for nav calculation for ulip feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-39"
+      },
+      {
+        "title": "Build NAV Calculation for ULIP UI",
+        "description": "Create user interface components for nav calculation for ulip. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-39"
+      }
+    ],
+    "FR-40": [
+      {
+        "title": "Build Premium Calculator Widget API",
+        "description": "Create REST API endpoints for premium calculator widget feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-40"
+      },
+      {
+        "title": "Build Premium Calculator Widget UI",
+        "description": "Create user interface components for premium calculator widget. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-40"
+      },
+      {
+        "title": "Write Premium Calculator Widget Tests",
+        "description": "Write unit and integration tests for premium calculator widget feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-40"
+      }
+    ],
+    "FR-41": [
+      {
+        "title": "Build Mobile App Access API",
+        "description": "Create REST API endpoints for mobile app access feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-41"
+      },
+      {
+        "title": "Build Mobile App Access UI",
+        "description": "Create user interface components for mobile app access. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-41"
+      }
+    ],
+    "FR-42": [
+      {
+        "title": "Build Chat Support Integration API",
+        "description": "Create REST API endpoints for chat support integration feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-42"
+      },
+      {
+        "title": "Build Chat Support Integration UI",
+        "description": "Create user interface components for chat support integration. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-42"
+      },
+      {
+        "title": "Write Chat Support Integration Tests",
+        "description": "Write unit and integration tests for chat support integration feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-42"
+      }
+    ],
+    "FR-43": [
+      {
+        "title": "Build Admin Analytics Dashboard API",
+        "description": "Create REST API endpoints for admin analytics dashboard feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-43"
+      },
+      {
+        "title": "Build Admin Analytics Dashboard UI",
+        "description": "Create user interface components for admin analytics dashboard. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-43"
+      },
+      {
+        "title": "Write Admin Analytics Dashboard Tests",
+        "description": "Write unit and integration tests for admin analytics dashboard feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-43"
+      }
+    ],
+    "FR-44": [
+      {
+        "title": "Build Performance Reporting for Agents API",
+        "description": "Create REST API endpoints for performance reporting for agents feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-44"
+      },
+      {
+        "title": "Build Performance Reporting for Agents UI",
+        "description": "Create user interface components for performance reporting for agents. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-44"
+      },
+      {
+        "title": "Design Performance Reporting for Agents Database Schema",
+        "description": "Create database tables/collections for performance reporting for agents. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-44"
+      }
+    ],
+    "FR-45": [
+      {
+        "title": "Build Bulk Policy Import API",
+        "description": "Create REST API endpoints for bulk policy import feature in Insurance Management Platform. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-45"
+      },
+      {
+        "title": "Build Bulk Policy Import UI",
+        "description": "Create user interface components for bulk policy import. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-45"
+      },
+      {
+        "title": "Design Bulk Policy Import Database Schema",
+        "description": "Create database tables/collections for bulk policy import. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-45"
+      }
+    ]
+  }
+}

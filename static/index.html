@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRS Task Generator — Convert SRS to Development Tasks</title>
+    <meta name="description" content="Upload your SRS PDF and generate structured development tasks using Machine Learning.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS DESIGN SYSTEM — MODERN LIGHT THEME
+           ============================================ */
+        :root {
+            --bg-body: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-hover: #f8f9fb;
+            --bg-input: #f5f6f8;
+            --bg-input-hover: #eef0f4;
+
+            --text-primary: #1a1d26;
+            --text-secondary: #5a6072;
+            --text-muted: #9099b0;
+            --text-inverse: #ffffff;
+
+            --accent-start: #6366f1;
+            --accent-end: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --accent-light: #ede9fe;
+            --accent-glow: rgba(99, 102, 241, 0.18);
+            --accent-text: #6366f1;
+
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --success-border: #a7f3d0;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --warning-border: #fde68a;
+            --error: #ef4444;
+            --error-bg: #fef2f2;
+            --error-border: #fecaca;
+
+            --border: #e5e7eb;
+            --border-hover: #d1d5db;
+            --border-accent: rgba(99, 102, 241, 0.3);
+
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --radius-pill: 100px;
+
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+            --shadow-xl: 0 20px 50px rgba(0,0,0,0.10);
+            --shadow-glow: 0 4px 20px rgba(99, 102, 241, 0.25);
+            --shadow-glow-lg: 0 8px 35px rgba(99, 102, 241, 0.30);
+
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           BACKGROUND AMBIENT EFFECTS
+           ============================================ */
+        .bg-ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-ambient::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            animation: ambientFloat1 12s ease-in-out infinite alternate;
+        }
+
+        .bg-ambient::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+            animation: ambientFloat2 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientFloat1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(80px, 60px) scale(1.15); }
+        }
+
+        @keyframes ambientFloat2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-60px, -40px) scale(1.1); }
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        header {
+            padding: 48px 0 12px;
+            text-align: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .logo-text {
+            font-size: 30px;
+            font-weight: 900;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 400;
+            max-width: 460px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           STATUS BAR
+           ============================================ */
+        .status-bar {
+            padding: 14px 0 24px;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+        }
+
+        .status-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-dot.green {
+            background: var(--success);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+
+        .status-dot.yellow {
+            background: var(--warning);
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+
+        .status-dot.red {
+            background: var(--error);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+        }
+
+        /* ============================================
+           MAIN GRID
+           ============================================ */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 860px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           PANELS (glass card effect)
+           ============================================ */
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-md);
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+
+        .panel:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .panel-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(180deg, var(--bg-surface) 0%, #fafafe 100%);
+        }
+
+        .panel-header-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--accent-light);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .panel-header h2 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .panel-header .badge {
+            margin-left: auto;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .badge-success {
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid var(--success-border);
+        }
+
+        .badge-warning {
+            background: var(--warning-bg);
+            color: var(--warning);
+            border: 1px solid var(--warning-border);
+        }
+
+        .badge-error {
+            background: var(--error-bg);
+            color: var(--error);
+            border: 1px solid var(--error-border);
+        }
+
+        .panel-body {
+            padding: 22px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           INPUT MODE TOGGLE
+           ============================================ */
+        .input-toggle {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .input-toggle button {
+            flex: 1;
+            padding: 9px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: var(--transition-fast);
+        }
+
+        .input-toggle button:hover:not(.active) {
+            color: var(--text-secondary);
+            background: var(--bg-input-hover);
+        }
+
+        .input-toggle button.active {
+            background: var(--bg-surface);
+            color: var(--accent-text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           UPLOAD ZONE
+           ============================================ */
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-md);
+            padding: 48px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            min-height: 240px;
+            background: var(--bg-input);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: var(--accent-text);
+            background: var(--accent-light);
+        }
+
+        .upload-zone:hover::before,
+        .upload-zone.drag-over::before {
+            opacity: 0.03;
+        }
+
+        .upload-zone.has-file {
+            border-color: var(--success);
+            background: var(--success-bg);
+            border-style: solid;
+        }
+
+        .upload-icon {
+            font-size: 44px;
+            position: relative;
+            z-index: 1;
+            animation: uploadBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes uploadBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .upload-zone h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .upload-zone p {
+            font-size: 13px;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-info {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-top: 14px;
+            width: 100%;
+        }
+
+        .file-info.visible {
+            display: flex;
+        }
+
+        .file-info .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--text-primary);
+        }
+
+        .file-info .file-size {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .file-info .remove-btn {
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            transition: var(--transition-fast);
+            line-height: 1;
+        }
+
+        .file-info .remove-btn:hover {
+            background: var(--error-bg);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* ============================================
+           TEXT INPUT AREA
+           ============================================ */
+        .text-input-area {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 240px;
+        }
+
+        .text-input-area.visible {
+            display: flex;
+        }
+
+        .text-input-area textarea {
+            flex: 1;
+            min-height: 210px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            font-family: 'SF Mono', 'Consolas', 'Monaco', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        .text-input-area textarea:focus {
+            outline: none;
+            border-color: var(--accent-text);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            background: var(--bg-surface);
+        }
+
+        .text-input-area textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .char-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            letter-spacing: -0.1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15));
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:hover:not(:disabled)::after {
+            opacity: 1;
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            background: var(--bg-surface-hover);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        /* ============================================
+           RESULTS PANEL
+           ============================================ */
+        .results-placeholder {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--text-muted);
+            min-height: 240px;
+        }
+
+        .results-placeholder .placeholder-icon {
+            font-size: 44px;
+            opacity: 0.25;
+        }
+
+        .results-placeholder p {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .results-content {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .results-content.visible {
+            display: flex;
+        }
+
+        /* ============================================
+           VIEW TOGGLE
+           ============================================ */
+        .json-toggle {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .json-toggle button {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: var(--transition-fast);
+        }
+
+        .json-toggle button:hover:not(.active) {
+            color: var(--text-secondary);
+            background: var(--bg-input-hover);
+        }
+
+        .json-toggle button.active {
+            background: var(--bg-surface);
+            color: var(--accent-text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           TASK CARDS
+           ============================================ */
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .tasks-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .tasks-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .tasks-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .tasks-list::-webkit-scrollbar-thumb:hover {
+            background: var(--border-hover);
+        }
+
+        .task-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+            transition: var(--transition);
+            animation: fadeSlideIn 0.35s ease-out both;
+            position: relative;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 3px 0 0 3px;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .task-card:hover {
+            border-color: var(--border-accent);
+            background: var(--bg-surface);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .task-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .task-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .task-number {
+            width: 26px;
+            height: 26px;
+            background: var(--accent-gradient);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-inverse);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .task-title {
+            font-size: 14px;
+            font-weight: 600;
+            flex: 1;
+            color: var(--text-primary);
+        }
+
+        .task-desc-list {
+            margin: 6px 0 12px 36px;
+            padding-left: 18px;
+            list-style: disc;
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .task-desc-list li {
+            margin-bottom: 3px;
+        }
+
+        .task-desc-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 10px;
+            padding-left: 36px;
+            white-space: pre-line;
+        }
+
+        .task-meta {
+            padding-left: 36px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+        }
+
+        .task-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 3px 9px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .tag-backend { background: #ede9fe; color: #7c3aed; }
+        .tag-frontend { background: #e0f2fe; color: #0284c7; }
+        .tag-database { background: #fef3c7; color: #d97706; }
+        .tag-testing { background: #d1fae5; color: #059669; }
+        .tag-general { background: #f3f4f6; color: #6b7280; }
+        .tag-unknown { background: #f3f4f6; color: #6b7280; }
+
+        .tag-high { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .tag-medium { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+        .tag-low { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+
+        /* ============================================
+           JSON VIEW
+           ============================================ */
+        .json-output {
+            display: none;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            font-family: 'SF Mono', 'Consolas', 'Monaco', 'Fira Code', monospace;
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            overflow: auto;
+            max-height: 500px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .json-output.visible {
+            display: block;
+        }
+
+        /* ============================================
+           LOADING OVERLAY
+           ============================================ */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .loading-overlay.visible {
+            display: flex;
+        }
+
+        .spinner-container {
+            position: relative;
+            width: 56px;
+            height: 56px;
+        }
+
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent-start);
+            border-right-color: var(--accent-end);
+            border-radius: 50%;
+            animation: spin 0.9s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .loading-subtext {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ============================================
+           TOAST NOTIFICATION
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 22px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 200;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            max-width: 420px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(8px);
+        }
+
+        .toast.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            background: var(--success-bg);
+            color: #065f46;
+            border: 1px solid var(--success-border);
+        }
+
+        .toast-error {
+            background: var(--error-bg);
+            color: #991b1b;
+            border: 1px solid var(--error-border);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            text-align: center;
+            padding: 0 0 32px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .footer span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 600px) {
+            header { padding: 32px 0 8px; }
+            .logo-text { font-size: 24px; }
+            .logo-icon { width: 44px; height: 44px; font-size: 22px; }
+            header p { font-size: 14px; }
+            .status-bar { flex-direction: column; align-items: center; gap: 8px; }
+            .panel-body { padding: 16px; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-ambient"></div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span class="logo-text">SRS Task Generator</span>
+            </div>
+            <p>Upload your SRS document and let ML generate structured development tasks automatically.</p>
+        </header>
+
+        <!-- STATUS BAR -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot" id="serverDot"></div>
+                <span id="serverStatus">Checking server...</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot" id="modelDot"></div>
+                <span id="modelStatus">Checking model...</span>
+            </div>
+        </div>
+
+        <!-- MAIN GRID -->
+        <div class="main-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-header-icon">📄</div>
+                    <h2>SRS Input</h2>
+                </div>
+                <div class="panel-body">
+                    <!-- Input Mode Toggle -->
+                    <div class="input-toggle">
+                        <button class="active" id="fileTabBtn" onclick="switchInputMode('file')">📂 File Upload</button>
+                        <button id="textTabBtn" onclick="switchInputMode('text')">✏️ Paste Text</button>
+                    </div>
+
+                    <!-- File Upload Mode -->
+                    <div id="fileMode">
+                        <div class="upload-zone" id="uploadZone">
+                            <div class="upload-icon">📂</div>
+                            <h3>Drop your SRS file here</h3>
+                            <p>Supports PDF, TXT, and MD files</p>
+                        </div>
+                        <input type="file" id="fileInput" accept=".pdf,.txt,.md">
+
+                        <div class="file-info" id="fileInfo">
+                            <span>📎</span>
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-size" id="fileSize"></span>
+                            <button class="remove-btn" id="removeFile" title="Remove file">✕</button>
+                        </div>
+                    </div>
+
+                    <!-- Text Input Mode -->
+                    <div class="text-input-area" id="textMode">
+                        <textarea id="srsTextInput" placeholder="Paste your SRS document text here...
+
+Example:
+### FR-01: User Login
+- Requirements:
+    - Two input fields for email and password
+    - Email must be validated
+- Acceptance Criteria:
+    - User can log in with valid credentials
+    - Error shown for invalid credentials"></textarea>
+                        <div class="char-count"><span id="charCount">0</span> characters</div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary" id="generateBtn" disabled>
+                            <span id="generateBtnText">⚡ Generate Tasks</span>
+                        </button>
+                        <button class="btn btn-secondary" id="parseOnlyBtn" disabled>
+                            📋 Parse Only
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Results Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-header-icon">✅</div>
+                    <h2>Generated Tasks</h2>
+                    <span class="badge badge-success" id="taskCount" style="display:none">0 tasks</span>
+                </div>
+                <div class="panel-body">
+                    <!-- Placeholder -->
+                    <div class="results-placeholder" id="resultsPlaceholder">
+                        <div class="placeholder-icon">📋</div>
+                        <p>Upload an SRS document to generate tasks</p>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="results-content" id="resultsContent">
+                        <!-- View Toggle -->
+                        <div class="json-toggle">
+                            <button class="active" id="cardsViewBtn" onclick="switchView('cards')">Cards</button>
+                            <button id="jsonViewBtn" onclick="switchView('json')">JSON</button>
+                        </div>
+
+                        <!-- Cards View -->
+                        <div class="tasks-list" id="tasksList"></div>
+
+                        <!-- JSON View -->
+                        <pre class="json-output" id="jsonOutput"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            Powered by <span>ML Pipeline</span> · SRS → Structured Tasks
+        </div>
+    </div>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+        </div>
+        <div class="loading-text" id="loadingText">Generating tasks...</div>
+        <div class="loading-subtext" id="loadingSubtext">This may take a moment on first run</div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // STATE
+        // ============================================
+        const API_BASE = window.location.origin;
+        let selectedFile = null;
+        let currentView = 'cards';
+        let inputMode = 'file'; // 'file' or 'text'
+
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const removeFile = document.getElementById('removeFile');
+        const generateBtn = document.getElementById('generateBtn');
+        const parseOnlyBtn = document.getElementById('parseOnlyBtn');
+        const resultsPlaceholder = document.getElementById('resultsPlaceholder');
+        const resultsContent = document.getElementById('resultsContent');
+        const tasksList = document.getElementById('tasksList');
+        const jsonOutput = document.getElementById('jsonOutput');
+        const srsTextInput = document.getElementById('srsTextInput');
+        const charCount = document.getElementById('charCount');
+        const taskCount = document.getElementById('taskCount');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const loadingSubtext = document.getElementById('loadingSubtext');
+
+        // ============================================
+        // HEALTH CHECK
+        // ============================================
+        async function checkHealth() {
+            const serverDot = document.getElementById('serverDot');
+            const serverStatus = document.getElementById('serverStatus');
+            const modelDot = document.getElementById('modelDot');
+            const modelStatus = document.getElementById('modelStatus');
+
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                const data = await res.json();
+
+                serverDot.className = 'status-dot green';
+                serverStatus.textContent = 'Server online';
+
+                if (data.model_loaded) {
+                    modelDot.className = 'status-dot green';
+                    modelStatus.textContent = 'Model loaded';
+                } else {
+                    modelDot.className = 'status-dot yellow';
+                    modelStatus.textContent = 'Model not loaded (will load on first request)';
+                }
+            } catch {
+                serverDot.className = 'status-dot red';
+                serverStatus.textContent = 'Server offline';
+                modelDot.className = 'status-dot red';
+                modelStatus.textContent = 'Unavailable';
+            }
+        }
+
+        checkHealth();
+        setInterval(checkHealth, 15000);
+
+        // ============================================
+        // FILE UPLOAD HANDLERS
+        // ============================================
+        uploadZone.addEventListener('click', () => fileInput.click());
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFileSelect(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files[0]) handleFileSelect(e.target.files[0]);
+        });
+
+        removeFile.addEventListener('click', clearFile);
+
+        function handleFileSelect(file) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (!['pdf', 'txt', 'md'].includes(ext)) {
+                showToast('Unsupported file type. Use PDF, TXT, or MD.', 'error');
+                return;
+            }
+
+            selectedFile = file;
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.classList.add('visible');
+            uploadZone.classList.add('has-file');
+            uploadZone.querySelector('h3').textContent = 'File ready!';
+            uploadZone.querySelector('.upload-icon').textContent = '✅';
+            generateBtn.disabled = false;
+            parseOnlyBtn.disabled = false;
+        }
+
+        function clearFile() {
+            selectedFile = null;
+            fileInput.value = '';
+            fileInfo.classList.remove('visible');
+            uploadZone.classList.remove('has-file');
+            uploadZone.querySelector('h3').textContent = 'Drop your SRS file here';
+            uploadZone.querySelector('.upload-icon').textContent = '📂';
+            generateBtn.disabled = true;
+            parseOnlyBtn.disabled = true;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+
+        // ============================================
+        // INPUT MODE TOGGLE
+        // ============================================
+        function switchInputMode(mode) {
+            inputMode = mode;
+            const fileTabBtn = document.getElementById('fileTabBtn');
+            const textTabBtn = document.getElementById('textTabBtn');
+            const fileMode = document.getElementById('fileMode');
+            const textMode = document.getElementById('textMode');
+
+            if (mode === 'file') {
+                fileTabBtn.classList.add('active');
+                textTabBtn.classList.remove('active');
+                fileMode.style.display = 'block';
+                textMode.classList.remove('visible');
+                // Enable buttons based on file selection
+                generateBtn.disabled = !selectedFile;
+                parseOnlyBtn.disabled = !selectedFile;
+            } else {
+                textTabBtn.classList.add('active');
+                fileTabBtn.classList.remove('active');
+                fileMode.style.display = 'none';
+                textMode.classList.add('visible');
+                // Enable buttons based on text content
+                const hasText = srsTextInput.value.trim().length > 0;
+                generateBtn.disabled = !hasText;
+                parseOnlyBtn.disabled = !hasText;
+            }
+        }
+
+        // Text input character count and button enable
+        srsTextInput.addEventListener('input', () => {
+            const len = srsTextInput.value.length;
+            charCount.textContent = len;
+            if (inputMode === 'text') {
+                generateBtn.disabled = len === 0;
+                parseOnlyBtn.disabled = len === 0;
+            }
+        });
+
+        // ============================================
+        // GENERATE TASKS
+        // ============================================
+        generateBtn.addEventListener('click', () => callAPI('generate', 'Generating tasks...', 'ML model is processing your SRS'));
+        parseOnlyBtn.addEventListener('click', () => callAPI('parse', 'Parsing SRS...', 'Extracting structured data from your document'));
+
+        async function callAPI(action, loadText, loadSubtext) {
+            showLoading(loadText, loadSubtext);
+
+            try {
+                let res;
+
+                if (inputMode === 'file') {
+                    if (!selectedFile) return hideLoading();
+                    const formData = new FormData();
+                    formData.append('file', selectedFile);
+                    const endpoint = action === 'generate' ? '/generate-tasks' : '/parse-srs';
+                    res = await fetch(`${API_BASE}${endpoint}`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+                } else {
+                    const text = srsTextInput.value.trim();
+                    if (!text) return hideLoading();
+                    const endpoint = action === 'generate' ? '/generate-tasks-text' : '/parse-srs-text';
+                    res = await fetch(`${API_BASE}${endpoint}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text }),
+                    });
+                }
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || 'Server error');
+                }
+
+                const data = await res.json();
+                hideLoading();
+
+                if (action === 'generate') {
+                    displayTasks(data.tasks || []);
+                    showToast(`Generated ${data.task_count || 0} tasks successfully!`, 'success');
+                } else {
+                    displayParsedSRS(data.srs || {});
+                    showToast('SRS parsed successfully!', 'success');
+                }
+            } catch (err) {
+                hideLoading();
+                showToast(`Error: ${err.message}`, 'error');
+            }
+        }
+
+        // ============================================
+        // DISPLAY RESULTS
+        // ============================================
+        function displayTasks(tasks) {
+            const normalizedTasks = normalizeTasksForDisplay(tasks);
+
+            resultsPlaceholder.style.display = 'none';
+            resultsContent.classList.add('visible');
+            taskCount.style.display = 'inline-flex';
+            taskCount.textContent = `${normalizedTasks.length} tasks`;
+
+            // Render cards
+            tasksList.innerHTML = '';
+            normalizedTasks.forEach((task, i) => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.style.animationDelay = `${i * 0.05}s`;
+
+                const type = (task.type || 'unknown').toLowerCase();
+                const priority = (task.priority || 'medium').toLowerCase();
+                const relatedReq = task.related_requirement && task.related_requirement !== '-' ? task.related_requirement : '';
+                const desc = task.description || '';
+
+                // Build description items as bullet points if multi-sentence
+                const descHtml = desc ? desc.split(/[.\n]/).filter(s => s.trim().length > 3).map(s => `<li>${escapeHtml(s.trim())}</li>`).join('') : '';
+
+                card.innerHTML = `
+                    <div class="task-card-header">
+                        <div class="task-number">${i + 1}</div>
+                        <div class="task-title">${escapeHtml(task.title || 'Untitled Task')}</div>
+                    </div>
+                    ${descHtml ? `<ul class="task-desc-list">${descHtml}</ul>` : ''}
+                    <div class="task-meta">
+                        <div class="task-tags">
+                            <span class="tag tag-${type}">${type}</span>
+                            <span class="tag tag-${priority}">${priority}</span>
+                            ${relatedReq ? `<span class="tag tag-unknown">${escapeHtml(relatedReq)}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                tasksList.appendChild(card);
+            });
+
+            // JSON view
+            jsonOutput.textContent = JSON.stringify(normalizedTasks, null, 2);
+
+            // Show cards view by default
+            switchView('cards');
+        }
+
+        function displayParsedSRS(srs) {
+            resultsPlaceholder.style.display = 'none';
+            resultsContent.classList.add('visible');
+            taskCount.style.display = 'inline-flex';
+            taskCount.textContent = 'Parsed';
+            taskCount.className = 'badge badge-warning';
+
+            tasksList.innerHTML = '<div class="task-card"><div class="task-description" style="padding-left:0">SRS parsed successfully. Switch to JSON view to see the structured output.</div></div>';
+            jsonOutput.textContent = JSON.stringify(srs, null, 2);
+            switchView('json');
+        }
+
+        // ============================================
+        // VIEW TOGGLE
+        // ============================================
+        function switchView(view) {
+            currentView = view;
+            const cardsBtn = document.getElementById('cardsViewBtn');
+            const jsonBtn = document.getElementById('jsonViewBtn');
+
+            if (view === 'cards') {
+                cardsBtn.classList.add('active');
+                jsonBtn.classList.remove('active');
+                tasksList.style.display = 'flex';
+                jsonOutput.classList.remove('visible');
+            } else {
+                jsonBtn.classList.add('active');
+                cardsBtn.classList.remove('active');
+                tasksList.style.display = 'none';
+                jsonOutput.classList.add('visible');
+            }
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
+        function showLoading(text, subtext) {
+            loadingText.textContent = text;
+            loadingSubtext.textContent = subtext;
+            loadingOverlay.classList.add('visible');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.remove('visible');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast toast-${type} visible`;
+            setTimeout(() => toast.classList.remove('visible'), 4000);
+        }
+
+        function normalizeTasksForDisplay(tasks) {
+            const normalized = [];
+
+            (tasks || []).forEach(task => {
+                // First try to recover structured tasks from raw/messy output
+                const recovered = recoverTasksFromRawCard(task);
+                if (recovered.length) {
+                    normalized.push(...recovered);
+                    return;
+                }
+
+                normalized.push({
+                    title: deepCleanText(task?.title || 'Untitled'),
+                    description: deepCleanText(task?.description || ''),
+                    priority: cleanTagValue(task?.priority, 'medium'),
+                    type: cleanTagValue(task?.type, 'general'),
+                    related_requirement: deepCleanText(task?.related_requirement || '-'),
+                });
+            });
+
+            return normalized;
+        }
+
+        function recoverTasksFromRawCard(task) {
+            const rawText = `${task?.title || ''}\n${task?.description || ''}`;
+            if (!/(title|description|priority|type|related_requirement)\s*:/i.test(rawText)) {
+                return [];
+            }
+
+            const keyPattern = /["']?(title|description|priority|type|related_requirement)["']?\s*:\s*/gi;
+            const matches = [...rawText.matchAll(keyPattern)];
+            if (!matches.length) {
+                return [];
+            }
+
+            const recovered = [];
+            let currentTask = {};
+
+            matches.forEach((match, index) => {
+                const key = match[1].toLowerCase();
+                const nextStart = index + 1 < matches.length ? matches[index + 1].index : rawText.length;
+                const rawValue = rawText.slice(match.index + match[0].length, nextStart);
+                const cleanedValue = extractQuotedOrPlainValue(rawValue);
+
+                if (key === 'title' && Object.keys(currentTask).length) {
+                    recovered.push(currentTask);
+                    currentTask = {};
+                }
+
+                currentTask[key] = cleanedValue;
+            });
+
+            if (Object.keys(currentTask).length) {
+                recovered.push(currentTask);
+            }
+
+            return recovered.map((item, idx) => ({
+                title: deepCleanText(item.title || `Task ${idx + 1}`),
+                description: deepCleanText(item.description || ''),
+                priority: cleanTagValue(item.priority, 'medium'),
+                type: cleanTagValue(item.type, 'general'),
+                related_requirement: deepCleanText(item.related_requirement || '-'),
+            }));
+        }
+
+        /**
+         * Extract a value from malformed JSON-like text:
+         * handles "quoted values" and unquoted values up to delimiters.
+         */
+        function extractQuotedOrPlainValue(value) {
+            let text = String(value || '').trim();
+            if (!text) return '';
+
+            if (text[0] === '"' || text[0] === "'") {
+                const quote = text[0];
+                let cleaned = '';
+                let escaped = false;
+                for (let i = 1; i < text.length; i++) {
+                    const c = text[i];
+                    if (escaped) { cleaned += c; escaped = false; continue; }
+                    if (c === '\\') { escaped = true; continue; }
+                    if (c === quote) break;
+                    cleaned += c;
+                }
+                text = cleaned;
+            } else {
+                text = text.split(/[\],}]/, 1)[0];
+            }
+
+            text = text.replace(/\\n/g, ' ').replace(/\\t/g, ' ').replace(/\\"/g, '"').replace(/\\'/g, "'");
+            return deepCleanText(text);
+        }
+
+        /**
+         * Aggressively strips all JSON syntax artifacts, leaving only
+         * clean human-readable text.
+         */
+        function deepCleanText(value) {
+            let t = String(value || '');
+
+            // Unescape JSON escape sequences
+            t = t.replace(/\\n/g, ' ').replace(/\\t/g, ' ').replace(/\\"/g, '"').replace(/\\'/g, "'");
+
+            // Remove JSON structural characters: { } [ ] 
+            t = t.replace(/[{}[\]]/g, ' ');
+
+            // Remove key-value patterns like "key": or 'key':
+            t = t.replace(/["']?\w+["']?\s*:/g, (match) => {
+                // Only strip if it looks like a JSON key, not natural text
+                if (/^["']?(title|description|priority|type|related_requirement|describe|detail|priorities|Seperiority|Sepriority|requirement)["']?\s*:$/i.test(match)) {
+                    return ' ';
+                }
+                return match;
+            });
+
+            // Remove orphaned quotes
+            t = t.replace(/^[\s"']+|[\s"']+$/g, '');
+
+            // Remove stray commas between items  
+            t = t.replace(/\s*,\s*/g, ', ');
+
+            // Collapse multiple spaces
+            t = t.replace(/\s{2,}/g, ' ');
+
+            // Trim trailing/leading commas, periods-commas combos
+            t = t.replace(/^[,\s]+|[,\s]+$/g, '').trim();
+
+            // Remove if string is just punctuation or JSON junk
+            if (/^[\s,;:{}[\]"'*\-]+$/.test(t)) return '';
+
+            return t;
+        }
+
+        function cleanTagValue(value, fallback) {
+            let cleaned = deepCleanText(value || '').toLowerCase();
+            // Only allow known tag values
+            const validTypes = ['backend', 'frontend', 'database', 'testing', 'general', 'devops', 'design', 'api'];
+            const validPriorities = ['high', 'medium', 'low'];
+            const allValid = [...validTypes, ...validPriorities];
+            // Try to find a valid keyword in the text
+            for (const kw of allValid) {
+                if (cleaned.includes(kw)) return kw;
+            }
+            return fallback;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

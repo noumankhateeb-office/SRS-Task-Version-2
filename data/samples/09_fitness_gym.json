@@ -1,0 +1,83 @@
+{
+  "input": {
+    "title": "Fitness and Gym Management System",
+    "technologies": ["React Native", "Express", "MongoDB"],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Member Registration",
+        "requirements": ["Register with personal info and fitness goals", "Choose membership plan (monthly, yearly, pay-per-visit)", "Payment for selected plan", "Member ID card generation"],
+        "acceptance_criteria": ["Account created with correct plan", "Payment processed and recorded", "Member card generated with QR code", "Welcome email with details sent"]
+      },
+      "FR-02": {
+        "title": "Workout Tracking",
+        "requirements": ["Log exercises with sets, reps, and weight", "Pre-built workout templates", "Track personal records per exercise", "View workout history calendar"],
+        "acceptance_criteria": ["Exercise log saved correctly", "Templates load with correct exercises", "PR is updated when record broken", "Calendar shows workout days"]
+      },
+      "FR-03": {
+        "title": "Class Booking",
+        "requirements": ["View schedule of group fitness classes", "Book spot in class with capacity limits", "Cancel booking up to 2 hours before", "Waitlist when class is full"],
+        "acceptance_criteria": ["Class schedule displays correctly", "Booking decreases available spots", "Late cancellation is prevented", "Waitlist promotes when spot opens"]
+      },
+      "FR-04": {
+        "title": "Personal Trainer Booking",
+        "requirements": ["Browse trainers with specialties and availability", "Book one-on-one sessions", "Trainer can set their schedule", "Session reminders sent to both parties"],
+        "acceptance_criteria": ["Trainer profiles show accurate info", "Session booked on available slot", "Trainer manages own calendar", "Reminders sent 1 hour before"]
+      },
+      "FR-05": {
+        "title": "Nutrition and Meal Planning",
+        "requirements": ["Set daily calorie and macro targets", "Log meals with food search database", "Track daily intake vs targets", "Meal plan suggestions based on goals"],
+        "acceptance_criteria": ["Targets are saved per user", "Food search returns accurate nutrition data", "Daily totals calculate correctly", "Suggestions match user goals"]
+      },
+      "FR-06": {
+        "title": "Progress Photos and Measurements",
+        "requirements": ["Upload progress photos with date stamps", "Log body measurements (weight, chest, waist, etc.)", "Side-by-side photo comparisons", "Progress charts over time"],
+        "acceptance_criteria": ["Photos uploaded and dated correctly", "Measurements saved accurately", "Comparison view shows selected photos", "Charts display measurement trends"]
+      },
+      "FR-07": {
+        "title": "Membership Management",
+        "requirements": ["View membership status and expiry", "Renew or upgrade membership plan", "Freeze membership temporarily", "Cancellation with notice period"],
+        "acceptance_criteria": ["Status shows correct plan and expiry", "Renewal extends membership", "Freeze pauses billing and access", "Cancellation enforces notice period"]
+      },
+      "FR-08": {
+        "title": "Gym Admin Dashboard",
+        "requirements": ["View total members and active memberships", "Revenue reports by plan type", "Class attendance analytics", "Equipment maintenance scheduling"],
+        "acceptance_criteria": ["Member count is accurate", "Revenue matches payment records", "Attendance data reflects actual check-ins", "Maintenance schedule is manageable"]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {"title": "Build Member Registration API", "description": "Create POST /api/members/register (personal info, fitness goals, plan selection). Process payment. Generate unique member ID and QR code. Send welcome email with membership details.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
+      {"title": "Build Registration Flow", "description": "Create registration screens: personal info form, fitness goals selection (weight loss/muscle gain/general fitness), plan comparison cards with pricing, payment form, and confirmation with QR code.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
+      {"title": "Create Members Database Schema", "description": "Design members collection: id, name, email, phone, goals, plan_type, plan_start, plan_end, status (active/frozen/cancelled), member_id, qr_code_url, created_at.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+    ],
+    "FR-02": [
+      {"title": "Build Workout Logging API", "description": "Create POST /api/workouts (date, exercises array with sets/reps/weight). GET /api/workouts (history with date filter). GET /api/exercises/records (personal records). Pre-built template CRUD.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
+      {"title": "Build Workout Logger UI", "description": "Create workout screen with exercise search, add sets with reps/weight inputs, rest timer, template selector, and save workout. History calendar with workout indicators. PR badges.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+    ],
+    "FR-03": [
+      {"title": "Build Class Booking API", "description": "Create GET /api/classes/schedule (weekly view). POST /api/classes/:id/book (enforce capacity). DELETE /api/classes/:id/cancel (enforce 2h rule). POST /api/classes/:id/waitlist. Auto-promote from waitlist.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
+      {"title": "Build Class Schedule UI", "description": "Create weekly schedule grid with class cards (name, time, instructor, spots left). Book button. My bookings list. Waitlist indicator with position.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+    ],
+    "FR-04": [
+      {"title": "Build Trainer Booking API", "description": "Create GET /api/trainers (list with specialties). GET /api/trainers/:id/availability. POST /api/sessions/book. Trainer endpoints: PATCH /api/trainers/schedule. Send reminders via push notification.", "priority": "medium", "type": "backend", "related_requirement": "FR-04"},
+      {"title": "Build Trainer Booking UI", "description": "Create trainer browse with profile cards (photo, specialty, rating). Availability calendar on profile. Session booking flow with date/time selection and confirmation.", "priority": "medium", "type": "frontend", "related_requirement": "FR-04"}
+    ],
+    "FR-05": [
+      {"title": "Build Nutrition API", "description": "Create PATCH /api/nutrition/targets (calories, protein, carbs, fat). POST /api/nutrition/meals (log with food items from database). GET /api/nutrition/daily (totals vs targets). Food search API.", "priority": "medium", "type": "backend", "related_requirement": "FR-05"},
+      {"title": "Build Nutrition Tracker UI", "description": "Create nutrition screen with daily rings (calories, macros), meal log with food search autocomplete, add food with serving size, and daily summary showing remaining vs target.", "priority": "medium", "type": "frontend", "related_requirement": "FR-05"}
+    ],
+    "FR-06": [
+      {"title": "Build Progress Tracking API", "description": "Create POST /api/progress/photos (image upload with date). POST /api/progress/measurements (weight, chest, waist, arms, etc.). GET /api/progress/history. GET /api/progress/compare (two dates).", "priority": "medium", "type": "backend", "related_requirement": "FR-06"},
+      {"title": "Build Progress Screen", "description": "Create progress page with photo grid, side-by-side comparison selector, measurement input form, and trend charts (line graphs for weight, measurements over time).", "priority": "medium", "type": "frontend", "related_requirement": "FR-06"}
+    ],
+    "FR-07": [
+      {"title": "Build Membership Management API", "description": "Create GET /api/membership (current status). POST /api/membership/renew. POST /api/membership/upgrade. POST /api/membership/freeze (with duration). POST /api/membership/cancel (enforce notice).", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
+      {"title": "Build Membership Screen", "description": "Create membership page showing plan name, status badge, expiry date, and action buttons: Renew, Upgrade (plan comparison), Freeze (duration selector), Cancel (notice period info).", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+    ],
+    "FR-08": [
+      {"title": "Build Admin Analytics API", "description": "Create GET /api/admin/stats (total members, active, revenue). GET /api/admin/revenue (by plan type, monthly). GET /api/admin/attendance (class stats). CRUD for equipment maintenance.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
+      {"title": "Build Admin Dashboard", "description": "Create admin page with stat cards, revenue bar chart by plan, class attendance heat map, and equipment maintenance table with status and schedule dates.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+    ]
+  }
+}
