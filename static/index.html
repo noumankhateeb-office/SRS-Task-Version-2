@@ -518,8 +518,13 @@
         .sample-toolbar {
             display: flex;
             gap: 10px;
-            align-items: center;
+            align-items: end;
             flex-wrap: wrap;
+            margin-bottom: 14px;
+            padding: 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
         }
 
         .sample-picker {
@@ -1140,7 +1145,7 @@
                                 Load Sample
                             </button>
                         </div>
-                        <div class="sample-hint" id="sampleHint">Select a bundled sample SRS to test parsing and task generation from the frontend.</div>
+                        <div class="sample-hint" id="sampleHint">Pick a bundled sample SRS to test parsing and task generation from the frontend.</div>
                         <textarea id="srsTextInput" placeholder="Paste your SRS document text here...
 
 Example:
@@ -1342,6 +1347,9 @@ Example:
 
                 const data = await res.json();
                 const sample = data.sample || {};
+                if (inputMode !== 'text') {
+                    switchInputMode('text');
+                }
                 setTextInputValue(sample.text || '');
                 sampleHint.textContent = `Loaded ${sample.title || sample.filename || sampleId}. You can edit it before running generation.`;
                 showToast(`Loaded ${sample.title || sampleId}`, 'success');
