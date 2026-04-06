@@ -747,7 +747,7 @@ def create_sample(filepath, title, techs, fr_titles):
 
 
 def main():
-    base_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "samples")
+    base_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "training")
 
     curated_markdown_samples = [
         ("01_ecommerce.json", "sample_srs_ecommerce.md"),

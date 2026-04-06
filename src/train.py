@@ -6,7 +6,7 @@ SRS JSON → Development Tasks generation.
 
 Usage:
     python src/train.py                            # Uses default data path
-    python src/train.py --data data/samples          # Custom data path
+    python src/train.py --data data/training       # Custom data path
     python src/train.py --epochs 15 --batch-size 2
 """
 
@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-DEFAULT_DATA_PATH = Path(__file__).parent.parent / "data" / "samples"
+DEFAULT_DATA_PATH = Path(__file__).parent.parent / "data" / "training"
 DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "models" / "srs-task-adapter"
 
 LORA_CONFIG = LoraConfig(

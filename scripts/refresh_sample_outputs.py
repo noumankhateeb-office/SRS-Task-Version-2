@@ -45,7 +45,7 @@ def refresh_outputs(samples_dir: Path) -> int:
 
 def main() -> None:
     project_root = Path(__file__).resolve().parents[1]
-    samples_dir = project_root / "data" / "samples"
+    samples_dir = project_root / "data" / "training"
     updated = refresh_outputs(samples_dir)
     print(f"Updated outputs for {updated} sample files")
 

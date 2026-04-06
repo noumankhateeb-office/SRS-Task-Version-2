@@ -23,6 +23,8 @@ logger = logging.getLogger(__name__)
 MODEL_NAME = "google/flan-t5-base"
 MAX_INPUT_LENGTH = 512
 MAX_TARGET_LENGTH = 1024
+LEGACY_DATA_PATH_NAME = "samples"
+DEFAULT_DATA_PATH_NAME = "training"
 
 INSTRUCTION_PREFIX = (
     "Generate development tasks as JSON from this software requirements specification:\n\n"
@@ -106,7 +108,30 @@ def load_training_data(data_path: str | Path) -> list[dict[str, Any]]:
     data_path = Path(data_path)
 
     if not data_path.exists():
+        fallback_path = _resolve_legacy_training_path(data_path)
+        if fallback_path is not None:
+            logger.warning(
+                "Training data path %s not found. Falling back to legacy path %s.",
+                data_path,
+                fallback_path,
+            )
+            data_path = fallback_path
+
+    if not data_path.exists():
         raise FileNotFoundError(f"Training data path not found: {data_path}")
+
+    if data_path.is_dir() and data_path.name == LEGACY_DATA_PATH_NAME:
+        fallback_path = _resolve_legacy_training_path(data_path)
+        if fallback_path is not None:
+            legacy_files = list(data_path.glob("*.json"))
+            fallback_files = list(fallback_path.glob("*.json"))
+            if not legacy_files and fallback_files:
+                logger.warning(
+                    "Legacy training directory %s is empty. Using %s instead.",
+                    data_path,
+                    fallback_path,
+                )
+                data_path = fallback_path
 
     if data_path.is_dir():
         return _load_from_directory(data_path)
@@ -176,6 +201,25 @@ def _load_from_directory(dir_path: Path) -> list[dict[str, Any]]:
     )
 
     return data
+
+
+def _resolve_legacy_training_path(data_path: Path) -> Path | None:
+    """Support both `data/samples` and `data/training` during the migration."""
+    parts = list(data_path.parts)
+    if not parts:
+        return None
+
+    if parts[-1] == DEFAULT_DATA_PATH_NAME:
+        legacy_path = Path(*parts[:-1], LEGACY_DATA_PATH_NAME)
+        if legacy_path.exists():
+            return legacy_path
+
+    if parts[-1] == LEGACY_DATA_PATH_NAME:
+        modern_path = Path(*parts[:-1], DEFAULT_DATA_PATH_NAME)
+        if modern_path.exists():
+            return modern_path
+
+    return None
 
 
 def _split_into_fr_pairs(
@@ -412,7 +456,7 @@ def prepare_datasets(
     if len(raw_data) < 2:
         raise ValueError(
             f"Need at least 2 examples for train/val split, got {len(raw_data)}. "
-            "Add more training data to your data/samples/ directory."
+            "Add more training data to your data/training/ directory."
         )
 
     # Format into text pairs
@@ -450,14 +494,14 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     project_root = Path(__file__).parent.parent
-    data_path = project_root / "data" / "samples"
+    data_path = project_root / "data" / "training"
 
     if len(sys.argv) >= 2:
         data_path = Path(sys.argv[1])
 
     if not data_path.exists():
         logger.error("Data path not found: %s", data_path)
-        logger.info("Add training JSON files to: data/samples/")
+        logger.info("Add training JSON files to: data/training/")
         sys.exit(1)
 
     train_ds, val_ds, tok = prepare_datasets(data_path)

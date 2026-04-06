@@ -20,7 +20,7 @@ python -m spacy download en_core_web_sm
 
 ### 2. Prepare Training Data
 
-Training data lives in `data/samples/` as individual JSON files. Each file is a JSON object with:
+Training data lives in `data/training/` as individual JSON files. Each file is a JSON object with:
 - `input`: Structured SRS JSON including title, description, technologies, actors, constraints, non-functional requirements, and functional requirements
 - `output`: Tasks grouped by requirement ID
 
@@ -39,11 +39,11 @@ python scripts/generate_samples.py
 ### 3. Train the Model
 
 ```bash
-python src/train.py --data data/samples --epochs 15
+python src/train.py --data data/training --epochs 15
 ```
 
 Options:
-- `--data PATH` - Path to training data directory or JSONL file (default: `data/samples/`)
+- `--data PATH` - Path to training data directory or JSONL file (default: `data/training/`)
 - `--output PATH` - Where to save the model (default: `models/srs-task-adapter/`)
 - `--epochs N` - Number of epochs (default: 15)
 - `--batch-size N` - Batch size (default: 4, reduce to 2 if out of memory)
@@ -114,7 +114,7 @@ python -m unittest discover -s tests -v
 ```text
 SRS-Task-Generator/
 |-- data/
-|   `-- samples/                  # Training data (JSON files)
+|   `-- training/                 # Training data (JSON files)
 |-- uploads/                      # Uploaded SRS PDFs and text files
 |-- output/                       # Generated task JSONs
 |-- samples/                      # Example SRS inputs, including ERP template

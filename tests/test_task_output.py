@@ -33,7 +33,7 @@ class TaskOutputTests(unittest.TestCase):
         sample_path = (
             Path(__file__).resolve().parents[1]
             / "data"
-            / "samples"
+            / "training"
             / "51_enterprise_erp.json"
         )
         data = json.loads(sample_path.read_text(encoding="utf-8"))
@@ -55,7 +55,7 @@ class TaskOutputTests(unittest.TestCase):
         sample_path = (
             Path(__file__).resolve().parents[1]
             / "data"
-            / "samples"
+            / "training"
             / "07_project_management.json"
         )
         data = json.loads(sample_path.read_text(encoding="utf-8"))
