@@ -16,7 +16,7 @@ from generate_samples import generate_tasks_for_fr
 
 
 def refresh_outputs(samples_dir: Path) -> int:
-    """Rewrite the `output` section for every sample JSON file."""
+    """Rewrite the `output` section for every sample JSON file in one dataset folder."""
     updated = 0
 
     for path in sorted(samples_dir.glob("*.json")):
@@ -45,8 +45,16 @@ def refresh_outputs(samples_dir: Path) -> int:
 
 def main() -> None:
     project_root = Path(__file__).resolve().parents[1]
-    samples_dir = project_root / "data" / "training"
-    updated = refresh_outputs(samples_dir)
+    dataset_dirs = [
+        project_root / "data" / "training",
+        project_root / "data" / "evaluation",
+    ]
+
+    updated = 0
+    for samples_dir in dataset_dirs:
+        if samples_dir.exists():
+            updated += refresh_outputs(samples_dir)
+
     print(f"Updated outputs for {updated} sample files")
 
 

@@ -1,0 +1,1677 @@
+{
+  "input": {
+    "title": "Pharmacy Dispensing and Inventory Control System",
+    "description": "Pharmacy Dispensing and Inventory Control System is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "technologies": [
+      "React",
+      "Java Spring Boot",
+      "PostgreSQL"
+    ],
+    "actors": [
+      "Admin",
+      "Manager",
+      "Employee",
+      "User"
+    ],
+    "user_classes": {
+      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
+      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
+      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
+      "User": "Generic authenticated platform user with access limited by role and department."
+    },
+    "definitions": {
+      "Admin": "System user with full administrative privileges.",
+      "Manager": "Operational owner of a department, module, or workflow.",
+      "Employee": "End user performing role-specific business operations."
+    },
+    "modules": [
+      "Prescription Intake and Validation",
+      "Patient Medication Profile Lookup",
+      "Drug Interaction Alerting",
+      "Controlled Substance Verification",
+      "Dispensing Queue Management",
+      "Barcode-based Medication Picking",
+      "Batch and Expiry Tracking",
+      "Inventory Reorder Thresholds",
+      "Supplier Purchase Order Creation",
+      "Cold Storage Temperature Logging"
+    ],
+    "scope": [
+      "Prescription Intake and Validation workflows",
+      "Patient Medication Profile Lookup workflows",
+      "Drug Interaction Alerting workflows",
+      "Controlled Substance Verification workflows",
+      "Dispensing Queue Management workflows",
+      "Barcode-based Medication Picking workflows"
+    ],
+    "constraints": [
+      "Initial release will focus on the web platform only",
+      "Role-based access control is mandatory across all modules",
+      "Operational data must be auditable and retained according to policy"
+    ],
+    "operating_environment": {
+      "frontend": "Web-based interface built with React and accessible through modern browsers.",
+      "backend": "Service layer implemented with Java Spring Boot, PostgreSQL for business operations.",
+      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Security and Access Control",
+        "requirements": [
+          "All sensitive data must be encrypted in transit and at rest",
+          "Role-based authorization must restrict access by module and action",
+          "All authentication events and privileged actions must be logged"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance and Scalability",
+        "requirements": [
+          "Core pages and dashboards should load within acceptable enterprise SLAs",
+          "The platform must support concurrent usage across multiple departments",
+          "Background jobs and reporting workloads should not block transactional workflows"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability and Recoverability",
+        "requirements": [
+          "Automated backups must run on a defined schedule",
+          "Critical workflows should support retry-safe processing and audit logging",
+          "Operational alerts should be generated for failures and degraded services"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
+      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
+      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
+      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
+    },
+    "out_of_scope": [
+      "Native mobile applications in the first release",
+      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
+      "Non-core experimental modules outside the platform's operational workflows"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Prescription Intake and Validation",
+        "requirements": [
+          "The system must support prescription intake and validation as a complete business workflow within the application.",
+          "Prescription Intake and Validation should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with prescription intake and validation from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to prescription intake and validation for operational support."
+        ]
+      },
+      "FR-02": {
+        "title": "Patient Medication Profile Lookup",
+        "requirements": [
+          "The system must provide end-to-end patient medication profile lookup capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Patient Medication Profile Lookup should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to patient medication profile lookup without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within patient medication profile lookup and retain operational history for reporting."
+        ]
+      },
+      "FR-03": {
+        "title": "Drug Interaction Alerting",
+        "requirements": [
+          "The system must trigger drug interaction alerting when the relevant business events or threshold conditions occur.",
+          "Users should be able to configure delivery channels, timing, or opt-in preferences related to drug interaction alerting.",
+          "Drug Interaction Alerting must record delivery outcomes, retries, and failures for operational follow-up.",
+          "The interface should let authorized users review recent drug interaction alerting events and the current notification status."
+        ]
+      },
+      "FR-04": {
+        "title": "Controlled Substance Verification",
+        "requirements": [
+          "Users must be able to complete controlled substance verification through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing controlled substance verification to continue.",
+          "Controlled Substance Verification must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for controlled substance verification should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-05": {
+        "title": "Dispensing Queue Management",
+        "requirements": [
+          "The system must provide end-to-end dispensing queue management capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Dispensing Queue Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to dispensing queue management without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within dispensing queue management and retain operational history for reporting."
+        ]
+      },
+      "FR-06": {
+        "title": "Barcode-based Medication Picking",
+        "requirements": [
+          "The system must support barcode-based medication picking as a complete business workflow within the application.",
+          "Barcode-based Medication Picking should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with barcode-based medication picking from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to barcode-based medication picking for operational support."
+        ]
+      },
+      "FR-07": {
+        "title": "Batch and Expiry Tracking",
+        "requirements": [
+          "The system must capture batch and expiry tracking data in real time or near real time as operational events occur.",
+          "Batch and Expiry Tracking should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile batch and expiry tracking records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during batch and expiry tracking."
+        ]
+      },
+      "FR-08": {
+        "title": "Inventory Reorder Thresholds",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete inventory reorder thresholds according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving inventory reorder thresholds changes.",
+          "Inventory Reorder Thresholds must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for inventory reorder thresholds."
+        ]
+      },
+      "FR-09": {
+        "title": "Supplier Purchase Order Creation",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete supplier purchase order creation according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving supplier purchase order creation changes.",
+          "Supplier Purchase Order Creation must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for supplier purchase order creation."
+        ]
+      },
+      "FR-10": {
+        "title": "Cold Storage Temperature Logging",
+        "requirements": [
+          "The system must capture cold storage temperature logging data in real time or near real time as operational events occur.",
+          "Cold Storage Temperature Logging should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile cold storage temperature logging records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during cold storage temperature logging."
+        ]
+      },
+      "FR-11": {
+        "title": "Prescription Refill Request Workflow",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete prescription refill request workflow according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving prescription refill request workflow changes.",
+          "Prescription Refill Request Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for prescription refill request workflow."
+        ]
+      },
+      "FR-12": {
+        "title": "Insurance Claim Submission",
+        "requirements": [
+          "The system must support insurance claim submission as a complete business workflow within the application.",
+          "Insurance Claim Submission should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with insurance claim submission from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to insurance claim submission for operational support."
+        ]
+      },
+      "FR-13": {
+        "title": "Cash and Card Billing",
+        "requirements": [
+          "The system must support cash and card billing as a complete business workflow within the application.",
+          "Cash and Card Billing should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with cash and card billing from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to cash and card billing for operational support."
+        ]
+      },
+      "FR-14": {
+        "title": "Pharmacist Verification Step",
+        "requirements": [
+          "Users must be able to complete pharmacist verification step through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing pharmacist verification step to continue.",
+          "Pharmacist Verification Step must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for pharmacist verification step should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-15": {
+        "title": "Rejected Claim Resolution",
+        "requirements": [
+          "The system must support rejected claim resolution as a complete business workflow within the application.",
+          "Rejected Claim Resolution should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with rejected claim resolution from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to rejected claim resolution for operational support."
+        ]
+      },
+      "FR-16": {
+        "title": "Daily Dispensing Summary Report",
+        "requirements": [
+          "The system must provide daily dispensing summary report with role-appropriate filters, date ranges, and drill-down views.",
+          "Daily Dispensing Summary Report should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share daily dispensing summary report outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-17": {
+        "title": "Medication Recall Handling",
+        "requirements": [
+          "The system must support medication recall handling as a complete business workflow within the application.",
+          "Medication Recall Handling should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with medication recall handling from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to medication recall handling for operational support."
+        ]
+      },
+      "FR-18": {
+        "title": "User Permission Segmentation",
+        "requirements": [
+          "The system must support user permission segmentation as a complete business workflow within the application.",
+          "User Permission Segmentation should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with user permission segmentation from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to user permission segmentation for operational support."
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Plan Prescription Intake and Validation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for prescription intake and validation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support prescription intake and validation as a complete business workflow within the application; Prescription Intake and Validation should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with prescription intake and validation from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for prescription intake and validation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for prescription intake and validation are explicitly defined",
+          "Implementation subtasks for prescription intake and validation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Prescription Intake and Validation Backend Services",
+        "description": "Build the backend services for prescription intake and validation on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support prescription intake and validation as a complete business workflow within the application; Prescription Intake and Validation should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with prescription intake and validation from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core prescription intake and validation business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for prescription intake and validation",
+          "API/service behavior for prescription intake and validation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Prescription Intake and Validation Frontend Flow",
+        "description": "Build the frontend flow for prescription intake and validation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The prescription intake and validation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for prescription intake and validation behave correctly",
+          "The prescription intake and validation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Prescription Intake and Validation",
+        "description": "Implement the external integration points used by prescription intake and validation, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by prescription intake and validation are connected through stable integration layers",
+          "Timeout, retry, and failure handling for prescription intake and validation integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for prescription intake and validation are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Prescription Intake and Validation Security and Access Rules",
+        "description": "Apply security controls to prescription intake and validation. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for prescription intake and validation are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in prescription intake and validation are audited and protected against misuse",
+          "Security validation for prescription intake and validation passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Prescription Intake and Validation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for prescription intake and validation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for prescription intake and validation are covered by automated tests",
+          "Permission checks and validation rules for prescription intake and validation are verified",
+          "Regression coverage exists for the most critical prescription intake and validation scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Patient Medication Profile Lookup Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for patient medication profile lookup and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end patient medication profile lookup capabilities for creating, updating, viewing, and retiring relevant business records; Patient Medication Profile Lookup should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to patient medication profile lookup without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for patient medication profile lookup is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for patient medication profile lookup are explicitly defined",
+          "Implementation subtasks for patient medication profile lookup can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Patient Medication Profile Lookup Backend Services",
+        "description": "Build the backend services for patient medication profile lookup on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end patient medication profile lookup capabilities for creating, updating, viewing, and retiring relevant business records; Patient Medication Profile Lookup should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to patient medication profile lookup without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core patient medication profile lookup business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for patient medication profile lookup",
+          "API/service behavior for patient medication profile lookup is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Patient Medication Profile Lookup Frontend Flow",
+        "description": "Build the frontend flow for patient medication profile lookup with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The patient medication profile lookup user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for patient medication profile lookup behave correctly",
+          "The patient medication profile lookup UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Patient Medication Profile Lookup Persistence Model",
+        "description": "Design the persistence layer for patient medication profile lookup. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The persistence model for patient medication profile lookup supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for patient medication profile lookup are defined correctly",
+          "Migrations for patient medication profile lookup can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Patient Medication Profile Lookup Security and Access Rules",
+        "description": "Apply security controls to patient medication profile lookup. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Access control rules for patient medication profile lookup are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in patient medication profile lookup are audited and protected against misuse",
+          "Security validation for patient medication profile lookup passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Patient Medication Profile Lookup Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for patient medication profile lookup. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for patient medication profile lookup are covered by automated tests",
+          "Permission checks and validation rules for patient medication profile lookup are verified",
+          "Regression coverage exists for the most critical patient medication profile lookup scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Drug Interaction Alerting Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for drug interaction alerting and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must trigger drug interaction alerting when the relevant business events or threshold conditions occur; Users should be able to configure delivery channels, timing, or opt-in preferences related to drug interaction alerting; Drug Interaction Alerting must record delivery outcomes, retries, and failures for operational follow-up.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for drug interaction alerting is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for drug interaction alerting are explicitly defined",
+          "Implementation subtasks for drug interaction alerting can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Drug Interaction Alerting Backend Services",
+        "description": "Build the backend services for drug interaction alerting on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must trigger drug interaction alerting when the relevant business events or threshold conditions occur; Users should be able to configure delivery channels, timing, or opt-in preferences related to drug interaction alerting; Drug Interaction Alerting must record delivery outcomes, retries, and failures for operational follow-up.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core drug interaction alerting business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for drug interaction alerting",
+          "API/service behavior for drug interaction alerting is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Drug Interaction Alerting Frontend Flow",
+        "description": "Build the frontend flow for drug interaction alerting with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The drug interaction alerting user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for drug interaction alerting behave correctly",
+          "The drug interaction alerting UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Drug Interaction Alerting Persistence Model",
+        "description": "Design the persistence layer for drug interaction alerting. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for drug interaction alerting supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for drug interaction alerting are defined correctly",
+          "Migrations for drug interaction alerting can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Drug Interaction Alerting Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for drug interaction alerting. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Notification triggers for drug interaction alerting fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for drug interaction alerting are configurable and testable",
+          "Notification failures for drug interaction alerting are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Drug Interaction Alerting Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for drug interaction alerting. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for drug interaction alerting are covered by automated tests",
+          "Permission checks and validation rules for drug interaction alerting are verified",
+          "Regression coverage exists for the most critical drug interaction alerting scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Controlled Substance Verification Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for controlled substance verification and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete controlled substance verification through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing controlled substance verification to continue; Controlled Substance Verification must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for controlled substance verification is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for controlled substance verification are explicitly defined",
+          "Implementation subtasks for controlled substance verification can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Controlled Substance Verification Backend Services",
+        "description": "Build the backend services for controlled substance verification on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete controlled substance verification through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing controlled substance verification to continue; Controlled Substance Verification must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core controlled substance verification business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for controlled substance verification",
+          "API/service behavior for controlled substance verification is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Controlled Substance Verification Frontend Flow",
+        "description": "Build the frontend flow for controlled substance verification with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The controlled substance verification user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for controlled substance verification behave correctly",
+          "The controlled substance verification UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Controlled Substance Verification Security and Access Rules",
+        "description": "Apply security controls to controlled substance verification. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Access control rules for controlled substance verification are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in controlled substance verification are audited and protected against misuse",
+          "Security validation for controlled substance verification passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Controlled Substance Verification Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for controlled substance verification. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for controlled substance verification are covered by automated tests",
+          "Permission checks and validation rules for controlled substance verification are verified",
+          "Regression coverage exists for the most critical controlled substance verification scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Dispensing Queue Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for dispensing queue management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end dispensing queue management capabilities for creating, updating, viewing, and retiring relevant business records; Dispensing Queue Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to dispensing queue management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for dispensing queue management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for dispensing queue management are explicitly defined",
+          "Implementation subtasks for dispensing queue management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Dispensing Queue Management Backend Services",
+        "description": "Build the backend services for dispensing queue management on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end dispensing queue management capabilities for creating, updating, viewing, and retiring relevant business records; Dispensing Queue Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to dispensing queue management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core dispensing queue management business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for dispensing queue management",
+          "API/service behavior for dispensing queue management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Dispensing Queue Management Frontend Flow",
+        "description": "Build the frontend flow for dispensing queue management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The dispensing queue management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for dispensing queue management behave correctly",
+          "The dispensing queue management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Dispensing Queue Management Persistence Model",
+        "description": "Design the persistence layer for dispensing queue management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for dispensing queue management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for dispensing queue management are defined correctly",
+          "Migrations for dispensing queue management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Dispensing Queue Management Security and Access Rules",
+        "description": "Apply security controls to dispensing queue management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Access control rules for dispensing queue management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in dispensing queue management are audited and protected against misuse",
+          "Security validation for dispensing queue management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Dispensing Queue Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for dispensing queue management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for dispensing queue management are covered by automated tests",
+          "Permission checks and validation rules for dispensing queue management are verified",
+          "Regression coverage exists for the most critical dispensing queue management scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Barcode-based Medication Picking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for barcode-based medication picking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support barcode-based medication picking as a complete business workflow within the application; Barcode-based Medication Picking should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with barcode-based medication picking from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for barcode-based medication picking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for barcode-based medication picking are explicitly defined",
+          "Implementation subtasks for barcode-based medication picking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Barcode-based Medication Picking Backend Services",
+        "description": "Build the backend services for barcode-based medication picking on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support barcode-based medication picking as a complete business workflow within the application; Barcode-based Medication Picking should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with barcode-based medication picking from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core barcode-based medication picking business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for barcode-based medication picking",
+          "API/service behavior for barcode-based medication picking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Barcode-based Medication Picking Frontend Flow",
+        "description": "Build the frontend flow for barcode-based medication picking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The barcode-based medication picking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for barcode-based medication picking behave correctly",
+          "The barcode-based medication picking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Barcode-based Medication Picking",
+        "description": "Implement the external integration points used by barcode-based medication picking, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "External dependencies used by barcode-based medication picking are connected through stable integration layers",
+          "Timeout, retry, and failure handling for barcode-based medication picking integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for barcode-based medication picking are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Barcode-based Medication Picking Security and Access Rules",
+        "description": "Apply security controls to barcode-based medication picking. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Access control rules for barcode-based medication picking are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in barcode-based medication picking are audited and protected against misuse",
+          "Security validation for barcode-based medication picking passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Barcode-based Medication Picking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for barcode-based medication picking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for barcode-based medication picking are covered by automated tests",
+          "Permission checks and validation rules for barcode-based medication picking are verified",
+          "Regression coverage exists for the most critical barcode-based medication picking scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Batch and Expiry Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for batch and expiry tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture batch and expiry tracking data in real time or near real time as operational events occur; Batch and Expiry Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile batch and expiry tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for batch and expiry tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for batch and expiry tracking are explicitly defined",
+          "Implementation subtasks for batch and expiry tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Batch and Expiry Tracking Backend Services",
+        "description": "Build the backend services for batch and expiry tracking on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture batch and expiry tracking data in real time or near real time as operational events occur; Batch and Expiry Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile batch and expiry tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core batch and expiry tracking business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for batch and expiry tracking",
+          "API/service behavior for batch and expiry tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Batch and Expiry Tracking Frontend Flow",
+        "description": "Build the frontend flow for batch and expiry tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The batch and expiry tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for batch and expiry tracking behave correctly",
+          "The batch and expiry tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Batch and Expiry Tracking Persistence Model",
+        "description": "Design the persistence layer for batch and expiry tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for batch and expiry tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for batch and expiry tracking are defined correctly",
+          "Migrations for batch and expiry tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Batch and Expiry Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for batch and expiry tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for batch and expiry tracking return accurate results",
+          "Filters, grouping, and export-ready structures for batch and expiry tracking work correctly",
+          "Reporting queries for batch and expiry tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Batch and Expiry Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for batch and expiry tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for batch and expiry tracking are covered by automated tests",
+          "Permission checks and validation rules for batch and expiry tracking are verified",
+          "Regression coverage exists for the most critical batch and expiry tracking scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Inventory Reorder Thresholds Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for inventory reorder thresholds and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete inventory reorder thresholds according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving inventory reorder thresholds changes; Inventory Reorder Thresholds must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for inventory reorder thresholds is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for inventory reorder thresholds are explicitly defined",
+          "Implementation subtasks for inventory reorder thresholds can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Inventory Reorder Thresholds Backend Services",
+        "description": "Build the backend services for inventory reorder thresholds on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete inventory reorder thresholds according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving inventory reorder thresholds changes; Inventory Reorder Thresholds must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core inventory reorder thresholds business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for inventory reorder thresholds",
+          "API/service behavior for inventory reorder thresholds is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Inventory Reorder Thresholds Frontend Flow",
+        "description": "Build the frontend flow for inventory reorder thresholds with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The inventory reorder thresholds user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for inventory reorder thresholds behave correctly",
+          "The inventory reorder thresholds UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Inventory Reorder Thresholds Persistence Model",
+        "description": "Design the persistence layer for inventory reorder thresholds. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for inventory reorder thresholds supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for inventory reorder thresholds are defined correctly",
+          "Migrations for inventory reorder thresholds can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Inventory Reorder Thresholds Security and Access Rules",
+        "description": "Apply security controls to inventory reorder thresholds. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Access control rules for inventory reorder thresholds are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in inventory reorder thresholds are audited and protected against misuse",
+          "Security validation for inventory reorder thresholds passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Inventory Reorder Thresholds Reporting and KPI Logic",
+        "description": "Implement the reporting layer for inventory reorder thresholds, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for inventory reorder thresholds return accurate results",
+          "Filters, grouping, and export-ready structures for inventory reorder thresholds work correctly",
+          "Reporting queries for inventory reorder thresholds perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Inventory Reorder Thresholds Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for inventory reorder thresholds. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Notification triggers for inventory reorder thresholds fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for inventory reorder thresholds are configurable and testable",
+          "Notification failures for inventory reorder thresholds are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Inventory Reorder Thresholds Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for inventory reorder thresholds. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for inventory reorder thresholds are covered by automated tests",
+          "Permission checks and validation rules for inventory reorder thresholds are verified",
+          "Regression coverage exists for the most critical inventory reorder thresholds scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Supplier Purchase Order Creation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for supplier purchase order creation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete supplier purchase order creation according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving supplier purchase order creation changes; Supplier Purchase Order Creation must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for supplier purchase order creation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for supplier purchase order creation are explicitly defined",
+          "Implementation subtasks for supplier purchase order creation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Supplier Purchase Order Creation Backend Services",
+        "description": "Build the backend services for supplier purchase order creation on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete supplier purchase order creation according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving supplier purchase order creation changes; Supplier Purchase Order Creation must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core supplier purchase order creation business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for supplier purchase order creation",
+          "API/service behavior for supplier purchase order creation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Supplier Purchase Order Creation Frontend Flow",
+        "description": "Build the frontend flow for supplier purchase order creation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The supplier purchase order creation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for supplier purchase order creation behave correctly",
+          "The supplier purchase order creation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Supplier Purchase Order Creation Persistence Model",
+        "description": "Design the persistence layer for supplier purchase order creation. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The persistence model for supplier purchase order creation supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for supplier purchase order creation are defined correctly",
+          "Migrations for supplier purchase order creation can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Supplier Purchase Order Creation Security and Access Rules",
+        "description": "Apply security controls to supplier purchase order creation. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Access control rules for supplier purchase order creation are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in supplier purchase order creation are audited and protected against misuse",
+          "Security validation for supplier purchase order creation passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Supplier Purchase Order Creation Reporting and KPI Logic",
+        "description": "Implement the reporting layer for supplier purchase order creation, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for supplier purchase order creation return accurate results",
+          "Filters, grouping, and export-ready structures for supplier purchase order creation work correctly",
+          "Reporting queries for supplier purchase order creation perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Supplier Purchase Order Creation Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for supplier purchase order creation. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Notification triggers for supplier purchase order creation fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for supplier purchase order creation are configurable and testable",
+          "Notification failures for supplier purchase order creation are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Supplier Purchase Order Creation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for supplier purchase order creation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for supplier purchase order creation are covered by automated tests",
+          "Permission checks and validation rules for supplier purchase order creation are verified",
+          "Regression coverage exists for the most critical supplier purchase order creation scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Cold Storage Temperature Logging Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for cold storage temperature logging and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture cold storage temperature logging data in real time or near real time as operational events occur; Cold Storage Temperature Logging should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile cold storage temperature logging records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for cold storage temperature logging is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for cold storage temperature logging are explicitly defined",
+          "Implementation subtasks for cold storage temperature logging can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Cold Storage Temperature Logging Backend Services",
+        "description": "Build the backend services for cold storage temperature logging on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture cold storage temperature logging data in real time or near real time as operational events occur; Cold Storage Temperature Logging should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile cold storage temperature logging records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core cold storage temperature logging business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for cold storage temperature logging",
+          "API/service behavior for cold storage temperature logging is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Cold Storage Temperature Logging Frontend Flow",
+        "description": "Build the frontend flow for cold storage temperature logging with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The cold storage temperature logging user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for cold storage temperature logging behave correctly",
+          "The cold storage temperature logging UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Cold Storage Temperature Logging Persistence Model",
+        "description": "Design the persistence layer for cold storage temperature logging. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for cold storage temperature logging supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for cold storage temperature logging are defined correctly",
+          "Migrations for cold storage temperature logging can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Cold Storage Temperature Logging Reporting and KPI Logic",
+        "description": "Implement the reporting layer for cold storage temperature logging, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for cold storage temperature logging return accurate results",
+          "Filters, grouping, and export-ready structures for cold storage temperature logging work correctly",
+          "Reporting queries for cold storage temperature logging perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Cold Storage Temperature Logging Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for cold storage temperature logging. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for cold storage temperature logging are covered by automated tests",
+          "Permission checks and validation rules for cold storage temperature logging are verified",
+          "Regression coverage exists for the most critical cold storage temperature logging scenarios"
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Plan Prescription Refill Request Workflow Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for prescription refill request workflow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete prescription refill request workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving prescription refill request workflow changes; Prescription Refill Request Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for prescription refill request workflow is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for prescription refill request workflow are explicitly defined",
+          "Implementation subtasks for prescription refill request workflow can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Prescription Refill Request Workflow Backend Services",
+        "description": "Build the backend services for prescription refill request workflow on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete prescription refill request workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving prescription refill request workflow changes; Prescription Refill Request Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core prescription refill request workflow business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for prescription refill request workflow",
+          "API/service behavior for prescription refill request workflow is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Prescription Refill Request Workflow Frontend Flow",
+        "description": "Build the frontend flow for prescription refill request workflow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The prescription refill request workflow user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for prescription refill request workflow behave correctly",
+          "The prescription refill request workflow UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Prescription Refill Request Workflow Persistence Model",
+        "description": "Design the persistence layer for prescription refill request workflow. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The persistence model for prescription refill request workflow supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for prescription refill request workflow are defined correctly",
+          "Migrations for prescription refill request workflow can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Prescription Refill Request Workflow Security and Access Rules",
+        "description": "Apply security controls to prescription refill request workflow. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Access control rules for prescription refill request workflow are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in prescription refill request workflow are audited and protected against misuse",
+          "Security validation for prescription refill request workflow passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Prescription Refill Request Workflow Reporting and KPI Logic",
+        "description": "Implement the reporting layer for prescription refill request workflow, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for prescription refill request workflow return accurate results",
+          "Filters, grouping, and export-ready structures for prescription refill request workflow work correctly",
+          "Reporting queries for prescription refill request workflow perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Prescription Refill Request Workflow Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for prescription refill request workflow. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Notification triggers for prescription refill request workflow fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for prescription refill request workflow are configurable and testable",
+          "Notification failures for prescription refill request workflow are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Prescription Refill Request Workflow Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for prescription refill request workflow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for prescription refill request workflow are covered by automated tests",
+          "Permission checks and validation rules for prescription refill request workflow are verified",
+          "Regression coverage exists for the most critical prescription refill request workflow scenarios"
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Plan Insurance Claim Submission Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for insurance claim submission and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support insurance claim submission as a complete business workflow within the application; Insurance Claim Submission should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with insurance claim submission from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for insurance claim submission is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for insurance claim submission are explicitly defined",
+          "Implementation subtasks for insurance claim submission can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Insurance Claim Submission Backend Services",
+        "description": "Build the backend services for insurance claim submission on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support insurance claim submission as a complete business workflow within the application; Insurance Claim Submission should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with insurance claim submission from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core insurance claim submission business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for insurance claim submission",
+          "API/service behavior for insurance claim submission is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Insurance Claim Submission Frontend Flow",
+        "description": "Build the frontend flow for insurance claim submission with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The insurance claim submission user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for insurance claim submission behave correctly",
+          "The insurance claim submission UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Insurance Claim Submission",
+        "description": "Implement the external integration points used by insurance claim submission, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "External dependencies used by insurance claim submission are connected through stable integration layers",
+          "Timeout, retry, and failure handling for insurance claim submission integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for insurance claim submission are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Insurance Claim Submission Security and Access Rules",
+        "description": "Apply security controls to insurance claim submission. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Access control rules for insurance claim submission are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in insurance claim submission are audited and protected against misuse",
+          "Security validation for insurance claim submission passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Insurance Claim Submission Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for insurance claim submission. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for insurance claim submission are covered by automated tests",
+          "Permission checks and validation rules for insurance claim submission are verified",
+          "Regression coverage exists for the most critical insurance claim submission scenarios"
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Plan Cash and Card Billing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for cash and card billing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support cash and card billing as a complete business workflow within the application; Cash and Card Billing should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with cash and card billing from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The end-to-end workflow for cash and card billing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for cash and card billing are explicitly defined",
+          "Implementation subtasks for cash and card billing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Cash and Card Billing Backend Services",
+        "description": "Build the backend services for cash and card billing on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support cash and card billing as a complete business workflow within the application; Cash and Card Billing should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with cash and card billing from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Core cash and card billing business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for cash and card billing",
+          "API/service behavior for cash and card billing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Cash and Card Billing Frontend Flow",
+        "description": "Build the frontend flow for cash and card billing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The cash and card billing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for cash and card billing behave correctly",
+          "The cash and card billing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Cash and Card Billing Persistence Model",
+        "description": "Design the persistence layer for cash and card billing. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The persistence model for cash and card billing supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for cash and card billing are defined correctly",
+          "Migrations for cash and card billing can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Cash and Card Billing",
+        "description": "Implement the external integration points used by cash and card billing, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "External dependencies used by cash and card billing are connected through stable integration layers",
+          "Timeout, retry, and failure handling for cash and card billing integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for cash and card billing are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Cash and Card Billing Security and Access Rules",
+        "description": "Apply security controls to cash and card billing. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Access control rules for cash and card billing are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in cash and card billing are audited and protected against misuse",
+          "Security validation for cash and card billing passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Cash and Card Billing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for cash and card billing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Happy path and failure cases for cash and card billing are covered by automated tests",
+          "Permission checks and validation rules for cash and card billing are verified",
+          "Regression coverage exists for the most critical cash and card billing scenarios"
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Plan Pharmacist Verification Step Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for pharmacist verification step and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete pharmacist verification step through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing pharmacist verification step to continue; Pharmacist Verification Step must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The end-to-end workflow for pharmacist verification step is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for pharmacist verification step are explicitly defined",
+          "Implementation subtasks for pharmacist verification step can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Pharmacist Verification Step Backend Services",
+        "description": "Build the backend services for pharmacist verification step on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete pharmacist verification step through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing pharmacist verification step to continue; Pharmacist Verification Step must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Core pharmacist verification step business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for pharmacist verification step",
+          "API/service behavior for pharmacist verification step is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Pharmacist Verification Step Frontend Flow",
+        "description": "Build the frontend flow for pharmacist verification step with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The pharmacist verification step user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for pharmacist verification step behave correctly",
+          "The pharmacist verification step UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Pharmacist Verification Step Security and Access Rules",
+        "description": "Apply security controls to pharmacist verification step. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Access control rules for pharmacist verification step are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in pharmacist verification step are audited and protected against misuse",
+          "Security validation for pharmacist verification step passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Pharmacist Verification Step Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for pharmacist verification step. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Happy path and failure cases for pharmacist verification step are covered by automated tests",
+          "Permission checks and validation rules for pharmacist verification step are verified",
+          "Regression coverage exists for the most critical pharmacist verification step scenarios"
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Plan Rejected Claim Resolution Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for rejected claim resolution and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support rejected claim resolution as a complete business workflow within the application; Rejected Claim Resolution should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with rejected claim resolution from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The end-to-end workflow for rejected claim resolution is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for rejected claim resolution are explicitly defined",
+          "Implementation subtasks for rejected claim resolution can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Rejected Claim Resolution Backend Services",
+        "description": "Build the backend services for rejected claim resolution on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support rejected claim resolution as a complete business workflow within the application; Rejected Claim Resolution should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with rejected claim resolution from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Core rejected claim resolution business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for rejected claim resolution",
+          "API/service behavior for rejected claim resolution is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Rejected Claim Resolution Frontend Flow",
+        "description": "Build the frontend flow for rejected claim resolution with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The rejected claim resolution user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for rejected claim resolution behave correctly",
+          "The rejected claim resolution UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Rejected Claim Resolution",
+        "description": "Implement the external integration points used by rejected claim resolution, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "External dependencies used by rejected claim resolution are connected through stable integration layers",
+          "Timeout, retry, and failure handling for rejected claim resolution integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for rejected claim resolution are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Rejected Claim Resolution Security and Access Rules",
+        "description": "Apply security controls to rejected claim resolution. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Access control rules for rejected claim resolution are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in rejected claim resolution are audited and protected against misuse",
+          "Security validation for rejected claim resolution passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Rejected Claim Resolution Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for rejected claim resolution. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Happy path and failure cases for rejected claim resolution are covered by automated tests",
+          "Permission checks and validation rules for rejected claim resolution are verified",
+          "Regression coverage exists for the most critical rejected claim resolution scenarios"
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Plan Daily Dispensing Summary Report Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for daily dispensing summary report and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide daily dispensing summary report with role-appropriate filters, date ranges, and drill-down views; Daily Dispensing Summary Report should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share daily dispensing summary report outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The end-to-end workflow for daily dispensing summary report is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for daily dispensing summary report are explicitly defined",
+          "Implementation subtasks for daily dispensing summary report can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Daily Dispensing Summary Report Backend Services",
+        "description": "Build the backend services for daily dispensing summary report on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide daily dispensing summary report with role-appropriate filters, date ranges, and drill-down views; Daily Dispensing Summary Report should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share daily dispensing summary report outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Core daily dispensing summary report business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for daily dispensing summary report",
+          "API/service behavior for daily dispensing summary report is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Daily Dispensing Summary Report Frontend Flow",
+        "description": "Build the frontend flow for daily dispensing summary report with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The daily dispensing summary report user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for daily dispensing summary report behave correctly",
+          "The daily dispensing summary report UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Daily Dispensing Summary Report Persistence Model",
+        "description": "Design the persistence layer for daily dispensing summary report. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The persistence model for daily dispensing summary report supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for daily dispensing summary report are defined correctly",
+          "Migrations for daily dispensing summary report can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Daily Dispensing Summary Report",
+        "description": "Implement the external integration points used by daily dispensing summary report, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "External dependencies used by daily dispensing summary report are connected through stable integration layers",
+          "Timeout, retry, and failure handling for daily dispensing summary report integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for daily dispensing summary report are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Daily Dispensing Summary Report Security and Access Rules",
+        "description": "Apply security controls to daily dispensing summary report. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Access control rules for daily dispensing summary report are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in daily dispensing summary report are audited and protected against misuse",
+          "Security validation for daily dispensing summary report passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Daily Dispensing Summary Report Reporting and KPI Logic",
+        "description": "Implement the reporting layer for daily dispensing summary report, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for daily dispensing summary report return accurate results",
+          "Filters, grouping, and export-ready structures for daily dispensing summary report work correctly",
+          "Reporting queries for daily dispensing summary report perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Daily Dispensing Summary Report Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for daily dispensing summary report. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Happy path and failure cases for daily dispensing summary report are covered by automated tests",
+          "Permission checks and validation rules for daily dispensing summary report are verified",
+          "Regression coverage exists for the most critical daily dispensing summary report scenarios"
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Plan Medication Recall Handling Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for medication recall handling and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support medication recall handling as a complete business workflow within the application; Medication Recall Handling should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with medication recall handling from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The end-to-end workflow for medication recall handling is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for medication recall handling are explicitly defined",
+          "Implementation subtasks for medication recall handling can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Medication Recall Handling Backend Services",
+        "description": "Build the backend services for medication recall handling on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support medication recall handling as a complete business workflow within the application; Medication Recall Handling should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with medication recall handling from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Core medication recall handling business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for medication recall handling",
+          "API/service behavior for medication recall handling is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Medication Recall Handling Frontend Flow",
+        "description": "Build the frontend flow for medication recall handling with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The medication recall handling user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for medication recall handling behave correctly",
+          "The medication recall handling UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Medication Recall Handling",
+        "description": "Implement the external integration points used by medication recall handling, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "External dependencies used by medication recall handling are connected through stable integration layers",
+          "Timeout, retry, and failure handling for medication recall handling integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for medication recall handling are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Medication Recall Handling Security and Access Rules",
+        "description": "Apply security controls to medication recall handling. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Access control rules for medication recall handling are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in medication recall handling are audited and protected against misuse",
+          "Security validation for medication recall handling passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Medication Recall Handling Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for medication recall handling. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Happy path and failure cases for medication recall handling are covered by automated tests",
+          "Permission checks and validation rules for medication recall handling are verified",
+          "Regression coverage exists for the most critical medication recall handling scenarios"
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Plan User Permission Segmentation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for user permission segmentation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support user permission segmentation as a complete business workflow within the application; User Permission Segmentation should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with user permission segmentation from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The end-to-end workflow for user permission segmentation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for user permission segmentation are explicitly defined",
+          "Implementation subtasks for user permission segmentation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement User Permission Segmentation Backend Services",
+        "description": "Build the backend services for user permission segmentation on React, Java Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support user permission segmentation as a complete business workflow within the application; User Permission Segmentation should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with user permission segmentation from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Core user permission segmentation business rules are implemented for Pharmacy Dispensing and Inventory Control System",
+          "Validation, authorization, and error handling are covered for user permission segmentation",
+          "API/service behavior for user permission segmentation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement User Permission Segmentation Frontend Flow",
+        "description": "Build the frontend flow for user permission segmentation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The user permission segmentation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for user permission segmentation behave correctly",
+          "The user permission segmentation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for User Permission Segmentation",
+        "description": "Implement the external integration points used by user permission segmentation, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "External dependencies used by user permission segmentation are connected through stable integration layers",
+          "Timeout, retry, and failure handling for user permission segmentation integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for user permission segmentation are handled securely"
+        ]
+      },
+      {
+        "title": "Harden User Permission Segmentation Security and Access Rules",
+        "description": "Apply security controls to user permission segmentation. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Access control rules for user permission segmentation are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in user permission segmentation are audited and protected against misuse",
+          "Security validation for user permission segmentation passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write User Permission Segmentation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for user permission segmentation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Happy path and failure cases for user permission segmentation are covered by automated tests",
+          "Permission checks and validation rules for user permission segmentation are verified",
+          "Regression coverage exists for the most critical user permission segmentation scenarios"
+        ]
+      }
+    ]
+  }
+}

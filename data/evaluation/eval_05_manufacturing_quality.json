@@ -1,0 +1,1940 @@
+{
+  "input": {
+    "title": "Manufacturing Quality and Inspection Management System",
+    "description": "Manufacturing Quality and Inspection Management System is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "technologies": [
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "TimescaleDB"
+    ],
+    "actors": [
+      "Admin",
+      "Manager",
+      "Employee",
+      "User"
+    ],
+    "user_classes": {
+      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
+      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
+      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
+      "User": "Generic authenticated platform user with access limited by role and department."
+    },
+    "definitions": {
+      "Admin": "System user with full administrative privileges.",
+      "Manager": "Operational owner of a department, module, or workflow.",
+      "Employee": "End user performing role-specific business operations."
+    },
+    "modules": [
+      "Plant and Production Line Setup",
+      "Inspection Plan Definition",
+      "Incoming Material Quality Checks",
+      "In-process Inspection Recording",
+      "Final Product Inspection Workflow",
+      "Defect Classification Catalog",
+      "Corrective Action Request Management",
+      "Non-conformance Case Tracking",
+      "Root Cause Analysis Workspace",
+      "Supplier Quality Scorecards"
+    ],
+    "scope": [
+      "Plant and Production Line Setup workflows",
+      "Inspection Plan Definition workflows",
+      "Incoming Material Quality Checks workflows",
+      "In-process Inspection Recording workflows",
+      "Final Product Inspection Workflow workflows",
+      "Defect Classification Catalog workflows"
+    ],
+    "constraints": [
+      "Initial release will focus on the web platform only",
+      "Role-based access control is mandatory across all modules",
+      "Operational data must be auditable and retained according to policy"
+    ],
+    "operating_environment": {
+      "frontend": "Web-based interface built with React and accessible through modern browsers.",
+      "backend": "Service layer implemented with Node.js, PostgreSQL, TimescaleDB for business operations.",
+      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Security and Access Control",
+        "requirements": [
+          "All sensitive data must be encrypted in transit and at rest",
+          "Role-based authorization must restrict access by module and action",
+          "All authentication events and privileged actions must be logged"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance and Scalability",
+        "requirements": [
+          "Core pages and dashboards should load within acceptable enterprise SLAs",
+          "The platform must support concurrent usage across multiple departments",
+          "Background jobs and reporting workloads should not block transactional workflows"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability and Recoverability",
+        "requirements": [
+          "Automated backups must run on a defined schedule",
+          "Critical workflows should support retry-safe processing and audit logging",
+          "Operational alerts should be generated for failures and degraded services"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
+      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
+      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
+      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
+    },
+    "out_of_scope": [
+      "Native mobile applications in the first release",
+      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
+      "Non-core experimental modules outside the platform's operational workflows"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Plant and Production Line Setup",
+        "requirements": [
+          "The system must support plant and production line setup as a complete business workflow within the application.",
+          "Plant and Production Line Setup should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with plant and production line setup from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to plant and production line setup for operational support."
+        ]
+      },
+      "FR-02": {
+        "title": "Inspection Plan Definition",
+        "requirements": [
+          "The system must support inspection plan definition as a complete business workflow within the application.",
+          "Inspection Plan Definition should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with inspection plan definition from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to inspection plan definition for operational support."
+        ]
+      },
+      "FR-03": {
+        "title": "Incoming Material Quality Checks",
+        "requirements": [
+          "The system must support incoming material quality checks as a complete business workflow within the application.",
+          "Incoming Material Quality Checks should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with incoming material quality checks from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to incoming material quality checks for operational support."
+        ]
+      },
+      "FR-04": {
+        "title": "In-process Inspection Recording",
+        "requirements": [
+          "The system must support in-process inspection recording as a complete business workflow within the application.",
+          "In-process Inspection Recording should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with in-process inspection recording from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to in-process inspection recording for operational support."
+        ]
+      },
+      "FR-05": {
+        "title": "Final Product Inspection Workflow",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete final product inspection workflow according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving final product inspection workflow changes.",
+          "Final Product Inspection Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for final product inspection workflow."
+        ]
+      },
+      "FR-06": {
+        "title": "Defect Classification Catalog",
+        "requirements": [
+          "The system must capture defect classification catalog data in real time or near real time as operational events occur.",
+          "Defect Classification Catalog should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile defect classification catalog records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during defect classification catalog."
+        ]
+      },
+      "FR-07": {
+        "title": "Corrective Action Request Management",
+        "requirements": [
+          "The system must provide end-to-end corrective action request management capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Corrective Action Request Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to corrective action request management without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within corrective action request management and retain operational history for reporting."
+        ]
+      },
+      "FR-08": {
+        "title": "Non-conformance Case Tracking",
+        "requirements": [
+          "The system must capture non-conformance case tracking data in real time or near real time as operational events occur.",
+          "Non-conformance Case Tracking should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile non-conformance case tracking records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during non-conformance case tracking."
+        ]
+      },
+      "FR-09": {
+        "title": "Root Cause Analysis Workspace",
+        "requirements": [
+          "The system must support root cause analysis workspace as a complete business workflow within the application.",
+          "Root Cause Analysis Workspace should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with root cause analysis workspace from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to root cause analysis workspace for operational support."
+        ]
+      },
+      "FR-10": {
+        "title": "Supplier Quality Scorecards",
+        "requirements": [
+          "The system must provide end-to-end supplier quality scorecards capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Supplier Quality Scorecards should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to supplier quality scorecards without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within supplier quality scorecards and retain operational history for reporting."
+        ]
+      },
+      "FR-11": {
+        "title": "Calibration Schedule Tracking",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete calibration schedule tracking according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving calibration schedule tracking changes.",
+          "Calibration Schedule Tracking must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for calibration schedule tracking."
+        ]
+      },
+      "FR-12": {
+        "title": "Sampling Rule Configuration",
+        "requirements": [
+          "The system must support sampling rule configuration as a complete business workflow within the application.",
+          "Sampling Rule Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with sampling rule configuration from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to sampling rule configuration for operational support."
+        ]
+      },
+      "FR-13": {
+        "title": "Batch Traceability Lookup",
+        "requirements": [
+          "The system must support batch traceability lookup as a complete business workflow within the application.",
+          "Batch Traceability Lookup should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with batch traceability lookup from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to batch traceability lookup for operational support."
+        ]
+      },
+      "FR-14": {
+        "title": "Photo Evidence Capture",
+        "requirements": [
+          "The system must support photo evidence capture as a complete business workflow within the application.",
+          "Photo Evidence Capture should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with photo evidence capture from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to photo evidence capture for operational support."
+        ]
+      },
+      "FR-15": {
+        "title": "Quality Hold and Release Workflow",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete quality hold and release workflow according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving quality hold and release workflow changes.",
+          "Quality Hold and Release Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for quality hold and release workflow."
+        ]
+      },
+      "FR-16": {
+        "title": "Rework Order Tracking",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete rework order tracking according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving rework order tracking changes.",
+          "Rework Order Tracking must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for rework order tracking."
+        ]
+      },
+      "FR-17": {
+        "title": "Regulatory Compliance Checklist",
+        "requirements": [
+          "The system must support regulatory compliance checklist as a complete business workflow within the application.",
+          "Regulatory Compliance Checklist should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with regulatory compliance checklist from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to regulatory compliance checklist for operational support."
+        ]
+      },
+      "FR-18": {
+        "title": "Shift Quality Dashboard",
+        "requirements": [
+          "The system must provide shift quality dashboard with role-appropriate filters, date ranges, and drill-down views.",
+          "Shift Quality Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share shift quality dashboard outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-19": {
+        "title": "Scrap and Yield Reporting",
+        "requirements": [
+          "The system must provide scrap and yield reporting with role-appropriate filters, date ranges, and drill-down views.",
+          "Scrap and Yield Reporting should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share scrap and yield reporting outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-20": {
+        "title": "Audit Preparation Reports",
+        "requirements": [
+          "The system must provide audit preparation reports with role-appropriate filters, date ranges, and drill-down views.",
+          "Audit Preparation Reports should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share audit preparation reports outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Plan Plant and Production Line Setup Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for plant and production line setup and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support plant and production line setup as a complete business workflow within the application; Plant and Production Line Setup should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with plant and production line setup from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for plant and production line setup is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for plant and production line setup are explicitly defined",
+          "Implementation subtasks for plant and production line setup can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Plant and Production Line Setup Backend Services",
+        "description": "Build the backend services for plant and production line setup on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support plant and production line setup as a complete business workflow within the application; Plant and Production Line Setup should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with plant and production line setup from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core plant and production line setup business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for plant and production line setup",
+          "API/service behavior for plant and production line setup is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Plant and Production Line Setup Frontend Flow",
+        "description": "Build the frontend flow for plant and production line setup with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The plant and production line setup user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for plant and production line setup behave correctly",
+          "The plant and production line setup UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Plant and Production Line Setup",
+        "description": "Implement the external integration points used by plant and production line setup, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by plant and production line setup are connected through stable integration layers",
+          "Timeout, retry, and failure handling for plant and production line setup integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for plant and production line setup are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Plant and Production Line Setup Security and Access Rules",
+        "description": "Apply security controls to plant and production line setup. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for plant and production line setup are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in plant and production line setup are audited and protected against misuse",
+          "Security validation for plant and production line setup passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Plant and Production Line Setup Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for plant and production line setup. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for plant and production line setup are covered by automated tests",
+          "Permission checks and validation rules for plant and production line setup are verified",
+          "Regression coverage exists for the most critical plant and production line setup scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Inspection Plan Definition Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for inspection plan definition and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support inspection plan definition as a complete business workflow within the application; Inspection Plan Definition should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with inspection plan definition from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for inspection plan definition is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for inspection plan definition are explicitly defined",
+          "Implementation subtasks for inspection plan definition can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Inspection Plan Definition Backend Services",
+        "description": "Build the backend services for inspection plan definition on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support inspection plan definition as a complete business workflow within the application; Inspection Plan Definition should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with inspection plan definition from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core inspection plan definition business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for inspection plan definition",
+          "API/service behavior for inspection plan definition is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Inspection Plan Definition Frontend Flow",
+        "description": "Build the frontend flow for inspection plan definition with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The inspection plan definition user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for inspection plan definition behave correctly",
+          "The inspection plan definition UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Inspection Plan Definition",
+        "description": "Implement the external integration points used by inspection plan definition, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by inspection plan definition are connected through stable integration layers",
+          "Timeout, retry, and failure handling for inspection plan definition integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for inspection plan definition are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Inspection Plan Definition Security and Access Rules",
+        "description": "Apply security controls to inspection plan definition. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Access control rules for inspection plan definition are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in inspection plan definition are audited and protected against misuse",
+          "Security validation for inspection plan definition passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Inspection Plan Definition Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for inspection plan definition. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for inspection plan definition are covered by automated tests",
+          "Permission checks and validation rules for inspection plan definition are verified",
+          "Regression coverage exists for the most critical inspection plan definition scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Incoming Material Quality Checks Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for incoming material quality checks and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support incoming material quality checks as a complete business workflow within the application; Incoming Material Quality Checks should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with incoming material quality checks from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for incoming material quality checks is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for incoming material quality checks are explicitly defined",
+          "Implementation subtasks for incoming material quality checks can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Incoming Material Quality Checks Backend Services",
+        "description": "Build the backend services for incoming material quality checks on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support incoming material quality checks as a complete business workflow within the application; Incoming Material Quality Checks should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with incoming material quality checks from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core incoming material quality checks business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for incoming material quality checks",
+          "API/service behavior for incoming material quality checks is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Incoming Material Quality Checks Frontend Flow",
+        "description": "Build the frontend flow for incoming material quality checks with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The incoming material quality checks user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for incoming material quality checks behave correctly",
+          "The incoming material quality checks UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Incoming Material Quality Checks",
+        "description": "Implement the external integration points used by incoming material quality checks, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "External dependencies used by incoming material quality checks are connected through stable integration layers",
+          "Timeout, retry, and failure handling for incoming material quality checks integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for incoming material quality checks are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Incoming Material Quality Checks Security and Access Rules",
+        "description": "Apply security controls to incoming material quality checks. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Access control rules for incoming material quality checks are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in incoming material quality checks are audited and protected against misuse",
+          "Security validation for incoming material quality checks passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Incoming Material Quality Checks Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for incoming material quality checks. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for incoming material quality checks are covered by automated tests",
+          "Permission checks and validation rules for incoming material quality checks are verified",
+          "Regression coverage exists for the most critical incoming material quality checks scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan In-process Inspection Recording Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for in-process inspection recording and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support in-process inspection recording as a complete business workflow within the application; In-process Inspection Recording should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with in-process inspection recording from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for in-process inspection recording is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for in-process inspection recording are explicitly defined",
+          "Implementation subtasks for in-process inspection recording can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement In-process Inspection Recording Backend Services",
+        "description": "Build the backend services for in-process inspection recording on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support in-process inspection recording as a complete business workflow within the application; In-process Inspection Recording should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with in-process inspection recording from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core in-process inspection recording business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for in-process inspection recording",
+          "API/service behavior for in-process inspection recording is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement In-process Inspection Recording Frontend Flow",
+        "description": "Build the frontend flow for in-process inspection recording with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The in-process inspection recording user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for in-process inspection recording behave correctly",
+          "The in-process inspection recording UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design In-process Inspection Recording Persistence Model",
+        "description": "Design the persistence layer for in-process inspection recording. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for in-process inspection recording supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for in-process inspection recording are defined correctly",
+          "Migrations for in-process inspection recording can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for In-process Inspection Recording",
+        "description": "Implement the external integration points used by in-process inspection recording, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "External dependencies used by in-process inspection recording are connected through stable integration layers",
+          "Timeout, retry, and failure handling for in-process inspection recording integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for in-process inspection recording are handled securely"
+        ]
+      },
+      {
+        "title": "Harden In-process Inspection Recording Security and Access Rules",
+        "description": "Apply security controls to in-process inspection recording. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Access control rules for in-process inspection recording are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in in-process inspection recording are audited and protected against misuse",
+          "Security validation for in-process inspection recording passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write In-process Inspection Recording Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for in-process inspection recording. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for in-process inspection recording are covered by automated tests",
+          "Permission checks and validation rules for in-process inspection recording are verified",
+          "Regression coverage exists for the most critical in-process inspection recording scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Final Product Inspection Workflow Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for final product inspection workflow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete final product inspection workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving final product inspection workflow changes; Final Product Inspection Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for final product inspection workflow is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for final product inspection workflow are explicitly defined",
+          "Implementation subtasks for final product inspection workflow can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Final Product Inspection Workflow Backend Services",
+        "description": "Build the backend services for final product inspection workflow on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete final product inspection workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving final product inspection workflow changes; Final Product Inspection Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core final product inspection workflow business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for final product inspection workflow",
+          "API/service behavior for final product inspection workflow is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Final Product Inspection Workflow Frontend Flow",
+        "description": "Build the frontend flow for final product inspection workflow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The final product inspection workflow user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for final product inspection workflow behave correctly",
+          "The final product inspection workflow UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Final Product Inspection Workflow Persistence Model",
+        "description": "Design the persistence layer for final product inspection workflow. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for final product inspection workflow supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for final product inspection workflow are defined correctly",
+          "Migrations for final product inspection workflow can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Final Product Inspection Workflow Security and Access Rules",
+        "description": "Apply security controls to final product inspection workflow. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Access control rules for final product inspection workflow are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in final product inspection workflow are audited and protected against misuse",
+          "Security validation for final product inspection workflow passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Final Product Inspection Workflow Reporting and KPI Logic",
+        "description": "Implement the reporting layer for final product inspection workflow, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for final product inspection workflow return accurate results",
+          "Filters, grouping, and export-ready structures for final product inspection workflow work correctly",
+          "Reporting queries for final product inspection workflow perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Final Product Inspection Workflow Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for final product inspection workflow. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Notification triggers for final product inspection workflow fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for final product inspection workflow are configurable and testable",
+          "Notification failures for final product inspection workflow are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Final Product Inspection Workflow Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for final product inspection workflow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for final product inspection workflow are covered by automated tests",
+          "Permission checks and validation rules for final product inspection workflow are verified",
+          "Regression coverage exists for the most critical final product inspection workflow scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Defect Classification Catalog Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for defect classification catalog and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture defect classification catalog data in real time or near real time as operational events occur; Defect Classification Catalog should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile defect classification catalog records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for defect classification catalog is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for defect classification catalog are explicitly defined",
+          "Implementation subtasks for defect classification catalog can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Defect Classification Catalog Backend Services",
+        "description": "Build the backend services for defect classification catalog on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture defect classification catalog data in real time or near real time as operational events occur; Defect Classification Catalog should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile defect classification catalog records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core defect classification catalog business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for defect classification catalog",
+          "API/service behavior for defect classification catalog is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Defect Classification Catalog Frontend Flow",
+        "description": "Build the frontend flow for defect classification catalog with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The defect classification catalog user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for defect classification catalog behave correctly",
+          "The defect classification catalog UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Defect Classification Catalog Persistence Model",
+        "description": "Design the persistence layer for defect classification catalog. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for defect classification catalog supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for defect classification catalog are defined correctly",
+          "Migrations for defect classification catalog can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Defect Classification Catalog Reporting and KPI Logic",
+        "description": "Implement the reporting layer for defect classification catalog, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for defect classification catalog return accurate results",
+          "Filters, grouping, and export-ready structures for defect classification catalog work correctly",
+          "Reporting queries for defect classification catalog perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Defect Classification Catalog Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for defect classification catalog. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for defect classification catalog are covered by automated tests",
+          "Permission checks and validation rules for defect classification catalog are verified",
+          "Regression coverage exists for the most critical defect classification catalog scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Corrective Action Request Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for corrective action request management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end corrective action request management capabilities for creating, updating, viewing, and retiring relevant business records; Corrective Action Request Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to corrective action request management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for corrective action request management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for corrective action request management are explicitly defined",
+          "Implementation subtasks for corrective action request management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Corrective Action Request Management Backend Services",
+        "description": "Build the backend services for corrective action request management on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end corrective action request management capabilities for creating, updating, viewing, and retiring relevant business records; Corrective Action Request Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to corrective action request management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core corrective action request management business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for corrective action request management",
+          "API/service behavior for corrective action request management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Corrective Action Request Management Frontend Flow",
+        "description": "Build the frontend flow for corrective action request management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The corrective action request management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for corrective action request management behave correctly",
+          "The corrective action request management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Corrective Action Request Management Persistence Model",
+        "description": "Design the persistence layer for corrective action request management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for corrective action request management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for corrective action request management are defined correctly",
+          "Migrations for corrective action request management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Corrective Action Request Management Security and Access Rules",
+        "description": "Apply security controls to corrective action request management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Access control rules for corrective action request management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in corrective action request management are audited and protected against misuse",
+          "Security validation for corrective action request management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Corrective Action Request Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for corrective action request management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for corrective action request management are covered by automated tests",
+          "Permission checks and validation rules for corrective action request management are verified",
+          "Regression coverage exists for the most critical corrective action request management scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Non-conformance Case Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for non-conformance case tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture non-conformance case tracking data in real time or near real time as operational events occur; Non-conformance Case Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile non-conformance case tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for non-conformance case tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for non-conformance case tracking are explicitly defined",
+          "Implementation subtasks for non-conformance case tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Non-conformance Case Tracking Backend Services",
+        "description": "Build the backend services for non-conformance case tracking on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture non-conformance case tracking data in real time or near real time as operational events occur; Non-conformance Case Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile non-conformance case tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core non-conformance case tracking business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for non-conformance case tracking",
+          "API/service behavior for non-conformance case tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Non-conformance Case Tracking Frontend Flow",
+        "description": "Build the frontend flow for non-conformance case tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The non-conformance case tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for non-conformance case tracking behave correctly",
+          "The non-conformance case tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Non-conformance Case Tracking Persistence Model",
+        "description": "Design the persistence layer for non-conformance case tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for non-conformance case tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for non-conformance case tracking are defined correctly",
+          "Migrations for non-conformance case tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Non-conformance Case Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for non-conformance case tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for non-conformance case tracking return accurate results",
+          "Filters, grouping, and export-ready structures for non-conformance case tracking work correctly",
+          "Reporting queries for non-conformance case tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Non-conformance Case Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for non-conformance case tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for non-conformance case tracking are covered by automated tests",
+          "Permission checks and validation rules for non-conformance case tracking are verified",
+          "Regression coverage exists for the most critical non-conformance case tracking scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Root Cause Analysis Workspace Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for root cause analysis workspace and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support root cause analysis workspace as a complete business workflow within the application; Root Cause Analysis Workspace should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with root cause analysis workspace from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for root cause analysis workspace is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for root cause analysis workspace are explicitly defined",
+          "Implementation subtasks for root cause analysis workspace can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Root Cause Analysis Workspace Backend Services",
+        "description": "Build the backend services for root cause analysis workspace on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support root cause analysis workspace as a complete business workflow within the application; Root Cause Analysis Workspace should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with root cause analysis workspace from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core root cause analysis workspace business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for root cause analysis workspace",
+          "API/service behavior for root cause analysis workspace is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Root Cause Analysis Workspace Frontend Flow",
+        "description": "Build the frontend flow for root cause analysis workspace with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The root cause analysis workspace user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for root cause analysis workspace behave correctly",
+          "The root cause analysis workspace UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Root Cause Analysis Workspace",
+        "description": "Implement the external integration points used by root cause analysis workspace, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "External dependencies used by root cause analysis workspace are connected through stable integration layers",
+          "Timeout, retry, and failure handling for root cause analysis workspace integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for root cause analysis workspace are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Root Cause Analysis Workspace Security and Access Rules",
+        "description": "Apply security controls to root cause analysis workspace. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Access control rules for root cause analysis workspace are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in root cause analysis workspace are audited and protected against misuse",
+          "Security validation for root cause analysis workspace passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Root Cause Analysis Workspace Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for root cause analysis workspace. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for root cause analysis workspace are covered by automated tests",
+          "Permission checks and validation rules for root cause analysis workspace are verified",
+          "Regression coverage exists for the most critical root cause analysis workspace scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Supplier Quality Scorecards Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for supplier quality scorecards and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end supplier quality scorecards capabilities for creating, updating, viewing, and retiring relevant business records; Supplier Quality Scorecards should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to supplier quality scorecards without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for supplier quality scorecards is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for supplier quality scorecards are explicitly defined",
+          "Implementation subtasks for supplier quality scorecards can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Supplier Quality Scorecards Backend Services",
+        "description": "Build the backend services for supplier quality scorecards on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end supplier quality scorecards capabilities for creating, updating, viewing, and retiring relevant business records; Supplier Quality Scorecards should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to supplier quality scorecards without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core supplier quality scorecards business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for supplier quality scorecards",
+          "API/service behavior for supplier quality scorecards is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Supplier Quality Scorecards Frontend Flow",
+        "description": "Build the frontend flow for supplier quality scorecards with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The supplier quality scorecards user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for supplier quality scorecards behave correctly",
+          "The supplier quality scorecards UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Supplier Quality Scorecards Persistence Model",
+        "description": "Design the persistence layer for supplier quality scorecards. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for supplier quality scorecards supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for supplier quality scorecards are defined correctly",
+          "Migrations for supplier quality scorecards can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Supplier Quality Scorecards Security and Access Rules",
+        "description": "Apply security controls to supplier quality scorecards. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Access control rules for supplier quality scorecards are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in supplier quality scorecards are audited and protected against misuse",
+          "Security validation for supplier quality scorecards passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Supplier Quality Scorecards Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for supplier quality scorecards. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for supplier quality scorecards are covered by automated tests",
+          "Permission checks and validation rules for supplier quality scorecards are verified",
+          "Regression coverage exists for the most critical supplier quality scorecards scenarios"
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Plan Calibration Schedule Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for calibration schedule tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete calibration schedule tracking according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving calibration schedule tracking changes; Calibration Schedule Tracking must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for calibration schedule tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for calibration schedule tracking are explicitly defined",
+          "Implementation subtasks for calibration schedule tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Calibration Schedule Tracking Backend Services",
+        "description": "Build the backend services for calibration schedule tracking on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete calibration schedule tracking according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving calibration schedule tracking changes; Calibration Schedule Tracking must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core calibration schedule tracking business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for calibration schedule tracking",
+          "API/service behavior for calibration schedule tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Calibration Schedule Tracking Frontend Flow",
+        "description": "Build the frontend flow for calibration schedule tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The calibration schedule tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for calibration schedule tracking behave correctly",
+          "The calibration schedule tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Calibration Schedule Tracking Persistence Model",
+        "description": "Design the persistence layer for calibration schedule tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The persistence model for calibration schedule tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for calibration schedule tracking are defined correctly",
+          "Migrations for calibration schedule tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Calibration Schedule Tracking Security and Access Rules",
+        "description": "Apply security controls to calibration schedule tracking. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Access control rules for calibration schedule tracking are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in calibration schedule tracking are audited and protected against misuse",
+          "Security validation for calibration schedule tracking passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Calibration Schedule Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for calibration schedule tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for calibration schedule tracking return accurate results",
+          "Filters, grouping, and export-ready structures for calibration schedule tracking work correctly",
+          "Reporting queries for calibration schedule tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Calibration Schedule Tracking Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for calibration schedule tracking. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Notification triggers for calibration schedule tracking fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for calibration schedule tracking are configurable and testable",
+          "Notification failures for calibration schedule tracking are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Calibration Schedule Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for calibration schedule tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for calibration schedule tracking are covered by automated tests",
+          "Permission checks and validation rules for calibration schedule tracking are verified",
+          "Regression coverage exists for the most critical calibration schedule tracking scenarios"
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Plan Sampling Rule Configuration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for sampling rule configuration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support sampling rule configuration as a complete business workflow within the application; Sampling Rule Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with sampling rule configuration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for sampling rule configuration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for sampling rule configuration are explicitly defined",
+          "Implementation subtasks for sampling rule configuration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Sampling Rule Configuration Backend Services",
+        "description": "Build the backend services for sampling rule configuration on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support sampling rule configuration as a complete business workflow within the application; Sampling Rule Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with sampling rule configuration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core sampling rule configuration business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for sampling rule configuration",
+          "API/service behavior for sampling rule configuration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Sampling Rule Configuration Frontend Flow",
+        "description": "Build the frontend flow for sampling rule configuration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The sampling rule configuration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for sampling rule configuration behave correctly",
+          "The sampling rule configuration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Sampling Rule Configuration",
+        "description": "Implement the external integration points used by sampling rule configuration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "External dependencies used by sampling rule configuration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for sampling rule configuration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for sampling rule configuration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Sampling Rule Configuration Security and Access Rules",
+        "description": "Apply security controls to sampling rule configuration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Access control rules for sampling rule configuration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in sampling rule configuration are audited and protected against misuse",
+          "Security validation for sampling rule configuration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Sampling Rule Configuration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for sampling rule configuration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for sampling rule configuration are covered by automated tests",
+          "Permission checks and validation rules for sampling rule configuration are verified",
+          "Regression coverage exists for the most critical sampling rule configuration scenarios"
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Plan Batch Traceability Lookup Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for batch traceability lookup and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support batch traceability lookup as a complete business workflow within the application; Batch Traceability Lookup should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with batch traceability lookup from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The end-to-end workflow for batch traceability lookup is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for batch traceability lookup are explicitly defined",
+          "Implementation subtasks for batch traceability lookup can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Batch Traceability Lookup Backend Services",
+        "description": "Build the backend services for batch traceability lookup on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support batch traceability lookup as a complete business workflow within the application; Batch Traceability Lookup should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with batch traceability lookup from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Core batch traceability lookup business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for batch traceability lookup",
+          "API/service behavior for batch traceability lookup is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Batch Traceability Lookup Frontend Flow",
+        "description": "Build the frontend flow for batch traceability lookup with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The batch traceability lookup user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for batch traceability lookup behave correctly",
+          "The batch traceability lookup UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Batch Traceability Lookup",
+        "description": "Implement the external integration points used by batch traceability lookup, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "External dependencies used by batch traceability lookup are connected through stable integration layers",
+          "Timeout, retry, and failure handling for batch traceability lookup integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for batch traceability lookup are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Batch Traceability Lookup Security and Access Rules",
+        "description": "Apply security controls to batch traceability lookup. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Access control rules for batch traceability lookup are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in batch traceability lookup are audited and protected against misuse",
+          "Security validation for batch traceability lookup passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Batch Traceability Lookup Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for batch traceability lookup. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Happy path and failure cases for batch traceability lookup are covered by automated tests",
+          "Permission checks and validation rules for batch traceability lookup are verified",
+          "Regression coverage exists for the most critical batch traceability lookup scenarios"
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Plan Photo Evidence Capture Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for photo evidence capture and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support photo evidence capture as a complete business workflow within the application; Photo Evidence Capture should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with photo evidence capture from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The end-to-end workflow for photo evidence capture is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for photo evidence capture are explicitly defined",
+          "Implementation subtasks for photo evidence capture can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Photo Evidence Capture Backend Services",
+        "description": "Build the backend services for photo evidence capture on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support photo evidence capture as a complete business workflow within the application; Photo Evidence Capture should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with photo evidence capture from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Core photo evidence capture business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for photo evidence capture",
+          "API/service behavior for photo evidence capture is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Photo Evidence Capture Frontend Flow",
+        "description": "Build the frontend flow for photo evidence capture with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The photo evidence capture user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for photo evidence capture behave correctly",
+          "The photo evidence capture UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Photo Evidence Capture",
+        "description": "Implement the external integration points used by photo evidence capture, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "External dependencies used by photo evidence capture are connected through stable integration layers",
+          "Timeout, retry, and failure handling for photo evidence capture integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for photo evidence capture are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Photo Evidence Capture Security and Access Rules",
+        "description": "Apply security controls to photo evidence capture. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Access control rules for photo evidence capture are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in photo evidence capture are audited and protected against misuse",
+          "Security validation for photo evidence capture passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Photo Evidence Capture Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for photo evidence capture. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Happy path and failure cases for photo evidence capture are covered by automated tests",
+          "Permission checks and validation rules for photo evidence capture are verified",
+          "Regression coverage exists for the most critical photo evidence capture scenarios"
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Plan Quality Hold and Release Workflow Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for quality hold and release workflow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete quality hold and release workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving quality hold and release workflow changes; Quality Hold and Release Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The end-to-end workflow for quality hold and release workflow is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for quality hold and release workflow are explicitly defined",
+          "Implementation subtasks for quality hold and release workflow can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Quality Hold and Release Workflow Backend Services",
+        "description": "Build the backend services for quality hold and release workflow on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete quality hold and release workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving quality hold and release workflow changes; Quality Hold and Release Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Core quality hold and release workflow business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for quality hold and release workflow",
+          "API/service behavior for quality hold and release workflow is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Quality Hold and Release Workflow Frontend Flow",
+        "description": "Build the frontend flow for quality hold and release workflow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The quality hold and release workflow user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for quality hold and release workflow behave correctly",
+          "The quality hold and release workflow UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Quality Hold and Release Workflow Persistence Model",
+        "description": "Design the persistence layer for quality hold and release workflow. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The persistence model for quality hold and release workflow supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for quality hold and release workflow are defined correctly",
+          "Migrations for quality hold and release workflow can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Quality Hold and Release Workflow Security and Access Rules",
+        "description": "Apply security controls to quality hold and release workflow. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Access control rules for quality hold and release workflow are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in quality hold and release workflow are audited and protected against misuse",
+          "Security validation for quality hold and release workflow passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Quality Hold and Release Workflow Reporting and KPI Logic",
+        "description": "Implement the reporting layer for quality hold and release workflow, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for quality hold and release workflow return accurate results",
+          "Filters, grouping, and export-ready structures for quality hold and release workflow work correctly",
+          "Reporting queries for quality hold and release workflow perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Quality Hold and Release Workflow Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for quality hold and release workflow. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Notification triggers for quality hold and release workflow fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for quality hold and release workflow are configurable and testable",
+          "Notification failures for quality hold and release workflow are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Quality Hold and Release Workflow Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for quality hold and release workflow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Happy path and failure cases for quality hold and release workflow are covered by automated tests",
+          "Permission checks and validation rules for quality hold and release workflow are verified",
+          "Regression coverage exists for the most critical quality hold and release workflow scenarios"
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Plan Rework Order Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for rework order tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete rework order tracking according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving rework order tracking changes; Rework Order Tracking must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The end-to-end workflow for rework order tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for rework order tracking are explicitly defined",
+          "Implementation subtasks for rework order tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Rework Order Tracking Backend Services",
+        "description": "Build the backend services for rework order tracking on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete rework order tracking according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving rework order tracking changes; Rework Order Tracking must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Core rework order tracking business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for rework order tracking",
+          "API/service behavior for rework order tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Rework Order Tracking Frontend Flow",
+        "description": "Build the frontend flow for rework order tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The rework order tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for rework order tracking behave correctly",
+          "The rework order tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Rework Order Tracking Persistence Model",
+        "description": "Design the persistence layer for rework order tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The persistence model for rework order tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for rework order tracking are defined correctly",
+          "Migrations for rework order tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Rework Order Tracking Security and Access Rules",
+        "description": "Apply security controls to rework order tracking. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Access control rules for rework order tracking are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in rework order tracking are audited and protected against misuse",
+          "Security validation for rework order tracking passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Rework Order Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for rework order tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for rework order tracking return accurate results",
+          "Filters, grouping, and export-ready structures for rework order tracking work correctly",
+          "Reporting queries for rework order tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Rework Order Tracking Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for rework order tracking. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Notification triggers for rework order tracking fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for rework order tracking are configurable and testable",
+          "Notification failures for rework order tracking are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Rework Order Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for rework order tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Happy path and failure cases for rework order tracking are covered by automated tests",
+          "Permission checks and validation rules for rework order tracking are verified",
+          "Regression coverage exists for the most critical rework order tracking scenarios"
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Plan Regulatory Compliance Checklist Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for regulatory compliance checklist and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support regulatory compliance checklist as a complete business workflow within the application; Regulatory Compliance Checklist should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with regulatory compliance checklist from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The end-to-end workflow for regulatory compliance checklist is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for regulatory compliance checklist are explicitly defined",
+          "Implementation subtasks for regulatory compliance checklist can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Regulatory Compliance Checklist Backend Services",
+        "description": "Build the backend services for regulatory compliance checklist on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support regulatory compliance checklist as a complete business workflow within the application; Regulatory Compliance Checklist should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with regulatory compliance checklist from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Core regulatory compliance checklist business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for regulatory compliance checklist",
+          "API/service behavior for regulatory compliance checklist is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Regulatory Compliance Checklist Frontend Flow",
+        "description": "Build the frontend flow for regulatory compliance checklist with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The regulatory compliance checklist user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for regulatory compliance checklist behave correctly",
+          "The regulatory compliance checklist UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Regulatory Compliance Checklist",
+        "description": "Implement the external integration points used by regulatory compliance checklist, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "External dependencies used by regulatory compliance checklist are connected through stable integration layers",
+          "Timeout, retry, and failure handling for regulatory compliance checklist integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for regulatory compliance checklist are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Regulatory Compliance Checklist Security and Access Rules",
+        "description": "Apply security controls to regulatory compliance checklist. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Access control rules for regulatory compliance checklist are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in regulatory compliance checklist are audited and protected against misuse",
+          "Security validation for regulatory compliance checklist passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Regulatory Compliance Checklist Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for regulatory compliance checklist. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Happy path and failure cases for regulatory compliance checklist are covered by automated tests",
+          "Permission checks and validation rules for regulatory compliance checklist are verified",
+          "Regression coverage exists for the most critical regulatory compliance checklist scenarios"
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Plan Shift Quality Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for shift quality dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide shift quality dashboard with role-appropriate filters, date ranges, and drill-down views; Shift Quality Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share shift quality dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The end-to-end workflow for shift quality dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for shift quality dashboard are explicitly defined",
+          "Implementation subtasks for shift quality dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Shift Quality Dashboard Backend Services",
+        "description": "Build the backend services for shift quality dashboard on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide shift quality dashboard with role-appropriate filters, date ranges, and drill-down views; Shift Quality Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share shift quality dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Core shift quality dashboard business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for shift quality dashboard",
+          "API/service behavior for shift quality dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Shift Quality Dashboard Frontend Flow",
+        "description": "Build the frontend flow for shift quality dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The shift quality dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for shift quality dashboard behave correctly",
+          "The shift quality dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Shift Quality Dashboard Persistence Model",
+        "description": "Design the persistence layer for shift quality dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The persistence model for shift quality dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for shift quality dashboard are defined correctly",
+          "Migrations for shift quality dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Shift Quality Dashboard",
+        "description": "Implement the external integration points used by shift quality dashboard, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "External dependencies used by shift quality dashboard are connected through stable integration layers",
+          "Timeout, retry, and failure handling for shift quality dashboard integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for shift quality dashboard are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Shift Quality Dashboard Security and Access Rules",
+        "description": "Apply security controls to shift quality dashboard. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Access control rules for shift quality dashboard are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in shift quality dashboard are audited and protected against misuse",
+          "Security validation for shift quality dashboard passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Shift Quality Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for shift quality dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for shift quality dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for shift quality dashboard work correctly",
+          "Reporting queries for shift quality dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Shift Quality Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for shift quality dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Happy path and failure cases for shift quality dashboard are covered by automated tests",
+          "Permission checks and validation rules for shift quality dashboard are verified",
+          "Regression coverage exists for the most critical shift quality dashboard scenarios"
+        ]
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Plan Scrap and Yield Reporting Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for scrap and yield reporting and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide scrap and yield reporting with role-appropriate filters, date ranges, and drill-down views; Scrap and Yield Reporting should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share scrap and yield reporting outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The end-to-end workflow for scrap and yield reporting is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for scrap and yield reporting are explicitly defined",
+          "Implementation subtasks for scrap and yield reporting can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Scrap and Yield Reporting Backend Services",
+        "description": "Build the backend services for scrap and yield reporting on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide scrap and yield reporting with role-appropriate filters, date ranges, and drill-down views; Scrap and Yield Reporting should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share scrap and yield reporting outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Core scrap and yield reporting business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for scrap and yield reporting",
+          "API/service behavior for scrap and yield reporting is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Scrap and Yield Reporting Frontend Flow",
+        "description": "Build the frontend flow for scrap and yield reporting with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The scrap and yield reporting user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for scrap and yield reporting behave correctly",
+          "The scrap and yield reporting UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Scrap and Yield Reporting Persistence Model",
+        "description": "Design the persistence layer for scrap and yield reporting. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The persistence model for scrap and yield reporting supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for scrap and yield reporting are defined correctly",
+          "Migrations for scrap and yield reporting can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Scrap and Yield Reporting",
+        "description": "Implement the external integration points used by scrap and yield reporting, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "External dependencies used by scrap and yield reporting are connected through stable integration layers",
+          "Timeout, retry, and failure handling for scrap and yield reporting integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for scrap and yield reporting are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Scrap and Yield Reporting Security and Access Rules",
+        "description": "Apply security controls to scrap and yield reporting. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Access control rules for scrap and yield reporting are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in scrap and yield reporting are audited and protected against misuse",
+          "Security validation for scrap and yield reporting passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Scrap and Yield Reporting Reporting and KPI Logic",
+        "description": "Implement the reporting layer for scrap and yield reporting, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for scrap and yield reporting return accurate results",
+          "Filters, grouping, and export-ready structures for scrap and yield reporting work correctly",
+          "Reporting queries for scrap and yield reporting perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Scrap and Yield Reporting Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for scrap and yield reporting. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Happy path and failure cases for scrap and yield reporting are covered by automated tests",
+          "Permission checks and validation rules for scrap and yield reporting are verified",
+          "Regression coverage exists for the most critical scrap and yield reporting scenarios"
+        ]
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Plan Audit Preparation Reports Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for audit preparation reports and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide audit preparation reports with role-appropriate filters, date ranges, and drill-down views; Audit Preparation Reports should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share audit preparation reports outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The end-to-end workflow for audit preparation reports is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for audit preparation reports are explicitly defined",
+          "Implementation subtasks for audit preparation reports can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Audit Preparation Reports Backend Services",
+        "description": "Build the backend services for audit preparation reports on React, Node.js, PostgreSQL, TimescaleDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide audit preparation reports with role-appropriate filters, date ranges, and drill-down views; Audit Preparation Reports should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share audit preparation reports outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Core audit preparation reports business rules are implemented for Manufacturing Quality and Inspection Management System",
+          "Validation, authorization, and error handling are covered for audit preparation reports",
+          "API/service behavior for audit preparation reports is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Audit Preparation Reports Frontend Flow",
+        "description": "Build the frontend flow for audit preparation reports with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The audit preparation reports user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for audit preparation reports behave correctly",
+          "The audit preparation reports UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Audit Preparation Reports Persistence Model",
+        "description": "Design the persistence layer for audit preparation reports. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The persistence model for audit preparation reports supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for audit preparation reports are defined correctly",
+          "Migrations for audit preparation reports can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Audit Preparation Reports",
+        "description": "Implement the external integration points used by audit preparation reports, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "External dependencies used by audit preparation reports are connected through stable integration layers",
+          "Timeout, retry, and failure handling for audit preparation reports integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for audit preparation reports are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Audit Preparation Reports Security and Access Rules",
+        "description": "Apply security controls to audit preparation reports. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Access control rules for audit preparation reports are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in audit preparation reports are audited and protected against misuse",
+          "Security validation for audit preparation reports passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Audit Preparation Reports Reporting and KPI Logic",
+        "description": "Implement the reporting layer for audit preparation reports, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for audit preparation reports return accurate results",
+          "Filters, grouping, and export-ready structures for audit preparation reports work correctly",
+          "Reporting queries for audit preparation reports perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Audit Preparation Reports Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for audit preparation reports. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Happy path and failure cases for audit preparation reports are covered by automated tests",
+          "Permission checks and validation rules for audit preparation reports are verified",
+          "Regression coverage exists for the most critical audit preparation reports scenarios"
+        ]
+      }
+    ]
+  }
+}

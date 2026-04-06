@@ -76,6 +76,31 @@ class TaskOutputTests(unittest.TestCase):
             for task in tasks:
                 self.assertTrue(task.get("acceptance_criteria"))
 
+    def test_training_and_evaluation_datasets_do_not_overlap(self):
+        project_root = Path(__file__).resolve().parents[1]
+        training_files = {
+            path.name for path in (project_root / "data" / "training").glob("*.json")
+        }
+        evaluation_files = {
+            path.name for path in (project_root / "data" / "evaluation").glob("*.json")
+        }
+
+        self.assertTrue(training_files)
+        self.assertTrue(evaluation_files)
+        self.assertTrue(training_files.isdisjoint(evaluation_files))
+        self.assertTrue(all(name.startswith("eval_") for name in evaluation_files))
+
+    def test_evaluation_dataset_contains_unseen_holdout_files(self):
+        evaluation_dir = Path(__file__).resolve().parents[1] / "data" / "evaluation"
+        expected_files = {
+            "eval_01_security_operations.json",
+            "eval_02_lease_administration.json",
+            "eval_03_pharmacy_management.json",
+        }
+
+        evaluation_files = {path.name for path in evaluation_dir.glob("*.json")}
+        self.assertTrue(expected_files.issubset(evaluation_files))
+
 
 if __name__ == "__main__":
     unittest.main()

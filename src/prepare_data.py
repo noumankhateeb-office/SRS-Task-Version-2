@@ -253,6 +253,7 @@ def _split_into_fr_pairs(
             pairs.append({
                 "input": build_fr_prompt_input(inp, fr_id, fr_data),
                 "output": fr_tasks,
+                "source_document": filename,
             })
     # Legacy: output is a flat list of tasks
     elif isinstance(out, list):
@@ -269,10 +270,13 @@ def _split_into_fr_pairs(
             pairs.append({
                 "input": build_fr_prompt_input(inp, fr_id, fr_data),
                 "output": fr_tasks,
+                "source_document": filename,
             })
 
     if not pairs:
         logger.warning("%s: Could not extract per-FR pairs, using whole file.", filename)
+        entry = dict(entry)
+        entry["source_document"] = filename
         pairs.append(entry)
 
     return pairs
@@ -311,6 +315,8 @@ def _load_from_jsonl(file_path: Path) -> list[dict[str, Any]]:
                 errors += 1
                 continue
 
+            if "source_document" not in entry:
+                entry["source_document"] = f"{file_path.name}:line-{line_num}"
             data.append(entry)
 
     if not data:
@@ -424,23 +430,19 @@ def tokenize_dataset(dataset: Dataset, tokenizer: AutoTokenizer) -> Dataset:
     return tokenized
 
 
-# ---------------------------------------------------------------------------
-# Main Pipeline
-# ---------------------------------------------------------------------------
-
 def prepare_datasets(
-    data_path: str | Path,
-    val_split: float = 0.2,
+    train_data_path: str | Path,
+    eval_data_path: str | Path,
     model_name: str = MODEL_NAME,
 ) -> tuple[Dataset, Dataset, AutoTokenizer]:
     """
     Full data preparation pipeline.
 
-    Loads data, formats it, tokenizes, and splits into train/validation.
+    Loads separate training and evaluation data, formats it, and tokenizes it.
 
     Args:
-        data_path: Path to the JSONL training data file.
-        val_split: Fraction of data to use for validation (0.0 - 1.0).
+        train_data_path: Path to the training data directory or JSONL file.
+        eval_data_path: Path to the evaluation data directory or JSONL file.
         model_name: HuggingFace model name for tokenizer.
 
     Returns:
@@ -450,34 +452,33 @@ def prepare_datasets(
     logger.info("DATA PREPARATION")
     logger.info("=" * 60)
 
-    # Load raw data (supports directory of JSONs or single JSONL)
-    raw_data = load_training_data(data_path)
+    train_raw = load_training_data(train_data_path)
+    eval_raw = load_training_data(eval_data_path)
 
-    if len(raw_data) < 2:
+    if not train_raw:
         raise ValueError(
-            f"Need at least 2 examples for train/val split, got {len(raw_data)}. "
+            "Training dataset is empty. "
             "Add more training data to your data/training/ directory."
         )
 
-    # Format into text pairs
-    formatted = format_examples(raw_data)
-    dataset = Dataset.from_dict(formatted)
+    if not eval_raw:
+        raise ValueError(
+            "Evaluation dataset is empty. "
+            "Add holdout data to your data/evaluation/ directory."
+        )
 
-    # Split into train/validation
-    split = dataset.train_test_split(test_size=val_split, seed=42)
-    logger.info(
-        "Split: %d train / %d validation examples",
-        len(split["train"]),
-        len(split["test"]),
-    )
+    logger.info("Loaded separate datasets: %d train / %d evaluation examples", len(train_raw), len(eval_raw))
+
+    train_dataset_raw = Dataset.from_dict(format_examples(train_raw))
+    val_dataset_raw = Dataset.from_dict(format_examples(eval_raw))
 
     # Load tokenizer
     logger.info("Loading tokenizer: %s", model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     # Tokenize both splits
-    train_dataset = tokenize_dataset(split["train"], tokenizer)
-    val_dataset = tokenize_dataset(split["test"], tokenizer)
+    train_dataset = tokenize_dataset(train_dataset_raw, tokenizer)
+    val_dataset = tokenize_dataset(val_dataset_raw, tokenizer)
 
     logger.info("Data preparation complete!")
 
@@ -494,17 +495,24 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     project_root = Path(__file__).parent.parent
-    data_path = project_root / "data" / "training"
+    train_data_path = project_root / "data" / "training"
+    eval_data_path = project_root / "data" / "evaluation"
 
     if len(sys.argv) >= 2:
-        data_path = Path(sys.argv[1])
+        train_data_path = Path(sys.argv[1])
+    if len(sys.argv) >= 3:
+        eval_data_path = Path(sys.argv[2])
 
-    if not data_path.exists():
-        logger.error("Data path not found: %s", data_path)
+    if not train_data_path.exists():
+        logger.error("Training data path not found: %s", train_data_path)
         logger.info("Add training JSON files to: data/training/")
         sys.exit(1)
+    if not eval_data_path.exists():
+        logger.error("Evaluation data path not found: %s", eval_data_path)
+        logger.info("Add evaluation JSON files to: data/evaluation/")
+        sys.exit(1)
 
-    train_ds, val_ds, tok = prepare_datasets(data_path)
+    train_ds, val_ds, tok = prepare_datasets(train_data_path, eval_data_path)
 
     print(f"\nTrain dataset: {len(train_ds)} examples")
     print(f"Val dataset:   {len(val_ds)} examples")

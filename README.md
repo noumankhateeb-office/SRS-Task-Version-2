@@ -24,6 +24,8 @@ Training data lives in `data/training/` as individual JSON files. Each file is a
 - `input`: Structured SRS JSON including title, description, technologies, actors, constraints, non-functional requirements, and functional requirements
 - `output`: Tasks grouped by requirement ID
 
+Holdout evaluation data lives separately in `data/evaluation/` and must not be used during training.
+
 The parser and training pipeline support both:
 - Markdown SRS files with headings like `### 3.1 Functional Requirements`
 - Plain enterprise SRS files with headings like `3.1 Functional Requirements`
@@ -36,14 +38,23 @@ If you want to regenerate the bundled synthetic training samples with the richer
 python scripts/generate_samples.py
 ```
 
+This regenerates both datasets:
+- `data/training/` for training-only samples
+- `data/evaluation/` for unseen holdout files prefixed with `eval_`
+
+The evaluation set is intentionally generated from separate domains and is not mirrored from the UI sample SRS files in `samples/`.
+
 ### 3. Train the Model
 
 ```bash
-python src/train.py --data data/training --epochs 15
+python src/train.py --data data/training --eval-data data/evaluation --epochs 15
 ```
+
+The training pipeline now uses a separate holdout evaluation dataset instead of splitting the training folder internally.
 
 Options:
 - `--data PATH` - Path to training data directory or JSONL file (default: `data/training/`)
+- `--eval-data PATH` - Path to holdout evaluation directory or JSONL file (default: `data/evaluation/`)
 - `--output PATH` - Where to save the model (default: `models/srs-task-adapter/`)
 - `--epochs N` - Number of epochs (default: 15)
 - `--batch-size N` - Batch size (default: 4, reduce to 2 if out of memory)
@@ -115,6 +126,7 @@ python -m unittest discover -s tests -v
 SRS-Task-Generator/
 |-- data/
 |   `-- training/                 # Training data (JSON files)
+|   `-- evaluation/               # Holdout evaluation data (JSON files)
 |-- uploads/                      # Uploaded SRS PDFs and text files
 |-- output/                       # Generated task JSONs
 |-- samples/                      # Example SRS inputs, including ERP template

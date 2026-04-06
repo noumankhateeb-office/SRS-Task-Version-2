@@ -1,0 +1,1678 @@
+{
+  "input": {
+    "title": "Membership and Association Management Portal",
+    "description": "Membership and Association Management Portal is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "technologies": [
+      "Next.js",
+      "Node.js",
+      "PostgreSQL",
+      "Stripe"
+    ],
+    "actors": [
+      "Admin",
+      "Manager",
+      "Employee",
+      "User"
+    ],
+    "user_classes": {
+      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
+      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
+      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
+      "User": "Generic authenticated platform user with access limited by role and department."
+    },
+    "definitions": {
+      "Admin": "System user with full administrative privileges.",
+      "Manager": "Operational owner of a department, module, or workflow.",
+      "Employee": "End user performing role-specific business operations."
+    },
+    "modules": [
+      "Member Registration and Profile Management",
+      "Membership Tier Configuration",
+      "Application Review and Approval",
+      "Renewal Reminder Automation",
+      "Online Membership Payment",
+      "Corporate Membership Accounts",
+      "Member Directory Search",
+      "Committee and Chapter Management",
+      "Event Registration for Members",
+      "Continuing Education Credit Tracking"
+    ],
+    "scope": [
+      "Member Registration and Profile Management workflows",
+      "Membership Tier Configuration workflows",
+      "Application Review and Approval workflows",
+      "Renewal Reminder Automation workflows",
+      "Online Membership Payment workflows",
+      "Corporate Membership Accounts workflows"
+    ],
+    "constraints": [
+      "Initial release will focus on the web platform only",
+      "Role-based access control is mandatory across all modules",
+      "Operational data must be auditable and retained according to policy"
+    ],
+    "operating_environment": {
+      "frontend": "Web-based interface built with Next.js and accessible through modern browsers.",
+      "backend": "Service layer implemented with Node.js, PostgreSQL, Stripe for business operations.",
+      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Security and Access Control",
+        "requirements": [
+          "All sensitive data must be encrypted in transit and at rest",
+          "Role-based authorization must restrict access by module and action",
+          "All authentication events and privileged actions must be logged"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance and Scalability",
+        "requirements": [
+          "Core pages and dashboards should load within acceptable enterprise SLAs",
+          "The platform must support concurrent usage across multiple departments",
+          "Background jobs and reporting workloads should not block transactional workflows"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability and Recoverability",
+        "requirements": [
+          "Automated backups must run on a defined schedule",
+          "Critical workflows should support retry-safe processing and audit logging",
+          "Operational alerts should be generated for failures and degraded services"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
+      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
+      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
+      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
+    },
+    "out_of_scope": [
+      "Native mobile applications in the first release",
+      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
+      "Non-core experimental modules outside the platform's operational workflows"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Member Registration and Profile Management",
+        "requirements": [
+          "Users must be able to complete member registration and profile management through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing member registration and profile management to continue.",
+          "Member Registration and Profile Management must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for member registration and profile management should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-02": {
+        "title": "Membership Tier Configuration",
+        "requirements": [
+          "The system must support membership tier configuration as a complete business workflow within the application.",
+          "Membership Tier Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with membership tier configuration from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to membership tier configuration for operational support."
+        ]
+      },
+      "FR-03": {
+        "title": "Application Review and Approval",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete application review and approval according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving application review and approval changes.",
+          "Application Review and Approval must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for application review and approval."
+        ]
+      },
+      "FR-04": {
+        "title": "Renewal Reminder Automation",
+        "requirements": [
+          "The system must trigger renewal reminder automation when the relevant business events or threshold conditions occur.",
+          "Users should be able to configure delivery channels, timing, or opt-in preferences related to renewal reminder automation.",
+          "Renewal Reminder Automation must record delivery outcomes, retries, and failures for operational follow-up.",
+          "The interface should let authorized users review recent renewal reminder automation events and the current notification status."
+        ]
+      },
+      "FR-05": {
+        "title": "Online Membership Payment",
+        "requirements": [
+          "The system must provide end-to-end online membership payment capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Online Membership Payment should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to online membership payment without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within online membership payment and retain operational history for reporting."
+        ]
+      },
+      "FR-06": {
+        "title": "Corporate Membership Accounts",
+        "requirements": [
+          "Users must be able to complete corporate membership accounts through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing corporate membership accounts to continue.",
+          "Corporate Membership Accounts must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for corporate membership accounts should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-07": {
+        "title": "Member Directory Search",
+        "requirements": [
+          "Users must be able to use member directory search to locate records quickly using relevant keywords, categories, or structured filters.",
+          "Member Directory Search should support sorting, pagination, and clear empty-state behavior when no matching records are found.",
+          "The system must return results that reflect current access permissions and only expose data the requesting user is allowed to view.",
+          "Recent selections, saved filters, or contextual shortcuts should be supported where they improve repeated use of member directory search."
+        ]
+      },
+      "FR-08": {
+        "title": "Committee and Chapter Management",
+        "requirements": [
+          "The system must provide end-to-end committee and chapter management capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Committee and Chapter Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to committee and chapter management without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within committee and chapter management and retain operational history for reporting."
+        ]
+      },
+      "FR-09": {
+        "title": "Event Registration for Members",
+        "requirements": [
+          "Users must be able to complete event registration for members through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing event registration for members to continue.",
+          "Event Registration for Members must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for event registration for members should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-10": {
+        "title": "Continuing Education Credit Tracking",
+        "requirements": [
+          "The system must capture continuing education credit tracking data in real time or near real time as operational events occur.",
+          "Continuing Education Credit Tracking should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile continuing education credit tracking records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during continuing education credit tracking."
+        ]
+      },
+      "FR-11": {
+        "title": "Certificate Issuance",
+        "requirements": [
+          "The system must support certificate issuance as a complete business workflow within the application.",
+          "Certificate Issuance should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with certificate issuance from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to certificate issuance for operational support."
+        ]
+      },
+      "FR-12": {
+        "title": "Document Library Access Control",
+        "requirements": [
+          "Users must be able to complete document library access control through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing document library access control to continue.",
+          "Document Library Access Control must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for document library access control should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-13": {
+        "title": "Announcement and Newsletter Publishing",
+        "requirements": [
+          "The system must support announcement and newsletter publishing as a complete business workflow within the application.",
+          "Announcement and Newsletter Publishing should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with announcement and newsletter publishing from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to announcement and newsletter publishing for operational support."
+        ]
+      },
+      "FR-14": {
+        "title": "Volunteer Signup Workflow",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete volunteer signup workflow according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving volunteer signup workflow changes.",
+          "Volunteer Signup Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for volunteer signup workflow."
+        ]
+      },
+      "FR-15": {
+        "title": "Member Support Ticketing",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete member support ticketing according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving member support ticketing changes.",
+          "Member Support Ticketing must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for member support ticketing."
+        ]
+      },
+      "FR-16": {
+        "title": "Benefits Redemption Tracking",
+        "requirements": [
+          "The system must capture benefits redemption tracking data in real time or near real time as operational events occur.",
+          "Benefits Redemption Tracking should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile benefits redemption tracking records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during benefits redemption tracking."
+        ]
+      },
+      "FR-17": {
+        "title": "Sponsor Management",
+        "requirements": [
+          "The system must provide end-to-end sponsor management capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Sponsor Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to sponsor management without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within sponsor management and retain operational history for reporting."
+        ]
+      },
+      "FR-18": {
+        "title": "Board Reporting Dashboard",
+        "requirements": [
+          "The system must provide board reporting dashboard with role-appropriate filters, date ranges, and drill-down views.",
+          "Board Reporting Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share board reporting dashboard outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Plan Member Registration and Profile Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for member registration and profile management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete member registration and profile management through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing member registration and profile management to continue; Member Registration and Profile Management must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for member registration and profile management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for member registration and profile management are explicitly defined",
+          "Implementation subtasks for member registration and profile management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Member Registration and Profile Management Backend Services",
+        "description": "Build the backend services for member registration and profile management on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete member registration and profile management through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing member registration and profile management to continue; Member Registration and Profile Management must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core member registration and profile management business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for member registration and profile management",
+          "API/service behavior for member registration and profile management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Member Registration and Profile Management Frontend Flow",
+        "description": "Build the frontend flow for member registration and profile management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The member registration and profile management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for member registration and profile management behave correctly",
+          "The member registration and profile management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Member Registration and Profile Management Persistence Model",
+        "description": "Design the persistence layer for member registration and profile management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The persistence model for member registration and profile management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for member registration and profile management are defined correctly",
+          "Migrations for member registration and profile management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Member Registration and Profile Management Security and Access Rules",
+        "description": "Apply security controls to member registration and profile management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for member registration and profile management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in member registration and profile management are audited and protected against misuse",
+          "Security validation for member registration and profile management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Member Registration and Profile Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for member registration and profile management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for member registration and profile management are covered by automated tests",
+          "Permission checks and validation rules for member registration and profile management are verified",
+          "Regression coverage exists for the most critical member registration and profile management scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Membership Tier Configuration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for membership tier configuration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support membership tier configuration as a complete business workflow within the application; Membership Tier Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with membership tier configuration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for membership tier configuration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for membership tier configuration are explicitly defined",
+          "Implementation subtasks for membership tier configuration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Membership Tier Configuration Backend Services",
+        "description": "Build the backend services for membership tier configuration on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support membership tier configuration as a complete business workflow within the application; Membership Tier Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with membership tier configuration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core membership tier configuration business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for membership tier configuration",
+          "API/service behavior for membership tier configuration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Membership Tier Configuration Frontend Flow",
+        "description": "Build the frontend flow for membership tier configuration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The membership tier configuration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for membership tier configuration behave correctly",
+          "The membership tier configuration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Membership Tier Configuration",
+        "description": "Implement the external integration points used by membership tier configuration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by membership tier configuration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for membership tier configuration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for membership tier configuration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Membership Tier Configuration Security and Access Rules",
+        "description": "Apply security controls to membership tier configuration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Access control rules for membership tier configuration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in membership tier configuration are audited and protected against misuse",
+          "Security validation for membership tier configuration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Membership Tier Configuration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for membership tier configuration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for membership tier configuration are covered by automated tests",
+          "Permission checks and validation rules for membership tier configuration are verified",
+          "Regression coverage exists for the most critical membership tier configuration scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Application Review and Approval Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for application review and approval and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete application review and approval according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving application review and approval changes; Application Review and Approval must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for application review and approval is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for application review and approval are explicitly defined",
+          "Implementation subtasks for application review and approval can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Application Review and Approval Backend Services",
+        "description": "Build the backend services for application review and approval on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete application review and approval according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving application review and approval changes; Application Review and Approval must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core application review and approval business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for application review and approval",
+          "API/service behavior for application review and approval is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Application Review and Approval Frontend Flow",
+        "description": "Build the frontend flow for application review and approval with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The application review and approval user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for application review and approval behave correctly",
+          "The application review and approval UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Application Review and Approval Persistence Model",
+        "description": "Design the persistence layer for application review and approval. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for application review and approval supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for application review and approval are defined correctly",
+          "Migrations for application review and approval can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Application Review and Approval Security and Access Rules",
+        "description": "Apply security controls to application review and approval. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Access control rules for application review and approval are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in application review and approval are audited and protected against misuse",
+          "Security validation for application review and approval passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Application Review and Approval Reporting and KPI Logic",
+        "description": "Implement the reporting layer for application review and approval, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for application review and approval return accurate results",
+          "Filters, grouping, and export-ready structures for application review and approval work correctly",
+          "Reporting queries for application review and approval perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Application Review and Approval Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for application review and approval. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Notification triggers for application review and approval fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for application review and approval are configurable and testable",
+          "Notification failures for application review and approval are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Application Review and Approval Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for application review and approval. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for application review and approval are covered by automated tests",
+          "Permission checks and validation rules for application review and approval are verified",
+          "Regression coverage exists for the most critical application review and approval scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Renewal Reminder Automation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for renewal reminder automation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must trigger renewal reminder automation when the relevant business events or threshold conditions occur; Users should be able to configure delivery channels, timing, or opt-in preferences related to renewal reminder automation; Renewal Reminder Automation must record delivery outcomes, retries, and failures for operational follow-up.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for renewal reminder automation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for renewal reminder automation are explicitly defined",
+          "Implementation subtasks for renewal reminder automation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Renewal Reminder Automation Backend Services",
+        "description": "Build the backend services for renewal reminder automation on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must trigger renewal reminder automation when the relevant business events or threshold conditions occur; Users should be able to configure delivery channels, timing, or opt-in preferences related to renewal reminder automation; Renewal Reminder Automation must record delivery outcomes, retries, and failures for operational follow-up.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core renewal reminder automation business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for renewal reminder automation",
+          "API/service behavior for renewal reminder automation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Renewal Reminder Automation Frontend Flow",
+        "description": "Build the frontend flow for renewal reminder automation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The renewal reminder automation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for renewal reminder automation behave correctly",
+          "The renewal reminder automation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Renewal Reminder Automation Persistence Model",
+        "description": "Design the persistence layer for renewal reminder automation. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for renewal reminder automation supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for renewal reminder automation are defined correctly",
+          "Migrations for renewal reminder automation can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Renewal Reminder Automation Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for renewal reminder automation. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Notification triggers for renewal reminder automation fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for renewal reminder automation are configurable and testable",
+          "Notification failures for renewal reminder automation are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Renewal Reminder Automation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for renewal reminder automation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for renewal reminder automation are covered by automated tests",
+          "Permission checks and validation rules for renewal reminder automation are verified",
+          "Regression coverage exists for the most critical renewal reminder automation scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Online Membership Payment Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for online membership payment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end online membership payment capabilities for creating, updating, viewing, and retiring relevant business records; Online Membership Payment should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to online membership payment without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for online membership payment is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for online membership payment are explicitly defined",
+          "Implementation subtasks for online membership payment can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Online Membership Payment Backend Services",
+        "description": "Build the backend services for online membership payment on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end online membership payment capabilities for creating, updating, viewing, and retiring relevant business records; Online Membership Payment should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to online membership payment without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core online membership payment business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for online membership payment",
+          "API/service behavior for online membership payment is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Online Membership Payment Frontend Flow",
+        "description": "Build the frontend flow for online membership payment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The online membership payment user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for online membership payment behave correctly",
+          "The online membership payment UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Online Membership Payment Persistence Model",
+        "description": "Design the persistence layer for online membership payment. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for online membership payment supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for online membership payment are defined correctly",
+          "Migrations for online membership payment can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Online Membership Payment",
+        "description": "Implement the external integration points used by online membership payment, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "External dependencies used by online membership payment are connected through stable integration layers",
+          "Timeout, retry, and failure handling for online membership payment integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for online membership payment are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Online Membership Payment Security and Access Rules",
+        "description": "Apply security controls to online membership payment. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Access control rules for online membership payment are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in online membership payment are audited and protected against misuse",
+          "Security validation for online membership payment passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Online Membership Payment Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for online membership payment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for online membership payment are covered by automated tests",
+          "Permission checks and validation rules for online membership payment are verified",
+          "Regression coverage exists for the most critical online membership payment scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Corporate Membership Accounts Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for corporate membership accounts and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete corporate membership accounts through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing corporate membership accounts to continue; Corporate Membership Accounts must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for corporate membership accounts is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for corporate membership accounts are explicitly defined",
+          "Implementation subtasks for corporate membership accounts can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Corporate Membership Accounts Backend Services",
+        "description": "Build the backend services for corporate membership accounts on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete corporate membership accounts through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing corporate membership accounts to continue; Corporate Membership Accounts must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core corporate membership accounts business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for corporate membership accounts",
+          "API/service behavior for corporate membership accounts is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Corporate Membership Accounts Frontend Flow",
+        "description": "Build the frontend flow for corporate membership accounts with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The corporate membership accounts user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for corporate membership accounts behave correctly",
+          "The corporate membership accounts UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Corporate Membership Accounts Security and Access Rules",
+        "description": "Apply security controls to corporate membership accounts. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Access control rules for corporate membership accounts are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in corporate membership accounts are audited and protected against misuse",
+          "Security validation for corporate membership accounts passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Corporate Membership Accounts Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for corporate membership accounts. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for corporate membership accounts are covered by automated tests",
+          "Permission checks and validation rules for corporate membership accounts are verified",
+          "Regression coverage exists for the most critical corporate membership accounts scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Member Directory Search Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for member directory search and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to use member directory search to locate records quickly using relevant keywords, categories, or structured filters; Member Directory Search should support sorting, pagination, and clear empty-state behavior when no matching records are found; The system must return results that reflect current access permissions and only expose data the requesting user is allowed to view.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for member directory search is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for member directory search are explicitly defined",
+          "Implementation subtasks for member directory search can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Member Directory Search Backend Services",
+        "description": "Build the backend services for member directory search on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to use member directory search to locate records quickly using relevant keywords, categories, or structured filters; Member Directory Search should support sorting, pagination, and clear empty-state behavior when no matching records are found; The system must return results that reflect current access permissions and only expose data the requesting user is allowed to view.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core member directory search business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for member directory search",
+          "API/service behavior for member directory search is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Member Directory Search Frontend Flow",
+        "description": "Build the frontend flow for member directory search with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The member directory search user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for member directory search behave correctly",
+          "The member directory search UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Member Directory Search Persistence Model",
+        "description": "Design the persistence layer for member directory search. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for member directory search supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for member directory search are defined correctly",
+          "Migrations for member directory search can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Member Directory Search Security and Access Rules",
+        "description": "Apply security controls to member directory search. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Access control rules for member directory search are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in member directory search are audited and protected against misuse",
+          "Security validation for member directory search passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Member Directory Search Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for member directory search. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for member directory search are covered by automated tests",
+          "Permission checks and validation rules for member directory search are verified",
+          "Regression coverage exists for the most critical member directory search scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Committee and Chapter Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for committee and chapter management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end committee and chapter management capabilities for creating, updating, viewing, and retiring relevant business records; Committee and Chapter Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to committee and chapter management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for committee and chapter management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for committee and chapter management are explicitly defined",
+          "Implementation subtasks for committee and chapter management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Committee and Chapter Management Backend Services",
+        "description": "Build the backend services for committee and chapter management on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end committee and chapter management capabilities for creating, updating, viewing, and retiring relevant business records; Committee and Chapter Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to committee and chapter management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core committee and chapter management business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for committee and chapter management",
+          "API/service behavior for committee and chapter management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Committee and Chapter Management Frontend Flow",
+        "description": "Build the frontend flow for committee and chapter management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The committee and chapter management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for committee and chapter management behave correctly",
+          "The committee and chapter management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Committee and Chapter Management Persistence Model",
+        "description": "Design the persistence layer for committee and chapter management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for committee and chapter management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for committee and chapter management are defined correctly",
+          "Migrations for committee and chapter management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Committee and Chapter Management Security and Access Rules",
+        "description": "Apply security controls to committee and chapter management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Access control rules for committee and chapter management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in committee and chapter management are audited and protected against misuse",
+          "Security validation for committee and chapter management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Committee and Chapter Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for committee and chapter management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for committee and chapter management are covered by automated tests",
+          "Permission checks and validation rules for committee and chapter management are verified",
+          "Regression coverage exists for the most critical committee and chapter management scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Event Registration for Members Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for event registration for members and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete event registration for members through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing event registration for members to continue; Event Registration for Members must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for event registration for members is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for event registration for members are explicitly defined",
+          "Implementation subtasks for event registration for members can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Event Registration for Members Backend Services",
+        "description": "Build the backend services for event registration for members on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete event registration for members through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing event registration for members to continue; Event Registration for Members must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core event registration for members business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for event registration for members",
+          "API/service behavior for event registration for members is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Event Registration for Members Frontend Flow",
+        "description": "Build the frontend flow for event registration for members with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The event registration for members user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for event registration for members behave correctly",
+          "The event registration for members UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Event Registration for Members Security and Access Rules",
+        "description": "Apply security controls to event registration for members. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Access control rules for event registration for members are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in event registration for members are audited and protected against misuse",
+          "Security validation for event registration for members passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Event Registration for Members Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for event registration for members. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for event registration for members are covered by automated tests",
+          "Permission checks and validation rules for event registration for members are verified",
+          "Regression coverage exists for the most critical event registration for members scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Continuing Education Credit Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for continuing education credit tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture continuing education credit tracking data in real time or near real time as operational events occur; Continuing Education Credit Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile continuing education credit tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for continuing education credit tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for continuing education credit tracking are explicitly defined",
+          "Implementation subtasks for continuing education credit tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Continuing Education Credit Tracking Backend Services",
+        "description": "Build the backend services for continuing education credit tracking on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture continuing education credit tracking data in real time or near real time as operational events occur; Continuing Education Credit Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile continuing education credit tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core continuing education credit tracking business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for continuing education credit tracking",
+          "API/service behavior for continuing education credit tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Continuing Education Credit Tracking Frontend Flow",
+        "description": "Build the frontend flow for continuing education credit tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The continuing education credit tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for continuing education credit tracking behave correctly",
+          "The continuing education credit tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Continuing Education Credit Tracking Persistence Model",
+        "description": "Design the persistence layer for continuing education credit tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for continuing education credit tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for continuing education credit tracking are defined correctly",
+          "Migrations for continuing education credit tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Continuing Education Credit Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for continuing education credit tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for continuing education credit tracking return accurate results",
+          "Filters, grouping, and export-ready structures for continuing education credit tracking work correctly",
+          "Reporting queries for continuing education credit tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Continuing Education Credit Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for continuing education credit tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for continuing education credit tracking are covered by automated tests",
+          "Permission checks and validation rules for continuing education credit tracking are verified",
+          "Regression coverage exists for the most critical continuing education credit tracking scenarios"
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Plan Certificate Issuance Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for certificate issuance and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support certificate issuance as a complete business workflow within the application; Certificate Issuance should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with certificate issuance from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for certificate issuance is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for certificate issuance are explicitly defined",
+          "Implementation subtasks for certificate issuance can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Certificate Issuance Backend Services",
+        "description": "Build the backend services for certificate issuance on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support certificate issuance as a complete business workflow within the application; Certificate Issuance should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with certificate issuance from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core certificate issuance business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for certificate issuance",
+          "API/service behavior for certificate issuance is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Certificate Issuance Frontend Flow",
+        "description": "Build the frontend flow for certificate issuance with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The certificate issuance user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for certificate issuance behave correctly",
+          "The certificate issuance UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Certificate Issuance",
+        "description": "Implement the external integration points used by certificate issuance, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "External dependencies used by certificate issuance are connected through stable integration layers",
+          "Timeout, retry, and failure handling for certificate issuance integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for certificate issuance are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Certificate Issuance Security and Access Rules",
+        "description": "Apply security controls to certificate issuance. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Access control rules for certificate issuance are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in certificate issuance are audited and protected against misuse",
+          "Security validation for certificate issuance passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Certificate Issuance Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for certificate issuance. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for certificate issuance are covered by automated tests",
+          "Permission checks and validation rules for certificate issuance are verified",
+          "Regression coverage exists for the most critical certificate issuance scenarios"
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Plan Document Library Access Control Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for document library access control and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete document library access control through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing document library access control to continue; Document Library Access Control must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for document library access control is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for document library access control are explicitly defined",
+          "Implementation subtasks for document library access control can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Document Library Access Control Backend Services",
+        "description": "Build the backend services for document library access control on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete document library access control through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing document library access control to continue; Document Library Access Control must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core document library access control business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for document library access control",
+          "API/service behavior for document library access control is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Document Library Access Control Frontend Flow",
+        "description": "Build the frontend flow for document library access control with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The document library access control user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for document library access control behave correctly",
+          "The document library access control UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Document Library Access Control Persistence Model",
+        "description": "Design the persistence layer for document library access control. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The persistence model for document library access control supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for document library access control are defined correctly",
+          "Migrations for document library access control can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Document Library Access Control Security and Access Rules",
+        "description": "Apply security controls to document library access control. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Access control rules for document library access control are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in document library access control are audited and protected against misuse",
+          "Security validation for document library access control passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Document Library Access Control Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for document library access control. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for document library access control are covered by automated tests",
+          "Permission checks and validation rules for document library access control are verified",
+          "Regression coverage exists for the most critical document library access control scenarios"
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Plan Announcement and Newsletter Publishing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for announcement and newsletter publishing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support announcement and newsletter publishing as a complete business workflow within the application; Announcement and Newsletter Publishing should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with announcement and newsletter publishing from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The end-to-end workflow for announcement and newsletter publishing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for announcement and newsletter publishing are explicitly defined",
+          "Implementation subtasks for announcement and newsletter publishing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Announcement and Newsletter Publishing Backend Services",
+        "description": "Build the backend services for announcement and newsletter publishing on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support announcement and newsletter publishing as a complete business workflow within the application; Announcement and Newsletter Publishing should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with announcement and newsletter publishing from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Core announcement and newsletter publishing business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for announcement and newsletter publishing",
+          "API/service behavior for announcement and newsletter publishing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Announcement and Newsletter Publishing Frontend Flow",
+        "description": "Build the frontend flow for announcement and newsletter publishing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The announcement and newsletter publishing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for announcement and newsletter publishing behave correctly",
+          "The announcement and newsletter publishing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Announcement and Newsletter Publishing",
+        "description": "Implement the external integration points used by announcement and newsletter publishing, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "External dependencies used by announcement and newsletter publishing are connected through stable integration layers",
+          "Timeout, retry, and failure handling for announcement and newsletter publishing integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for announcement and newsletter publishing are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Announcement and Newsletter Publishing Security and Access Rules",
+        "description": "Apply security controls to announcement and newsletter publishing. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Access control rules for announcement and newsletter publishing are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in announcement and newsletter publishing are audited and protected against misuse",
+          "Security validation for announcement and newsletter publishing passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Announcement and Newsletter Publishing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for announcement and newsletter publishing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Happy path and failure cases for announcement and newsletter publishing are covered by automated tests",
+          "Permission checks and validation rules for announcement and newsletter publishing are verified",
+          "Regression coverage exists for the most critical announcement and newsletter publishing scenarios"
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Plan Volunteer Signup Workflow Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for volunteer signup workflow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete volunteer signup workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving volunteer signup workflow changes; Volunteer Signup Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The end-to-end workflow for volunteer signup workflow is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for volunteer signup workflow are explicitly defined",
+          "Implementation subtasks for volunteer signup workflow can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Volunteer Signup Workflow Backend Services",
+        "description": "Build the backend services for volunteer signup workflow on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete volunteer signup workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving volunteer signup workflow changes; Volunteer Signup Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Core volunteer signup workflow business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for volunteer signup workflow",
+          "API/service behavior for volunteer signup workflow is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Volunteer Signup Workflow Frontend Flow",
+        "description": "Build the frontend flow for volunteer signup workflow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The volunteer signup workflow user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for volunteer signup workflow behave correctly",
+          "The volunteer signup workflow UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Volunteer Signup Workflow Persistence Model",
+        "description": "Design the persistence layer for volunteer signup workflow. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The persistence model for volunteer signup workflow supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for volunteer signup workflow are defined correctly",
+          "Migrations for volunteer signup workflow can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Volunteer Signup Workflow Security and Access Rules",
+        "description": "Apply security controls to volunteer signup workflow. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Access control rules for volunteer signup workflow are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in volunteer signup workflow are audited and protected against misuse",
+          "Security validation for volunteer signup workflow passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Volunteer Signup Workflow Reporting and KPI Logic",
+        "description": "Implement the reporting layer for volunteer signup workflow, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for volunteer signup workflow return accurate results",
+          "Filters, grouping, and export-ready structures for volunteer signup workflow work correctly",
+          "Reporting queries for volunteer signup workflow perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Volunteer Signup Workflow Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for volunteer signup workflow. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Notification triggers for volunteer signup workflow fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for volunteer signup workflow are configurable and testable",
+          "Notification failures for volunteer signup workflow are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Volunteer Signup Workflow Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for volunteer signup workflow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Happy path and failure cases for volunteer signup workflow are covered by automated tests",
+          "Permission checks and validation rules for volunteer signup workflow are verified",
+          "Regression coverage exists for the most critical volunteer signup workflow scenarios"
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Plan Member Support Ticketing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for member support ticketing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete member support ticketing according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving member support ticketing changes; Member Support Ticketing must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The end-to-end workflow for member support ticketing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for member support ticketing are explicitly defined",
+          "Implementation subtasks for member support ticketing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Member Support Ticketing Backend Services",
+        "description": "Build the backend services for member support ticketing on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete member support ticketing according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving member support ticketing changes; Member Support Ticketing must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Core member support ticketing business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for member support ticketing",
+          "API/service behavior for member support ticketing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Member Support Ticketing Frontend Flow",
+        "description": "Build the frontend flow for member support ticketing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The member support ticketing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for member support ticketing behave correctly",
+          "The member support ticketing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Member Support Ticketing Persistence Model",
+        "description": "Design the persistence layer for member support ticketing. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The persistence model for member support ticketing supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for member support ticketing are defined correctly",
+          "Migrations for member support ticketing can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Member Support Ticketing Security and Access Rules",
+        "description": "Apply security controls to member support ticketing. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Access control rules for member support ticketing are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in member support ticketing are audited and protected against misuse",
+          "Security validation for member support ticketing passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Member Support Ticketing Reporting and KPI Logic",
+        "description": "Implement the reporting layer for member support ticketing, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for member support ticketing return accurate results",
+          "Filters, grouping, and export-ready structures for member support ticketing work correctly",
+          "Reporting queries for member support ticketing perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Member Support Ticketing Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for member support ticketing. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Notification triggers for member support ticketing fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for member support ticketing are configurable and testable",
+          "Notification failures for member support ticketing are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Member Support Ticketing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for member support ticketing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Happy path and failure cases for member support ticketing are covered by automated tests",
+          "Permission checks and validation rules for member support ticketing are verified",
+          "Regression coverage exists for the most critical member support ticketing scenarios"
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Plan Benefits Redemption Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for benefits redemption tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture benefits redemption tracking data in real time or near real time as operational events occur; Benefits Redemption Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile benefits redemption tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The end-to-end workflow for benefits redemption tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for benefits redemption tracking are explicitly defined",
+          "Implementation subtasks for benefits redemption tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Benefits Redemption Tracking Backend Services",
+        "description": "Build the backend services for benefits redemption tracking on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture benefits redemption tracking data in real time or near real time as operational events occur; Benefits Redemption Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile benefits redemption tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Core benefits redemption tracking business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for benefits redemption tracking",
+          "API/service behavior for benefits redemption tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Benefits Redemption Tracking Frontend Flow",
+        "description": "Build the frontend flow for benefits redemption tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The benefits redemption tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for benefits redemption tracking behave correctly",
+          "The benefits redemption tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Benefits Redemption Tracking Persistence Model",
+        "description": "Design the persistence layer for benefits redemption tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The persistence model for benefits redemption tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for benefits redemption tracking are defined correctly",
+          "Migrations for benefits redemption tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Benefits Redemption Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for benefits redemption tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for benefits redemption tracking return accurate results",
+          "Filters, grouping, and export-ready structures for benefits redemption tracking work correctly",
+          "Reporting queries for benefits redemption tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Benefits Redemption Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for benefits redemption tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Happy path and failure cases for benefits redemption tracking are covered by automated tests",
+          "Permission checks and validation rules for benefits redemption tracking are verified",
+          "Regression coverage exists for the most critical benefits redemption tracking scenarios"
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Plan Sponsor Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for sponsor management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end sponsor management capabilities for creating, updating, viewing, and retiring relevant business records; Sponsor Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to sponsor management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The end-to-end workflow for sponsor management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for sponsor management are explicitly defined",
+          "Implementation subtasks for sponsor management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Sponsor Management Backend Services",
+        "description": "Build the backend services for sponsor management on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end sponsor management capabilities for creating, updating, viewing, and retiring relevant business records; Sponsor Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to sponsor management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Core sponsor management business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for sponsor management",
+          "API/service behavior for sponsor management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Sponsor Management Frontend Flow",
+        "description": "Build the frontend flow for sponsor management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The sponsor management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for sponsor management behave correctly",
+          "The sponsor management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Sponsor Management Persistence Model",
+        "description": "Design the persistence layer for sponsor management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The persistence model for sponsor management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for sponsor management are defined correctly",
+          "Migrations for sponsor management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Sponsor Management Security and Access Rules",
+        "description": "Apply security controls to sponsor management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Access control rules for sponsor management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in sponsor management are audited and protected against misuse",
+          "Security validation for sponsor management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Sponsor Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for sponsor management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Happy path and failure cases for sponsor management are covered by automated tests",
+          "Permission checks and validation rules for sponsor management are verified",
+          "Regression coverage exists for the most critical sponsor management scenarios"
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Plan Board Reporting Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for board reporting dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide board reporting dashboard with role-appropriate filters, date ranges, and drill-down views; Board Reporting Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share board reporting dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The end-to-end workflow for board reporting dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for board reporting dashboard are explicitly defined",
+          "Implementation subtasks for board reporting dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Board Reporting Dashboard Backend Services",
+        "description": "Build the backend services for board reporting dashboard on Next.js, Node.js, PostgreSQL, Stripe. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide board reporting dashboard with role-appropriate filters, date ranges, and drill-down views; Board Reporting Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share board reporting dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Core board reporting dashboard business rules are implemented for Membership and Association Management Portal",
+          "Validation, authorization, and error handling are covered for board reporting dashboard",
+          "API/service behavior for board reporting dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Board Reporting Dashboard Frontend Flow",
+        "description": "Build the frontend flow for board reporting dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The board reporting dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for board reporting dashboard behave correctly",
+          "The board reporting dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Board Reporting Dashboard Persistence Model",
+        "description": "Design the persistence layer for board reporting dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The persistence model for board reporting dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for board reporting dashboard are defined correctly",
+          "Migrations for board reporting dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Board Reporting Dashboard",
+        "description": "Implement the external integration points used by board reporting dashboard, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "External dependencies used by board reporting dashboard are connected through stable integration layers",
+          "Timeout, retry, and failure handling for board reporting dashboard integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for board reporting dashboard are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Board Reporting Dashboard Security and Access Rules",
+        "description": "Apply security controls to board reporting dashboard. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Access control rules for board reporting dashboard are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in board reporting dashboard are audited and protected against misuse",
+          "Security validation for board reporting dashboard passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Board Reporting Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for board reporting dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for board reporting dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for board reporting dashboard work correctly",
+          "Reporting queries for board reporting dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Board Reporting Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for board reporting dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Happy path and failure cases for board reporting dashboard are covered by automated tests",
+          "Permission checks and validation rules for board reporting dashboard are verified",
+          "Regression coverage exists for the most critical board reporting dashboard scenarios"
+        ]
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@ SRS JSON → Development Tasks generation.
 Usage:
     python src/train.py                            # Uses default data path
     python src/train.py --data data/training       # Custom data path
+    python src/train.py --data data/training --eval-data data/evaluation
     python src/train.py --epochs 15 --batch-size 2
 """
 
@@ -36,6 +37,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 DEFAULT_DATA_PATH = Path(__file__).parent.parent / "data" / "training"
+DEFAULT_EVAL_DATA_PATH = Path(__file__).parent.parent / "data" / "evaluation"
 DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "models" / "srs-task-adapter"
 
 LORA_CONFIG = LoraConfig(
@@ -135,6 +137,7 @@ def get_training_args(
 
 def train(
     data_path: Path = DEFAULT_DATA_PATH,
+    eval_data_path: Path = DEFAULT_EVAL_DATA_PATH,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
     epochs: int = 15,
     batch_size: int = 4,
@@ -145,6 +148,7 @@ def train(
 
     Args:
         data_path: Path to training data directory (JSON files) or JSONL file.
+        eval_data_path: Path to holdout evaluation data directory or JSONL file.
         output_dir: Directory to save the trained LoRA adapter.
         epochs: Number of training epochs.
         batch_size: Per-device batch size.
@@ -164,7 +168,10 @@ def train(
         logger.info("GPU: %s (%.1f GB)", gpu_name, gpu_mem)
 
     # Prepare data
-    train_dataset, val_dataset, tokenizer = prepare_datasets(data_path)
+    train_dataset, val_dataset, tokenizer = prepare_datasets(
+        data_path,
+        eval_data_path,
+    )
 
     # Setup model
     model, _ = setup_model()
@@ -201,7 +208,7 @@ def train(
     logger.info("  Batch size: %d", batch_size)
     logger.info("  Learning rate: %s", learning_rate)
     logger.info("  Train examples: %d", len(train_dataset))
-    logger.info("  Val examples: %d", len(val_dataset))
+    logger.info("  Eval examples: %d", len(val_dataset))
 
     train_result = trainer.train()
 
@@ -238,6 +245,12 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_DATA_PATH,
         help="Path to training data directory or JSONL file.",
+    )
+    parser.add_argument(
+        "--eval-data",
+        type=Path,
+        default=DEFAULT_EVAL_DATA_PATH,
+        help="Path to holdout evaluation data directory or JSONL file.",
     )
     parser.add_argument(
         "--output",
@@ -278,6 +291,7 @@ if __name__ == "__main__":
 
     train(
         data_path=args.data,
+        eval_data_path=args.eval_data,
         output_dir=args.output,
         epochs=args.epochs,
         batch_size=args.batch_size,

@@ -14,6 +14,10 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.srs_to_json import parse_srs
 
+DATASET_ROOT = PROJECT_ROOT / "data"
+TRAINING_DIR = DATASET_ROOT / "training"
+EVALUATION_DIR = DATASET_ROOT / "evaluation"
+
 # ── Domain definitions with FR pools ──────────────────────────────
 DOMAINS = [
     {
@@ -720,12 +724,19 @@ def create_sample_from_markdown(sample_filename, markdown_filename):
         "output": output,
     }
 
-    output_path = PROJECT_ROOT / "data" / "samples" / sample_filename
+    output_dir = get_output_directory(sample_filename)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / sample_filename
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(sample, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
     print(f"  Created {sample_filename} from {markdown_filename}: {len(frs)} FRs")
+
+
+def get_output_directory(sample_filename: str) -> Path:
+    """Route generated dataset files into training or evaluation folders."""
+    return EVALUATION_DIR if sample_filename.startswith("eval_") else TRAINING_DIR
 
 def create_sample(filepath, title, techs, fr_titles):
     """Create a complete training sample file."""
@@ -740,14 +751,19 @@ def create_sample(filepath, title, techs, fr_titles):
         "output": output
     }
     
-    with open(filepath, 'w') as f:
+    with open(filepath, 'w', encoding="utf-8") as f:
         json.dump(sample, f, indent=2)
     
     print(f"  Created {os.path.basename(filepath)}: {len(fr_titles)} FRs")
 
 
 def main():
-    base_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "training")
+    TRAINING_DIR.mkdir(parents=True, exist_ok=True)
+    EVALUATION_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Keep the holdout set clean and reproducible on every regeneration.
+    for existing_eval_file in EVALUATION_DIR.glob("*.json"):
+        existing_eval_file.unlink()
 
     curated_markdown_samples = [
         ("01_ecommerce.json", "sample_srs_ecommerce.md"),
@@ -759,7 +775,8 @@ def main():
     
     # Process detailed domains (23, 24)
     for domain in DOMAINS:
-        filepath = os.path.join(base_dir, domain["file"])
+        output_dir = get_output_directory(domain["file"])
+        filepath = os.path.join(output_dir, domain["file"])
         fr_data = domain["frs"]
         
         frs = {}
@@ -780,7 +797,8 @@ def main():
     
     # Process simple domains (25-40)
     for filename, title, techs, fr_titles in MORE_DOMAINS:
-        filepath = os.path.join(base_dir, filename)
+        output_dir = get_output_directory(filename)
+        filepath = os.path.join(output_dir, filename)
         create_sample(filepath, title, techs, fr_titles)
     
     # Generate remaining domains (41-50) with unique topics
@@ -848,14 +866,183 @@ def main():
           "3D Model Viewer Integration", "Photo and Video Documentation", "Time-lapse Camera Integration", "Client Portal with Progress", "Permit and License Tracking", "Warranty Tracking", "Asset Handover Documentation",
           "Analytics and Project Reports", "Multi-project Dashboard"]),
     ]
-    
+
     for filename, title, techs, fr_titles in extra_domains:
-        filepath = os.path.join(base_dir, filename)
+        output_dir = get_output_directory(filename)
+        filepath = os.path.join(output_dir, filename)
         create_sample(filepath, title, techs, fr_titles)
-    
-    # Count total
-    total_files = len(curated_markdown_samples) + len(DOMAINS) + len(MORE_DOMAINS) + len(extra_domains)
-    print(f"\n  Generated {total_files} sample files")
+
+    evaluation_domains = [
+        (
+            "eval_01_security_operations.json",
+            "Security Operations and Incident Response Platform",
+            ["React", "Python FastAPI", "PostgreSQL", "Redis"],
+            [
+                "Security Alert Ingestion",
+                "Incident Case Creation",
+                "Severity Classification Workflow",
+                "Analyst Assignment Queue",
+                "Investigation Timeline Tracking",
+                "Evidence Attachment Repository",
+                "Indicator of Compromise Management",
+                "Containment Action Approval",
+                "Endpoint Isolation Request Workflow",
+                "Threat Intelligence Feed Correlation",
+                "SLA Breach Alerting",
+                "Executive Incident Summary Dashboard",
+                "Root Cause Documentation",
+                "Post-incident Review Tracking",
+                "Audit-ready Incident Export",
+                "Role-based Access for Security Teams",
+                "Secure Notification Escalation",
+                "Playbook Runbook Catalog",
+            ],
+        ),
+        (
+            "eval_02_lease_administration.json",
+            "Commercial Lease Administration Platform",
+            ["Next.js", "Node.js", "PostgreSQL", "Elasticsearch"],
+            [
+                "Property Portfolio Registration",
+                "Tenant Organization Onboarding",
+                "Lease Abstract Data Capture",
+                "Rent Schedule Management",
+                "Escalation Clause Tracking",
+                "Security Deposit Monitoring",
+                "Lease Document Repository",
+                "Renewal Notice Automation",
+                "Critical Date Calendar",
+                "Maintenance Charge Allocation",
+                "Invoice Generation for Tenants",
+                "Payment Reconciliation",
+                "Vacancy and Occupancy Dashboard",
+                "Amendment Version Tracking",
+                "Landlord Approval Workflow",
+                "Broker Commission Tracking",
+                "Portfolio Reporting for Finance",
+                "Audit Trail for Lease Changes",
+            ],
+        ),
+        (
+            "eval_03_pharmacy_management.json",
+            "Pharmacy Dispensing and Inventory Control System",
+            ["React", "Java Spring Boot", "PostgreSQL"],
+            [
+                "Prescription Intake and Validation",
+                "Patient Medication Profile Lookup",
+                "Drug Interaction Alerting",
+                "Controlled Substance Verification",
+                "Dispensing Queue Management",
+                "Barcode-based Medication Picking",
+                "Batch and Expiry Tracking",
+                "Inventory Reorder Thresholds",
+                "Supplier Purchase Order Creation",
+                "Cold Storage Temperature Logging",
+                "Prescription Refill Request Workflow",
+                "Insurance Claim Submission",
+                "Cash and Card Billing",
+                "Pharmacist Verification Step",
+                "Rejected Claim Resolution",
+                "Daily Dispensing Summary Report",
+                "Medication Recall Handling",
+                "User Permission Segmentation",
+            ],
+        ),
+        (
+            "eval_04_grant_management.json",
+            "Grant Management and Funding Operations Platform",
+            ["React", "Python Django", "PostgreSQL", "Redis"],
+            [
+                "Funding Opportunity Publishing",
+                "Applicant Organization Registration",
+                "Eligibility Screening Workflow",
+                "Grant Application Submission",
+                "Narrative Section Authoring",
+                "Budget Workbook Management",
+                "Supporting Document Upload",
+                "Reviewer Assignment",
+                "Scoring Rubric Configuration",
+                "Reviewer Conflict of Interest Declaration",
+                "Evaluation Committee Dashboard",
+                "Award Recommendation Workflow",
+                "Award Letter Generation",
+                "Grant Agreement Tracking",
+                "Milestone-based Disbursement Scheduling",
+                "Beneficiary Progress Reporting",
+                "Budget Utilization Monitoring",
+                "Site Visit Planning",
+                "Risk Flag and Escalation Tracking",
+                "Impact Metrics Dashboard",
+                "Audit Evidence Repository",
+                "Grant Closeout Checklist",
+                "Portfolio Reporting for Leadership",
+                "Email Notification Automation",
+            ],
+        ),
+        (
+            "eval_05_manufacturing_quality.json",
+            "Manufacturing Quality and Inspection Management System",
+            ["React", "Node.js", "PostgreSQL", "TimescaleDB"],
+            [
+                "Plant and Production Line Setup",
+                "Inspection Plan Definition",
+                "Incoming Material Quality Checks",
+                "In-process Inspection Recording",
+                "Final Product Inspection Workflow",
+                "Defect Classification Catalog",
+                "Corrective Action Request Management",
+                "Non-conformance Case Tracking",
+                "Root Cause Analysis Workspace",
+                "Supplier Quality Scorecards",
+                "Calibration Schedule Tracking",
+                "Sampling Rule Configuration",
+                "Batch Traceability Lookup",
+                "Photo Evidence Capture",
+                "Quality Hold and Release Workflow",
+                "Rework Order Tracking",
+                "Regulatory Compliance Checklist",
+                "Shift Quality Dashboard",
+                "Scrap and Yield Reporting",
+                "Audit Preparation Reports",
+            ],
+        ),
+        (
+            "eval_06_membership_association.json",
+            "Membership and Association Management Portal",
+            ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
+            [
+                "Member Registration and Profile Management",
+                "Membership Tier Configuration",
+                "Application Review and Approval",
+                "Renewal Reminder Automation",
+                "Online Membership Payment",
+                "Corporate Membership Accounts",
+                "Member Directory Search",
+                "Committee and Chapter Management",
+                "Event Registration for Members",
+                "Continuing Education Credit Tracking",
+                "Certificate Issuance",
+                "Document Library Access Control",
+                "Announcement and Newsletter Publishing",
+                "Volunteer Signup Workflow",
+                "Member Support Ticketing",
+                "Benefits Redemption Tracking",
+                "Sponsor Management",
+                "Board Reporting Dashboard",
+            ],
+        ),
+    ]
+
+    for filename, title, techs, fr_titles in evaluation_domains:
+        filepath = os.path.join(EVALUATION_DIR, filename)
+        create_sample(filepath, title, techs, fr_titles)
+
+    training_total = len(list(TRAINING_DIR.glob("*.json")))
+    evaluation_total = len(list(EVALUATION_DIR.glob("*.json")))
+    print(
+        f"\n  Generated {training_total} training files and "
+        f"{evaluation_total} evaluation files"
+    )
 
 
 if __name__ == "__main__":

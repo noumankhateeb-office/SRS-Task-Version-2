@@ -1,0 +1,2272 @@
+{
+  "input": {
+    "title": "Grant Management and Funding Operations Platform",
+    "description": "Grant Management and Funding Operations Platform is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "technologies": [
+      "React",
+      "Python Django",
+      "PostgreSQL",
+      "Redis"
+    ],
+    "actors": [
+      "Admin",
+      "Manager",
+      "Employee",
+      "User"
+    ],
+    "user_classes": {
+      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
+      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
+      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
+      "User": "Generic authenticated platform user with access limited by role and department."
+    },
+    "definitions": {
+      "Admin": "System user with full administrative privileges.",
+      "Manager": "Operational owner of a department, module, or workflow.",
+      "Employee": "End user performing role-specific business operations."
+    },
+    "modules": [
+      "Funding Opportunity Publishing",
+      "Applicant Organization Registration",
+      "Eligibility Screening Workflow",
+      "Grant Application Submission",
+      "Narrative Section Authoring",
+      "Budget Workbook Management",
+      "Supporting Document Upload",
+      "Reviewer Assignment",
+      "Scoring Rubric Configuration",
+      "Reviewer Conflict of Interest Declaration"
+    ],
+    "scope": [
+      "Funding Opportunity Publishing workflows",
+      "Applicant Organization Registration workflows",
+      "Eligibility Screening Workflow workflows",
+      "Grant Application Submission workflows",
+      "Narrative Section Authoring workflows",
+      "Budget Workbook Management workflows"
+    ],
+    "constraints": [
+      "Initial release will focus on the web platform only",
+      "Role-based access control is mandatory across all modules",
+      "Operational data must be auditable and retained according to policy"
+    ],
+    "operating_environment": {
+      "frontend": "Web-based interface built with React and accessible through modern browsers.",
+      "backend": "Service layer implemented with Python Django, PostgreSQL, Redis for business operations.",
+      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Security and Access Control",
+        "requirements": [
+          "All sensitive data must be encrypted in transit and at rest",
+          "Role-based authorization must restrict access by module and action",
+          "All authentication events and privileged actions must be logged"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance and Scalability",
+        "requirements": [
+          "Core pages and dashboards should load within acceptable enterprise SLAs",
+          "The platform must support concurrent usage across multiple departments",
+          "Background jobs and reporting workloads should not block transactional workflows"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability and Recoverability",
+        "requirements": [
+          "Automated backups must run on a defined schedule",
+          "Critical workflows should support retry-safe processing and audit logging",
+          "Operational alerts should be generated for failures and degraded services"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
+      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
+      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
+      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
+    },
+    "out_of_scope": [
+      "Native mobile applications in the first release",
+      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
+      "Non-core experimental modules outside the platform's operational workflows"
+    ],
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Funding Opportunity Publishing",
+        "requirements": [
+          "The system must support funding opportunity publishing as a complete business workflow within the application.",
+          "Funding Opportunity Publishing should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with funding opportunity publishing from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to funding opportunity publishing for operational support."
+        ]
+      },
+      "FR-02": {
+        "title": "Applicant Organization Registration",
+        "requirements": [
+          "Users must be able to complete applicant organization registration through the approved entry points provided by the platform.",
+          "The system must validate submitted credentials, identity data, and required fields before allowing applicant organization registration to continue.",
+          "Applicant Organization Registration must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+          "The user interface for applicant organization registration should provide clear success, failure, and recovery messages for common scenarios."
+        ]
+      },
+      "FR-03": {
+        "title": "Eligibility Screening Workflow",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete eligibility screening workflow according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving eligibility screening workflow changes.",
+          "Eligibility Screening Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for eligibility screening workflow."
+        ]
+      },
+      "FR-04": {
+        "title": "Grant Application Submission",
+        "requirements": [
+          "The system must support grant application submission as a complete business workflow within the application.",
+          "Grant Application Submission should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with grant application submission from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to grant application submission for operational support."
+        ]
+      },
+      "FR-05": {
+        "title": "Narrative Section Authoring",
+        "requirements": [
+          "The system must support narrative section authoring as a complete business workflow within the application.",
+          "Narrative Section Authoring should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with narrative section authoring from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to narrative section authoring for operational support."
+        ]
+      },
+      "FR-06": {
+        "title": "Budget Workbook Management",
+        "requirements": [
+          "The system must provide end-to-end budget workbook management capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Budget Workbook Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to budget workbook management without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within budget workbook management and retain operational history for reporting."
+        ]
+      },
+      "FR-07": {
+        "title": "Supporting Document Upload",
+        "requirements": [
+          "The system must provide end-to-end supporting document upload capabilities for creating, updating, viewing, and retiring relevant business records.",
+          "Supporting Document Upload should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+          "Users must be able to search, filter, and review historical activity related to supporting document upload without leaving the module context.",
+          "The platform should maintain auditability for important actions performed within supporting document upload and retain operational history for reporting."
+        ]
+      },
+      "FR-08": {
+        "title": "Reviewer Assignment",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete reviewer assignment according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving reviewer assignment changes.",
+          "Reviewer Assignment must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for reviewer assignment."
+        ]
+      },
+      "FR-09": {
+        "title": "Scoring Rubric Configuration",
+        "requirements": [
+          "The system must support scoring rubric configuration as a complete business workflow within the application.",
+          "Scoring Rubric Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with scoring rubric configuration from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to scoring rubric configuration for operational support."
+        ]
+      },
+      "FR-10": {
+        "title": "Reviewer Conflict of Interest Declaration",
+        "requirements": [
+          "The system must support reviewer conflict of interest declaration as a complete business workflow within the application.",
+          "Reviewer Conflict of Interest Declaration should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with reviewer conflict of interest declaration from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to reviewer conflict of interest declaration for operational support."
+        ]
+      },
+      "FR-11": {
+        "title": "Evaluation Committee Dashboard",
+        "requirements": [
+          "The system must provide evaluation committee dashboard with role-appropriate filters, date ranges, and drill-down views.",
+          "Evaluation Committee Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share evaluation committee dashboard outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-12": {
+        "title": "Award Recommendation Workflow",
+        "requirements": [
+          "Authorized users must be able to create, update, and complete award recommendation workflow according to the approved business workflow.",
+          "The system should validate required fields, status transitions, and role-based actions before saving award recommendation workflow changes.",
+          "Award Recommendation Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+          "The interface should surface the current workflow state, next available actions, and blocking conditions for award recommendation workflow."
+        ]
+      },
+      "FR-13": {
+        "title": "Award Letter Generation",
+        "requirements": [
+          "The system must support award letter generation as a complete business workflow within the application.",
+          "Award Letter Generation should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with award letter generation from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to award letter generation for operational support."
+        ]
+      },
+      "FR-14": {
+        "title": "Grant Agreement Tracking",
+        "requirements": [
+          "The system must capture grant agreement tracking data in real time or near real time as operational events occur.",
+          "Grant Agreement Tracking should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile grant agreement tracking records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during grant agreement tracking."
+        ]
+      },
+      "FR-15": {
+        "title": "Milestone-based Disbursement Scheduling",
+        "requirements": [
+          "The system must support milestone-based disbursement scheduling as a complete business workflow within the application.",
+          "Milestone-based Disbursement Scheduling should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with milestone-based disbursement scheduling from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to milestone-based disbursement scheduling for operational support."
+        ]
+      },
+      "FR-16": {
+        "title": "Beneficiary Progress Reporting",
+        "requirements": [
+          "The system must provide beneficiary progress reporting with role-appropriate filters, date ranges, and drill-down views.",
+          "Beneficiary Progress Reporting should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share beneficiary progress reporting outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-17": {
+        "title": "Budget Utilization Monitoring",
+        "requirements": [
+          "The system must capture budget utilization monitoring data in real time or near real time as operational events occur.",
+          "Budget Utilization Monitoring should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile budget utilization monitoring records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during budget utilization monitoring."
+        ]
+      },
+      "FR-18": {
+        "title": "Site Visit Planning",
+        "requirements": [
+          "The system must support site visit planning as a complete business workflow within the application.",
+          "Site Visit Planning should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with site visit planning from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to site visit planning for operational support."
+        ]
+      },
+      "FR-19": {
+        "title": "Risk Flag and Escalation Tracking",
+        "requirements": [
+          "The system must capture risk flag and escalation tracking data in real time or near real time as operational events occur.",
+          "Risk Flag and Escalation Tracking should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile risk flag and escalation tracking records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during risk flag and escalation tracking."
+        ]
+      },
+      "FR-20": {
+        "title": "Impact Metrics Dashboard",
+        "requirements": [
+          "The system must provide impact metrics dashboard with role-appropriate filters, date ranges, and drill-down views.",
+          "Impact Metrics Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share impact metrics dashboard outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-21": {
+        "title": "Audit Evidence Repository",
+        "requirements": [
+          "The system must capture audit evidence repository data in real time or near real time as operational events occur.",
+          "Audit Evidence Repository should provide a timeline, status history, or change log so users can understand what happened and when.",
+          "Users must be able to review, filter, and reconcile audit evidence repository records against the related business entities.",
+          "The platform should flag missing, inconsistent, or exception conditions that require attention during audit evidence repository."
+        ]
+      },
+      "FR-22": {
+        "title": "Grant Closeout Checklist",
+        "requirements": [
+          "The system must support grant closeout checklist as a complete business workflow within the application.",
+          "Grant Closeout Checklist should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+          "Users must be able to review the current state and recent activity associated with grant closeout checklist from the relevant module.",
+          "The platform should log significant actions, failures, and user-visible events related to grant closeout checklist for operational support."
+        ]
+      },
+      "FR-23": {
+        "title": "Portfolio Reporting for Leadership",
+        "requirements": [
+          "The system must provide portfolio reporting for leadership with role-appropriate filters, date ranges, and drill-down views.",
+          "Portfolio Reporting for Leadership should calculate metrics from current transactional data and keep summaries aligned with source records.",
+          "Authorized users must be able to export or share portfolio reporting for leadership outputs in formats used by business teams.",
+          "The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis."
+        ]
+      },
+      "FR-24": {
+        "title": "Email Notification Automation",
+        "requirements": [
+          "The system must trigger email notification automation when the relevant business events or threshold conditions occur.",
+          "Users should be able to configure delivery channels, timing, or opt-in preferences related to email notification automation.",
+          "Email Notification Automation must record delivery outcomes, retries, and failures for operational follow-up.",
+          "The interface should let authorized users review recent email notification automation events and the current notification status."
+        ]
+      }
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Plan Funding Opportunity Publishing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for funding opportunity publishing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support funding opportunity publishing as a complete business workflow within the application; Funding Opportunity Publishing should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with funding opportunity publishing from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for funding opportunity publishing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for funding opportunity publishing are explicitly defined",
+          "Implementation subtasks for funding opportunity publishing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Funding Opportunity Publishing Backend Services",
+        "description": "Build the backend services for funding opportunity publishing on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support funding opportunity publishing as a complete business workflow within the application; Funding Opportunity Publishing should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with funding opportunity publishing from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core funding opportunity publishing business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for funding opportunity publishing",
+          "API/service behavior for funding opportunity publishing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Funding Opportunity Publishing Frontend Flow",
+        "description": "Build the frontend flow for funding opportunity publishing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The funding opportunity publishing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for funding opportunity publishing behave correctly",
+          "The funding opportunity publishing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Funding Opportunity Publishing",
+        "description": "Implement the external integration points used by funding opportunity publishing, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by funding opportunity publishing are connected through stable integration layers",
+          "Timeout, retry, and failure handling for funding opportunity publishing integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for funding opportunity publishing are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Funding Opportunity Publishing Security and Access Rules",
+        "description": "Apply security controls to funding opportunity publishing. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for funding opportunity publishing are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in funding opportunity publishing are audited and protected against misuse",
+          "Security validation for funding opportunity publishing passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Funding Opportunity Publishing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for funding opportunity publishing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for funding opportunity publishing are covered by automated tests",
+          "Permission checks and validation rules for funding opportunity publishing are verified",
+          "Regression coverage exists for the most critical funding opportunity publishing scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Applicant Organization Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for applicant organization registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users must be able to complete applicant organization registration through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing applicant organization registration to continue; Applicant Organization Registration must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for applicant organization registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for applicant organization registration are explicitly defined",
+          "Implementation subtasks for applicant organization registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Applicant Organization Registration Backend Services",
+        "description": "Build the backend services for applicant organization registration on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users must be able to complete applicant organization registration through the approved entry points provided by the platform; The system must validate submitted credentials, identity data, and required fields before allowing applicant organization registration to continue; Applicant Organization Registration must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core applicant organization registration business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for applicant organization registration",
+          "API/service behavior for applicant organization registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Applicant Organization Registration Frontend Flow",
+        "description": "Build the frontend flow for applicant organization registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The applicant organization registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for applicant organization registration behave correctly",
+          "The applicant organization registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Applicant Organization Registration Security and Access Rules",
+        "description": "Apply security controls to applicant organization registration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Access control rules for applicant organization registration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in applicant organization registration are audited and protected against misuse",
+          "Security validation for applicant organization registration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Applicant Organization Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for applicant organization registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for applicant organization registration are covered by automated tests",
+          "Permission checks and validation rules for applicant organization registration are verified",
+          "Regression coverage exists for the most critical applicant organization registration scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Eligibility Screening Workflow Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for eligibility screening workflow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete eligibility screening workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving eligibility screening workflow changes; Eligibility Screening Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for eligibility screening workflow is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for eligibility screening workflow are explicitly defined",
+          "Implementation subtasks for eligibility screening workflow can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Eligibility Screening Workflow Backend Services",
+        "description": "Build the backend services for eligibility screening workflow on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete eligibility screening workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving eligibility screening workflow changes; Eligibility Screening Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core eligibility screening workflow business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for eligibility screening workflow",
+          "API/service behavior for eligibility screening workflow is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Eligibility Screening Workflow Frontend Flow",
+        "description": "Build the frontend flow for eligibility screening workflow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The eligibility screening workflow user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for eligibility screening workflow behave correctly",
+          "The eligibility screening workflow UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Eligibility Screening Workflow Persistence Model",
+        "description": "Design the persistence layer for eligibility screening workflow. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for eligibility screening workflow supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for eligibility screening workflow are defined correctly",
+          "Migrations for eligibility screening workflow can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Eligibility Screening Workflow Security and Access Rules",
+        "description": "Apply security controls to eligibility screening workflow. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Access control rules for eligibility screening workflow are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in eligibility screening workflow are audited and protected against misuse",
+          "Security validation for eligibility screening workflow passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Eligibility Screening Workflow Reporting and KPI Logic",
+        "description": "Implement the reporting layer for eligibility screening workflow, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for eligibility screening workflow return accurate results",
+          "Filters, grouping, and export-ready structures for eligibility screening workflow work correctly",
+          "Reporting queries for eligibility screening workflow perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Eligibility Screening Workflow Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for eligibility screening workflow. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Notification triggers for eligibility screening workflow fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for eligibility screening workflow are configurable and testable",
+          "Notification failures for eligibility screening workflow are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Eligibility Screening Workflow Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for eligibility screening workflow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for eligibility screening workflow are covered by automated tests",
+          "Permission checks and validation rules for eligibility screening workflow are verified",
+          "Regression coverage exists for the most critical eligibility screening workflow scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Grant Application Submission Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for grant application submission and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support grant application submission as a complete business workflow within the application; Grant Application Submission should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with grant application submission from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for grant application submission is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for grant application submission are explicitly defined",
+          "Implementation subtasks for grant application submission can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Grant Application Submission Backend Services",
+        "description": "Build the backend services for grant application submission on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support grant application submission as a complete business workflow within the application; Grant Application Submission should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with grant application submission from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core grant application submission business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for grant application submission",
+          "API/service behavior for grant application submission is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Grant Application Submission Frontend Flow",
+        "description": "Build the frontend flow for grant application submission with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The grant application submission user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for grant application submission behave correctly",
+          "The grant application submission UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Grant Application Submission",
+        "description": "Implement the external integration points used by grant application submission, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "External dependencies used by grant application submission are connected through stable integration layers",
+          "Timeout, retry, and failure handling for grant application submission integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for grant application submission are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Grant Application Submission Security and Access Rules",
+        "description": "Apply security controls to grant application submission. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Access control rules for grant application submission are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in grant application submission are audited and protected against misuse",
+          "Security validation for grant application submission passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Grant Application Submission Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for grant application submission. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for grant application submission are covered by automated tests",
+          "Permission checks and validation rules for grant application submission are verified",
+          "Regression coverage exists for the most critical grant application submission scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Narrative Section Authoring Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for narrative section authoring and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support narrative section authoring as a complete business workflow within the application; Narrative Section Authoring should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with narrative section authoring from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for narrative section authoring is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for narrative section authoring are explicitly defined",
+          "Implementation subtasks for narrative section authoring can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Narrative Section Authoring Backend Services",
+        "description": "Build the backend services for narrative section authoring on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support narrative section authoring as a complete business workflow within the application; Narrative Section Authoring should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with narrative section authoring from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core narrative section authoring business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for narrative section authoring",
+          "API/service behavior for narrative section authoring is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Narrative Section Authoring Frontend Flow",
+        "description": "Build the frontend flow for narrative section authoring with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The narrative section authoring user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for narrative section authoring behave correctly",
+          "The narrative section authoring UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Narrative Section Authoring",
+        "description": "Implement the external integration points used by narrative section authoring, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "External dependencies used by narrative section authoring are connected through stable integration layers",
+          "Timeout, retry, and failure handling for narrative section authoring integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for narrative section authoring are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Narrative Section Authoring Security and Access Rules",
+        "description": "Apply security controls to narrative section authoring. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Access control rules for narrative section authoring are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in narrative section authoring are audited and protected against misuse",
+          "Security validation for narrative section authoring passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Narrative Section Authoring Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for narrative section authoring. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for narrative section authoring are covered by automated tests",
+          "Permission checks and validation rules for narrative section authoring are verified",
+          "Regression coverage exists for the most critical narrative section authoring scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Budget Workbook Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for budget workbook management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end budget workbook management capabilities for creating, updating, viewing, and retiring relevant business records; Budget Workbook Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to budget workbook management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for budget workbook management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for budget workbook management are explicitly defined",
+          "Implementation subtasks for budget workbook management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Budget Workbook Management Backend Services",
+        "description": "Build the backend services for budget workbook management on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end budget workbook management capabilities for creating, updating, viewing, and retiring relevant business records; Budget Workbook Management should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to budget workbook management without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core budget workbook management business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for budget workbook management",
+          "API/service behavior for budget workbook management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Budget Workbook Management Frontend Flow",
+        "description": "Build the frontend flow for budget workbook management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The budget workbook management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for budget workbook management behave correctly",
+          "The budget workbook management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Budget Workbook Management Persistence Model",
+        "description": "Design the persistence layer for budget workbook management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for budget workbook management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for budget workbook management are defined correctly",
+          "Migrations for budget workbook management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Budget Workbook Management Security and Access Rules",
+        "description": "Apply security controls to budget workbook management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Access control rules for budget workbook management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in budget workbook management are audited and protected against misuse",
+          "Security validation for budget workbook management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Budget Workbook Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for budget workbook management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for budget workbook management are covered by automated tests",
+          "Permission checks and validation rules for budget workbook management are verified",
+          "Regression coverage exists for the most critical budget workbook management scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Supporting Document Upload Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for supporting document upload and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide end-to-end supporting document upload capabilities for creating, updating, viewing, and retiring relevant business records; Supporting Document Upload should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to supporting document upload without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for supporting document upload is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for supporting document upload are explicitly defined",
+          "Implementation subtasks for supporting document upload can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Supporting Document Upload Backend Services",
+        "description": "Build the backend services for supporting document upload on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide end-to-end supporting document upload capabilities for creating, updating, viewing, and retiring relevant business records; Supporting Document Upload should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate; Users must be able to search, filter, and review historical activity related to supporting document upload without leaving the module context.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core supporting document upload business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for supporting document upload",
+          "API/service behavior for supporting document upload is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Supporting Document Upload Frontend Flow",
+        "description": "Build the frontend flow for supporting document upload with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The supporting document upload user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for supporting document upload behave correctly",
+          "The supporting document upload UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Supporting Document Upload Persistence Model",
+        "description": "Design the persistence layer for supporting document upload. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for supporting document upload supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for supporting document upload are defined correctly",
+          "Migrations for supporting document upload can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Supporting Document Upload Security and Access Rules",
+        "description": "Apply security controls to supporting document upload. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Access control rules for supporting document upload are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in supporting document upload are audited and protected against misuse",
+          "Security validation for supporting document upload passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Supporting Document Upload Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for supporting document upload. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for supporting document upload are covered by automated tests",
+          "Permission checks and validation rules for supporting document upload are verified",
+          "Regression coverage exists for the most critical supporting document upload scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Reviewer Assignment Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for reviewer assignment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete reviewer assignment according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving reviewer assignment changes; Reviewer Assignment must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for reviewer assignment is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for reviewer assignment are explicitly defined",
+          "Implementation subtasks for reviewer assignment can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Reviewer Assignment Backend Services",
+        "description": "Build the backend services for reviewer assignment on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete reviewer assignment according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving reviewer assignment changes; Reviewer Assignment must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core reviewer assignment business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for reviewer assignment",
+          "API/service behavior for reviewer assignment is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Reviewer Assignment Frontend Flow",
+        "description": "Build the frontend flow for reviewer assignment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The reviewer assignment user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for reviewer assignment behave correctly",
+          "The reviewer assignment UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Reviewer Assignment Persistence Model",
+        "description": "Design the persistence layer for reviewer assignment. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for reviewer assignment supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for reviewer assignment are defined correctly",
+          "Migrations for reviewer assignment can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Reviewer Assignment Security and Access Rules",
+        "description": "Apply security controls to reviewer assignment. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Access control rules for reviewer assignment are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in reviewer assignment are audited and protected against misuse",
+          "Security validation for reviewer assignment passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Reviewer Assignment Reporting and KPI Logic",
+        "description": "Implement the reporting layer for reviewer assignment, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for reviewer assignment return accurate results",
+          "Filters, grouping, and export-ready structures for reviewer assignment work correctly",
+          "Reporting queries for reviewer assignment perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Reviewer Assignment Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for reviewer assignment. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Notification triggers for reviewer assignment fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for reviewer assignment are configurable and testable",
+          "Notification failures for reviewer assignment are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Reviewer Assignment Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for reviewer assignment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for reviewer assignment are covered by automated tests",
+          "Permission checks and validation rules for reviewer assignment are verified",
+          "Regression coverage exists for the most critical reviewer assignment scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Scoring Rubric Configuration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for scoring rubric configuration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support scoring rubric configuration as a complete business workflow within the application; Scoring Rubric Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with scoring rubric configuration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for scoring rubric configuration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for scoring rubric configuration are explicitly defined",
+          "Implementation subtasks for scoring rubric configuration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Scoring Rubric Configuration Backend Services",
+        "description": "Build the backend services for scoring rubric configuration on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support scoring rubric configuration as a complete business workflow within the application; Scoring Rubric Configuration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with scoring rubric configuration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core scoring rubric configuration business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for scoring rubric configuration",
+          "API/service behavior for scoring rubric configuration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Scoring Rubric Configuration Frontend Flow",
+        "description": "Build the frontend flow for scoring rubric configuration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The scoring rubric configuration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for scoring rubric configuration behave correctly",
+          "The scoring rubric configuration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Scoring Rubric Configuration",
+        "description": "Implement the external integration points used by scoring rubric configuration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "External dependencies used by scoring rubric configuration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for scoring rubric configuration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for scoring rubric configuration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Scoring Rubric Configuration Security and Access Rules",
+        "description": "Apply security controls to scoring rubric configuration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Access control rules for scoring rubric configuration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in scoring rubric configuration are audited and protected against misuse",
+          "Security validation for scoring rubric configuration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Scoring Rubric Configuration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for scoring rubric configuration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for scoring rubric configuration are covered by automated tests",
+          "Permission checks and validation rules for scoring rubric configuration are verified",
+          "Regression coverage exists for the most critical scoring rubric configuration scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Reviewer Conflict of Interest Declaration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for reviewer conflict of interest declaration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support reviewer conflict of interest declaration as a complete business workflow within the application; Reviewer Conflict of Interest Declaration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with reviewer conflict of interest declaration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for reviewer conflict of interest declaration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for reviewer conflict of interest declaration are explicitly defined",
+          "Implementation subtasks for reviewer conflict of interest declaration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Reviewer Conflict of Interest Declaration Backend Services",
+        "description": "Build the backend services for reviewer conflict of interest declaration on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support reviewer conflict of interest declaration as a complete business workflow within the application; Reviewer Conflict of Interest Declaration should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with reviewer conflict of interest declaration from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core reviewer conflict of interest declaration business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for reviewer conflict of interest declaration",
+          "API/service behavior for reviewer conflict of interest declaration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Reviewer Conflict of Interest Declaration Frontend Flow",
+        "description": "Build the frontend flow for reviewer conflict of interest declaration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The reviewer conflict of interest declaration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for reviewer conflict of interest declaration behave correctly",
+          "The reviewer conflict of interest declaration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Reviewer Conflict of Interest Declaration",
+        "description": "Implement the external integration points used by reviewer conflict of interest declaration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "External dependencies used by reviewer conflict of interest declaration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for reviewer conflict of interest declaration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for reviewer conflict of interest declaration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Reviewer Conflict of Interest Declaration Security and Access Rules",
+        "description": "Apply security controls to reviewer conflict of interest declaration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Access control rules for reviewer conflict of interest declaration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in reviewer conflict of interest declaration are audited and protected against misuse",
+          "Security validation for reviewer conflict of interest declaration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Reviewer Conflict of Interest Declaration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for reviewer conflict of interest declaration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for reviewer conflict of interest declaration are covered by automated tests",
+          "Permission checks and validation rules for reviewer conflict of interest declaration are verified",
+          "Regression coverage exists for the most critical reviewer conflict of interest declaration scenarios"
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Plan Evaluation Committee Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for evaluation committee dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide evaluation committee dashboard with role-appropriate filters, date ranges, and drill-down views; Evaluation Committee Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share evaluation committee dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for evaluation committee dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for evaluation committee dashboard are explicitly defined",
+          "Implementation subtasks for evaluation committee dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Evaluation Committee Dashboard Backend Services",
+        "description": "Build the backend services for evaluation committee dashboard on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide evaluation committee dashboard with role-appropriate filters, date ranges, and drill-down views; Evaluation Committee Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share evaluation committee dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core evaluation committee dashboard business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for evaluation committee dashboard",
+          "API/service behavior for evaluation committee dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Evaluation Committee Dashboard Frontend Flow",
+        "description": "Build the frontend flow for evaluation committee dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The evaluation committee dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for evaluation committee dashboard behave correctly",
+          "The evaluation committee dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Evaluation Committee Dashboard Persistence Model",
+        "description": "Design the persistence layer for evaluation committee dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The persistence model for evaluation committee dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for evaluation committee dashboard are defined correctly",
+          "Migrations for evaluation committee dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Evaluation Committee Dashboard",
+        "description": "Implement the external integration points used by evaluation committee dashboard, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "External dependencies used by evaluation committee dashboard are connected through stable integration layers",
+          "Timeout, retry, and failure handling for evaluation committee dashboard integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for evaluation committee dashboard are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Evaluation Committee Dashboard Security and Access Rules",
+        "description": "Apply security controls to evaluation committee dashboard. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Access control rules for evaluation committee dashboard are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in evaluation committee dashboard are audited and protected against misuse",
+          "Security validation for evaluation committee dashboard passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Evaluation Committee Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for evaluation committee dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for evaluation committee dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for evaluation committee dashboard work correctly",
+          "Reporting queries for evaluation committee dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Evaluation Committee Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for evaluation committee dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for evaluation committee dashboard are covered by automated tests",
+          "Permission checks and validation rules for evaluation committee dashboard are verified",
+          "Regression coverage exists for the most critical evaluation committee dashboard scenarios"
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Plan Award Recommendation Workflow Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for award recommendation workflow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Authorized users must be able to create, update, and complete award recommendation workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving award recommendation workflow changes; Award Recommendation Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for award recommendation workflow is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for award recommendation workflow are explicitly defined",
+          "Implementation subtasks for award recommendation workflow can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Award Recommendation Workflow Backend Services",
+        "description": "Build the backend services for award recommendation workflow on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Authorized users must be able to create, update, and complete award recommendation workflow according to the approved business workflow; The system should validate required fields, status transitions, and role-based actions before saving award recommendation workflow changes; Award Recommendation Workflow must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core award recommendation workflow business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for award recommendation workflow",
+          "API/service behavior for award recommendation workflow is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Award Recommendation Workflow Frontend Flow",
+        "description": "Build the frontend flow for award recommendation workflow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The award recommendation workflow user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for award recommendation workflow behave correctly",
+          "The award recommendation workflow UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Award Recommendation Workflow Persistence Model",
+        "description": "Design the persistence layer for award recommendation workflow. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The persistence model for award recommendation workflow supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for award recommendation workflow are defined correctly",
+          "Migrations for award recommendation workflow can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Award Recommendation Workflow Security and Access Rules",
+        "description": "Apply security controls to award recommendation workflow. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Access control rules for award recommendation workflow are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in award recommendation workflow are audited and protected against misuse",
+          "Security validation for award recommendation workflow passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Award Recommendation Workflow Reporting and KPI Logic",
+        "description": "Implement the reporting layer for award recommendation workflow, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for award recommendation workflow return accurate results",
+          "Filters, grouping, and export-ready structures for award recommendation workflow work correctly",
+          "Reporting queries for award recommendation workflow perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Award Recommendation Workflow Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for award recommendation workflow. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Notification triggers for award recommendation workflow fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for award recommendation workflow are configurable and testable",
+          "Notification failures for award recommendation workflow are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Award Recommendation Workflow Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for award recommendation workflow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for award recommendation workflow are covered by automated tests",
+          "Permission checks and validation rules for award recommendation workflow are verified",
+          "Regression coverage exists for the most critical award recommendation workflow scenarios"
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Plan Award Letter Generation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for award letter generation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support award letter generation as a complete business workflow within the application; Award Letter Generation should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with award letter generation from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The end-to-end workflow for award letter generation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for award letter generation are explicitly defined",
+          "Implementation subtasks for award letter generation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Award Letter Generation Backend Services",
+        "description": "Build the backend services for award letter generation on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support award letter generation as a complete business workflow within the application; Award Letter Generation should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with award letter generation from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Core award letter generation business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for award letter generation",
+          "API/service behavior for award letter generation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Award Letter Generation Frontend Flow",
+        "description": "Build the frontend flow for award letter generation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The award letter generation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for award letter generation behave correctly",
+          "The award letter generation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Award Letter Generation",
+        "description": "Implement the external integration points used by award letter generation, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "External dependencies used by award letter generation are connected through stable integration layers",
+          "Timeout, retry, and failure handling for award letter generation integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for award letter generation are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Award Letter Generation Security and Access Rules",
+        "description": "Apply security controls to award letter generation. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Access control rules for award letter generation are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in award letter generation are audited and protected against misuse",
+          "Security validation for award letter generation passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Award Letter Generation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for award letter generation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Happy path and failure cases for award letter generation are covered by automated tests",
+          "Permission checks and validation rules for award letter generation are verified",
+          "Regression coverage exists for the most critical award letter generation scenarios"
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Plan Grant Agreement Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for grant agreement tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture grant agreement tracking data in real time or near real time as operational events occur; Grant Agreement Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile grant agreement tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The end-to-end workflow for grant agreement tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for grant agreement tracking are explicitly defined",
+          "Implementation subtasks for grant agreement tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Grant Agreement Tracking Backend Services",
+        "description": "Build the backend services for grant agreement tracking on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture grant agreement tracking data in real time or near real time as operational events occur; Grant Agreement Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile grant agreement tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Core grant agreement tracking business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for grant agreement tracking",
+          "API/service behavior for grant agreement tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Grant Agreement Tracking Frontend Flow",
+        "description": "Build the frontend flow for grant agreement tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The grant agreement tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for grant agreement tracking behave correctly",
+          "The grant agreement tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Grant Agreement Tracking Persistence Model",
+        "description": "Design the persistence layer for grant agreement tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The persistence model for grant agreement tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for grant agreement tracking are defined correctly",
+          "Migrations for grant agreement tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Grant Agreement Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for grant agreement tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for grant agreement tracking return accurate results",
+          "Filters, grouping, and export-ready structures for grant agreement tracking work correctly",
+          "Reporting queries for grant agreement tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Grant Agreement Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for grant agreement tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Happy path and failure cases for grant agreement tracking are covered by automated tests",
+          "Permission checks and validation rules for grant agreement tracking are verified",
+          "Regression coverage exists for the most critical grant agreement tracking scenarios"
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Plan Milestone-based Disbursement Scheduling Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for milestone-based disbursement scheduling and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support milestone-based disbursement scheduling as a complete business workflow within the application; Milestone-based Disbursement Scheduling should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with milestone-based disbursement scheduling from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The end-to-end workflow for milestone-based disbursement scheduling is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for milestone-based disbursement scheduling are explicitly defined",
+          "Implementation subtasks for milestone-based disbursement scheduling can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Milestone-based Disbursement Scheduling Backend Services",
+        "description": "Build the backend services for milestone-based disbursement scheduling on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support milestone-based disbursement scheduling as a complete business workflow within the application; Milestone-based Disbursement Scheduling should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with milestone-based disbursement scheduling from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Core milestone-based disbursement scheduling business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for milestone-based disbursement scheduling",
+          "API/service behavior for milestone-based disbursement scheduling is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Milestone-based Disbursement Scheduling Frontend Flow",
+        "description": "Build the frontend flow for milestone-based disbursement scheduling with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The milestone-based disbursement scheduling user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for milestone-based disbursement scheduling behave correctly",
+          "The milestone-based disbursement scheduling UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Milestone-based Disbursement Scheduling",
+        "description": "Implement the external integration points used by milestone-based disbursement scheduling, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "External dependencies used by milestone-based disbursement scheduling are connected through stable integration layers",
+          "Timeout, retry, and failure handling for milestone-based disbursement scheduling integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for milestone-based disbursement scheduling are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Milestone-based Disbursement Scheduling Security and Access Rules",
+        "description": "Apply security controls to milestone-based disbursement scheduling. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Access control rules for milestone-based disbursement scheduling are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in milestone-based disbursement scheduling are audited and protected against misuse",
+          "Security validation for milestone-based disbursement scheduling passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Milestone-based Disbursement Scheduling Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for milestone-based disbursement scheduling. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Happy path and failure cases for milestone-based disbursement scheduling are covered by automated tests",
+          "Permission checks and validation rules for milestone-based disbursement scheduling are verified",
+          "Regression coverage exists for the most critical milestone-based disbursement scheduling scenarios"
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Plan Beneficiary Progress Reporting Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for beneficiary progress reporting and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide beneficiary progress reporting with role-appropriate filters, date ranges, and drill-down views; Beneficiary Progress Reporting should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share beneficiary progress reporting outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The end-to-end workflow for beneficiary progress reporting is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for beneficiary progress reporting are explicitly defined",
+          "Implementation subtasks for beneficiary progress reporting can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Beneficiary Progress Reporting Backend Services",
+        "description": "Build the backend services for beneficiary progress reporting on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide beneficiary progress reporting with role-appropriate filters, date ranges, and drill-down views; Beneficiary Progress Reporting should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share beneficiary progress reporting outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Core beneficiary progress reporting business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for beneficiary progress reporting",
+          "API/service behavior for beneficiary progress reporting is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Beneficiary Progress Reporting Frontend Flow",
+        "description": "Build the frontend flow for beneficiary progress reporting with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The beneficiary progress reporting user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for beneficiary progress reporting behave correctly",
+          "The beneficiary progress reporting UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Beneficiary Progress Reporting Persistence Model",
+        "description": "Design the persistence layer for beneficiary progress reporting. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The persistence model for beneficiary progress reporting supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for beneficiary progress reporting are defined correctly",
+          "Migrations for beneficiary progress reporting can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Beneficiary Progress Reporting",
+        "description": "Implement the external integration points used by beneficiary progress reporting, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "External dependencies used by beneficiary progress reporting are connected through stable integration layers",
+          "Timeout, retry, and failure handling for beneficiary progress reporting integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for beneficiary progress reporting are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Beneficiary Progress Reporting Security and Access Rules",
+        "description": "Apply security controls to beneficiary progress reporting. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Access control rules for beneficiary progress reporting are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in beneficiary progress reporting are audited and protected against misuse",
+          "Security validation for beneficiary progress reporting passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Beneficiary Progress Reporting Reporting and KPI Logic",
+        "description": "Implement the reporting layer for beneficiary progress reporting, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for beneficiary progress reporting return accurate results",
+          "Filters, grouping, and export-ready structures for beneficiary progress reporting work correctly",
+          "Reporting queries for beneficiary progress reporting perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Beneficiary Progress Reporting Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for beneficiary progress reporting. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Happy path and failure cases for beneficiary progress reporting are covered by automated tests",
+          "Permission checks and validation rules for beneficiary progress reporting are verified",
+          "Regression coverage exists for the most critical beneficiary progress reporting scenarios"
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Plan Budget Utilization Monitoring Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for budget utilization monitoring and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture budget utilization monitoring data in real time or near real time as operational events occur; Budget Utilization Monitoring should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile budget utilization monitoring records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The end-to-end workflow for budget utilization monitoring is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for budget utilization monitoring are explicitly defined",
+          "Implementation subtasks for budget utilization monitoring can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Budget Utilization Monitoring Backend Services",
+        "description": "Build the backend services for budget utilization monitoring on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture budget utilization monitoring data in real time or near real time as operational events occur; Budget Utilization Monitoring should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile budget utilization monitoring records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Core budget utilization monitoring business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for budget utilization monitoring",
+          "API/service behavior for budget utilization monitoring is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Budget Utilization Monitoring Frontend Flow",
+        "description": "Build the frontend flow for budget utilization monitoring with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The budget utilization monitoring user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for budget utilization monitoring behave correctly",
+          "The budget utilization monitoring UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Budget Utilization Monitoring Persistence Model",
+        "description": "Design the persistence layer for budget utilization monitoring. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The persistence model for budget utilization monitoring supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for budget utilization monitoring are defined correctly",
+          "Migrations for budget utilization monitoring can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Budget Utilization Monitoring Reporting and KPI Logic",
+        "description": "Implement the reporting layer for budget utilization monitoring, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for budget utilization monitoring return accurate results",
+          "Filters, grouping, and export-ready structures for budget utilization monitoring work correctly",
+          "Reporting queries for budget utilization monitoring perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Budget Utilization Monitoring Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for budget utilization monitoring. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Happy path and failure cases for budget utilization monitoring are covered by automated tests",
+          "Permission checks and validation rules for budget utilization monitoring are verified",
+          "Regression coverage exists for the most critical budget utilization monitoring scenarios"
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Plan Site Visit Planning Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for site visit planning and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support site visit planning as a complete business workflow within the application; Site Visit Planning should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with site visit planning from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The end-to-end workflow for site visit planning is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for site visit planning are explicitly defined",
+          "Implementation subtasks for site visit planning can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Site Visit Planning Backend Services",
+        "description": "Build the backend services for site visit planning on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support site visit planning as a complete business workflow within the application; Site Visit Planning should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with site visit planning from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Core site visit planning business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for site visit planning",
+          "API/service behavior for site visit planning is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Site Visit Planning Frontend Flow",
+        "description": "Build the frontend flow for site visit planning with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The site visit planning user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for site visit planning behave correctly",
+          "The site visit planning UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Site Visit Planning",
+        "description": "Implement the external integration points used by site visit planning, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "External dependencies used by site visit planning are connected through stable integration layers",
+          "Timeout, retry, and failure handling for site visit planning integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for site visit planning are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Site Visit Planning Security and Access Rules",
+        "description": "Apply security controls to site visit planning. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Access control rules for site visit planning are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in site visit planning are audited and protected against misuse",
+          "Security validation for site visit planning passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Site Visit Planning Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for site visit planning. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Happy path and failure cases for site visit planning are covered by automated tests",
+          "Permission checks and validation rules for site visit planning are verified",
+          "Regression coverage exists for the most critical site visit planning scenarios"
+        ]
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Plan Risk Flag and Escalation Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for risk flag and escalation tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture risk flag and escalation tracking data in real time or near real time as operational events occur; Risk Flag and Escalation Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile risk flag and escalation tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The end-to-end workflow for risk flag and escalation tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for risk flag and escalation tracking are explicitly defined",
+          "Implementation subtasks for risk flag and escalation tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Risk Flag and Escalation Tracking Backend Services",
+        "description": "Build the backend services for risk flag and escalation tracking on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture risk flag and escalation tracking data in real time or near real time as operational events occur; Risk Flag and Escalation Tracking should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile risk flag and escalation tracking records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Core risk flag and escalation tracking business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for risk flag and escalation tracking",
+          "API/service behavior for risk flag and escalation tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Risk Flag and Escalation Tracking Frontend Flow",
+        "description": "Build the frontend flow for risk flag and escalation tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The risk flag and escalation tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for risk flag and escalation tracking behave correctly",
+          "The risk flag and escalation tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Risk Flag and Escalation Tracking Persistence Model",
+        "description": "Design the persistence layer for risk flag and escalation tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The persistence model for risk flag and escalation tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for risk flag and escalation tracking are defined correctly",
+          "Migrations for risk flag and escalation tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Risk Flag and Escalation Tracking Reporting and KPI Logic",
+        "description": "Implement the reporting layer for risk flag and escalation tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for risk flag and escalation tracking return accurate results",
+          "Filters, grouping, and export-ready structures for risk flag and escalation tracking work correctly",
+          "Reporting queries for risk flag and escalation tracking perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Risk Flag and Escalation Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for risk flag and escalation tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Happy path and failure cases for risk flag and escalation tracking are covered by automated tests",
+          "Permission checks and validation rules for risk flag and escalation tracking are verified",
+          "Regression coverage exists for the most critical risk flag and escalation tracking scenarios"
+        ]
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Plan Impact Metrics Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for impact metrics dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide impact metrics dashboard with role-appropriate filters, date ranges, and drill-down views; Impact Metrics Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share impact metrics dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The end-to-end workflow for impact metrics dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for impact metrics dashboard are explicitly defined",
+          "Implementation subtasks for impact metrics dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Impact Metrics Dashboard Backend Services",
+        "description": "Build the backend services for impact metrics dashboard on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide impact metrics dashboard with role-appropriate filters, date ranges, and drill-down views; Impact Metrics Dashboard should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share impact metrics dashboard outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Core impact metrics dashboard business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for impact metrics dashboard",
+          "API/service behavior for impact metrics dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Impact Metrics Dashboard Frontend Flow",
+        "description": "Build the frontend flow for impact metrics dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The impact metrics dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for impact metrics dashboard behave correctly",
+          "The impact metrics dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Impact Metrics Dashboard Persistence Model",
+        "description": "Design the persistence layer for impact metrics dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The persistence model for impact metrics dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for impact metrics dashboard are defined correctly",
+          "Migrations for impact metrics dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Impact Metrics Dashboard",
+        "description": "Implement the external integration points used by impact metrics dashboard, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "External dependencies used by impact metrics dashboard are connected through stable integration layers",
+          "Timeout, retry, and failure handling for impact metrics dashboard integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for impact metrics dashboard are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Impact Metrics Dashboard Security and Access Rules",
+        "description": "Apply security controls to impact metrics dashboard. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Access control rules for impact metrics dashboard are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in impact metrics dashboard are audited and protected against misuse",
+          "Security validation for impact metrics dashboard passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Impact Metrics Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for impact metrics dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for impact metrics dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for impact metrics dashboard work correctly",
+          "Reporting queries for impact metrics dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Impact Metrics Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for impact metrics dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Happy path and failure cases for impact metrics dashboard are covered by automated tests",
+          "Permission checks and validation rules for impact metrics dashboard are verified",
+          "Regression coverage exists for the most critical impact metrics dashboard scenarios"
+        ]
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Plan Audit Evidence Repository Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for audit evidence repository and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must capture audit evidence repository data in real time or near real time as operational events occur; Audit Evidence Repository should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile audit evidence repository records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "The end-to-end workflow for audit evidence repository is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for audit evidence repository are explicitly defined",
+          "Implementation subtasks for audit evidence repository can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Audit Evidence Repository Backend Services",
+        "description": "Build the backend services for audit evidence repository on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must capture audit evidence repository data in real time or near real time as operational events occur; Audit Evidence Repository should provide a timeline, status history, or change log so users can understand what happened and when; Users must be able to review, filter, and reconcile audit evidence repository records against the related business entities.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "Core audit evidence repository business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for audit evidence repository",
+          "API/service behavior for audit evidence repository is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Audit Evidence Repository Frontend Flow",
+        "description": "Build the frontend flow for audit evidence repository with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "The audit evidence repository user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for audit evidence repository behave correctly",
+          "The audit evidence repository UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Audit Evidence Repository Persistence Model",
+        "description": "Design the persistence layer for audit evidence repository. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "The persistence model for audit evidence repository supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for audit evidence repository are defined correctly",
+          "Migrations for audit evidence repository can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Audit Evidence Repository Security and Access Rules",
+        "description": "Apply security controls to audit evidence repository. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "Access control rules for audit evidence repository are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in audit evidence repository are audited and protected against misuse",
+          "Security validation for audit evidence repository passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Audit Evidence Repository Reporting and KPI Logic",
+        "description": "Implement the reporting layer for audit evidence repository, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for audit evidence repository return accurate results",
+          "Filters, grouping, and export-ready structures for audit evidence repository work correctly",
+          "Reporting queries for audit evidence repository perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Audit Evidence Repository Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for audit evidence repository. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "Happy path and failure cases for audit evidence repository are covered by automated tests",
+          "Permission checks and validation rules for audit evidence repository are verified",
+          "Regression coverage exists for the most critical audit evidence repository scenarios"
+        ]
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Plan Grant Closeout Checklist Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for grant closeout checklist and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must support grant closeout checklist as a complete business workflow within the application; Grant Closeout Checklist should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with grant closeout checklist from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "The end-to-end workflow for grant closeout checklist is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for grant closeout checklist are explicitly defined",
+          "Implementation subtasks for grant closeout checklist can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Grant Closeout Checklist Backend Services",
+        "description": "Build the backend services for grant closeout checklist on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must support grant closeout checklist as a complete business workflow within the application; Grant Closeout Checklist should validate required inputs, enforce role-based permissions, and prevent invalid state changes; Users must be able to review the current state and recent activity associated with grant closeout checklist from the relevant module.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "Core grant closeout checklist business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for grant closeout checklist",
+          "API/service behavior for grant closeout checklist is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Grant Closeout Checklist Frontend Flow",
+        "description": "Build the frontend flow for grant closeout checklist with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "The grant closeout checklist user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for grant closeout checklist behave correctly",
+          "The grant closeout checklist UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Grant Closeout Checklist",
+        "description": "Implement the external integration points used by grant closeout checklist, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "External dependencies used by grant closeout checklist are connected through stable integration layers",
+          "Timeout, retry, and failure handling for grant closeout checklist integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for grant closeout checklist are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Grant Closeout Checklist Security and Access Rules",
+        "description": "Apply security controls to grant closeout checklist. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "Access control rules for grant closeout checklist are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in grant closeout checklist are audited and protected against misuse",
+          "Security validation for grant closeout checklist passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Grant Closeout Checklist Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for grant closeout checklist. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "Happy path and failure cases for grant closeout checklist are covered by automated tests",
+          "Permission checks and validation rules for grant closeout checklist are verified",
+          "Regression coverage exists for the most critical grant closeout checklist scenarios"
+        ]
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Plan Portfolio Reporting for Leadership Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for portfolio reporting for leadership and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must provide portfolio reporting for leadership with role-appropriate filters, date ranges, and drill-down views; Portfolio Reporting for Leadership should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share portfolio reporting for leadership outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "The end-to-end workflow for portfolio reporting for leadership is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for portfolio reporting for leadership are explicitly defined",
+          "Implementation subtasks for portfolio reporting for leadership can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Portfolio Reporting for Leadership Backend Services",
+        "description": "Build the backend services for portfolio reporting for leadership on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must provide portfolio reporting for leadership with role-appropriate filters, date ranges, and drill-down views; Portfolio Reporting for Leadership should calculate metrics from current transactional data and keep summaries aligned with source records; Authorized users must be able to export or share portfolio reporting for leadership outputs in formats used by business teams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "Core portfolio reporting for leadership business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for portfolio reporting for leadership",
+          "API/service behavior for portfolio reporting for leadership is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Portfolio Reporting for Leadership Frontend Flow",
+        "description": "Build the frontend flow for portfolio reporting for leadership with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "The portfolio reporting for leadership user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for portfolio reporting for leadership behave correctly",
+          "The portfolio reporting for leadership UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Portfolio Reporting for Leadership Persistence Model",
+        "description": "Design the persistence layer for portfolio reporting for leadership. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "The persistence model for portfolio reporting for leadership supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for portfolio reporting for leadership are defined correctly",
+          "Migrations for portfolio reporting for leadership can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Portfolio Reporting for Leadership",
+        "description": "Implement the external integration points used by portfolio reporting for leadership, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "External dependencies used by portfolio reporting for leadership are connected through stable integration layers",
+          "Timeout, retry, and failure handling for portfolio reporting for leadership integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for portfolio reporting for leadership are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Portfolio Reporting for Leadership Security and Access Rules",
+        "description": "Apply security controls to portfolio reporting for leadership. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "Access control rules for portfolio reporting for leadership are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in portfolio reporting for leadership are audited and protected against misuse",
+          "Security validation for portfolio reporting for leadership passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Portfolio Reporting for Leadership Reporting and KPI Logic",
+        "description": "Implement the reporting layer for portfolio reporting for leadership, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for portfolio reporting for leadership return accurate results",
+          "Filters, grouping, and export-ready structures for portfolio reporting for leadership work correctly",
+          "Reporting queries for portfolio reporting for leadership perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Portfolio Reporting for Leadership Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for portfolio reporting for leadership. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "Happy path and failure cases for portfolio reporting for leadership are covered by automated tests",
+          "Permission checks and validation rules for portfolio reporting for leadership are verified",
+          "Regression coverage exists for the most critical portfolio reporting for leadership scenarios"
+        ]
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Plan Email Notification Automation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for email notification automation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: The system must trigger email notification automation when the relevant business events or threshold conditions occur; Users should be able to configure delivery channels, timing, or opt-in preferences related to email notification automation; Email Notification Automation must record delivery outcomes, retries, and failures for operational follow-up.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "The end-to-end workflow for email notification automation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for email notification automation are explicitly defined",
+          "Implementation subtasks for email notification automation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Email Notification Automation Backend Services",
+        "description": "Build the backend services for email notification automation on React, Python Django, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: The system must trigger email notification automation when the relevant business events or threshold conditions occur; Users should be able to configure delivery channels, timing, or opt-in preferences related to email notification automation; Email Notification Automation must record delivery outcomes, retries, and failures for operational follow-up.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "Core email notification automation business rules are implemented for Grant Management and Funding Operations Platform",
+          "Validation, authorization, and error handling are covered for email notification automation",
+          "API/service behavior for email notification automation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Email Notification Automation Frontend Flow",
+        "description": "Build the frontend flow for email notification automation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "The email notification automation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for email notification automation behave correctly",
+          "The email notification automation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Email Notification Automation Persistence Model",
+        "description": "Design the persistence layer for email notification automation. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "The persistence model for email notification automation supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for email notification automation are defined correctly",
+          "Migrations for email notification automation can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Email Notification Automation",
+        "description": "Implement the external integration points used by email notification automation, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "External dependencies used by email notification automation are connected through stable integration layers",
+          "Timeout, retry, and failure handling for email notification automation integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for email notification automation are handled securely"
+        ]
+      },
+      {
+        "title": "Implement Email Notification Automation Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for email notification automation. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "Notification triggers for email notification automation fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for email notification automation are configurable and testable",
+          "Notification failures for email notification automation are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Email Notification Automation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for email notification automation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "Happy path and failure cases for email notification automation are covered by automated tests",
+          "Permission checks and validation rules for email notification automation are verified",
+          "Regression coverage exists for the most critical email notification automation scenarios"
+        ]
+      }
+    ]
+  }
+}
