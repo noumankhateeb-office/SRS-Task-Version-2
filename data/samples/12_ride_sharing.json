@@ -1,34 +1,844 @@
 {
   "input": {
     "title": "Ride Sharing Application",
-    "technologies": ["React Native", "Go", "PostgreSQL", "Redis", "RabbitMQ"],
+    "technologies": [
+      "React Native",
+      "Go",
+      "PostgreSQL",
+      "Redis",
+      "RabbitMQ"
+    ],
     "functional_requirements": {
-      "FR-01": {"title": "Rider Registration", "requirements": ["Register with phone number and OTP", "Add profile with name and profile photo", "Save payment methods", "Add home and work addresses"], "acceptance_criteria": ["Account created after OTP verification", "Profile saved correctly", "Payment methods stored securely", "Saved addresses available for quick booking"]},
-      "FR-02": {"title": "Driver Registration", "requirements": ["Register with personal and vehicle details", "Upload driving license and vehicle registration", "Background check initiation", "Bank account for earnings deposit"], "acceptance_criteria": ["Driver account created", "Documents uploaded and stored", "Background check status tracked", "Bank details saved securely"]},
-      "FR-03": {"title": "Ride Booking", "requirements": ["Enter pickup and drop-off locations", "Choose vehicle type (economy, premium, XL)", "View fare estimate before booking", "Schedule rides for later"], "acceptance_criteria": ["Locations set on map", "Vehicle options show with prices", "Fare estimate matches final fare within 20%", "Scheduled ride executes at set time"]},
-      "FR-04": {"title": "Driver Matching", "requirements": ["Match nearest available driver to rider", "Driver accepts or declines within 30 seconds", "Auto-reassign if driver declines", "Show driver details and ETA on acceptance"], "acceptance_criteria": ["Nearest driver receives request first", "Request times out after 30 seconds", "Next driver receives after decline", "Rider sees driver name, photo, vehicle, and ETA"]},
-      "FR-05": {"title": "Real-time Trip Tracking", "requirements": ["Live map showing driver location", "ETA updates during trip", "Share trip status with emergency contacts", "Route optimization for fastest path"], "acceptance_criteria": ["Map updates driver position every 3 seconds", "ETA recalculates based on traffic", "Shared link shows live trip to contacts", "Route follows optimal path"]},
-      "FR-06": {"title": "Fare Calculation", "requirements": ["Calculate fare based on distance and time", "Surge pricing during high demand", "Toll and fee additions", "Fare split between multiple riders"], "acceptance_criteria": ["Fare calculated accurately", "Surge multiplier applied correctly", "Tolls added to final fare", "Split divides fare equally among riders"]},
-      "FR-07": {"title": "Payment Processing", "requirements": ["Charge rider after trip completion", "Support card, wallet, and cash payments", "Automatic receipts via email", "Tip option for driver"], "acceptance_criteria": ["Payment charged correctly", "All payment methods process", "Receipt sent within 1 minute", "Tip added to driver earnings"]},
-      "FR-08": {"title": "Rating and Feedback", "requirements": ["Rider rates driver after trip (1-5 stars)", "Driver rates rider (1-5 stars)", "Optional comment with rating", "Low-rated drivers receive warnings"], "acceptance_criteria": ["Rating submitted after trip", "Both parties rate independently", "Comments stored with rating", "Warnings sent at rating threshold"]},
-      "FR-09": {"title": "Driver Earnings Dashboard", "requirements": ["View daily, weekly, and monthly earnings", "Trip history with fare breakdown", "Goals and incentive progress", "Withdrawal to bank account"], "acceptance_criteria": ["Earnings totals are accurate", "Trip history shows all completed rides", "Incentive progress tracks correctly", "Withdrawal processes within 24 hours"]},
-      "FR-10": {"title": "Safety Features", "requirements": ["Emergency SOS button during trip", "Trip recording option", "Trusted contacts sharing", "Driver identity verification before trip"], "acceptance_criteria": ["SOS alerts emergency services with location", "Recording saves trip audio", "Contacts receive real-time trip updates", "Verification matches driver to profile photo"]},
-      "FR-11": {"title": "Promo and Referral System", "requirements": ["Apply promo codes for ride discounts", "Referral program with credits for both parties", "First-ride free promotion", "Campaign management for admin"], "acceptance_criteria": ["Valid promo deducts from fare", "Referral credits added on referee's first ride", "First-ride promo applies automatically", "Admin can create and manage campaigns"]},
-      "FR-12": {"title": "Admin Operations Dashboard", "requirements": ["Real-time fleet overview on map", "Trip analytics and revenue reports", "Driver and rider management", "Incident and complaint handling"], "acceptance_criteria": ["Map shows all active drivers", "Analytics show accurate metrics", "Users can be suspended or banned", "Incidents tracked with resolution status"]}
+      "FR-01": {
+        "title": "Rider Registration",
+        "requirements": [
+          "Register with phone number and OTP",
+          "Add profile with name and profile photo",
+          "Save payment methods",
+          "Add home and work addresses"
+        ]
+      },
+      "FR-02": {
+        "title": "Driver Registration",
+        "requirements": [
+          "Register with personal and vehicle details",
+          "Upload driving license and vehicle registration",
+          "Background check initiation",
+          "Bank account for earnings deposit"
+        ]
+      },
+      "FR-03": {
+        "title": "Ride Booking",
+        "requirements": [
+          "Enter pickup and drop-off locations",
+          "Choose vehicle type (economy, premium, XL)",
+          "View fare estimate before booking",
+          "Schedule rides for later"
+        ]
+      },
+      "FR-04": {
+        "title": "Driver Matching",
+        "requirements": [
+          "Match nearest available driver to rider",
+          "Driver accepts or declines within 30 seconds",
+          "Auto-reassign if driver declines",
+          "Show driver details and ETA on acceptance"
+        ]
+      },
+      "FR-05": {
+        "title": "Real-time Trip Tracking",
+        "requirements": [
+          "Live map showing driver location",
+          "ETA updates during trip",
+          "Share trip status with emergency contacts",
+          "Route optimization for fastest path"
+        ]
+      },
+      "FR-06": {
+        "title": "Fare Calculation",
+        "requirements": [
+          "Calculate fare based on distance and time",
+          "Surge pricing during high demand",
+          "Toll and fee additions",
+          "Fare split between multiple riders"
+        ]
+      },
+      "FR-07": {
+        "title": "Payment Processing",
+        "requirements": [
+          "Charge rider after trip completion",
+          "Support card, wallet, and cash payments",
+          "Automatic receipts via email",
+          "Tip option for driver"
+        ]
+      },
+      "FR-08": {
+        "title": "Rating and Feedback",
+        "requirements": [
+          "Rider rates driver after trip (1-5 stars)",
+          "Driver rates rider (1-5 stars)",
+          "Optional comment with rating",
+          "Low-rated drivers receive warnings"
+        ]
+      },
+      "FR-09": {
+        "title": "Driver Earnings Dashboard",
+        "requirements": [
+          "View daily, weekly, and monthly earnings",
+          "Trip history with fare breakdown",
+          "Goals and incentive progress",
+          "Withdrawal to bank account"
+        ]
+      },
+      "FR-10": {
+        "title": "Safety Features",
+        "requirements": [
+          "Emergency SOS button during trip",
+          "Trip recording option",
+          "Trusted contacts sharing",
+          "Driver identity verification before trip"
+        ]
+      },
+      "FR-11": {
+        "title": "Promo and Referral System",
+        "requirements": [
+          "Apply promo codes for ride discounts",
+          "Referral program with credits for both parties",
+          "First-ride free promotion",
+          "Campaign management for admin"
+        ]
+      },
+      "FR-12": {
+        "title": "Admin Operations Dashboard",
+        "requirements": [
+          "Real-time fleet overview on map",
+          "Trip analytics and revenue reports",
+          "Driver and rider management",
+          "Incident and complaint handling"
+        ]
+      }
     }
   },
   "output": {
-    "FR-01": [{"title": "Build Rider Auth API", "description": "Create POST /api/rider/send-otp, /api/rider/verify-otp. Profile CRUD. POST /api/rider/payment-methods (tokenized card storage). POST /api/rider/addresses (home/work).", "priority": "high", "type": "backend", "related_requirement": "FR-01"}, {"title": "Build Rider Onboarding", "description": "Create phone login screens, profile setup with photo, payment method addition with card scanner, and saved address form with map pin.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"}],
-    "FR-02": [{"title": "Build Driver Registration API", "description": "Create POST /api/driver/register (personal + vehicle info). Document upload to secure storage. POST /api/driver/background-check (initiate). Bank account CRUD.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}, {"title": "Build Driver Onboarding", "description": "Create driver registration flow: personal details, vehicle info with photos, document upload (license, registration, insurance), bank details, and application status tracker.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}, {"title": "Create Driver Database Schema", "description": "Design drivers table: id, user_id, license_number, vehicle_make, vehicle_model, vehicle_plate, vehicle_color, documents (JSON), status (pending/approved/suspended), rating_avg, total_trips.", "priority": "high", "type": "database", "related_requirement": "FR-02"}],
-    "FR-03": [{"title": "Build Ride Booking API", "description": "Create POST /api/rides/estimate (pickup, dropoff, vehicle_type). POST /api/rides/book (create ride request). POST /api/rides/schedule (future booking). Use geocoding for address to coords.", "priority": "high", "type": "backend", "related_requirement": "FR-03"}, {"title": "Build Booking Screen", "description": "Create ride booking with map, pickup/dropoff search with autocomplete, vehicle type selector with prices, fare estimate display, Book Now and Schedule buttons.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}],
-    "FR-04": [{"title": "Build Driver Matching Service", "description": "Create matching algorithm: find nearest available drivers by location, send request via WebSocket, 30-second timeout with auto-reassign. Queue system for sequential driver requests.", "priority": "high", "type": "backend", "related_requirement": "FR-04"}, {"title": "Build Matching UI", "description": "Create finding driver animation screen. On match: show driver card with photo, name, rating, vehicle details, and ETA. Accept/decline for driver app with timer.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}],
-    "FR-05": [{"title": "Build Trip Tracking API", "description": "Create WebSocket endpoint for driver location broadcasting (every 3 seconds). ETA calculation using routing API with traffic. GET /api/rides/:id/share (generate share link). Route optimization.", "priority": "high", "type": "backend", "related_requirement": "FR-05"}, {"title": "Build Trip Tracking Screen", "description": "Create live map with driver marker and route polyline. ETA display updating in real-time. Share Trip button. Status bar: driver arriving → trip started → arriving at destination.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}],
-    "FR-06": [{"title": "Build Fare Engine", "description": "Create fare calculation service: base fare + (distance × per_km_rate) + (time × per_min_rate). Surge multiplier from demand/supply ratio. Toll detection via route. Fare split POST /api/rides/:id/split.", "priority": "high", "type": "backend", "related_requirement": "FR-06"}, {"title": "Write Fare Engine Tests", "description": "Test base fare calculation. Test surge multiplier application. Test toll addition. Test fare split divides correctly. Test fare estimate vs actual within 20%.", "priority": "medium", "type": "testing", "related_requirement": "FR-06"}],
-    "FR-07": [{"title": "Build Payment API", "description": "Create POST /api/rides/:id/charge (process payment on trip completion). Support card, wallet, cash. Generate receipt. POST /api/rides/:id/tip. Retry failed payments.", "priority": "high", "type": "backend", "related_requirement": "FR-07"}, {"title": "Build Payment and Receipt UI", "description": "Create trip completion screen with fare breakdown, payment method indicator, receipt summary, and tip selector (preset amounts or custom). Receipt email confirmation.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}],
-    "FR-08": [{"title": "Build Rating API", "description": "Create POST /api/rides/:id/rate (rating, comment, role). Calculate rolling average. Trigger warning at threshold (below 4.0). Both rider and driver rate independently after trip.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"}, {"title": "Build Rating Screen", "description": "Create post-trip rating sheet with star selector, optional comment, and predefined feedback tags (clean car, great conversation, etc.). Submit and skip options.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}],
-    "FR-09": [{"title": "Build Earnings API", "description": "Create GET /api/driver/earnings (daily/weekly/monthly). GET /api/driver/trips (history with fare breakdown). GET /api/driver/incentives (goals progress). POST /api/driver/withdraw.", "priority": "high", "type": "backend", "related_requirement": "FR-09"}, {"title": "Build Earnings Dashboard", "description": "Create driver earnings page with daily summary card, earnings chart, trip history list with fare details, incentive progress bars, and withdraw to bank button.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}],
-    "FR-10": [{"title": "Build Safety Service", "description": "Create POST /api/safety/sos (alert emergency services with GPS). POST /api/rides/:id/record (start audio recording). POST /api/rides/:id/share-contacts. Driver photo verification before trip start.", "priority": "high", "type": "backend", "related_requirement": "FR-10"}, {"title": "Build Safety Features UI", "description": "Create SOS emergency button (hold to activate), trip sharing with contact picker, recording toggle, and driver verification selfie comparison screen.", "priority": "high", "type": "frontend", "related_requirement": "FR-10"}],
-    "FR-11": [{"title": "Build Promo System API", "description": "Create POST /api/promos/validate (code). Referral system: generate unique code, credit both on first ride. Admin: CRUD for campaigns with budget, expiry, and usage limits.", "priority": "medium", "type": "backend", "related_requirement": "FR-11"}, {"title": "Build Promo UI", "description": "Create promo code input at booking. Referral screen with unique code and share options. Admin campaign creator with targeting, budget, and performance tracking.", "priority": "medium", "type": "frontend", "related_requirement": "FR-11"}],
-    "FR-12": [{"title": "Build Admin Dashboard API", "description": "Create GET /api/admin/fleet (live driver locations). GET /api/admin/analytics (trips, revenue, avg fare). CRUD for users with suspend/ban. GET /api/admin/incidents with resolution tracking.", "priority": "high", "type": "backend", "related_requirement": "FR-12"}, {"title": "Build Admin Dashboard", "description": "Create ops dashboard with live fleet map, KPI cards (active drivers, ongoing trips, revenue), trip analytics charts, user management table, and incident queue.", "priority": "high", "type": "frontend", "related_requirement": "FR-12"}]
+    "FR-01": [
+      {
+        "title": "Plan Rider Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for rider registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with phone number and OTP; Add profile with name and profile photo; Save payment methods.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for rider registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for rider registration are explicitly defined",
+          "Implementation subtasks for rider registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Rider Registration Backend Services",
+        "description": "Build the backend services for rider registration on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with phone number and OTP; Add profile with name and profile photo; Save payment methods.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core rider registration business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for rider registration",
+          "API/service behavior for rider registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Rider Registration Frontend Flow",
+        "description": "Build the frontend flow for rider registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The rider registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for rider registration behave correctly",
+          "The rider registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Rider Registration",
+        "description": "Implement the external integration points used by rider registration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by rider registration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for rider registration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for rider registration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Rider Registration Security and Access Rules",
+        "description": "Apply security controls to rider registration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for rider registration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in rider registration are audited and protected against misuse",
+          "Security validation for rider registration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Rider Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for rider registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for rider registration are covered by automated tests",
+          "Permission checks and validation rules for rider registration are verified",
+          "Regression coverage exists for the most critical rider registration scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Driver Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for driver registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with personal and vehicle details; Upload driving license and vehicle registration; Background check initiation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for driver registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for driver registration are explicitly defined",
+          "Implementation subtasks for driver registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Driver Registration Backend Services",
+        "description": "Build the backend services for driver registration on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with personal and vehicle details; Upload driving license and vehicle registration; Background check initiation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core driver registration business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for driver registration",
+          "API/service behavior for driver registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Driver Registration Frontend Flow",
+        "description": "Build the frontend flow for driver registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The driver registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for driver registration behave correctly",
+          "The driver registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Driver Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for driver registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for driver registration are covered by automated tests",
+          "Permission checks and validation rules for driver registration are verified",
+          "Regression coverage exists for the most critical driver registration scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Ride Booking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for ride booking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Enter pickup and drop-off locations; Choose vehicle type (economy, premium, XL); View fare estimate before booking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for ride booking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for ride booking are explicitly defined",
+          "Implementation subtasks for ride booking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Ride Booking Backend Services",
+        "description": "Build the backend services for ride booking on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Enter pickup and drop-off locations; Choose vehicle type (economy, premium, XL); View fare estimate before booking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core ride booking business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for ride booking",
+          "API/service behavior for ride booking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Ride Booking Frontend Flow",
+        "description": "Build the frontend flow for ride booking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The ride booking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for ride booking behave correctly",
+          "The ride booking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Ride Booking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for ride booking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for ride booking are covered by automated tests",
+          "Permission checks and validation rules for ride booking are verified",
+          "Regression coverage exists for the most critical ride booking scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Driver Matching Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for driver matching and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Match nearest available driver to rider; Driver accepts or declines within 30 seconds; Auto-reassign if driver declines.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for driver matching is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for driver matching are explicitly defined",
+          "Implementation subtasks for driver matching can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Driver Matching Backend Services",
+        "description": "Build the backend services for driver matching on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Match nearest available driver to rider; Driver accepts or declines within 30 seconds; Auto-reassign if driver declines.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core driver matching business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for driver matching",
+          "API/service behavior for driver matching is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Driver Matching Frontend Flow",
+        "description": "Build the frontend flow for driver matching with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The driver matching user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for driver matching behave correctly",
+          "The driver matching UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Driver Matching Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for driver matching. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for driver matching are covered by automated tests",
+          "Permission checks and validation rules for driver matching are verified",
+          "Regression coverage exists for the most critical driver matching scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Real-time Trip Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for real-time trip tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Live map showing driver location; ETA updates during trip; Share trip status with emergency contacts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for real-time trip tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for real-time trip tracking are explicitly defined",
+          "Implementation subtasks for real-time trip tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Real-time Trip Tracking Backend Services",
+        "description": "Build the backend services for real-time trip tracking on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Live map showing driver location; ETA updates during trip; Share trip status with emergency contacts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core real-time trip tracking business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for real-time trip tracking",
+          "API/service behavior for real-time trip tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Real-time Trip Tracking Frontend Flow",
+        "description": "Build the frontend flow for real-time trip tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The real-time trip tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for real-time trip tracking behave correctly",
+          "The real-time trip tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Real-time Trip Tracking Persistence Model",
+        "description": "Design the persistence layer for real-time trip tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for real-time trip tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for real-time trip tracking are defined correctly",
+          "Migrations for real-time trip tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Real-time Trip Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for real-time trip tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for real-time trip tracking are covered by automated tests",
+          "Permission checks and validation rules for real-time trip tracking are verified",
+          "Regression coverage exists for the most critical real-time trip tracking scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Fare Calculation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for fare calculation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Calculate fare based on distance and time; Surge pricing during high demand; Toll and fee additions.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for fare calculation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for fare calculation are explicitly defined",
+          "Implementation subtasks for fare calculation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Fare Calculation Backend Services",
+        "description": "Build the backend services for fare calculation on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Calculate fare based on distance and time; Surge pricing during high demand; Toll and fee additions.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core fare calculation business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for fare calculation",
+          "API/service behavior for fare calculation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Fare Calculation Frontend Flow",
+        "description": "Build the frontend flow for fare calculation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The fare calculation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for fare calculation behave correctly",
+          "The fare calculation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Fare Calculation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for fare calculation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for fare calculation are covered by automated tests",
+          "Permission checks and validation rules for fare calculation are verified",
+          "Regression coverage exists for the most critical fare calculation scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Payment Processing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for payment processing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Charge rider after trip completion; Support card, wallet, and cash payments; Automatic receipts via email.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for payment processing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for payment processing are explicitly defined",
+          "Implementation subtasks for payment processing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Payment Processing Backend Services",
+        "description": "Build the backend services for payment processing on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Charge rider after trip completion; Support card, wallet, and cash payments; Automatic receipts via email.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core payment processing business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for payment processing",
+          "API/service behavior for payment processing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Payment Processing Frontend Flow",
+        "description": "Build the frontend flow for payment processing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The payment processing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for payment processing behave correctly",
+          "The payment processing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Payment Processing",
+        "description": "Implement the external integration points used by payment processing, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "External dependencies used by payment processing are connected through stable integration layers",
+          "Timeout, retry, and failure handling for payment processing integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for payment processing are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Payment Processing Security and Access Rules",
+        "description": "Apply security controls to payment processing. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Access control rules for payment processing are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in payment processing are audited and protected against misuse",
+          "Security validation for payment processing passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Payment Processing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for payment processing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for payment processing are covered by automated tests",
+          "Permission checks and validation rules for payment processing are verified",
+          "Regression coverage exists for the most critical payment processing scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Rating and Feedback Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for rating and feedback and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Rider rates driver after trip (1-5 stars); Driver rates rider (1-5 stars); Optional comment with rating.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for rating and feedback is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for rating and feedback are explicitly defined",
+          "Implementation subtasks for rating and feedback can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Rating and Feedback Backend Services",
+        "description": "Build the backend services for rating and feedback on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Rider rates driver after trip (1-5 stars); Driver rates rider (1-5 stars); Optional comment with rating.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core rating and feedback business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for rating and feedback",
+          "API/service behavior for rating and feedback is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Rating and Feedback Frontend Flow",
+        "description": "Build the frontend flow for rating and feedback with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The rating and feedback user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for rating and feedback behave correctly",
+          "The rating and feedback UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Rating and Feedback Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for rating and feedback. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for rating and feedback are covered by automated tests",
+          "Permission checks and validation rules for rating and feedback are verified",
+          "Regression coverage exists for the most critical rating and feedback scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Driver Earnings Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for driver earnings dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View daily, weekly, and monthly earnings; Trip history with fare breakdown; Goals and incentive progress.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for driver earnings dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for driver earnings dashboard are explicitly defined",
+          "Implementation subtasks for driver earnings dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Driver Earnings Dashboard Backend Services",
+        "description": "Build the backend services for driver earnings dashboard on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View daily, weekly, and monthly earnings; Trip history with fare breakdown; Goals and incentive progress.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core driver earnings dashboard business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for driver earnings dashboard",
+          "API/service behavior for driver earnings dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Driver Earnings Dashboard Frontend Flow",
+        "description": "Build the frontend flow for driver earnings dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The driver earnings dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for driver earnings dashboard behave correctly",
+          "The driver earnings dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Driver Earnings Dashboard Persistence Model",
+        "description": "Design the persistence layer for driver earnings dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The persistence model for driver earnings dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for driver earnings dashboard are defined correctly",
+          "Migrations for driver earnings dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Driver Earnings Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for driver earnings dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for driver earnings dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for driver earnings dashboard work correctly",
+          "Reporting queries for driver earnings dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Driver Earnings Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for driver earnings dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for driver earnings dashboard are covered by automated tests",
+          "Permission checks and validation rules for driver earnings dashboard are verified",
+          "Regression coverage exists for the most critical driver earnings dashboard scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Safety Features Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for safety features and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Emergency SOS button during trip; Trip recording option; Trusted contacts sharing.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for safety features is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for safety features are explicitly defined",
+          "Implementation subtasks for safety features can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Safety Features Backend Services",
+        "description": "Build the backend services for safety features on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Emergency SOS button during trip; Trip recording option; Trusted contacts sharing.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core safety features business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for safety features",
+          "API/service behavior for safety features is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Safety Features Frontend Flow",
+        "description": "Build the frontend flow for safety features with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The safety features user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for safety features behave correctly",
+          "The safety features UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Safety Features Persistence Model",
+        "description": "Design the persistence layer for safety features. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for safety features supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for safety features are defined correctly",
+          "Migrations for safety features can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Safety Features Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for safety features. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for safety features are covered by automated tests",
+          "Permission checks and validation rules for safety features are verified",
+          "Regression coverage exists for the most critical safety features scenarios"
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Plan Promo and Referral System Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for promo and referral system and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Apply promo codes for ride discounts; Referral program with credits for both parties; First-ride free promotion.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for promo and referral system is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for promo and referral system are explicitly defined",
+          "Implementation subtasks for promo and referral system can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Promo and Referral System Backend Services",
+        "description": "Build the backend services for promo and referral system on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Apply promo codes for ride discounts; Referral program with credits for both parties; First-ride free promotion.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core promo and referral system business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for promo and referral system",
+          "API/service behavior for promo and referral system is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Promo and Referral System Frontend Flow",
+        "description": "Build the frontend flow for promo and referral system with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The promo and referral system user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for promo and referral system behave correctly",
+          "The promo and referral system UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Promo and Referral System Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for promo and referral system. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for promo and referral system are covered by automated tests",
+          "Permission checks and validation rules for promo and referral system are verified",
+          "Regression coverage exists for the most critical promo and referral system scenarios"
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Plan Admin Operations Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for admin operations dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Real-time fleet overview on map; Trip analytics and revenue reports; Driver and rider management.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for admin operations dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for admin operations dashboard are explicitly defined",
+          "Implementation subtasks for admin operations dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Admin Operations Dashboard Backend Services",
+        "description": "Build the backend services for admin operations dashboard on React Native, Go, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Real-time fleet overview on map; Trip analytics and revenue reports; Driver and rider management.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core admin operations dashboard business rules are implemented for Ride Sharing Application",
+          "Validation, authorization, and error handling are covered for admin operations dashboard",
+          "API/service behavior for admin operations dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Admin Operations Dashboard Frontend Flow",
+        "description": "Build the frontend flow for admin operations dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The admin operations dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for admin operations dashboard behave correctly",
+          "The admin operations dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Admin Operations Dashboard Persistence Model",
+        "description": "Design the persistence layer for admin operations dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The persistence model for admin operations dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for admin operations dashboard are defined correctly",
+          "Migrations for admin operations dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Admin Operations Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for admin operations dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for admin operations dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for admin operations dashboard work correctly",
+          "Reporting queries for admin operations dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Admin Operations Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for admin operations dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for admin operations dashboard are covered by automated tests",
+          "Permission checks and validation rules for admin operations dashboard are verified",
+          "Regression coverage exists for the most critical admin operations dashboard scenarios"
+        ]
+      }
+    ]
   }
 }

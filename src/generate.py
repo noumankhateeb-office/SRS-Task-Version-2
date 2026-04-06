@@ -30,7 +30,12 @@ from peft import PeftModel
 sys.path.insert(0, str(Path(__file__).parent))
 from pdf_parser import extract_text_from_file
 from srs_to_json import parse_srs
-from prepare_data import MODEL_NAME, INSTRUCTION_PREFIX, MAX_TARGET_LENGTH
+from prepare_data import (
+    MODEL_NAME,
+    INSTRUCTION_PREFIX,
+    MAX_TARGET_LENGTH,
+    build_fr_prompt_input,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -166,8 +171,6 @@ class TaskGenerator:
         if self.model is None:
             self.load_model()
 
-        title = srs_json.get("title", "")
-        techs = srs_json.get("technologies", [])
         frs = srs_json.get("functional_requirements", {})
 
         if not frs:
@@ -183,12 +186,7 @@ class TaskGenerator:
 
         for fr_id, fr_data in frs.items():
             # Build compact per-FR input (matches training data format)
-            fr_input = {
-                "title": title,
-                "technologies": techs,
-                "fr_id": fr_id,
-                "fr": fr_data,
-            }
+            fr_input = build_fr_prompt_input(srs_json, fr_id, fr_data)
 
             input_text = INSTRUCTION_PREFIX + json.dumps(
                 fr_input, separators=(",", ":")
@@ -290,7 +288,7 @@ class TaskGenerator:
         Recover task-like structures from malformed JSON-ish model output.
         """
         key_pattern = re.compile(
-            r'["\']?(title|description|priority|type|related_requirement)["\']?\s*:\s*',
+            r'["\']?(title|description|priority|type|related_requirement|acceptance_criteria)["\']?\s*:\s*',
             re.IGNORECASE,
         )
         matches = list(key_pattern.finditer(raw_output))
@@ -356,6 +354,30 @@ class TaskGenerator:
         return text
 
     @staticmethod
+    def _normalize_acceptance_criteria(value) -> list[str]:
+        """Normalize acceptance criteria into a clean list of strings."""
+        if value is None:
+            return []
+
+        if isinstance(value, list):
+            items = value
+        else:
+            text = str(value).strip()
+            if not text:
+                return []
+            items = re.split(r"\n+|(?<=\.)\s+(?=[A-Z0-9-])|;\s*", text)
+
+        cleaned_items: list[str] = []
+        for item in items:
+            cleaned = str(item).strip()
+            cleaned = re.sub(r"^\s*[-*•]\s+", "", cleaned)
+            cleaned = cleaned.strip(" \t\r\n,[]{}")
+            if cleaned:
+                cleaned_items.append(cleaned)
+
+        return list(dict.fromkeys(cleaned_items))
+
+    @staticmethod
     def _normalize_tasks(items: list) -> list[dict]:
         """
         Normalize a list of items into proper task dictionaries.
@@ -379,6 +401,9 @@ class TaskGenerator:
                     "priority": str(item.get("priority", "medium")).strip().lower() or "medium",
                     "type": str(item.get("type", "general")).strip().lower() or "general",
                     "related_requirement": str(item.get("related_requirement", "-")).strip() or "-",
+                    "acceptance_criteria": TaskGenerator._normalize_acceptance_criteria(
+                        item.get("acceptance_criteria", [])
+                    ),
                 }
                 tasks.append(task)
             elif isinstance(item, str) and item.strip():
@@ -389,6 +414,7 @@ class TaskGenerator:
                     "priority": "medium",
                     "type": "general",
                     "related_requirement": "-",
+                    "acceptance_criteria": [],
                 })
             # Skip None, empty strings, etc.
         return tasks
@@ -419,10 +445,13 @@ def format_tasks(tasks: list[dict]) -> str:
         priority = task.get("priority", "medium").upper()
         task_type = task.get("type", "unknown")
         req = task.get("related_requirement", "-")
+        acceptance = task.get("acceptance_criteria", [])
 
         lines.append(f"  [{i}] {title}")
         lines.append(f"      Type: {task_type} | Priority: {priority} | Req: {req}")
         lines.append(f"      {desc}")
+        for criterion in acceptance:
+            lines.append(f"      - {criterion}")
         lines.append("")
 
     lines.append(f"{'='*70}")

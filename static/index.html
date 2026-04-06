@@ -819,6 +819,19 @@
             margin-bottom: 0;
         }
 
+        .task-acceptance {
+            margin: 10px 0 12px 36px;
+        }
+
+        .task-acceptance-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
         .task-description {
             font-size: 13px;
             color: var(--text-secondary);
@@ -1384,9 +1397,18 @@ Example:
                 const priority = (task.priority || 'medium').toLowerCase();
                 const relatedReq = task.related_requirement && task.related_requirement !== '-' ? task.related_requirement : '';
                 const desc = task.description || '';
+                const acceptanceCriteria = Array.isArray(task.acceptance_criteria) ? task.acceptance_criteria : [];
 
                 // Build description items as bullet points if multi-sentence
                 const descHtml = desc ? desc.split(/[.\n]/).filter(s => s.trim().length > 3).map(s => `<li>${escapeHtml(s.trim())}</li>`).join('') : '';
+                const acceptanceHtml = acceptanceCriteria.length
+                    ? `
+                        <div class="task-acceptance">
+                            <div class="task-acceptance-title">Acceptance Criteria</div>
+                            <ul class="task-desc-list">${acceptanceCriteria.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+                        </div>
+                    `
+                    : '';
 
                 card.innerHTML = `
                     <div class="task-card-header">
@@ -1394,6 +1416,7 @@ Example:
                         <div class="task-title">${escapeHtml(task.title || 'Untitled Task')}</div>
                     </div>
                     ${descHtml ? `<ul class="task-desc-list">${descHtml}</ul>` : ''}
+                    ${acceptanceHtml}
                     <div class="task-meta">
                         <div class="task-tags">
                             <span class="tag tag-${type}">${type}</span>
@@ -1483,6 +1506,7 @@ Example:
                     priority: cleanTagValue(task?.priority, 'medium'),
                     type: cleanTagValue(task?.type, 'general'),
                     related_requirement: deepCleanText(task?.related_requirement || '-'),
+                    acceptance_criteria: normalizeAcceptanceCriteria(task?.acceptance_criteria),
                 });
             });
 
@@ -1491,11 +1515,11 @@ Example:
 
         function recoverTasksFromRawCard(task) {
             const rawText = `${task?.title || ''}\n${task?.description || ''}`;
-            if (!/(title|description|priority|type|related_requirement)\s*:/i.test(rawText)) {
+            if (!/(title|description|priority|type|related_requirement|acceptance_criteria)\s*:/i.test(rawText)) {
                 return [];
             }
 
-            const keyPattern = /["']?(title|description|priority|type|related_requirement)["']?\s*:\s*/gi;
+            const keyPattern = /["']?(title|description|priority|type|related_requirement|acceptance_criteria)["']?\s*:\s*/gi;
             const matches = [...rawText.matchAll(keyPattern)];
             if (!matches.length) {
                 return [];
@@ -1528,7 +1552,22 @@ Example:
                 priority: cleanTagValue(item.priority, 'medium'),
                 type: cleanTagValue(item.type, 'general'),
                 related_requirement: deepCleanText(item.related_requirement || '-'),
+                acceptance_criteria: normalizeAcceptanceCriteria(item.acceptance_criteria),
             }));
+        }
+
+        function normalizeAcceptanceCriteria(value) {
+            if (Array.isArray(value)) {
+                return value.map(item => deepCleanText(item)).filter(Boolean);
+            }
+
+            const cleaned = deepCleanText(value || '');
+            if (!cleaned) return [];
+
+            return cleaned
+                .split(/\n+|(?<=\.)\s+(?=[A-Z0-9-])|;\s*/g)
+                .map(item => deepCleanText(item))
+                .filter(Boolean);
         }
 
         /**
@@ -1575,7 +1614,7 @@ Example:
             // Remove key-value patterns like "key": or 'key':
             t = t.replace(/["']?\w+["']?\s*:/g, (match) => {
                 // Only strip if it looks like a JSON key, not natural text
-                if (/^["']?(title|description|priority|type|related_requirement|describe|detail|priorities|Seperiority|Sepriority|requirement)["']?\s*:$/i.test(match)) {
+                if (/^["']?(title|description|priority|type|related_requirement|acceptance_criteria|describe|detail|priorities|Seperiority|Sepriority|requirement)["']?\s*:$/i.test(match)) {
                     return ' ';
                 }
                 return match;

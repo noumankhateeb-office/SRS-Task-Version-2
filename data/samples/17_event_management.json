@@ -1,30 +1,749 @@
 {
   "input": {
     "title": "Event Management Platform",
-    "technologies": ["React", "Python Django", "PostgreSQL", "Celery"],
+    "technologies": [
+      "React",
+      "Python Django",
+      "PostgreSQL",
+      "Celery"
+    ],
     "functional_requirements": {
-      "FR-01": {"title": "Event Creation", "requirements": ["Create events with title, description, date, time, and venue", "Support multiple event types (conference, workshop, concert, webinar)", "Upload event banner and promotional images", "Set ticket types and pricing tiers"], "acceptance_criteria": ["Event created with all details", "Event type categorizes correctly", "Images display on event page", "Ticket types show with correct prices"]},
-      "FR-02": {"title": "Ticket Booking", "requirements": ["Browse and search events", "Select ticket type and quantity", "Secure payment processing", "E-ticket with QR code generation"], "acceptance_criteria": ["Events searchable by keyword and category", "Ticket selection updates total", "Payment processes securely", "QR code generated and emailed"]},
-      "FR-03": {"title": "Venue Management", "requirements": ["Add venues with capacity, address, and floor plan", "Room/hall configuration within venue", "Seat map creation for assigned seating", "Venue availability calendar"], "acceptance_criteria": ["Venue created with details", "Rooms configured correctly", "Seat map renders and allows selection", "Calendar blocks booked dates"]},
-      "FR-04": {"title": "Speaker and Agenda Management", "requirements": ["Add speakers with bio, photo, and topic", "Create event agenda with time slots", "Assign speakers to sessions", "Attendee session bookmarks"], "acceptance_criteria": ["Speaker profiles display correctly", "Agenda shows organized schedule", "Speakers linked to sessions", "Bookmarks save for attendee"]},
-      "FR-05": {"title": "Attendee Check-in", "requirements": ["QR code scanning at venue entrance", "Self-check-in kiosks", "Real-time attendance tracking", "Badge printing on check-in"], "acceptance_criteria": ["QR scan validates ticket", "Kiosk mode works on tablets", "Attendance count updates live", "Badge prints with attendee info"]},
-      "FR-06": {"title": "Event Analytics", "requirements": ["Ticket sales reports and revenue tracking", "Attendee demographics analysis", "Session popularity metrics", "Post-event survey results"], "acceptance_criteria": ["Sales data matches actual transactions", "Demographics breakdown is accurate", "Session metrics show registration counts", "Survey results aggregate correctly"]},
-      "FR-07": {"title": "Sponsorship Management", "requirements": ["Create sponsor tiers (platinum, gold, silver)", "Sponsor profile pages with logo and description", "Sponsor visibility on event page", "Sponsorship package pricing"], "acceptance_criteria": ["Tiers created with benefits", "Sponsor pages display logos", "Sponsors visible based on tier level", "Pricing displayed for packages"]},
-      "FR-08": {"title": "Email Campaign Management", "requirements": ["Send invitation emails to mailing lists", "Automated reminder emails before event", "Post-event thank you and survey emails", "Email analytics (open rate, click rate)"], "acceptance_criteria": ["Invitations sent to selected lists", "Reminders sent at configured intervals", "Follow-up emails sent after event", "Analytics track engagement"]},
-      "FR-09": {"title": "Virtual Event Support", "requirements": ["Live streaming integration for virtual events", "Virtual networking rooms", "Screen sharing for presentations", "Virtual booth for sponsors"], "acceptance_criteria": ["Stream plays for registered attendees", "Networking rooms allow video chat", "Screen share works during sessions", "Virtual booths display sponsor content"]},
-      "FR-10": {"title": "Refund and Cancellation", "requirements": ["Attendee can request refund per policy", "Event cancellation by organizer with full refund", "Partial refund options", "Refund processing within 7 business days"], "acceptance_criteria": ["Refund request submitted", "Full refund on event cancellation", "Partial refund calculates correctly", "Refund processed in time"]}
+      "FR-01": {
+        "title": "Event Creation",
+        "requirements": [
+          "Create events with title, description, date, time, and venue",
+          "Support multiple event types (conference, workshop, concert, webinar)",
+          "Upload event banner and promotional images",
+          "Set ticket types and pricing tiers"
+        ]
+      },
+      "FR-02": {
+        "title": "Ticket Booking",
+        "requirements": [
+          "Browse and search events",
+          "Select ticket type and quantity",
+          "Secure payment processing",
+          "E-ticket with QR code generation"
+        ]
+      },
+      "FR-03": {
+        "title": "Venue Management",
+        "requirements": [
+          "Add venues with capacity, address, and floor plan",
+          "Room/hall configuration within venue",
+          "Seat map creation for assigned seating",
+          "Venue availability calendar"
+        ]
+      },
+      "FR-04": {
+        "title": "Speaker and Agenda Management",
+        "requirements": [
+          "Add speakers with bio, photo, and topic",
+          "Create event agenda with time slots",
+          "Assign speakers to sessions",
+          "Attendee session bookmarks"
+        ]
+      },
+      "FR-05": {
+        "title": "Attendee Check-in",
+        "requirements": [
+          "QR code scanning at venue entrance",
+          "Self-check-in kiosks",
+          "Real-time attendance tracking",
+          "Badge printing on check-in"
+        ]
+      },
+      "FR-06": {
+        "title": "Event Analytics",
+        "requirements": [
+          "Ticket sales reports and revenue tracking",
+          "Attendee demographics analysis",
+          "Session popularity metrics",
+          "Post-event survey results"
+        ]
+      },
+      "FR-07": {
+        "title": "Sponsorship Management",
+        "requirements": [
+          "Create sponsor tiers (platinum, gold, silver)",
+          "Sponsor profile pages with logo and description",
+          "Sponsor visibility on event page",
+          "Sponsorship package pricing"
+        ]
+      },
+      "FR-08": {
+        "title": "Email Campaign Management",
+        "requirements": [
+          "Send invitation emails to mailing lists",
+          "Automated reminder emails before event",
+          "Post-event thank you and survey emails",
+          "Email analytics (open rate, click rate)"
+        ]
+      },
+      "FR-09": {
+        "title": "Virtual Event Support",
+        "requirements": [
+          "Live streaming integration for virtual events",
+          "Virtual networking rooms",
+          "Screen sharing for presentations",
+          "Virtual booth for sponsors"
+        ]
+      },
+      "FR-10": {
+        "title": "Refund and Cancellation",
+        "requirements": [
+          "Attendee can request refund per policy",
+          "Event cancellation by organizer with full refund",
+          "Partial refund options",
+          "Refund processing within 7 business days"
+        ]
+      }
     }
   },
   "output": {
-    "FR-01": [{"title": "Build Event CRUD API", "description": "Create POST /api/events (title, description, datetime, venue_id, type, images). POST /api/events/:id/tickets (ticket types with name, price, quantity, description). PATCH and DELETE endpoints.", "priority": "high", "type": "backend", "related_requirement": "FR-01"}, {"title": "Build Event Creation Wizard", "description": "Create multi-step form: basic info (title, type, dates), venue selection, ticket tier setup with pricing, banner/image upload, and preview before publishing.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"}, {"title": "Create Event Database Schema", "description": "Design events table: id, organizer_id, title, description, type, start_datetime, end_datetime, venue_id, banner_url, status. tickets table: event_id, name, price, quantity, sold_count.", "priority": "high", "type": "database", "related_requirement": "FR-01"}],
-    "FR-02": [{"title": "Build Booking API", "description": "Create GET /api/events/search. POST /api/bookings (event_id, ticket_type, quantity). Payment integration. Generate QR code e-ticket. Send confirmation email.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}, {"title": "Build Booking Flow UI", "description": "Create event browse page, event detail with ticket selector, checkout with payment form, and confirmation page with QR code e-ticket download.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}],
-    "FR-03": [{"title": "Build Venue API", "description": "Create CRUD for venues (name, address, capacity, floor_plan). Room configuration CRUD. Seat map editor API. Availability calendar with booking checks.", "priority": "medium", "type": "backend", "related_requirement": "FR-03"}, {"title": "Build Venue Management UI", "description": "Create venue editor with address map, room configuration form, interactive seat map builder, and availability calendar view.", "priority": "medium", "type": "frontend", "related_requirement": "FR-03"}],
-    "FR-04": [{"title": "Build Speaker and Agenda API", "description": "Create CRUD for speakers (name, bio, photo, company). Agenda CRUD: POST /api/events/:id/sessions (time, room, speaker_ids). POST /api/sessions/:id/bookmark for attendees.", "priority": "high", "type": "backend", "related_requirement": "FR-04"}, {"title": "Build Agenda UI", "description": "Create agenda page with timeline view grouped by track/room. Speaker profile cards. Session detail with bookmark button. My Schedule view for bookmarked sessions.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}],
-    "FR-05": [{"title": "Build Check-in API", "description": "Create POST /api/checkin/scan (QR code validation). Real-time attendance WebSocket. Badge data endpoint for print integration. Kiosk mode with simplified UI.", "priority": "high", "type": "backend", "related_requirement": "FR-05"}, {"title": "Build Check-in UI", "description": "Create QR scanner using device camera, check-in confirmation screen, kiosk mode full-screen interface, and real-time attendance counter dashboard.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}],
-    "FR-06": [{"title": "Build Analytics API", "description": "Create GET /api/events/:id/analytics (sales, revenue, demographics). Session popularity metrics. POST /api/events/:id/survey (create). GET survey results aggregation.", "priority": "medium", "type": "backend", "related_requirement": "FR-06"}, {"title": "Build Analytics Dashboard", "description": "Create event analytics page with sales charts, revenue tracking, demographic pie charts, session popularity bar charts, and survey results summary.", "priority": "medium", "type": "frontend", "related_requirement": "FR-06"}],
-    "FR-07": [{"title": "Build Sponsorship API", "description": "Create CRUD for sponsor tiers with benefits. POST /api/events/:id/sponsors (assign sponsor to tier). Sponsor profile CRUD. Visibility ordering by tier level.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"}, {"title": "Build Sponsorship UI", "description": "Create sponsor tier management, sponsor assignment interface, sponsor section on event page with logos sorted by tier, and sponsor profile pages.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}],
-    "FR-08": [{"title": "Build Email Campaign Service", "description": "Create POST /api/campaigns/send (template, recipients). Scheduled reminder jobs (7 days, 1 day, 1 hour before). Post-event follow-up queue. Track opens/clicks via tracking pixel.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"}, {"title": "Build Campaign Manager UI", "description": "Create email campaign creator with template editor, recipient list selector, schedule settings, and analytics dashboard showing open/click rates per campaign.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}],
-    "FR-09": [{"title": "Build Virtual Event API", "description": "Create live stream room endpoints (RTMP ingest, HLS output). WebRTC networking rooms. Screen share signaling. Virtual booth CRUD for sponsors.", "priority": "high", "type": "backend", "related_requirement": "FR-09"}, {"title": "Build Virtual Event UI", "description": "Create virtual event page with live stream player, networking room video chat grid, session screen share view, and sponsor virtual booth with content and chat.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}],
-    "FR-10": [{"title": "Build Refund API", "description": "Create POST /api/bookings/:id/refund (validate against policy, calculate amount). Event cancellation endpoint triggering bulk refunds. Queue for processing within 7 days.", "priority": "high", "type": "backend", "related_requirement": "FR-10"}, {"title": "Build Refund UI", "description": "Create refund request form with policy display, amount preview. Organizer cancellation flow with attendee notification. Refund status tracker.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}]
+    "FR-01": [
+      {
+        "title": "Plan Event Creation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for event creation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Create events with title, description, date, time, and venue; Support multiple event types (conference, workshop, concert, webinar); Upload event banner and promotional images.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for event creation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for event creation are explicitly defined",
+          "Implementation subtasks for event creation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Event Creation Backend Services",
+        "description": "Build the backend services for event creation on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Create events with title, description, date, time, and venue; Support multiple event types (conference, workshop, concert, webinar); Upload event banner and promotional images.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core event creation business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for event creation",
+          "API/service behavior for event creation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Event Creation Frontend Flow",
+        "description": "Build the frontend flow for event creation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The event creation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for event creation behave correctly",
+          "The event creation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Event Creation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for event creation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for event creation are covered by automated tests",
+          "Permission checks and validation rules for event creation are verified",
+          "Regression coverage exists for the most critical event creation scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Ticket Booking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for ticket booking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Browse and search events; Select ticket type and quantity; Secure payment processing.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for ticket booking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for ticket booking are explicitly defined",
+          "Implementation subtasks for ticket booking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Ticket Booking Backend Services",
+        "description": "Build the backend services for ticket booking on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Browse and search events; Select ticket type and quantity; Secure payment processing.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core ticket booking business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for ticket booking",
+          "API/service behavior for ticket booking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Ticket Booking Frontend Flow",
+        "description": "Build the frontend flow for ticket booking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The ticket booking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for ticket booking behave correctly",
+          "The ticket booking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Ticket Booking Persistence Model",
+        "description": "Design the persistence layer for ticket booking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The persistence model for ticket booking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for ticket booking are defined correctly",
+          "Migrations for ticket booking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Ticket Booking",
+        "description": "Implement the external integration points used by ticket booking, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by ticket booking are connected through stable integration layers",
+          "Timeout, retry, and failure handling for ticket booking integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for ticket booking are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Ticket Booking Security and Access Rules",
+        "description": "Apply security controls to ticket booking. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Access control rules for ticket booking are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in ticket booking are audited and protected against misuse",
+          "Security validation for ticket booking passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Ticket Booking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for ticket booking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for ticket booking are covered by automated tests",
+          "Permission checks and validation rules for ticket booking are verified",
+          "Regression coverage exists for the most critical ticket booking scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Venue Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for venue management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Add venues with capacity, address, and floor plan; Room/hall configuration within venue; Seat map creation for assigned seating.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for venue management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for venue management are explicitly defined",
+          "Implementation subtasks for venue management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Venue Management Backend Services",
+        "description": "Build the backend services for venue management on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Add venues with capacity, address, and floor plan; Room/hall configuration within venue; Seat map creation for assigned seating.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core venue management business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for venue management",
+          "API/service behavior for venue management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Venue Management Frontend Flow",
+        "description": "Build the frontend flow for venue management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The venue management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for venue management behave correctly",
+          "The venue management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Venue Management Persistence Model",
+        "description": "Design the persistence layer for venue management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for venue management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for venue management are defined correctly",
+          "Migrations for venue management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Venue Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for venue management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for venue management are covered by automated tests",
+          "Permission checks and validation rules for venue management are verified",
+          "Regression coverage exists for the most critical venue management scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Speaker and Agenda Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for speaker and agenda management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Add speakers with bio, photo, and topic; Create event agenda with time slots; Assign speakers to sessions.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for speaker and agenda management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for speaker and agenda management are explicitly defined",
+          "Implementation subtasks for speaker and agenda management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Speaker and Agenda Management Backend Services",
+        "description": "Build the backend services for speaker and agenda management on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Add speakers with bio, photo, and topic; Create event agenda with time slots; Assign speakers to sessions.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core speaker and agenda management business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for speaker and agenda management",
+          "API/service behavior for speaker and agenda management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Speaker and Agenda Management Frontend Flow",
+        "description": "Build the frontend flow for speaker and agenda management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The speaker and agenda management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for speaker and agenda management behave correctly",
+          "The speaker and agenda management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Speaker and Agenda Management Persistence Model",
+        "description": "Design the persistence layer for speaker and agenda management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for speaker and agenda management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for speaker and agenda management are defined correctly",
+          "Migrations for speaker and agenda management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Speaker and Agenda Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for speaker and agenda management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for speaker and agenda management are covered by automated tests",
+          "Permission checks and validation rules for speaker and agenda management are verified",
+          "Regression coverage exists for the most critical speaker and agenda management scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Attendee Check-in Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for attendee check-in and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: QR code scanning at venue entrance; Self-check-in kiosks; Real-time attendance tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for attendee check-in is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for attendee check-in are explicitly defined",
+          "Implementation subtasks for attendee check-in can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Attendee Check-in Backend Services",
+        "description": "Build the backend services for attendee check-in on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: QR code scanning at venue entrance; Self-check-in kiosks; Real-time attendance tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core attendee check-in business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for attendee check-in",
+          "API/service behavior for attendee check-in is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Attendee Check-in Frontend Flow",
+        "description": "Build the frontend flow for attendee check-in with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The attendee check-in user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for attendee check-in behave correctly",
+          "The attendee check-in UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Attendee Check-in Persistence Model",
+        "description": "Design the persistence layer for attendee check-in. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for attendee check-in supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for attendee check-in are defined correctly",
+          "Migrations for attendee check-in can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Attendee Check-in Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for attendee check-in. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for attendee check-in are covered by automated tests",
+          "Permission checks and validation rules for attendee check-in are verified",
+          "Regression coverage exists for the most critical attendee check-in scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Event Analytics Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for event analytics and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Ticket sales reports and revenue tracking; Attendee demographics analysis; Session popularity metrics.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for event analytics is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for event analytics are explicitly defined",
+          "Implementation subtasks for event analytics can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Event Analytics Backend Services",
+        "description": "Build the backend services for event analytics on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Ticket sales reports and revenue tracking; Attendee demographics analysis; Session popularity metrics.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core event analytics business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for event analytics",
+          "API/service behavior for event analytics is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Event Analytics Frontend Flow",
+        "description": "Build the frontend flow for event analytics with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The event analytics user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for event analytics behave correctly",
+          "The event analytics UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Event Analytics Persistence Model",
+        "description": "Design the persistence layer for event analytics. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for event analytics supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for event analytics are defined correctly",
+          "Migrations for event analytics can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Event Analytics Reporting and KPI Logic",
+        "description": "Implement the reporting layer for event analytics, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for event analytics return accurate results",
+          "Filters, grouping, and export-ready structures for event analytics work correctly",
+          "Reporting queries for event analytics perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Event Analytics Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for event analytics. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for event analytics are covered by automated tests",
+          "Permission checks and validation rules for event analytics are verified",
+          "Regression coverage exists for the most critical event analytics scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Sponsorship Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for sponsorship management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Create sponsor tiers (platinum, gold, silver); Sponsor profile pages with logo and description; Sponsor visibility on event page.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for sponsorship management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for sponsorship management are explicitly defined",
+          "Implementation subtasks for sponsorship management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Sponsorship Management Backend Services",
+        "description": "Build the backend services for sponsorship management on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Create sponsor tiers (platinum, gold, silver); Sponsor profile pages with logo and description; Sponsor visibility on event page.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core sponsorship management business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for sponsorship management",
+          "API/service behavior for sponsorship management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Sponsorship Management Frontend Flow",
+        "description": "Build the frontend flow for sponsorship management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The sponsorship management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for sponsorship management behave correctly",
+          "The sponsorship management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Sponsorship Management Persistence Model",
+        "description": "Design the persistence layer for sponsorship management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for sponsorship management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for sponsorship management are defined correctly",
+          "Migrations for sponsorship management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Sponsorship Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for sponsorship management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for sponsorship management are covered by automated tests",
+          "Permission checks and validation rules for sponsorship management are verified",
+          "Regression coverage exists for the most critical sponsorship management scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Email Campaign Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for email campaign management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Send invitation emails to mailing lists; Automated reminder emails before event; Post-event thank you and survey emails.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for email campaign management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for email campaign management are explicitly defined",
+          "Implementation subtasks for email campaign management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Email Campaign Management Backend Services",
+        "description": "Build the backend services for email campaign management on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Send invitation emails to mailing lists; Automated reminder emails before event; Post-event thank you and survey emails.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core email campaign management business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for email campaign management",
+          "API/service behavior for email campaign management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Email Campaign Management Frontend Flow",
+        "description": "Build the frontend flow for email campaign management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The email campaign management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for email campaign management behave correctly",
+          "The email campaign management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Email Campaign Management Persistence Model",
+        "description": "Design the persistence layer for email campaign management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for email campaign management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for email campaign management are defined correctly",
+          "Migrations for email campaign management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Email Campaign Management",
+        "description": "Implement the external integration points used by email campaign management, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "External dependencies used by email campaign management are connected through stable integration layers",
+          "Timeout, retry, and failure handling for email campaign management integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for email campaign management are handled securely"
+        ]
+      },
+      {
+        "title": "Implement Email Campaign Management Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for email campaign management. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Notification triggers for email campaign management fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for email campaign management are configurable and testable",
+          "Notification failures for email campaign management are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Email Campaign Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for email campaign management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for email campaign management are covered by automated tests",
+          "Permission checks and validation rules for email campaign management are verified",
+          "Regression coverage exists for the most critical email campaign management scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Virtual Event Support Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for virtual event support and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Live streaming integration for virtual events; Virtual networking rooms; Screen sharing for presentations.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for virtual event support is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for virtual event support are explicitly defined",
+          "Implementation subtasks for virtual event support can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Virtual Event Support Backend Services",
+        "description": "Build the backend services for virtual event support on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Live streaming integration for virtual events; Virtual networking rooms; Screen sharing for presentations.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core virtual event support business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for virtual event support",
+          "API/service behavior for virtual event support is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Virtual Event Support Frontend Flow",
+        "description": "Build the frontend flow for virtual event support with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The virtual event support user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for virtual event support behave correctly",
+          "The virtual event support UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Virtual Event Support Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for virtual event support. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for virtual event support are covered by automated tests",
+          "Permission checks and validation rules for virtual event support are verified",
+          "Regression coverage exists for the most critical virtual event support scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Refund and Cancellation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for refund and cancellation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Attendee can request refund per policy; Event cancellation by organizer with full refund; Partial refund options.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for refund and cancellation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for refund and cancellation are explicitly defined",
+          "Implementation subtasks for refund and cancellation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Refund and Cancellation Backend Services",
+        "description": "Build the backend services for refund and cancellation on React, Python Django, PostgreSQL, Celery. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Attendee can request refund per policy; Event cancellation by organizer with full refund; Partial refund options.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core refund and cancellation business rules are implemented for Event Management Platform",
+          "Validation, authorization, and error handling are covered for refund and cancellation",
+          "API/service behavior for refund and cancellation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Refund and Cancellation Frontend Flow",
+        "description": "Build the frontend flow for refund and cancellation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The refund and cancellation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for refund and cancellation behave correctly",
+          "The refund and cancellation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Refund and Cancellation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for refund and cancellation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for refund and cancellation are covered by automated tests",
+          "Permission checks and validation rules for refund and cancellation are verified",
+          "Regression coverage exists for the most critical refund and cancellation scenarios"
+        ]
+      }
+    ]
   }
 }

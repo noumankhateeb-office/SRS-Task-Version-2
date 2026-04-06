@@ -1,83 +1,558 @@
 {
   "input": {
     "title": "Fitness and Gym Management System",
-    "technologies": ["React Native", "Express", "MongoDB"],
+    "technologies": [
+      "React Native",
+      "Express",
+      "MongoDB"
+    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Member Registration",
-        "requirements": ["Register with personal info and fitness goals", "Choose membership plan (monthly, yearly, pay-per-visit)", "Payment for selected plan", "Member ID card generation"],
-        "acceptance_criteria": ["Account created with correct plan", "Payment processed and recorded", "Member card generated with QR code", "Welcome email with details sent"]
+        "requirements": [
+          "Register with personal info and fitness goals",
+          "Choose membership plan (monthly, yearly, pay-per-visit)",
+          "Payment for selected plan",
+          "Member ID card generation"
+        ]
       },
       "FR-02": {
         "title": "Workout Tracking",
-        "requirements": ["Log exercises with sets, reps, and weight", "Pre-built workout templates", "Track personal records per exercise", "View workout history calendar"],
-        "acceptance_criteria": ["Exercise log saved correctly", "Templates load with correct exercises", "PR is updated when record broken", "Calendar shows workout days"]
+        "requirements": [
+          "Log exercises with sets, reps, and weight",
+          "Pre-built workout templates",
+          "Track personal records per exercise",
+          "View workout history calendar"
+        ]
       },
       "FR-03": {
         "title": "Class Booking",
-        "requirements": ["View schedule of group fitness classes", "Book spot in class with capacity limits", "Cancel booking up to 2 hours before", "Waitlist when class is full"],
-        "acceptance_criteria": ["Class schedule displays correctly", "Booking decreases available spots", "Late cancellation is prevented", "Waitlist promotes when spot opens"]
+        "requirements": [
+          "View schedule of group fitness classes",
+          "Book spot in class with capacity limits",
+          "Cancel booking up to 2 hours before",
+          "Waitlist when class is full"
+        ]
       },
       "FR-04": {
         "title": "Personal Trainer Booking",
-        "requirements": ["Browse trainers with specialties and availability", "Book one-on-one sessions", "Trainer can set their schedule", "Session reminders sent to both parties"],
-        "acceptance_criteria": ["Trainer profiles show accurate info", "Session booked on available slot", "Trainer manages own calendar", "Reminders sent 1 hour before"]
+        "requirements": [
+          "Browse trainers with specialties and availability",
+          "Book one-on-one sessions",
+          "Trainer can set their schedule",
+          "Session reminders sent to both parties"
+        ]
       },
       "FR-05": {
         "title": "Nutrition and Meal Planning",
-        "requirements": ["Set daily calorie and macro targets", "Log meals with food search database", "Track daily intake vs targets", "Meal plan suggestions based on goals"],
-        "acceptance_criteria": ["Targets are saved per user", "Food search returns accurate nutrition data", "Daily totals calculate correctly", "Suggestions match user goals"]
+        "requirements": [
+          "Set daily calorie and macro targets",
+          "Log meals with food search database",
+          "Track daily intake vs targets",
+          "Meal plan suggestions based on goals"
+        ]
       },
       "FR-06": {
         "title": "Progress Photos and Measurements",
-        "requirements": ["Upload progress photos with date stamps", "Log body measurements (weight, chest, waist, etc.)", "Side-by-side photo comparisons", "Progress charts over time"],
-        "acceptance_criteria": ["Photos uploaded and dated correctly", "Measurements saved accurately", "Comparison view shows selected photos", "Charts display measurement trends"]
+        "requirements": [
+          "Upload progress photos with date stamps",
+          "Log body measurements (weight, chest, waist, etc.)",
+          "Side-by-side photo comparisons",
+          "Progress charts over time"
+        ]
       },
       "FR-07": {
         "title": "Membership Management",
-        "requirements": ["View membership status and expiry", "Renew or upgrade membership plan", "Freeze membership temporarily", "Cancellation with notice period"],
-        "acceptance_criteria": ["Status shows correct plan and expiry", "Renewal extends membership", "Freeze pauses billing and access", "Cancellation enforces notice period"]
+        "requirements": [
+          "View membership status and expiry",
+          "Renew or upgrade membership plan",
+          "Freeze membership temporarily",
+          "Cancellation with notice period"
+        ]
       },
       "FR-08": {
         "title": "Gym Admin Dashboard",
-        "requirements": ["View total members and active memberships", "Revenue reports by plan type", "Class attendance analytics", "Equipment maintenance scheduling"],
-        "acceptance_criteria": ["Member count is accurate", "Revenue matches payment records", "Attendance data reflects actual check-ins", "Maintenance schedule is manageable"]
+        "requirements": [
+          "View total members and active memberships",
+          "Revenue reports by plan type",
+          "Class attendance analytics",
+          "Equipment maintenance scheduling"
+        ]
       }
     }
   },
   "output": {
     "FR-01": [
-      {"title": "Build Member Registration API", "description": "Create POST /api/members/register (personal info, fitness goals, plan selection). Process payment. Generate unique member ID and QR code. Send welcome email with membership details.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
-      {"title": "Build Registration Flow", "description": "Create registration screens: personal info form, fitness goals selection (weight loss/muscle gain/general fitness), plan comparison cards with pricing, payment form, and confirmation with QR code.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
-      {"title": "Create Members Database Schema", "description": "Design members collection: id, name, email, phone, goals, plan_type, plan_start, plan_end, status (active/frozen/cancelled), member_id, qr_code_url, created_at.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+      {
+        "title": "Plan Member Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for member registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with personal info and fitness goals; Choose membership plan (monthly, yearly, pay-per-visit); Payment for selected plan.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for member registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for member registration are explicitly defined",
+          "Implementation subtasks for member registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Member Registration Backend Services",
+        "description": "Build the backend services for member registration on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with personal info and fitness goals; Choose membership plan (monthly, yearly, pay-per-visit); Payment for selected plan.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core member registration business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for member registration",
+          "API/service behavior for member registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Member Registration Frontend Flow",
+        "description": "Build the frontend flow for member registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The member registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for member registration behave correctly",
+          "The member registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Member Registration",
+        "description": "Implement the external integration points used by member registration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by member registration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for member registration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for member registration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Member Registration Security and Access Rules",
+        "description": "Apply security controls to member registration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for member registration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in member registration are audited and protected against misuse",
+          "Security validation for member registration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Member Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for member registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for member registration are covered by automated tests",
+          "Permission checks and validation rules for member registration are verified",
+          "Regression coverage exists for the most critical member registration scenarios"
+        ]
+      }
     ],
     "FR-02": [
-      {"title": "Build Workout Logging API", "description": "Create POST /api/workouts (date, exercises array with sets/reps/weight). GET /api/workouts (history with date filter). GET /api/exercises/records (personal records). Pre-built template CRUD.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
-      {"title": "Build Workout Logger UI", "description": "Create workout screen with exercise search, add sets with reps/weight inputs, rest timer, template selector, and save workout. History calendar with workout indicators. PR badges.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+      {
+        "title": "Plan Workout Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for workout tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Log exercises with sets, reps, and weight; Pre-built workout templates; Track personal records per exercise.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for workout tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for workout tracking are explicitly defined",
+          "Implementation subtasks for workout tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Workout Tracking Backend Services",
+        "description": "Build the backend services for workout tracking on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Log exercises with sets, reps, and weight; Pre-built workout templates; Track personal records per exercise.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core workout tracking business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for workout tracking",
+          "API/service behavior for workout tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Workout Tracking Frontend Flow",
+        "description": "Build the frontend flow for workout tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The workout tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for workout tracking behave correctly",
+          "The workout tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Workout Tracking Persistence Model",
+        "description": "Design the persistence layer for workout tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The persistence model for workout tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for workout tracking are defined correctly",
+          "Migrations for workout tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Workout Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for workout tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for workout tracking are covered by automated tests",
+          "Permission checks and validation rules for workout tracking are verified",
+          "Regression coverage exists for the most critical workout tracking scenarios"
+        ]
+      }
     ],
     "FR-03": [
-      {"title": "Build Class Booking API", "description": "Create GET /api/classes/schedule (weekly view). POST /api/classes/:id/book (enforce capacity). DELETE /api/classes/:id/cancel (enforce 2h rule). POST /api/classes/:id/waitlist. Auto-promote from waitlist.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
-      {"title": "Build Class Schedule UI", "description": "Create weekly schedule grid with class cards (name, time, instructor, spots left). Book button. My bookings list. Waitlist indicator with position.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+      {
+        "title": "Plan Class Booking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for class booking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View schedule of group fitness classes; Book spot in class with capacity limits; Cancel booking up to 2 hours before.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for class booking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for class booking are explicitly defined",
+          "Implementation subtasks for class booking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Class Booking Backend Services",
+        "description": "Build the backend services for class booking on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View schedule of group fitness classes; Book spot in class with capacity limits; Cancel booking up to 2 hours before.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core class booking business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for class booking",
+          "API/service behavior for class booking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Class Booking Frontend Flow",
+        "description": "Build the frontend flow for class booking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The class booking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for class booking behave correctly",
+          "The class booking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Class Booking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for class booking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for class booking are covered by automated tests",
+          "Permission checks and validation rules for class booking are verified",
+          "Regression coverage exists for the most critical class booking scenarios"
+        ]
+      }
     ],
     "FR-04": [
-      {"title": "Build Trainer Booking API", "description": "Create GET /api/trainers (list with specialties). GET /api/trainers/:id/availability. POST /api/sessions/book. Trainer endpoints: PATCH /api/trainers/schedule. Send reminders via push notification.", "priority": "medium", "type": "backend", "related_requirement": "FR-04"},
-      {"title": "Build Trainer Booking UI", "description": "Create trainer browse with profile cards (photo, specialty, rating). Availability calendar on profile. Session booking flow with date/time selection and confirmation.", "priority": "medium", "type": "frontend", "related_requirement": "FR-04"}
+      {
+        "title": "Plan Personal Trainer Booking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for personal trainer booking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Browse trainers with specialties and availability; Book one-on-one sessions; Trainer can set their schedule.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for personal trainer booking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for personal trainer booking are explicitly defined",
+          "Implementation subtasks for personal trainer booking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Personal Trainer Booking Backend Services",
+        "description": "Build the backend services for personal trainer booking on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Browse trainers with specialties and availability; Book one-on-one sessions; Trainer can set their schedule.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core personal trainer booking business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for personal trainer booking",
+          "API/service behavior for personal trainer booking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Personal Trainer Booking Frontend Flow",
+        "description": "Build the frontend flow for personal trainer booking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The personal trainer booking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for personal trainer booking behave correctly",
+          "The personal trainer booking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Personal Trainer Booking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for personal trainer booking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for personal trainer booking are covered by automated tests",
+          "Permission checks and validation rules for personal trainer booking are verified",
+          "Regression coverage exists for the most critical personal trainer booking scenarios"
+        ]
+      }
     ],
     "FR-05": [
-      {"title": "Build Nutrition API", "description": "Create PATCH /api/nutrition/targets (calories, protein, carbs, fat). POST /api/nutrition/meals (log with food items from database). GET /api/nutrition/daily (totals vs targets). Food search API.", "priority": "medium", "type": "backend", "related_requirement": "FR-05"},
-      {"title": "Build Nutrition Tracker UI", "description": "Create nutrition screen with daily rings (calories, macros), meal log with food search autocomplete, add food with serving size, and daily summary showing remaining vs target.", "priority": "medium", "type": "frontend", "related_requirement": "FR-05"}
+      {
+        "title": "Plan Nutrition and Meal Planning Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for nutrition and meal planning and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Set daily calorie and macro targets; Log meals with food search database; Track daily intake vs targets.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for nutrition and meal planning is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for nutrition and meal planning are explicitly defined",
+          "Implementation subtasks for nutrition and meal planning can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Nutrition and Meal Planning Backend Services",
+        "description": "Build the backend services for nutrition and meal planning on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Set daily calorie and macro targets; Log meals with food search database; Track daily intake vs targets.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core nutrition and meal planning business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for nutrition and meal planning",
+          "API/service behavior for nutrition and meal planning is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Nutrition and Meal Planning Frontend Flow",
+        "description": "Build the frontend flow for nutrition and meal planning with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The nutrition and meal planning user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for nutrition and meal planning behave correctly",
+          "The nutrition and meal planning UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Nutrition and Meal Planning Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for nutrition and meal planning. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for nutrition and meal planning are covered by automated tests",
+          "Permission checks and validation rules for nutrition and meal planning are verified",
+          "Regression coverage exists for the most critical nutrition and meal planning scenarios"
+        ]
+      }
     ],
     "FR-06": [
-      {"title": "Build Progress Tracking API", "description": "Create POST /api/progress/photos (image upload with date). POST /api/progress/measurements (weight, chest, waist, arms, etc.). GET /api/progress/history. GET /api/progress/compare (two dates).", "priority": "medium", "type": "backend", "related_requirement": "FR-06"},
-      {"title": "Build Progress Screen", "description": "Create progress page with photo grid, side-by-side comparison selector, measurement input form, and trend charts (line graphs for weight, measurements over time).", "priority": "medium", "type": "frontend", "related_requirement": "FR-06"}
+      {
+        "title": "Plan Progress Photos and Measurements Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for progress photos and measurements and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Upload progress photos with date stamps; Log body measurements (weight, chest, waist, etc.); Side-by-side photo comparisons.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for progress photos and measurements is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for progress photos and measurements are explicitly defined",
+          "Implementation subtasks for progress photos and measurements can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Progress Photos and Measurements Backend Services",
+        "description": "Build the backend services for progress photos and measurements on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Upload progress photos with date stamps; Log body measurements (weight, chest, waist, etc.); Side-by-side photo comparisons.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core progress photos and measurements business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for progress photos and measurements",
+          "API/service behavior for progress photos and measurements is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Progress Photos and Measurements Frontend Flow",
+        "description": "Build the frontend flow for progress photos and measurements with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The progress photos and measurements user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for progress photos and measurements behave correctly",
+          "The progress photos and measurements UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Progress Photos and Measurements Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for progress photos and measurements. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for progress photos and measurements are covered by automated tests",
+          "Permission checks and validation rules for progress photos and measurements are verified",
+          "Regression coverage exists for the most critical progress photos and measurements scenarios"
+        ]
+      }
     ],
     "FR-07": [
-      {"title": "Build Membership Management API", "description": "Create GET /api/membership (current status). POST /api/membership/renew. POST /api/membership/upgrade. POST /api/membership/freeze (with duration). POST /api/membership/cancel (enforce notice).", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
-      {"title": "Build Membership Screen", "description": "Create membership page showing plan name, status badge, expiry date, and action buttons: Renew, Upgrade (plan comparison), Freeze (duration selector), Cancel (notice period info).", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+      {
+        "title": "Plan Membership Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for membership management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View membership status and expiry; Renew or upgrade membership plan; Freeze membership temporarily.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for membership management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for membership management are explicitly defined",
+          "Implementation subtasks for membership management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Membership Management Backend Services",
+        "description": "Build the backend services for membership management on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View membership status and expiry; Renew or upgrade membership plan; Freeze membership temporarily.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core membership management business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for membership management",
+          "API/service behavior for membership management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Membership Management Frontend Flow",
+        "description": "Build the frontend flow for membership management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The membership management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for membership management behave correctly",
+          "The membership management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Membership Management Persistence Model",
+        "description": "Design the persistence layer for membership management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for membership management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for membership management are defined correctly",
+          "Migrations for membership management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Membership Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for membership management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for membership management are covered by automated tests",
+          "Permission checks and validation rules for membership management are verified",
+          "Regression coverage exists for the most critical membership management scenarios"
+        ]
+      }
     ],
     "FR-08": [
-      {"title": "Build Admin Analytics API", "description": "Create GET /api/admin/stats (total members, active, revenue). GET /api/admin/revenue (by plan type, monthly). GET /api/admin/attendance (class stats). CRUD for equipment maintenance.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
-      {"title": "Build Admin Dashboard", "description": "Create admin page with stat cards, revenue bar chart by plan, class attendance heat map, and equipment maintenance table with status and schedule dates.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+      {
+        "title": "Plan Gym Admin Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for gym admin dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View total members and active memberships; Revenue reports by plan type; Class attendance analytics.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for gym admin dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for gym admin dashboard are explicitly defined",
+          "Implementation subtasks for gym admin dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Gym Admin Dashboard Backend Services",
+        "description": "Build the backend services for gym admin dashboard on React Native, Express, MongoDB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View total members and active memberships; Revenue reports by plan type; Class attendance analytics.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core gym admin dashboard business rules are implemented for Fitness and Gym Management System",
+          "Validation, authorization, and error handling are covered for gym admin dashboard",
+          "API/service behavior for gym admin dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Gym Admin Dashboard Frontend Flow",
+        "description": "Build the frontend flow for gym admin dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The gym admin dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for gym admin dashboard behave correctly",
+          "The gym admin dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Gym Admin Dashboard Persistence Model",
+        "description": "Design the persistence layer for gym admin dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for gym admin dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for gym admin dashboard are defined correctly",
+          "Migrations for gym admin dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Gym Admin Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for gym admin dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for gym admin dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for gym admin dashboard work correctly",
+          "Reporting queries for gym admin dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Gym Admin Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for gym admin dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for gym admin dashboard are covered by automated tests",
+          "Permission checks and validation rules for gym admin dashboard are verified",
+          "Regression coverage exists for the most critical gym admin dashboard scenarios"
+        ]
+      }
     ]
   }
 }

@@ -28,6 +28,56 @@ INSTRUCTION_PREFIX = (
     "Generate development tasks as JSON from this software requirements specification:\n\n"
 )
 
+CONTEXT_LIST_FIELDS = (
+    "technologies",
+    "actors",
+    "modules",
+    "scope",
+    "constraints",
+)
+
+
+def build_fr_prompt_input(
+    srs_json: dict[str, Any],
+    fr_id: str,
+    fr_data: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Build the compact per-FR prompt payload used for both training and inference.
+
+    The prompt includes the single functional requirement plus the highest-signal
+    document context that often influences implementation planning.
+    """
+    payload: dict[str, Any] = {
+        "title": srs_json.get("title", ""),
+        "description": srs_json.get("description", ""),
+        "fr_id": fr_id,
+        "fr": fr_data,
+    }
+
+    for field_name in CONTEXT_LIST_FIELDS:
+        value = srs_json.get(field_name)
+        if value:
+            payload[field_name] = value
+
+    system_attributes = srs_json.get("system_attributes") or {}
+    if system_attributes:
+        payload["system_attributes"] = system_attributes
+
+    operating_environment = srs_json.get("operating_environment") or {}
+    if operating_environment:
+        payload["operating_environment"] = operating_environment
+
+    non_functional_requirements = srs_json.get("non_functional_requirements") or {}
+    if non_functional_requirements:
+        payload["non_functional_requirements"] = {
+            req_id: req_data.get("title", "")
+            for req_id, req_data in non_functional_requirements.items()
+            if isinstance(req_data, dict)
+        }
+
+    return payload
+
 
 # ---------------------------------------------------------------------------
 # Data Loading
@@ -146,8 +196,6 @@ def _split_into_fr_pairs(
     """
     inp = entry["input"]
     out = entry["output"]
-    title = inp.get("title", "")
-    techs = inp.get("technologies", [])
     frs = inp.get("functional_requirements", {})
 
     pairs: list[dict[str, Any]] = []
@@ -159,12 +207,7 @@ def _split_into_fr_pairs(
             if not fr_tasks:
                 continue
             pairs.append({
-                "input": {
-                    "title": title,
-                    "technologies": techs,
-                    "fr_id": fr_id,
-                    "fr": fr_data,
-                },
+                "input": build_fr_prompt_input(inp, fr_id, fr_data),
                 "output": fr_tasks,
             })
     # Legacy: output is a flat list of tasks
@@ -180,12 +223,7 @@ def _split_into_fr_pairs(
             if not fr_tasks:
                 continue
             pairs.append({
-                "input": {
-                    "title": title,
-                    "technologies": techs,
-                    "fr_id": fr_id,
-                    "fr": fr_data,
-                },
+                "input": build_fr_prompt_input(inp, fr_id, fr_data),
                 "output": fr_tasks,
             })
 

@@ -16,12 +16,6 @@
           "Choose subscription plan (free, basic, premium)",
           "Payment processing for paid plans",
           "Free trial for 30 days"
-        ],
-        "acceptance_criteria": [
-          "Account created successfully",
-          "Plan selected and activated",
-          "Payment processes correctly",
-          "Trial starts and expires after 30 days"
         ]
       },
       "FR-02": {
@@ -31,12 +25,6 @@
           "Automatic transcoding to multiple qualities",
           "Thumbnail generation from video frames",
           "Video metadata: title, description, tags, category"
-        ],
-        "acceptance_criteria": [
-          "Upload completes for large files",
-          "Transcoding produces 360p to 4K variants",
-          "Thumbnails generated automatically",
-          "Metadata saved and searchable"
         ]
       },
       "FR-03": {
@@ -46,12 +34,6 @@
           "Playback controls: play, pause, seek, volume, fullscreen",
           "Playback speed adjustment (0.5x to 2x)",
           "Picture-in-picture mode"
-        ],
-        "acceptance_criteria": [
-          "Quality adjusts based on bandwidth",
-          "All controls function correctly",
-          "Speed changes are smooth",
-          "PiP works while browsing other content"
         ]
       },
       "FR-04": {
@@ -61,12 +43,6 @@
           "Trending and popular content sections",
           "Search with autocomplete",
           "Browse by category and genre"
-        ],
-        "acceptance_criteria": [
-          "Recommendations match user interests",
-          "Trending shows most-watched content",
-          "Search returns relevant results fast",
-          "Categories group content correctly"
         ]
       },
       "FR-05": {
@@ -76,12 +52,6 @@
           "Automatically track watch history",
           "Continue watching from last position",
           "Clear history option"
-        ],
-        "acceptance_criteria": [
-          "Videos added to watchlist",
-          "History records all watched videos",
-          "Playback resumes from last position",
-          "Clear history removes all records"
         ]
       },
       "FR-06": {
@@ -91,12 +61,6 @@
           "Threaded comments with replies",
           "Share via link or social media",
           "Creator can pin and delete comments"
-        ],
-        "acceptance_criteria": [
-          "Like count updates in real-time",
-          "Comments and replies display correctly",
-          "Share generates preview link",
-          "Pinned comment appears first"
         ]
       },
       "FR-07": {
@@ -106,12 +70,6 @@
           "Channel banner and profile customization",
           "Subscriber management and notifications",
           "Channel analytics"
-        ],
-        "acceptance_criteria": [
-          "Channel page displays customizations",
-          "Banner and profile upload correctly",
-          "Subscriber count tracks accurately",
-          "Analytics show views, subscribers, and revenue"
         ]
       },
       "FR-08": {
@@ -121,12 +79,6 @@
           "Chat during live stream",
           "Live stream recording and replay",
           "Viewer count display in real-time"
-        ],
-        "acceptance_criteria": [
-          "Stream starts and viewers can watch",
-          "Chat messages appear in real-time",
-          "Recording available after stream ends",
-          "Viewer count updates live"
         ]
       },
       "FR-09": {
@@ -136,12 +88,6 @@
           "Channel memberships with perks",
           "Super chat during live streams",
           "Revenue sharing with creators"
-        ],
-        "acceptance_criteria": [
-          "Ads play at configured intervals",
-          "Membership perks activated for subscribers",
-          "Super chats highlighted in live chat",
-          "Revenue reports show accurate earnings"
         ]
       },
       "FR-10": {
@@ -151,12 +97,6 @@
           "Community guidelines strike system",
           "Appeal process for removed content",
           "Age-restricted content gating"
-        ],
-        "acceptance_criteria": [
-          "Violations detected and flagged",
-          "Strikes accumulate with consequences",
-          "Appeals reviewed by moderators",
-          "Age-gated content requires verification"
         ]
       },
       "FR-11": {
@@ -166,12 +106,6 @@
           "Download quality selection",
           "Downloads expire after 30 days",
           "DRM protection on downloads"
-        ],
-        "acceptance_criteria": [
-          "Videos download to device",
-          "Quality options available",
-          "Expired downloads auto-delete",
-          "DRM prevents unauthorized copying"
         ]
       },
       "FR-12": {
@@ -181,12 +115,6 @@
           "Manual subtitle upload (SRT/VTT)",
           "Multiple language subtitle support",
           "Accessibility: screen reader and keyboard navigation"
-        ],
-        "acceptance_criteria": [
-          "Auto subtitles sync with speech",
-          "Uploaded subtitles display correctly",
-          "Language selector switches subtitles",
-          "Screen reader describes video controls"
         ]
       }
     }
@@ -194,201 +122,734 @@
   "output": {
     "FR-01": [
       {
-        "title": "Build Auth and Subscription API",
-        "description": "Create POST /api/auth/register, /api/auth/login, /api/auth/social. POST /api/subscriptions (plan selection and payment). Free trial with 30-day expiry. Subscription status checking middleware.",
+        "title": "Plan User Registration and Subscription Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for user registration and subscription and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with email or social login; Choose subscription plan (free, basic, premium); Payment processing for paid plans.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-01"
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for user registration and subscription is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for user registration and subscription are explicitly defined",
+          "Implementation subtasks for user registration and subscription can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Registration and Plan Selection UI",
-        "description": "Create signup flow, plan comparison cards (free/basic/premium with features), payment form for paid plans, and trial activation screen.",
+        "title": "Implement User Registration and Subscription Backend Services",
+        "description": "Build the backend services for user registration and subscription on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with email or social login; Choose subscription plan (free, basic, premium); Payment processing for paid plans.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core user registration and subscription business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for user registration and subscription",
+          "API/service behavior for user registration and subscription is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement User Registration and Subscription Frontend Flow",
+        "description": "Build the frontend flow for user registration and subscription with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-01"
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The user registration and subscription user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for user registration and subscription behave correctly",
+          "The user registration and subscription UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for User Registration and Subscription",
+        "description": "Implement the external integration points used by user registration and subscription, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by user registration and subscription are connected through stable integration layers",
+          "Timeout, retry, and failure handling for user registration and subscription integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for user registration and subscription are handled securely"
+        ]
+      },
+      {
+        "title": "Harden User Registration and Subscription Security and Access Rules",
+        "description": "Apply security controls to user registration and subscription. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Access control rules for user registration and subscription are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in user registration and subscription are audited and protected against misuse",
+          "Security validation for user registration and subscription passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write User Registration and Subscription Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for user registration and subscription. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for user registration and subscription are covered by automated tests",
+          "Permission checks and validation rules for user registration and subscription are verified",
+          "Regression coverage exists for the most critical user registration and subscription scenarios"
+        ]
       }
     ],
     "FR-02": [
       {
-        "title": "Build Video Upload Pipeline",
-        "description": "Create POST /api/videos/upload (chunked upload to S3). Queue transcoding job (360p, 480p, 720p, 1080p, 4K). Generate thumbnails at intervals. Store metadata. Notify creator on completion.",
+        "title": "Plan Video Upload and Processing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for video upload and processing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Creators upload videos up to 4K resolution; Automatic transcoding to multiple qualities; Thumbnail generation from video frames.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-02"
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for video upload and processing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for video upload and processing are explicitly defined",
+          "Implementation subtasks for video upload and processing can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Upload Interface",
-        "description": "Create upload page with drag-drop zone, progress bar, metadata form (title, description, tags, category, thumbnail selector from generated options), and publish/draft toggle.",
+        "title": "Implement Video Upload and Processing Backend Services",
+        "description": "Build the backend services for video upload and processing on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Creators upload videos up to 4K resolution; Automatic transcoding to multiple qualities; Thumbnail generation from video frames.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core video upload and processing business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for video upload and processing",
+          "API/service behavior for video upload and processing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Video Upload and Processing Frontend Flow",
+        "description": "Build the frontend flow for video upload and processing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-02"
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The video upload and processing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for video upload and processing behave correctly",
+          "The video upload and processing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
       },
       {
-        "title": "Create Video Database Schema",
-        "description": "Design videos collection: id, creator_id, title, description, tags, category, thumbnail_url, sources (quality→URL map), duration, status (processing/published/private), views, likes, created_at.",
-        "priority": "high",
-        "type": "database",
-        "related_requirement": "FR-02"
+        "title": "Write Video Upload and Processing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for video upload and processing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for video upload and processing are covered by automated tests",
+          "Permission checks and validation rules for video upload and processing are verified",
+          "Regression coverage exists for the most critical video upload and processing scenarios"
+        ]
       }
     ],
     "FR-03": [
       {
-        "title": "Build Streaming API",
-        "description": "Create GET /api/videos/:id/stream (adaptive bitrate manifest HLS/DASH). Track playback position. CDN integration for global delivery. Bandwidth detection for quality selection.",
+        "title": "Plan Video Playback Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for video playback and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Adaptive bitrate streaming; Playback controls: play, pause, seek, volume, fullscreen; Playback speed adjustment (0.5x to 2x).",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-03"
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for video playback is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for video playback are explicitly defined",
+          "Implementation subtasks for video playback can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Video Player",
-        "description": "Create custom player with adaptive streaming, progress bar with preview thumbnails, quality selector, speed control, volume, fullscreen, PiP, and keyboard shortcuts.",
+        "title": "Implement Video Playback Backend Services",
+        "description": "Build the backend services for video playback on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Adaptive bitrate streaming; Playback controls: play, pause, seek, volume, fullscreen; Playback speed adjustment (0.5x to 2x).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core video playback business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for video playback",
+          "API/service behavior for video playback is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Video Playback Frontend Flow",
+        "description": "Build the frontend flow for video playback with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-03"
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The video playback user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for video playback behave correctly",
+          "The video playback UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Video Playback Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for video playback. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for video playback are covered by automated tests",
+          "Permission checks and validation rules for video playback are verified",
+          "Regression coverage exists for the most critical video playback scenarios"
+        ]
       }
     ],
     "FR-04": [
       {
-        "title": "Build Recommendation Engine",
-        "description": "Create GET /api/recommendations (collaborative + content-based filtering from watch history). GET /api/trending (time-weighted view counts). GET /api/search (full-text with autocomplete). Browse by category.",
+        "title": "Plan Content Discovery Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for content discovery and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Personalized recommendations based on watch history; Trending and popular content sections; Search with autocomplete.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-04"
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for content discovery is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for content discovery are explicitly defined",
+          "Implementation subtasks for content discovery can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Homepage and Browse UI",
-        "description": "Create homepage with recommendation rows (carousel), trending section, search bar with autocomplete dropdown, and category browse grid.",
+        "title": "Implement Content Discovery Backend Services",
+        "description": "Build the backend services for content discovery on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Personalized recommendations based on watch history; Trending and popular content sections; Search with autocomplete.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core content discovery business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for content discovery",
+          "API/service behavior for content discovery is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Content Discovery Frontend Flow",
+        "description": "Build the frontend flow for content discovery with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-04"
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The content discovery user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for content discovery behave correctly",
+          "The content discovery UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Content Discovery Persistence Model",
+        "description": "Design the persistence layer for content discovery. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for content discovery supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for content discovery are defined correctly",
+          "Migrations for content discovery can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Content Discovery Reporting and KPI Logic",
+        "description": "Implement the reporting layer for content discovery, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for content discovery return accurate results",
+          "Filters, grouping, and export-ready structures for content discovery work correctly",
+          "Reporting queries for content discovery perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Content Discovery Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for content discovery. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for content discovery are covered by automated tests",
+          "Permission checks and validation rules for content discovery are verified",
+          "Regression coverage exists for the most critical content discovery scenarios"
+        ]
       }
     ],
     "FR-05": [
       {
-        "title": "Build Watchlist and History API",
-        "description": "Create POST /api/watchlist/:videoId (toggle). GET /api/watchlist. Automatic history tracking via playback events. GET /api/history. POST /api/videos/:id/progress (save position). DELETE /api/history.",
-        "priority": "medium",
+        "title": "Plan Watchlist and History Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for watchlist and history and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Add videos to watchlist for later; Automatically track watch history; Continue watching from last position.",
+        "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-05"
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for watchlist and history is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for watchlist and history are explicitly defined",
+          "Implementation subtasks for watchlist and history can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Watchlist and History Pages",
-        "description": "Create watchlist page with video cards and remove buttons. History page with date-grouped videos. Continue Watching row on homepage with progress indicators.",
-        "priority": "medium",
+        "title": "Implement Watchlist and History Backend Services",
+        "description": "Build the backend services for watchlist and history on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Add videos to watchlist for later; Automatically track watch history; Continue watching from last position.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core watchlist and history business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for watchlist and history",
+          "API/service behavior for watchlist and history is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Watchlist and History Frontend Flow",
+        "description": "Build the frontend flow for watchlist and history with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-05"
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The watchlist and history user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for watchlist and history behave correctly",
+          "The watchlist and history UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Watchlist and History Persistence Model",
+        "description": "Design the persistence layer for watchlist and history. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for watchlist and history supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for watchlist and history are defined correctly",
+          "Migrations for watchlist and history can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Watchlist and History Reporting and KPI Logic",
+        "description": "Implement the reporting layer for watchlist and history, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for watchlist and history return accurate results",
+          "Filters, grouping, and export-ready structures for watchlist and history work correctly",
+          "Reporting queries for watchlist and history perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Watchlist and History Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for watchlist and history. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for watchlist and history are covered by automated tests",
+          "Permission checks and validation rules for watchlist and history are verified",
+          "Regression coverage exists for the most critical watchlist and history scenarios"
+        ]
       }
     ],
     "FR-06": [
       {
-        "title": "Build Engagement API",
-        "description": "Create POST /api/videos/:id/like, /dislike (toggle). POST /api/videos/:id/comments (threaded with parent_id). Creator: POST /api/comments/:id/pin, DELETE. Share endpoint with metadata.",
+        "title": "Plan Like, Comment, and Share Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for like, comment, and share and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Like and dislike videos; Threaded comments with replies; Share via link or social media.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-06"
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for like, comment, and share is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for like, comment, and share are explicitly defined",
+          "Implementation subtasks for like, comment, and share can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Engagement UI",
-        "description": "Create like/dislike buttons with counts, comment section with reply support, pinned comment highlight, and share modal with link copy and social buttons.",
+        "title": "Implement Like, Comment, and Share Backend Services",
+        "description": "Build the backend services for like, comment, and share on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Like and dislike videos; Threaded comments with replies; Share via link or social media.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core like, comment, and share business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for like, comment, and share",
+          "API/service behavior for like, comment, and share is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Like, Comment, and Share Frontend Flow",
+        "description": "Build the frontend flow for like, comment, and share with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-06"
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The like, comment, and share user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for like, comment, and share behave correctly",
+          "The like, comment, and share UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Like, Comment, and Share Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for like, comment, and share. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for like, comment, and share are covered by automated tests",
+          "Permission checks and validation rules for like, comment, and share are verified",
+          "Regression coverage exists for the most critical like, comment, and share scenarios"
+        ]
       }
     ],
     "FR-07": [
       {
-        "title": "Build Channel API",
-        "description": "Create POST /api/channels (setup). PATCH /api/channels/:id (customize). POST /api/channels/:id/subscribe. GET /api/channels/:id/analytics (views, subs, revenue over time).",
+        "title": "Plan Channel Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for channel management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Creators create and customize channel page; Channel banner and profile customization; Subscriber management and notifications.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-07"
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for channel management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for channel management are explicitly defined",
+          "Implementation subtasks for channel management can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Channel Pages",
-        "description": "Create channel page with banner, avatar, sub count, tabs (Videos, Live, About). Creator studio with video manager, customization editor, and analytics dashboard.",
+        "title": "Implement Channel Management Backend Services",
+        "description": "Build the backend services for channel management on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Creators create and customize channel page; Channel banner and profile customization; Subscriber management and notifications.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core channel management business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for channel management",
+          "API/service behavior for channel management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Channel Management Frontend Flow",
+        "description": "Build the frontend flow for channel management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-07"
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The channel management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for channel management behave correctly",
+          "The channel management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Channel Management Persistence Model",
+        "description": "Design the persistence layer for channel management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for channel management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for channel management are defined correctly",
+          "Migrations for channel management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Channel Management Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for channel management. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Notification triggers for channel management fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for channel management are configurable and testable",
+          "Notification failures for channel management are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Channel Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for channel management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for channel management are covered by automated tests",
+          "Permission checks and validation rules for channel management are verified",
+          "Regression coverage exists for the most critical channel management scenarios"
+        ]
       }
     ],
     "FR-08": [
       {
-        "title": "Build Live Stream API",
-        "description": "Create POST /api/live/start (generate stream key and RTMP endpoint). WebSocket for live chat. POST /api/live/:id/end (save recording). Real-time viewer count via Redis.",
+        "title": "Plan Live Streaming Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for live streaming and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Start live stream from creator dashboard; Chat during live stream; Live stream recording and replay.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-08"
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for live streaming is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for live streaming are explicitly defined",
+          "Implementation subtasks for live streaming can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Live Stream UI",
-        "description": "Create live viewer with stream player, real-time chat panel, viewer count badge. Creator dashboard with stream controls, chat moderation, and stream health indicators.",
+        "title": "Implement Live Streaming Backend Services",
+        "description": "Build the backend services for live streaming on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Start live stream from creator dashboard; Chat during live stream; Live stream recording and replay.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core live streaming business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for live streaming",
+          "API/service behavior for live streaming is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Live Streaming Frontend Flow",
+        "description": "Build the frontend flow for live streaming with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
         "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-08"
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The live streaming user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for live streaming behave correctly",
+          "The live streaming UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Live Streaming Persistence Model",
+        "description": "Design the persistence layer for live streaming. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for live streaming supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for live streaming are defined correctly",
+          "Migrations for live streaming can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Live Streaming Reporting and KPI Logic",
+        "description": "Implement the reporting layer for live streaming, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for live streaming return accurate results",
+          "Filters, grouping, and export-ready structures for live streaming work correctly",
+          "Reporting queries for live streaming perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Live Streaming Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for live streaming. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for live streaming are covered by automated tests",
+          "Permission checks and validation rules for live streaming are verified",
+          "Regression coverage exists for the most critical live streaming scenarios"
+        ]
       }
     ],
     "FR-09": [
       {
-        "title": "Build Monetization API",
-        "description": "Create ad insertion service (pre-roll, mid-roll). POST /api/channels/:id/membership (tiers). POST /api/live/:id/superchat (highlighted message with payment). Revenue tracking and payout calculations.",
+        "title": "Plan Content Monetization Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for content monetization and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Ad insertion before and during videos; Channel memberships with perks; Super chat during live streams.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-09"
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for content monetization is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for content monetization are explicitly defined",
+          "Implementation subtasks for content monetization can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Monetization Dashboard",
-        "description": "Create creator revenue page with earnings charts, ad revenue breakdown, membership stats, super chat history, and payout schedule.",
-        "priority": "medium",
+        "title": "Implement Content Monetization Backend Services",
+        "description": "Build the backend services for content monetization on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Ad insertion before and during videos; Channel memberships with perks; Super chat during live streams.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core content monetization business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for content monetization",
+          "API/service behavior for content monetization is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Content Monetization Frontend Flow",
+        "description": "Build the frontend flow for content monetization with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-09"
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The content monetization user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for content monetization behave correctly",
+          "The content monetization UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Content Monetization Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for content monetization. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for content monetization are covered by automated tests",
+          "Permission checks and validation rules for content monetization are verified",
+          "Regression coverage exists for the most critical content monetization scenarios"
+        ]
       }
     ],
     "FR-10": [
       {
-        "title": "Build Moderation System",
-        "description": "Create content scanning pipeline for policy violations. Strike system: 1 warning, 2 upload restriction, 3 channel termination. POST /api/appeals (creator appeal). Age-restriction gate.",
+        "title": "Plan Content Moderation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for content moderation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Automated content scanning for violations; Community guidelines strike system; Appeal process for removed content.",
         "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-10"
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for content moderation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for content moderation are explicitly defined",
+          "Implementation subtasks for content moderation can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Moderation Dashboard",
-        "description": "Create admin moderation queue with flagged content, strike management, appeal review interface, and age-restriction toggle per video.",
-        "priority": "medium",
+        "title": "Implement Content Moderation Backend Services",
+        "description": "Build the backend services for content moderation on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Automated content scanning for violations; Community guidelines strike system; Appeal process for removed content.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core content moderation business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for content moderation",
+          "API/service behavior for content moderation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Content Moderation Frontend Flow",
+        "description": "Build the frontend flow for content moderation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-10"
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The content moderation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for content moderation behave correctly",
+          "The content moderation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Content Moderation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for content moderation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for content moderation are covered by automated tests",
+          "Permission checks and validation rules for content moderation are verified",
+          "Regression coverage exists for the most critical content moderation scenarios"
+        ]
       }
     ],
     "FR-11": [
       {
-        "title": "Build Download API",
-        "description": "Create POST /api/videos/:id/download (premium only, quality selection). DRM packaging. Track downloads. Expire after 30 days. Limit concurrent downloads.",
-        "priority": "medium",
+        "title": "Plan Offline Downloads Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for offline downloads and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Download videos for offline viewing (premium); Download quality selection; Downloads expire after 30 days.",
+        "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-11"
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for offline downloads is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for offline downloads are explicitly defined",
+          "Implementation subtasks for offline downloads can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Download UI",
-        "description": "Create download button with quality selector. Downloads page showing downloaded videos with expiry countdown. Offline playback player.",
-        "priority": "medium",
+        "title": "Implement Offline Downloads Backend Services",
+        "description": "Build the backend services for offline downloads on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Download videos for offline viewing (premium); Download quality selection; Downloads expire after 30 days.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core offline downloads business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for offline downloads",
+          "API/service behavior for offline downloads is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Offline Downloads Frontend Flow",
+        "description": "Build the frontend flow for offline downloads with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-11"
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The offline downloads user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for offline downloads behave correctly",
+          "The offline downloads UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Offline Downloads Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for offline downloads. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for offline downloads are covered by automated tests",
+          "Permission checks and validation rules for offline downloads are verified",
+          "Regression coverage exists for the most critical offline downloads scenarios"
+        ]
       }
     ],
     "FR-12": [
       {
-        "title": "Build Subtitle Service",
-        "description": "Create auto-subtitle generation using speech-to-text API. POST /api/videos/:id/subtitles (SRT/VTT upload). Multi-language support. GET subtitle tracks by language.",
-        "priority": "medium",
+        "title": "Plan Subtitle and Accessibility Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for subtitle and accessibility and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Auto-generated subtitles from speech; Manual subtitle upload (SRT/VTT); Multiple language subtitle support.",
+        "priority": "high",
         "type": "backend",
-        "related_requirement": "FR-12"
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for subtitle and accessibility is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for subtitle and accessibility are explicitly defined",
+          "Implementation subtasks for subtitle and accessibility can be picked up independently by engineering"
+        ]
       },
       {
-        "title": "Build Subtitle UI",
-        "description": "Create subtitle display overlay on player. Language selector in player controls. Subtitle styling options (font size, background). Screen reader ARIA labels for all controls.",
-        "priority": "medium",
+        "title": "Implement Subtitle and Accessibility Backend Services",
+        "description": "Build the backend services for subtitle and accessibility on React, Node.js, MongoDB, AWS S3. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Auto-generated subtitles from speech; Manual subtitle upload (SRT/VTT); Multiple language subtitle support.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core subtitle and accessibility business rules are implemented for Video Streaming Platform",
+          "Validation, authorization, and error handling are covered for subtitle and accessibility",
+          "API/service behavior for subtitle and accessibility is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Subtitle and Accessibility Frontend Flow",
+        "description": "Build the frontend flow for subtitle and accessibility with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
         "type": "frontend",
-        "related_requirement": "FR-12"
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The subtitle and accessibility user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for subtitle and accessibility behave correctly",
+          "The subtitle and accessibility UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Subtitle and Accessibility Security and Access Rules",
+        "description": "Apply security controls to subtitle and accessibility. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Access control rules for subtitle and accessibility are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in subtitle and accessibility are audited and protected against misuse",
+          "Security validation for subtitle and accessibility passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Subtitle and Accessibility Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for subtitle and accessibility. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for subtitle and accessibility are covered by automated tests",
+          "Permission checks and validation rules for subtitle and accessibility are verified",
+          "Regression coverage exists for the most critical subtitle and accessibility scenarios"
+        ]
       }
     ]
   }

@@ -1,101 +1,784 @@
 {
   "input": {
     "title": "Healthcare Patient Portal",
-    "technologies": ["Angular", "Spring Boot", "PostgreSQL"],
+    "technologies": [
+      "Angular",
+      "Spring Boot",
+      "PostgreSQL"
+    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Patient Registration",
-        "requirements": ["Register with personal details and insurance info", "Verify identity via email and phone", "Upload ID documents for verification", "Accept terms and privacy policy"],
-        "acceptance_criteria": ["Patient account is created", "Verification emails and SMS are sent", "Documents are uploaded and stored securely", "Terms acceptance is recorded with timestamp"]
+        "requirements": [
+          "Register with personal details and insurance info",
+          "Verify identity via email and phone",
+          "Upload ID documents for verification",
+          "Accept terms and privacy policy"
+        ]
       },
       "FR-02": {
         "title": "Appointment Booking",
-        "requirements": ["View available time slots for each doctor", "Book appointments by selecting doctor, date, and time", "Confirmation email and SMS sent after booking", "Cancel or reschedule at least 24 hours before"],
-        "acceptance_criteria": ["Available slots display correctly", "Booking blocks the time slot", "Notifications sent within 1 minute", "Late cancellation is prevented"]
+        "requirements": [
+          "View available time slots for each doctor",
+          "Book appointments by selecting doctor, date, and time",
+          "Confirmation email and SMS sent after booking",
+          "Cancel or reschedule at least 24 hours before"
+        ]
       },
       "FR-03": {
         "title": "Medical Records Access",
-        "requirements": ["View complete medical history", "Records include diagnoses, treatments, lab results", "Records in reverse chronological order", "Download records as PDF"],
-        "acceptance_criteria": ["All records load correctly", "Lab results show normal range indicators", "PDF download is complete and formatted", "Access is logged for audit"]
+        "requirements": [
+          "View complete medical history",
+          "Records include diagnoses, treatments, lab results",
+          "Records in reverse chronological order",
+          "Download records as PDF"
+        ]
       },
       "FR-04": {
         "title": "Prescription Management",
-        "requirements": ["View current active prescriptions", "Request refills for eligible prescriptions", "Doctor approves refill requests", "Track refill history"],
-        "acceptance_criteria": ["Prescriptions display with medication details", "Refill request notifies doctor", "Approved refill updates record", "History shows all past requests"]
+        "requirements": [
+          "View current active prescriptions",
+          "Request refills for eligible prescriptions",
+          "Doctor approves refill requests",
+          "Track refill history"
+        ]
       },
       "FR-05": {
         "title": "Secure Messaging",
-        "requirements": ["Send messages to assigned doctors", "Support text and file attachments up to 5MB", "All messages encrypted in transit and at rest", "Doctors can reply from their dashboard"],
-        "acceptance_criteria": ["Messages are delivered to recipient inbox", "Attachments upload and download correctly", "Encryption meets HIPAA standards", "Both parties receive notification for new messages"]
+        "requirements": [
+          "Send messages to assigned doctors",
+          "Support text and file attachments up to 5MB",
+          "All messages encrypted in transit and at rest",
+          "Doctors can reply from their dashboard"
+        ]
       },
       "FR-06": {
         "title": "Lab Results Viewing",
-        "requirements": ["View lab test results with reference ranges", "Results flagged if outside normal range", "Historical trend charts for repeated tests", "Share results with other providers"],
-        "acceptance_criteria": ["Results display with correct values and ranges", "Abnormal values are highlighted in red", "Trend chart shows values over time", "Sharing generates secure link with expiry"]
+        "requirements": [
+          "View lab test results with reference ranges",
+          "Results flagged if outside normal range",
+          "Historical trend charts for repeated tests",
+          "Share results with other providers"
+        ]
       },
       "FR-07": {
         "title": "Billing and Payments",
-        "requirements": ["View outstanding invoices and payment history", "Pay bills online via credit card or bank transfer", "Download itemized billing statements", "Set up payment plans for large bills"],
-        "acceptance_criteria": ["Invoice list shows correct amounts and dates", "Payment processes and updates balance", "Statement downloads as PDF", "Payment plan splits total into installments"]
+        "requirements": [
+          "View outstanding invoices and payment history",
+          "Pay bills online via credit card or bank transfer",
+          "Download itemized billing statements",
+          "Set up payment plans for large bills"
+        ]
       },
       "FR-08": {
         "title": "Appointment Reminders",
-        "requirements": ["Send reminder 24 hours before appointment", "Send reminder 1 hour before appointment", "Reminders via email and SMS", "Include appointment details and location"],
-        "acceptance_criteria": ["24-hour reminder is sent on time", "1-hour reminder is sent on time", "Both email and SMS are received", "Reminder contains correct date, time, doctor, and location"]
+        "requirements": [
+          "Send reminder 24 hours before appointment",
+          "Send reminder 1 hour before appointment",
+          "Reminders via email and SMS",
+          "Include appointment details and location"
+        ]
       },
       "FR-09": {
         "title": "Insurance Verification",
-        "requirements": ["Patients can add insurance provider details", "System verifies insurance eligibility", "Display coverage and copay information", "Update insurance information as needed"],
-        "acceptance_criteria": ["Insurance details are stored correctly", "Eligibility check returns correct status", "Coverage info matches insurance plan", "Updates reflect immediately"]
+        "requirements": [
+          "Patients can add insurance provider details",
+          "System verifies insurance eligibility",
+          "Display coverage and copay information",
+          "Update insurance information as needed"
+        ]
       },
       "FR-10": {
         "title": "Emergency Contact Management",
-        "requirements": ["Add emergency contacts with name, phone, and relationship", "Multiple emergency contacts allowed", "Contacts accessible by medical staff in emergencies", "Contacts can be updated or removed"],
-        "acceptance_criteria": ["Emergency contact is saved successfully", "Multiple contacts are stored and displayed", "Staff can access contacts when authorized", "Updates and deletions work correctly"]
+        "requirements": [
+          "Add emergency contacts with name, phone, and relationship",
+          "Multiple emergency contacts allowed",
+          "Contacts accessible by medical staff in emergencies",
+          "Contacts can be updated or removed"
+        ]
       }
     }
   },
   "output": {
     "FR-01": [
-      {"title": "Build Patient Registration API", "description": "Create POST /api/patients/register. Accept personal details, insurance info. Send verification email and SMS. Handle document upload for ID verification. Store with HIPAA-compliant encryption.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
-      {"title": "Build Registration Form", "description": "Create multi-step registration: Step 1 personal info, Step 2 insurance details, Step 3 ID document upload, Step 4 terms acceptance. Field validation at each step. Progress indicator.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
-      {"title": "Create Patient Database Schema", "description": "Design patients table: id, name, dob, email, phone, insurance_provider, insurance_id, id_document_url, verified, terms_accepted_at, created_at. Encrypt PII fields at rest.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+      {
+        "title": "Plan Patient Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for patient registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with personal details and insurance info; Verify identity via email and phone; Upload ID documents for verification.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for patient registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for patient registration are explicitly defined",
+          "Implementation subtasks for patient registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Patient Registration Backend Services",
+        "description": "Build the backend services for patient registration on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with personal details and insurance info; Verify identity via email and phone; Upload ID documents for verification.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core patient registration business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for patient registration",
+          "API/service behavior for patient registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Patient Registration Frontend Flow",
+        "description": "Build the frontend flow for patient registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The patient registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for patient registration behave correctly",
+          "The patient registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Patient Registration Persistence Model",
+        "description": "Design the persistence layer for patient registration. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The persistence model for patient registration supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for patient registration are defined correctly",
+          "Migrations for patient registration can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Patient Registration",
+        "description": "Implement the external integration points used by patient registration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by patient registration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for patient registration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for patient registration are handled securely"
+        ]
+      },
+      {
+        "title": "Write Patient Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for patient registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for patient registration are covered by automated tests",
+          "Permission checks and validation rules for patient registration are verified",
+          "Regression coverage exists for the most critical patient registration scenarios"
+        ]
+      }
     ],
     "FR-02": [
-      {"title": "Build Appointment Booking API", "description": "Create GET /api/doctors/:id/availability (available slots), POST /api/appointments (book), PATCH /api/appointments/:id (reschedule), DELETE /api/appointments/:id (cancel, enforce 24h rule). Send notifications.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
-      {"title": "Build Booking Interface", "description": "Create appointment booking flow: select doctor from list, view calendar with available slots, select date/time, confirm booking. Show confirmation with appointment details.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+      {
+        "title": "Plan Appointment Booking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for appointment booking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View available time slots for each doctor; Book appointments by selecting doctor, date, and time; Confirmation email and SMS sent after booking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for appointment booking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for appointment booking are explicitly defined",
+          "Implementation subtasks for appointment booking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Appointment Booking Backend Services",
+        "description": "Build the backend services for appointment booking on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View available time slots for each doctor; Book appointments by selecting doctor, date, and time; Confirmation email and SMS sent after booking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core appointment booking business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for appointment booking",
+          "API/service behavior for appointment booking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Appointment Booking Frontend Flow",
+        "description": "Build the frontend flow for appointment booking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The appointment booking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for appointment booking behave correctly",
+          "The appointment booking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Appointment Booking",
+        "description": "Implement the external integration points used by appointment booking, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by appointment booking are connected through stable integration layers",
+          "Timeout, retry, and failure handling for appointment booking integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for appointment booking are handled securely"
+        ]
+      },
+      {
+        "title": "Write Appointment Booking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for appointment booking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for appointment booking are covered by automated tests",
+          "Permission checks and validation rules for appointment booking are verified",
+          "Regression coverage exists for the most critical appointment booking scenarios"
+        ]
+      }
     ],
     "FR-03": [
-      {"title": "Build Medical Records API", "description": "Create GET /api/patients/:id/records (paginated, reverse chronological). Support filters by type (diagnosis/lab/treatment). GET /api/records/:id/pdf for download. Log all access for HIPAA audit.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
-      {"title": "Build Records Viewer", "description": "Create medical records page with timeline view showing record type icons, dates, and summaries. Detail view with full record data. PDF download button. Filter by record type.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+      {
+        "title": "Plan Medical Records Access Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for medical records access and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View complete medical history; Records include diagnoses, treatments, lab results; Records in reverse chronological order.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for medical records access is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for medical records access are explicitly defined",
+          "Implementation subtasks for medical records access can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Medical Records Access Backend Services",
+        "description": "Build the backend services for medical records access on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View complete medical history; Records include diagnoses, treatments, lab results; Records in reverse chronological order.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core medical records access business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for medical records access",
+          "API/service behavior for medical records access is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Medical Records Access Frontend Flow",
+        "description": "Build the frontend flow for medical records access with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The medical records access user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for medical records access behave correctly",
+          "The medical records access UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Medical Records Access Persistence Model",
+        "description": "Design the persistence layer for medical records access. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for medical records access supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for medical records access are defined correctly",
+          "Migrations for medical records access can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Medical Records Access Security and Access Rules",
+        "description": "Apply security controls to medical records access. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Access control rules for medical records access are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in medical records access are audited and protected against misuse",
+          "Security validation for medical records access passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Medical Records Access Reporting and KPI Logic",
+        "description": "Implement the reporting layer for medical records access, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for medical records access return accurate results",
+          "Filters, grouping, and export-ready structures for medical records access work correctly",
+          "Reporting queries for medical records access perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Medical Records Access Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for medical records access. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for medical records access are covered by automated tests",
+          "Permission checks and validation rules for medical records access are verified",
+          "Regression coverage exists for the most critical medical records access scenarios"
+        ]
+      }
     ],
     "FR-04": [
-      {"title": "Build Prescription API", "description": "Create GET /api/patients/:id/prescriptions (active list), POST /api/prescriptions/:id/refill (request refill), PATCH /api/prescriptions/:id/refill/:refillId (doctor approve/deny). Track refill history.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
-      {"title": "Build Prescription Screen", "description": "Create prescriptions page with active medication cards showing name, dosage, frequency, refills remaining. Request Refill button. Refill history tab with status for each request.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+      {
+        "title": "Plan Prescription Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for prescription management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View current active prescriptions; Request refills for eligible prescriptions; Doctor approves refill requests.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for prescription management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for prescription management are explicitly defined",
+          "Implementation subtasks for prescription management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Prescription Management Backend Services",
+        "description": "Build the backend services for prescription management on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View current active prescriptions; Request refills for eligible prescriptions; Doctor approves refill requests.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core prescription management business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for prescription management",
+          "API/service behavior for prescription management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Prescription Management Frontend Flow",
+        "description": "Build the frontend flow for prescription management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The prescription management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for prescription management behave correctly",
+          "The prescription management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Prescription Management Persistence Model",
+        "description": "Design the persistence layer for prescription management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for prescription management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for prescription management are defined correctly",
+          "Migrations for prescription management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Prescription Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for prescription management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for prescription management are covered by automated tests",
+          "Permission checks and validation rules for prescription management are verified",
+          "Regression coverage exists for the most critical prescription management scenarios"
+        ]
+      }
     ],
     "FR-05": [
-      {"title": "Build Secure Messaging API", "description": "Create messaging endpoints with end-to-end encryption (AES-256). POST /api/messages (send), GET /api/conversations (list), GET /api/conversations/:id (messages). Support file attachments up to 5MB.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
-      {"title": "Build Messaging Interface", "description": "Create HIPAA-compliant chat interface with conversation list, message thread view, text input with attachment button, and encryption indicator. Auto-logout after inactivity timeout.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+      {
+        "title": "Plan Secure Messaging Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for secure messaging and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Send messages to assigned doctors; Support text and file attachments up to 5MB; All messages encrypted in transit and at rest.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for secure messaging is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for secure messaging are explicitly defined",
+          "Implementation subtasks for secure messaging can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Secure Messaging Backend Services",
+        "description": "Build the backend services for secure messaging on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Send messages to assigned doctors; Support text and file attachments up to 5MB; All messages encrypted in transit and at rest.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core secure messaging business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for secure messaging",
+          "API/service behavior for secure messaging is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Secure Messaging Frontend Flow",
+        "description": "Build the frontend flow for secure messaging with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The secure messaging user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for secure messaging behave correctly",
+          "The secure messaging UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Secure Messaging Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for secure messaging. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for secure messaging are covered by automated tests",
+          "Permission checks and validation rules for secure messaging are verified",
+          "Regression coverage exists for the most critical secure messaging scenarios"
+        ]
+      }
     ],
     "FR-06": [
-      {"title": "Build Lab Results API", "description": "Create GET /api/patients/:id/labs (results with reference ranges). Flag abnormal values. GET /api/labs/:testType/trends for historical data. POST /api/labs/:id/share (generate secure link).", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
-      {"title": "Build Lab Results Viewer", "description": "Create lab results page with results table (value, range, status indicator). Trend charts using line graphs for repeated tests over time. Share button generating expiring link.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}
+      {
+        "title": "Plan Lab Results Viewing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for lab results viewing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View lab test results with reference ranges; Results flagged if outside normal range; Historical trend charts for repeated tests.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for lab results viewing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for lab results viewing are explicitly defined",
+          "Implementation subtasks for lab results viewing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Lab Results Viewing Backend Services",
+        "description": "Build the backend services for lab results viewing on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View lab test results with reference ranges; Results flagged if outside normal range; Historical trend charts for repeated tests.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core lab results viewing business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for lab results viewing",
+          "API/service behavior for lab results viewing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Lab Results Viewing Frontend Flow",
+        "description": "Build the frontend flow for lab results viewing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The lab results viewing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for lab results viewing behave correctly",
+          "The lab results viewing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Lab Results Viewing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for lab results viewing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for lab results viewing are covered by automated tests",
+          "Permission checks and validation rules for lab results viewing are verified",
+          "Regression coverage exists for the most critical lab results viewing scenarios"
+        ]
+      }
     ],
     "FR-07": [
-      {"title": "Build Billing API", "description": "Create GET /api/billing/invoices (outstanding and paid), POST /api/billing/pay (process payment), GET /api/billing/:id/statement (PDF), POST /api/billing/:id/payment-plan (create installments).", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
-      {"title": "Build Billing Page", "description": "Create billing page with outstanding invoices list, payment form with card/bank options, payment history table, statement download, and payment plan setup wizard.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}
+      {
+        "title": "Plan Billing and Payments Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for billing and payments and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View outstanding invoices and payment history; Pay bills online via credit card or bank transfer; Download itemized billing statements.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for billing and payments is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for billing and payments are explicitly defined",
+          "Implementation subtasks for billing and payments can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Billing and Payments Backend Services",
+        "description": "Build the backend services for billing and payments on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View outstanding invoices and payment history; Pay bills online via credit card or bank transfer; Download itemized billing statements.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core billing and payments business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for billing and payments",
+          "API/service behavior for billing and payments is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Billing and Payments Frontend Flow",
+        "description": "Build the frontend flow for billing and payments with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The billing and payments user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for billing and payments behave correctly",
+          "The billing and payments UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Billing and Payments Persistence Model",
+        "description": "Design the persistence layer for billing and payments. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for billing and payments supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for billing and payments are defined correctly",
+          "Migrations for billing and payments can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Billing and Payments",
+        "description": "Implement the external integration points used by billing and payments, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "External dependencies used by billing and payments are connected through stable integration layers",
+          "Timeout, retry, and failure handling for billing and payments integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for billing and payments are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Billing and Payments Security and Access Rules",
+        "description": "Apply security controls to billing and payments. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Access control rules for billing and payments are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in billing and payments are audited and protected against misuse",
+          "Security validation for billing and payments passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Billing and Payments Reporting and KPI Logic",
+        "description": "Implement the reporting layer for billing and payments, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for billing and payments return accurate results",
+          "Filters, grouping, and export-ready structures for billing and payments work correctly",
+          "Reporting queries for billing and payments perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Billing and Payments Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for billing and payments. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for billing and payments are covered by automated tests",
+          "Permission checks and validation rules for billing and payments are verified",
+          "Regression coverage exists for the most critical billing and payments scenarios"
+        ]
+      }
     ],
     "FR-08": [
-      {"title": "Build Reminder Service", "description": "Create scheduled job that sends appointment reminders at 24h and 1h before. Send via email and SMS using notification service. Include appointment details, doctor name, and location map link.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
-      {"title": "Write Reminder Tests", "description": "Test 24-hour reminder is scheduled correctly. Test 1-hour reminder is scheduled. Test cancelled appointments don't trigger reminders. Test reminder content includes all details.", "priority": "medium", "type": "testing", "related_requirement": "FR-08"}
+      {
+        "title": "Plan Appointment Reminders Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for appointment reminders and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Send reminder 24 hours before appointment; Send reminder 1 hour before appointment; Reminders via email and SMS.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for appointment reminders is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for appointment reminders are explicitly defined",
+          "Implementation subtasks for appointment reminders can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Appointment Reminders Backend Services",
+        "description": "Build the backend services for appointment reminders on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Send reminder 24 hours before appointment; Send reminder 1 hour before appointment; Reminders via email and SMS.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core appointment reminders business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for appointment reminders",
+          "API/service behavior for appointment reminders is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Appointment Reminders Frontend Flow",
+        "description": "Build the frontend flow for appointment reminders with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The appointment reminders user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for appointment reminders behave correctly",
+          "The appointment reminders UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Appointment Reminders",
+        "description": "Implement the external integration points used by appointment reminders, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "External dependencies used by appointment reminders are connected through stable integration layers",
+          "Timeout, retry, and failure handling for appointment reminders integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for appointment reminders are handled securely"
+        ]
+      },
+      {
+        "title": "Implement Appointment Reminders Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for appointment reminders. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Notification triggers for appointment reminders fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for appointment reminders are configurable and testable",
+          "Notification failures for appointment reminders are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Appointment Reminders Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for appointment reminders. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for appointment reminders are covered by automated tests",
+          "Permission checks and validation rules for appointment reminders are verified",
+          "Regression coverage exists for the most critical appointment reminders scenarios"
+        ]
+      }
     ],
     "FR-09": [
-      {"title": "Build Insurance API", "description": "Create POST /api/patients/:id/insurance (add/update provider details), GET /api/insurance/verify (check eligibility with provider API), GET /api/insurance/coverage (display plan details and copay).", "priority": "medium", "type": "backend", "related_requirement": "FR-09"},
-      {"title": "Build Insurance Management Screen", "description": "Create insurance section in profile with provider selection dropdown, policy number input, verification status indicator, and coverage details display showing copay and deductible.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"}
+      {
+        "title": "Plan Insurance Verification Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for insurance verification and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Patients can add insurance provider details; System verifies insurance eligibility; Display coverage and copay information.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for insurance verification is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for insurance verification are explicitly defined",
+          "Implementation subtasks for insurance verification can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Insurance Verification Backend Services",
+        "description": "Build the backend services for insurance verification on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Patients can add insurance provider details; System verifies insurance eligibility; Display coverage and copay information.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core insurance verification business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for insurance verification",
+          "API/service behavior for insurance verification is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Insurance Verification Frontend Flow",
+        "description": "Build the frontend flow for insurance verification with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The insurance verification user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for insurance verification behave correctly",
+          "The insurance verification UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Insurance Verification Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for insurance verification. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for insurance verification are covered by automated tests",
+          "Permission checks and validation rules for insurance verification are verified",
+          "Regression coverage exists for the most critical insurance verification scenarios"
+        ]
+      }
     ],
     "FR-10": [
-      {"title": "Build Emergency Contacts API", "description": "Create CRUD endpoints for emergency contacts: POST, GET, PATCH, DELETE /api/patients/:id/emergency-contacts. Support multiple contacts. Authorized staff access endpoint.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
-      {"title": "Build Emergency Contacts Screen", "description": "Create emergency contacts section with contact cards showing name, phone, relationship. Add/edit form. Delete with confirmation. Maximum 5 contacts.", "priority": "low", "type": "frontend", "related_requirement": "FR-10"}
+      {
+        "title": "Plan Emergency Contact Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for emergency contact management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Add emergency contacts with name, phone, and relationship; Multiple emergency contacts allowed; Contacts accessible by medical staff in emergencies.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for emergency contact management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for emergency contact management are explicitly defined",
+          "Implementation subtasks for emergency contact management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Emergency Contact Management Backend Services",
+        "description": "Build the backend services for emergency contact management on Angular, Spring Boot, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Add emergency contacts with name, phone, and relationship; Multiple emergency contacts allowed; Contacts accessible by medical staff in emergencies.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core emergency contact management business rules are implemented for Healthcare Patient Portal",
+          "Validation, authorization, and error handling are covered for emergency contact management",
+          "API/service behavior for emergency contact management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Emergency Contact Management Frontend Flow",
+        "description": "Build the frontend flow for emergency contact management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The emergency contact management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for emergency contact management behave correctly",
+          "The emergency contact management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Emergency Contact Management Persistence Model",
+        "description": "Design the persistence layer for emergency contact management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for emergency contact management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for emergency contact management are defined correctly",
+          "Migrations for emergency contact management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Emergency Contact Management Security and Access Rules",
+        "description": "Apply security controls to emergency contact management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Access control rules for emergency contact management are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in emergency contact management are audited and protected against misuse",
+          "Security validation for emergency contact management passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Emergency Contact Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for emergency contact management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for emergency contact management are covered by automated tests",
+          "Permission checks and validation rules for emergency contact management are verified",
+          "Regression coverage exists for the most critical emergency contact management scenarios"
+        ]
+      }
     ]
   }
 }

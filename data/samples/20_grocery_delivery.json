@@ -1,30 +1,713 @@
 {
   "input": {
     "title": "Grocery Delivery Application",
-    "technologies": ["React Native", "Node.js", "MongoDB", "Redis"],
+    "technologies": [
+      "React Native",
+      "Node.js",
+      "MongoDB",
+      "Redis"
+    ],
     "functional_requirements": {
-      "FR-01": {"title": "User Registration", "requirements": ["Register with phone number or email", "Set delivery address with map pin", "Save multiple delivery addresses", "Referral code support"], "acceptance_criteria": ["Account created successfully", "Address saved with coordinates", "Multiple addresses manageable", "Referral credit applied"]},
-      "FR-02": {"title": "Store Browsing", "requirements": ["Display nearby grocery stores based on location", "Store details with hours, delivery time, and minimum order", "Store categories and featured stores", "Search stores by name"], "acceptance_criteria": ["Nearby stores shown based on GPS", "Details accurate and complete", "Categories filter correctly", "Search returns matching stores"]},
-      "FR-03": {"title": "Product Catalog", "requirements": ["Browse products by category and subcategory", "Product search with autocomplete", "Product details with nutritional info and alternatives", "Special offers and discounts highlights"], "acceptance_criteria": ["Categories display correct products", "Search returns relevant results", "Product info is complete", "Offers show discounted prices"]},
-      "FR-04": {"title": "Smart Shopping Lists", "requirements": ["Create and save shopping lists", "Add items from browsing or manually", "Recurring lists for weekly shopping", "Share lists with family members"], "acceptance_criteria": ["List created and saved", "Items added from catalog or text", "Recurring list auto-populates cart", "Shared list accessible by recipients"]},
-      "FR-05": {"title": "Shopping Cart", "requirements": ["Add items with quantity selection", "Weight-based items with estimated pricing", "Substitution preferences per item", "Cart total with delivery fee and taxes"], "acceptance_criteria": ["Items added with correct quantities", "Weight estimates show range pricing", "Substitution choices saved", "Total calculates correctly"]},
-      "FR-06": {"title": "Checkout and Delivery Scheduling", "requirements": ["Select delivery time slot", "Express delivery option (1-2 hours)", "Scheduled delivery for specific date/time", "Delivery instructions for driver"], "acceptance_criteria": ["Time slots show availability", "Express delivery has premium pricing", "Scheduled delivery confirmed for date", "Instructions visible to driver"]},
-      "FR-07": {"title": "Order Tracking", "requirements": ["Real-time order status updates", "Live shopper tracking in store", "Item substitution notifications", "Delivery driver tracking on map"], "acceptance_criteria": ["Status updates immediately", "Shopper location shows in store", "Substitution prompt sent to customer", "Driver position on map updates"]},
-      "FR-08": {"title": "Payment", "requirements": ["Credit/debit card payment", "Digital wallet support", "Tip for shopper and driver", "Split payment option"], "acceptance_criteria": ["Card payment processes", "Wallet deducts correctly", "Tips distributed to correct parties", "Split divides payment"]},
-      "FR-09": {"title": "Shopper App", "requirements": ["View assigned orders with item lists", "Scan items while shopping", "Communicate substitutions to customer", "Mark order as ready for delivery"], "acceptance_criteria": ["Order list shows all items", "Scan matches correct products", "Substitution message reaches customer", "Ready status triggers driver assignment"]},
-      "FR-10": {"title": "Rating and Tips", "requirements": ["Rate shopper and driver separately", "Tip adjustment after delivery", "Report issues with order", "Refund request for missing or damaged items"], "acceptance_criteria": ["Ratings submitted independently", "Tip amount adjustable post-delivery", "Issue report submitted", "Refund processed for valid claims"]}
+      "FR-01": {
+        "title": "User Registration",
+        "requirements": [
+          "Register with phone number or email",
+          "Set delivery address with map pin",
+          "Save multiple delivery addresses",
+          "Referral code support"
+        ]
+      },
+      "FR-02": {
+        "title": "Store Browsing",
+        "requirements": [
+          "Display nearby grocery stores based on location",
+          "Store details with hours, delivery time, and minimum order",
+          "Store categories and featured stores",
+          "Search stores by name"
+        ]
+      },
+      "FR-03": {
+        "title": "Product Catalog",
+        "requirements": [
+          "Browse products by category and subcategory",
+          "Product search with autocomplete",
+          "Product details with nutritional info and alternatives",
+          "Special offers and discounts highlights"
+        ]
+      },
+      "FR-04": {
+        "title": "Smart Shopping Lists",
+        "requirements": [
+          "Create and save shopping lists",
+          "Add items from browsing or manually",
+          "Recurring lists for weekly shopping",
+          "Share lists with family members"
+        ]
+      },
+      "FR-05": {
+        "title": "Shopping Cart",
+        "requirements": [
+          "Add items with quantity selection",
+          "Weight-based items with estimated pricing",
+          "Substitution preferences per item",
+          "Cart total with delivery fee and taxes"
+        ]
+      },
+      "FR-06": {
+        "title": "Checkout and Delivery Scheduling",
+        "requirements": [
+          "Select delivery time slot",
+          "Express delivery option (1-2 hours)",
+          "Scheduled delivery for specific date/time",
+          "Delivery instructions for driver"
+        ]
+      },
+      "FR-07": {
+        "title": "Order Tracking",
+        "requirements": [
+          "Real-time order status updates",
+          "Live shopper tracking in store",
+          "Item substitution notifications",
+          "Delivery driver tracking on map"
+        ]
+      },
+      "FR-08": {
+        "title": "Payment",
+        "requirements": [
+          "Credit/debit card payment",
+          "Digital wallet support",
+          "Tip for shopper and driver",
+          "Split payment option"
+        ]
+      },
+      "FR-09": {
+        "title": "Shopper App",
+        "requirements": [
+          "View assigned orders with item lists",
+          "Scan items while shopping",
+          "Communicate substitutions to customer",
+          "Mark order as ready for delivery"
+        ]
+      },
+      "FR-10": {
+        "title": "Rating and Tips",
+        "requirements": [
+          "Rate shopper and driver separately",
+          "Tip adjustment after delivery",
+          "Report issues with order",
+          "Refund request for missing or damaged items"
+        ]
+      }
     }
   },
   "output": {
-    "FR-01": [{"title": "Build User Registration API", "description": "Create POST /api/auth/register (phone/email). Address CRUD with geocoding. Multiple address support with default. Referral code validation and credit system.", "priority": "high", "type": "backend", "related_requirement": "FR-01"}, {"title": "Build Registration Screens", "description": "Create sign-up, address setup with map pin picker, address book management, and referral code input during registration.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"}],
-    "FR-02": [{"title": "Build Store Listing API", "description": "Create GET /api/stores (nearby by lat/lng, radius). Store details with hours, delivery_time_estimate, min_order. Categories. Search by name.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}, {"title": "Build Store Browse Screen", "description": "Create store list with cards (logo, name, delivery time, min order), category tabs, featured carousel, and search bar.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}],
-    "FR-03": [{"title": "Build Product Catalog API", "description": "Create GET /api/stores/:id/products (by category, search, offers). Product detail with nutrition data and alternatives. Special offer pricing with badge.", "priority": "high", "type": "backend", "related_requirement": "FR-03"}, {"title": "Build Product Browse UI", "description": "Create category sidebar, product grid with images/prices/add-to-cart, search with autocomplete, product detail modal with nutrition info, and offers section with discount badges.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}],
-    "FR-04": [{"title": "Build Shopping List API", "description": "Create CRUD for lists. POST /api/lists/:id/items (from catalog or text). Recurring list scheduler. POST /api/lists/:id/share (generate invite link).", "priority": "medium", "type": "backend", "related_requirement": "FR-04"}, {"title": "Build Shopping List UI", "description": "Create list manager with add items (catalog search or manual input), checkbox per item, recurring toggle with frequency, and share button with link.", "priority": "medium", "type": "frontend", "related_requirement": "FR-04"}],
-    "FR-05": [{"title": "Build Cart API", "description": "Create cart CRUD with quantity, weight-based pricing estimation, substitution preferences per item (allow/specific/deny). Calculate total with delivery fee and applicable taxes.", "priority": "high", "type": "backend", "related_requirement": "FR-05"}, {"title": "Build Cart Screen", "description": "Create cart with item list, quantity adjusters, weight estimate display, substitution preference selectors, and order summary with fees breakdown.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}],
-    "FR-06": [{"title": "Build Delivery Scheduling API", "description": "Create GET /api/delivery/slots (available windows). POST /api/orders (with slot selection). Express delivery surcharge. Delivery instructions field.", "priority": "high", "type": "backend", "related_requirement": "FR-06"}, {"title": "Build Checkout Flow", "description": "Create checkout with delivery address confirmation, time slot grid (express highlighted), delivery instructions textarea, and order review with place order button.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}],
-    "FR-07": [{"title": "Build Order Tracking API", "description": "Create WebSocket for live status updates. Shopper in-store tracking. POST /api/orders/:id/substitution (propose to customer). Driver GPS tracking broadcast.", "priority": "high", "type": "backend", "related_requirement": "FR-07"}, {"title": "Build Tracking Screen", "description": "Create order tracking with status timeline, shopper progress bar, substitution approval popup, and delivery map with driver position.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}],
-    "FR-08": [{"title": "Build Payment API", "description": "Create POST /api/payments/process (card/wallet). Tip distribution to shopper and driver. Split payment support. Final charge adjusted for substitutions.", "priority": "high", "type": "backend", "related_requirement": "FR-08"}, {"title": "Build Payment UI", "description": "Create payment method selector, tip preset buttons for shopper and driver, split payment between users form, and receipt with final adjusted total.", "priority": "high", "type": "frontend", "related_requirement": "FR-08"}],
-    "FR-09": [{"title": "Build Shopper App API", "description": "Create GET /api/shopper/orders (assigned). POST /api/shopper/orders/:id/scan (barcode validation). POST /api/shopper/orders/:id/substitute (notify customer). POST /api/shopper/orders/:id/ready.", "priority": "high", "type": "backend", "related_requirement": "FR-09"}, {"title": "Build Shopper App Screens", "description": "Create shopper order view with item checklist, barcode scanner for verification, substitution suggestion flow with customer chat, and ready-for-delivery button.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}],
-    "FR-10": [{"title": "Build Rating and Issues API", "description": "Create POST /api/orders/:id/rate (shopper_rating, driver_rating). PATCH /api/orders/:id/tip (adjust). POST /api/orders/:id/issue (report problem). POST /api/orders/:id/refund.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"}, {"title": "Build Post-Delivery UI", "description": "Create post-delivery screen with separate star ratings for shopper and driver, tip adjustment, issue report form with photo upload, and refund request for specific items.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}]
+    "FR-01": [
+      {
+        "title": "Plan User Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for user registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with phone number or email; Set delivery address with map pin; Save multiple delivery addresses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for user registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for user registration are explicitly defined",
+          "Implementation subtasks for user registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement User Registration Backend Services",
+        "description": "Build the backend services for user registration on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with phone number or email; Set delivery address with map pin; Save multiple delivery addresses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core user registration business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for user registration",
+          "API/service behavior for user registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement User Registration Frontend Flow",
+        "description": "Build the frontend flow for user registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The user registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for user registration behave correctly",
+          "The user registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for User Registration",
+        "description": "Implement the external integration points used by user registration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by user registration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for user registration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for user registration are handled securely"
+        ]
+      },
+      {
+        "title": "Write User Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for user registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for user registration are covered by automated tests",
+          "Permission checks and validation rules for user registration are verified",
+          "Regression coverage exists for the most critical user registration scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Store Browsing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for store browsing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Display nearby grocery stores based on location; Store details with hours, delivery time, and minimum order; Store categories and featured stores.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for store browsing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for store browsing are explicitly defined",
+          "Implementation subtasks for store browsing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Store Browsing Backend Services",
+        "description": "Build the backend services for store browsing on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Display nearby grocery stores based on location; Store details with hours, delivery time, and minimum order; Store categories and featured stores.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core store browsing business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for store browsing",
+          "API/service behavior for store browsing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Store Browsing Frontend Flow",
+        "description": "Build the frontend flow for store browsing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The store browsing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for store browsing behave correctly",
+          "The store browsing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Store Browsing Persistence Model",
+        "description": "Design the persistence layer for store browsing. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The persistence model for store browsing supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for store browsing are defined correctly",
+          "Migrations for store browsing can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Store Browsing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for store browsing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for store browsing are covered by automated tests",
+          "Permission checks and validation rules for store browsing are verified",
+          "Regression coverage exists for the most critical store browsing scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Product Catalog Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for product catalog and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Browse products by category and subcategory; Product search with autocomplete; Product details with nutritional info and alternatives.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for product catalog is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for product catalog are explicitly defined",
+          "Implementation subtasks for product catalog can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Product Catalog Backend Services",
+        "description": "Build the backend services for product catalog on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Browse products by category and subcategory; Product search with autocomplete; Product details with nutritional info and alternatives.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core product catalog business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for product catalog",
+          "API/service behavior for product catalog is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Product Catalog Frontend Flow",
+        "description": "Build the frontend flow for product catalog with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The product catalog user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for product catalog behave correctly",
+          "The product catalog UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Product Catalog Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for product catalog. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for product catalog are covered by automated tests",
+          "Permission checks and validation rules for product catalog are verified",
+          "Regression coverage exists for the most critical product catalog scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Smart Shopping Lists Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for smart shopping lists and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Create and save shopping lists; Add items from browsing or manually; Recurring lists for weekly shopping.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for smart shopping lists is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for smart shopping lists are explicitly defined",
+          "Implementation subtasks for smart shopping lists can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Smart Shopping Lists Backend Services",
+        "description": "Build the backend services for smart shopping lists on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Create and save shopping lists; Add items from browsing or manually; Recurring lists for weekly shopping.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core smart shopping lists business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for smart shopping lists",
+          "API/service behavior for smart shopping lists is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Smart Shopping Lists Frontend Flow",
+        "description": "Build the frontend flow for smart shopping lists with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The smart shopping lists user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for smart shopping lists behave correctly",
+          "The smart shopping lists UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Smart Shopping Lists Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for smart shopping lists. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for smart shopping lists are covered by automated tests",
+          "Permission checks and validation rules for smart shopping lists are verified",
+          "Regression coverage exists for the most critical smart shopping lists scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Shopping Cart Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for shopping cart and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Add items with quantity selection; Weight-based items with estimated pricing; Substitution preferences per item.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for shopping cart is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for shopping cart are explicitly defined",
+          "Implementation subtasks for shopping cart can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Shopping Cart Backend Services",
+        "description": "Build the backend services for shopping cart on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Add items with quantity selection; Weight-based items with estimated pricing; Substitution preferences per item.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core shopping cart business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for shopping cart",
+          "API/service behavior for shopping cart is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Shopping Cart Frontend Flow",
+        "description": "Build the frontend flow for shopping cart with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The shopping cart user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for shopping cart behave correctly",
+          "The shopping cart UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Shopping Cart Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for shopping cart. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for shopping cart are covered by automated tests",
+          "Permission checks and validation rules for shopping cart are verified",
+          "Regression coverage exists for the most critical shopping cart scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Checkout and Delivery Scheduling Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for checkout and delivery scheduling and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Select delivery time slot; Express delivery option (1-2 hours); Scheduled delivery for specific date/time.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for checkout and delivery scheduling is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for checkout and delivery scheduling are explicitly defined",
+          "Implementation subtasks for checkout and delivery scheduling can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Checkout and Delivery Scheduling Backend Services",
+        "description": "Build the backend services for checkout and delivery scheduling on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Select delivery time slot; Express delivery option (1-2 hours); Scheduled delivery for specific date/time.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core checkout and delivery scheduling business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for checkout and delivery scheduling",
+          "API/service behavior for checkout and delivery scheduling is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Checkout and Delivery Scheduling Frontend Flow",
+        "description": "Build the frontend flow for checkout and delivery scheduling with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The checkout and delivery scheduling user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for checkout and delivery scheduling behave correctly",
+          "The checkout and delivery scheduling UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Checkout and Delivery Scheduling Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for checkout and delivery scheduling. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for checkout and delivery scheduling are covered by automated tests",
+          "Permission checks and validation rules for checkout and delivery scheduling are verified",
+          "Regression coverage exists for the most critical checkout and delivery scheduling scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Order Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for order tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Real-time order status updates; Live shopper tracking in store; Item substitution notifications.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for order tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for order tracking are explicitly defined",
+          "Implementation subtasks for order tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Order Tracking Backend Services",
+        "description": "Build the backend services for order tracking on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Real-time order status updates; Live shopper tracking in store; Item substitution notifications.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core order tracking business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for order tracking",
+          "API/service behavior for order tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Order Tracking Frontend Flow",
+        "description": "Build the frontend flow for order tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The order tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for order tracking behave correctly",
+          "The order tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Order Tracking Persistence Model",
+        "description": "Design the persistence layer for order tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for order tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for order tracking are defined correctly",
+          "Migrations for order tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Order Tracking Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for order tracking. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Notification triggers for order tracking fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for order tracking are configurable and testable",
+          "Notification failures for order tracking are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Order Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for order tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for order tracking are covered by automated tests",
+          "Permission checks and validation rules for order tracking are verified",
+          "Regression coverage exists for the most critical order tracking scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Payment Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for payment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Credit/debit card payment; Digital wallet support; Tip for shopper and driver.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for payment is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for payment are explicitly defined",
+          "Implementation subtasks for payment can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Payment Backend Services",
+        "description": "Build the backend services for payment on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Credit/debit card payment; Digital wallet support; Tip for shopper and driver.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core payment business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for payment",
+          "API/service behavior for payment is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Payment Frontend Flow",
+        "description": "Build the frontend flow for payment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The payment user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for payment behave correctly",
+          "The payment UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Payment",
+        "description": "Implement the external integration points used by payment, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "External dependencies used by payment are connected through stable integration layers",
+          "Timeout, retry, and failure handling for payment integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for payment are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Payment Security and Access Rules",
+        "description": "Apply security controls to payment. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Access control rules for payment are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in payment are audited and protected against misuse",
+          "Security validation for payment passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Payment Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for payment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for payment are covered by automated tests",
+          "Permission checks and validation rules for payment are verified",
+          "Regression coverage exists for the most critical payment scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Shopper App Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for shopper app and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View assigned orders with item lists; Scan items while shopping; Communicate substitutions to customer.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for shopper app is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for shopper app are explicitly defined",
+          "Implementation subtasks for shopper app can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Shopper App Backend Services",
+        "description": "Build the backend services for shopper app on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View assigned orders with item lists; Scan items while shopping; Communicate substitutions to customer.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core shopper app business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for shopper app",
+          "API/service behavior for shopper app is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Shopper App Frontend Flow",
+        "description": "Build the frontend flow for shopper app with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The shopper app user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for shopper app behave correctly",
+          "The shopper app UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Shopper App Persistence Model",
+        "description": "Design the persistence layer for shopper app. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The persistence model for shopper app supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for shopper app are defined correctly",
+          "Migrations for shopper app can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Shopper App Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for shopper app. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for shopper app are covered by automated tests",
+          "Permission checks and validation rules for shopper app are verified",
+          "Regression coverage exists for the most critical shopper app scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Rating and Tips Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for rating and tips and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Rate shopper and driver separately; Tip adjustment after delivery; Report issues with order.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for rating and tips is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for rating and tips are explicitly defined",
+          "Implementation subtasks for rating and tips can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Rating and Tips Backend Services",
+        "description": "Build the backend services for rating and tips on React Native, Node.js, MongoDB, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Rate shopper and driver separately; Tip adjustment after delivery; Report issues with order.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core rating and tips business rules are implemented for Grocery Delivery Application",
+          "Validation, authorization, and error handling are covered for rating and tips",
+          "API/service behavior for rating and tips is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Rating and Tips Frontend Flow",
+        "description": "Build the frontend flow for rating and tips with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The rating and tips user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for rating and tips behave correctly",
+          "The rating and tips UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Rating and Tips Persistence Model",
+        "description": "Design the persistence layer for rating and tips. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for rating and tips supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for rating and tips are defined correctly",
+          "Migrations for rating and tips can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Rating and Tips Reporting and KPI Logic",
+        "description": "Implement the reporting layer for rating and tips, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for rating and tips return accurate results",
+          "Filters, grouping, and export-ready structures for rating and tips work correctly",
+          "Reporting queries for rating and tips perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Rating and Tips Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for rating and tips. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for rating and tips are covered by automated tests",
+          "Permission checks and validation rules for rating and tips are verified",
+          "Regression coverage exists for the most critical rating and tips scenarios"
+        ]
+      }
+    ]
   }
 }

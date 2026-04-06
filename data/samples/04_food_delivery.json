@@ -1,119 +1,891 @@
 {
   "input": {
     "title": "Food Delivery Application",
-    "technologies": ["Flutter", "Node.js", "PostgreSQL", "Redis"],
+    "technologies": [
+      "Flutter",
+      "Node.js",
+      "PostgreSQL",
+      "Redis"
+    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Customer Registration and Login",
-        "requirements": ["Register with phone number and OTP verification", "Login via phone OTP or email/password", "Social login with Google", "Profile with name, email, and saved addresses"],
-        "acceptance_criteria": ["OTP is received within 30 seconds", "Login grants access to app features", "Social login creates account automatically", "Profile data is saved correctly"]
+        "requirements": [
+          "Register with phone number and OTP verification",
+          "Login via phone OTP or email/password",
+          "Social login with Google",
+          "Profile with name, email, and saved addresses"
+        ]
       },
       "FR-02": {
         "title": "Restaurant Browsing",
-        "requirements": ["Display nearby restaurants based on user location", "Filter by cuisine, rating, delivery time, and price range", "Sort by distance, rating, or popularity", "Show restaurant details: menu, rating, delivery time, minimum order"],
-        "acceptance_criteria": ["Nearby restaurants load based on GPS location", "Filters narrow down restaurant list correctly", "Sort order updates immediately", "Restaurant details are accurate and complete"]
+        "requirements": [
+          "Display nearby restaurants based on user location",
+          "Filter by cuisine, rating, delivery time, and price range",
+          "Sort by distance, rating, or popularity",
+          "Show restaurant details: menu, rating, delivery time, minimum order"
+        ]
       },
       "FR-03": {
         "title": "Menu and Item Selection",
-        "requirements": ["Display restaurant menu with categories", "Each item shows name, description, price, and image", "Items can have customization options (size, toppings)", "Add items to cart with quantity selection"],
-        "acceptance_criteria": ["Menu loads with correct categories and items", "Item details display accurately", "Customizations are reflected in price", "Cart updates with selected items and quantities"]
+        "requirements": [
+          "Display restaurant menu with categories",
+          "Each item shows name, description, price, and image",
+          "Items can have customization options (size, toppings)",
+          "Add items to cart with quantity selection"
+        ]
       },
       "FR-04": {
         "title": "Shopping Cart and Checkout",
-        "requirements": ["Cart shows selected items with quantities and prices", "Users can modify quantities or remove items", "Apply promo codes for discounts", "Select delivery address and payment method"],
-        "acceptance_criteria": ["Cart displays accurate items and total", "Quantity changes update total immediately", "Valid promo code deducts discount", "Order can be placed with address and payment"]
+        "requirements": [
+          "Cart shows selected items with quantities and prices",
+          "Users can modify quantities or remove items",
+          "Apply promo codes for discounts",
+          "Select delivery address and payment method"
+        ]
       },
       "FR-05": {
         "title": "Real-time Order Tracking",
-        "requirements": ["Live map showing delivery driver location", "Order status updates: confirmed, preparing, picked up, delivered", "Estimated delivery time with real-time updates", "Push notifications for status changes"],
-        "acceptance_criteria": ["Map shows driver position updating live", "Status changes reflect immediately in UI", "ETA adjusts based on driver location", "Notifications arrive for each status change"]
+        "requirements": [
+          "Live map showing delivery driver location",
+          "Order status updates: confirmed, preparing, picked up, delivered",
+          "Estimated delivery time with real-time updates",
+          "Push notifications for status changes"
+        ]
       },
       "FR-06": {
         "title": "Payment Processing",
-        "requirements": ["Support credit/debit card payments", "Cash on delivery option", "Digital wallet integration", "Payment receipt generated for each order"],
-        "acceptance_criteria": ["Card payment processes successfully", "COD orders are created without payment", "Wallet balance deducts correctly", "Receipt is available in order history"]
+        "requirements": [
+          "Support credit/debit card payments",
+          "Cash on delivery option",
+          "Digital wallet integration",
+          "Payment receipt generated for each order"
+        ]
       },
       "FR-07": {
         "title": "Rating and Review",
-        "requirements": ["Rate restaurant with 1-5 stars after delivery", "Rate delivery driver separately", "Write optional text review", "View restaurant ratings before ordering"],
-        "acceptance_criteria": ["Rating is submitted after delivery", "Driver rating is separate from restaurant", "Review is displayed on restaurant page", "Average rating updates correctly"]
+        "requirements": [
+          "Rate restaurant with 1-5 stars after delivery",
+          "Rate delivery driver separately",
+          "Write optional text review",
+          "View restaurant ratings before ordering"
+        ]
       },
       "FR-08": {
         "title": "Restaurant Owner Dashboard",
-        "requirements": ["Restaurant owners can manage menu items", "View and accept/reject incoming orders", "Update restaurant hours and availability", "View sales analytics and revenue reports"],
-        "acceptance_criteria": ["Menu changes reflect in customer app", "Orders can be accepted or rejected with reason", "Availability status prevents new orders when closed", "Analytics show accurate revenue and order data"]
+        "requirements": [
+          "Restaurant owners can manage menu items",
+          "View and accept/reject incoming orders",
+          "Update restaurant hours and availability",
+          "View sales analytics and revenue reports"
+        ]
       },
       "FR-09": {
         "title": "Delivery Driver App",
-        "requirements": ["Driver receives order assignment notifications", "Navigation to restaurant and customer address", "Driver can mark order as picked up and delivered", "Earnings tracking and daily summary"],
-        "acceptance_criteria": ["Driver receives push notification for new orders", "Navigation opens with correct addresses", "Status updates reflect in customer tracking", "Earnings display accurately with breakdown"]
+        "requirements": [
+          "Driver receives order assignment notifications",
+          "Navigation to restaurant and customer address",
+          "Driver can mark order as picked up and delivered",
+          "Earnings tracking and daily summary"
+        ]
       },
       "FR-10": {
         "title": "Order History",
-        "requirements": ["View past orders with details and status", "Reorder from previous orders with one tap", "Download invoice for each order", "Filter orders by date range"],
-        "acceptance_criteria": ["Order history shows all past orders", "Reorder adds same items to cart", "Invoice downloads as PDF", "Date filter returns correct orders"]
+        "requirements": [
+          "View past orders with details and status",
+          "Reorder from previous orders with one tap",
+          "Download invoice for each order",
+          "Filter orders by date range"
+        ]
       },
       "FR-11": {
         "title": "Favorites and Saved Restaurants",
-        "requirements": ["Users can save favorite restaurants", "Quick access to frequently ordered items", "Favorites list accessible from profile", "Suggested restaurants based on order history"],
-        "acceptance_criteria": ["Restaurant is saved to favorites", "Frequent items appear in quick order section", "Favorites list loads correctly", "Suggestions are relevant to user preferences"]
+        "requirements": [
+          "Users can save favorite restaurants",
+          "Quick access to frequently ordered items",
+          "Favorites list accessible from profile",
+          "Suggested restaurants based on order history"
+        ]
       },
       "FR-12": {
         "title": "Customer Support Chat",
-        "requirements": ["In-app chat for order issues", "Chat with customer support agent", "Attach images of incorrect orders", "Chat history saved for reference"],
-        "acceptance_criteria": ["Chat opens for active order issues", "Messages are delivered in real-time", "Image attachments upload correctly", "Chat history persists across sessions"]
+        "requirements": [
+          "In-app chat for order issues",
+          "Chat with customer support agent",
+          "Attach images of incorrect orders",
+          "Chat history saved for reference"
+        ]
       }
     }
   },
   "output": {
     "FR-01": [
-      {"title": "Build OTP Authentication API", "description": "Create POST /api/auth/send-otp (phone number), POST /api/auth/verify-otp (phone, code). Generate 6-digit OTP with 5-minute expiry. Send via SMS gateway. Create/login user on verification. Return JWT.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
-      {"title": "Build Auth Screens", "description": "Create phone number input screen with country code selector. OTP input screen with 6 digit fields and auto-submit. Profile setup screen for new users. Social login buttons.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"}
+      {
+        "title": "Plan Customer Registration and Login Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for customer registration and login and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with phone number and OTP verification; Login via phone OTP or email/password; Social login with Google.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for customer registration and login is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for customer registration and login are explicitly defined",
+          "Implementation subtasks for customer registration and login can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Customer Registration and Login Backend Services",
+        "description": "Build the backend services for customer registration and login on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with phone number and OTP verification; Login via phone OTP or email/password; Social login with Google.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core customer registration and login business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for customer registration and login",
+          "API/service behavior for customer registration and login is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Customer Registration and Login Frontend Flow",
+        "description": "Build the frontend flow for customer registration and login with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The customer registration and login user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for customer registration and login behave correctly",
+          "The customer registration and login UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Customer Registration and Login Persistence Model",
+        "description": "Design the persistence layer for customer registration and login. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The persistence model for customer registration and login supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for customer registration and login are defined correctly",
+          "Migrations for customer registration and login can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Customer Registration and Login",
+        "description": "Implement the external integration points used by customer registration and login, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by customer registration and login are connected through stable integration layers",
+          "Timeout, retry, and failure handling for customer registration and login integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for customer registration and login are handled securely"
+        ]
+      },
+      {
+        "title": "Write Customer Registration and Login Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for customer registration and login. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for customer registration and login are covered by automated tests",
+          "Permission checks and validation rules for customer registration and login are verified",
+          "Regression coverage exists for the most critical customer registration and login scenarios"
+        ]
+      }
     ],
     "FR-02": [
-      {"title": "Build Restaurant Listing API", "description": "Create GET /api/restaurants with lat/lng params. Calculate distance, filter by cuisine/rating/delivery_time/price, sort by distance/rating/popularity. Return paginated results with restaurant details.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
-      {"title": "Build Restaurant Browse Screen", "description": "Create restaurant list with cards showing name, image, cuisine tags, rating stars, delivery time, and minimum order. Filter drawer and sort dropdown. Location permission request on first load.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
-      {"title": "Implement Geolocation Service", "description": "Create location service using device GPS. Calculate distances using Haversine formula. Cache user location. Geo-index restaurants for efficient proximity queries.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}
+      {
+        "title": "Plan Restaurant Browsing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for restaurant browsing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Display nearby restaurants based on user location; Filter by cuisine, rating, delivery time, and price range; Sort by distance, rating, or popularity.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for restaurant browsing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for restaurant browsing are explicitly defined",
+          "Implementation subtasks for restaurant browsing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Restaurant Browsing Backend Services",
+        "description": "Build the backend services for restaurant browsing on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Display nearby restaurants based on user location; Filter by cuisine, rating, delivery time, and price range; Sort by distance, rating, or popularity.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core restaurant browsing business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for restaurant browsing",
+          "API/service behavior for restaurant browsing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Restaurant Browsing Frontend Flow",
+        "description": "Build the frontend flow for restaurant browsing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The restaurant browsing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for restaurant browsing behave correctly",
+          "The restaurant browsing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Restaurant Browsing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for restaurant browsing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for restaurant browsing are covered by automated tests",
+          "Permission checks and validation rules for restaurant browsing are verified",
+          "Regression coverage exists for the most critical restaurant browsing scenarios"
+        ]
+      }
     ],
     "FR-03": [
-      {"title": "Build Menu API", "description": "Create GET /api/restaurants/:id/menu returning categories with items. Each item has name, description, price, image_url, customizations (array of option groups). Support item availability toggle.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
-      {"title": "Build Menu Screen", "description": "Create menu screen with category tabs, item list with images, and item detail modal with customization options (radio/checkbox groups). Add to cart button with quantity selector. Sticky cart summary at bottom.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+      {
+        "title": "Plan Menu and Item Selection Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for menu and item selection and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Display restaurant menu with categories; Each item shows name, description, price, and image; Items can have customization options (size, toppings).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for menu and item selection is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for menu and item selection are explicitly defined",
+          "Implementation subtasks for menu and item selection can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Menu and Item Selection Backend Services",
+        "description": "Build the backend services for menu and item selection on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Display restaurant menu with categories; Each item shows name, description, price, and image; Items can have customization options (size, toppings).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core menu and item selection business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for menu and item selection",
+          "API/service behavior for menu and item selection is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Menu and Item Selection Frontend Flow",
+        "description": "Build the frontend flow for menu and item selection with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The menu and item selection user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for menu and item selection behave correctly",
+          "The menu and item selection UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Menu and Item Selection Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for menu and item selection. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for menu and item selection are covered by automated tests",
+          "Permission checks and validation rules for menu and item selection are verified",
+          "Regression coverage exists for the most critical menu and item selection scenarios"
+        ]
+      }
     ],
     "FR-04": [
-      {"title": "Build Cart and Checkout API", "description": "Create cart endpoints: POST /api/cart/items, PATCH /api/cart/items/:id, DELETE /api/cart/items/:id. POST /api/orders (create order from cart). POST /api/promo/validate for promo codes.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
-      {"title": "Build Cart and Checkout Screens", "description": "Create cart screen with item list, quantities, promo code input, order summary. Checkout flow: select address (map picker), select payment method, review and place order.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+      {
+        "title": "Plan Shopping Cart and Checkout Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for shopping cart and checkout and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Cart shows selected items with quantities and prices; Users can modify quantities or remove items; Apply promo codes for discounts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for shopping cart and checkout is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for shopping cart and checkout are explicitly defined",
+          "Implementation subtasks for shopping cart and checkout can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Shopping Cart and Checkout Backend Services",
+        "description": "Build the backend services for shopping cart and checkout on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Cart shows selected items with quantities and prices; Users can modify quantities or remove items; Apply promo codes for discounts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core shopping cart and checkout business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for shopping cart and checkout",
+          "API/service behavior for shopping cart and checkout is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Shopping Cart and Checkout Frontend Flow",
+        "description": "Build the frontend flow for shopping cart and checkout with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The shopping cart and checkout user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for shopping cart and checkout behave correctly",
+          "The shopping cart and checkout UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Shopping Cart and Checkout Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for shopping cart and checkout. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for shopping cart and checkout are covered by automated tests",
+          "Permission checks and validation rules for shopping cart and checkout are verified",
+          "Regression coverage exists for the most critical shopping cart and checkout scenarios"
+        ]
+      }
     ],
     "FR-05": [
-      {"title": "Build Order Tracking API", "description": "Create WebSocket endpoint for live tracking. Broadcast driver location updates. Update order status through lifecycle. Send push notifications on status changes. Calculate and update ETA.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
-      {"title": "Build Tracking Screen", "description": "Create order tracking screen with live map (driver marker, route line), order status timeline with timestamps, ETA display, and driver info card with call button.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+      {
+        "title": "Plan Real-time Order Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for real-time order tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Live map showing delivery driver location; Order status updates: confirmed, preparing, picked up, delivered; Estimated delivery time with real-time updates.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for real-time order tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for real-time order tracking are explicitly defined",
+          "Implementation subtasks for real-time order tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Real-time Order Tracking Backend Services",
+        "description": "Build the backend services for real-time order tracking on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Live map showing delivery driver location; Order status updates: confirmed, preparing, picked up, delivered; Estimated delivery time with real-time updates.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core real-time order tracking business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for real-time order tracking",
+          "API/service behavior for real-time order tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Real-time Order Tracking Frontend Flow",
+        "description": "Build the frontend flow for real-time order tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The real-time order tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for real-time order tracking behave correctly",
+          "The real-time order tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Real-time Order Tracking Persistence Model",
+        "description": "Design the persistence layer for real-time order tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for real-time order tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for real-time order tracking are defined correctly",
+          "Migrations for real-time order tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Real-time Order Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for real-time order tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for real-time order tracking are covered by automated tests",
+          "Permission checks and validation rules for real-time order tracking are verified",
+          "Regression coverage exists for the most critical real-time order tracking scenarios"
+        ]
+      }
     ],
     "FR-06": [
-      {"title": "Build Payment Processing API", "description": "Create POST /api/payments/process. Support card payments (Stripe/gateway integration), COD flag, wallet deduction. Generate payment receipt. Handle payment failures with retry.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
-      {"title": "Build Payment Selection UI", "description": "Create payment method screen with saved cards, add new card form, COD option, and wallet balance display. Payment processing indicator with success/failure feedback.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}
+      {
+        "title": "Plan Payment Processing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for payment processing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Support credit/debit card payments; Cash on delivery option; Digital wallet integration.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for payment processing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for payment processing are explicitly defined",
+          "Implementation subtasks for payment processing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Payment Processing Backend Services",
+        "description": "Build the backend services for payment processing on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Support credit/debit card payments; Cash on delivery option; Digital wallet integration.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core payment processing business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for payment processing",
+          "API/service behavior for payment processing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Payment Processing Frontend Flow",
+        "description": "Build the frontend flow for payment processing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The payment processing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for payment processing behave correctly",
+          "The payment processing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Payment Processing",
+        "description": "Implement the external integration points used by payment processing, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "External dependencies used by payment processing are connected through stable integration layers",
+          "Timeout, retry, and failure handling for payment processing integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for payment processing are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Payment Processing Security and Access Rules",
+        "description": "Apply security controls to payment processing. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Access control rules for payment processing are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in payment processing are audited and protected against misuse",
+          "Security validation for payment processing passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Payment Processing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for payment processing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for payment processing are covered by automated tests",
+          "Permission checks and validation rules for payment processing are verified",
+          "Regression coverage exists for the most critical payment processing scenarios"
+        ]
+      }
     ],
     "FR-07": [
-      {"title": "Build Rating API", "description": "Create POST /api/orders/:id/rate with restaurant_rating, driver_rating, review_text. Verify order is delivered. Update average ratings. One review per order.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
-      {"title": "Build Rating Screen", "description": "Create post-delivery rating prompt with star selectors for restaurant and driver separately. Optional text review. Submit button. Show after delivery confirmation.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+      {
+        "title": "Plan Rating and Review Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for rating and review and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Rate restaurant with 1-5 stars after delivery; Rate delivery driver separately; Write optional text review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for rating and review is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for rating and review are explicitly defined",
+          "Implementation subtasks for rating and review can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Rating and Review Backend Services",
+        "description": "Build the backend services for rating and review on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Rate restaurant with 1-5 stars after delivery; Rate delivery driver separately; Write optional text review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core rating and review business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for rating and review",
+          "API/service behavior for rating and review is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Rating and Review Frontend Flow",
+        "description": "Build the frontend flow for rating and review with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The rating and review user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for rating and review behave correctly",
+          "The rating and review UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Rating and Review Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for rating and review. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for rating and review are covered by automated tests",
+          "Permission checks and validation rules for rating and review are verified",
+          "Regression coverage exists for the most critical rating and review scenarios"
+        ]
+      }
     ],
     "FR-08": [
-      {"title": "Build Restaurant Owner API", "description": "Create owner endpoints: CRUD for menu items, GET /api/owner/orders (incoming), PATCH /api/owner/orders/:id (accept/reject), PATCH /api/owner/restaurant (hours/availability), GET /api/owner/analytics.", "priority": "high", "type": "backend", "related_requirement": "FR-08"},
-      {"title": "Build Restaurant Owner Dashboard", "description": "Create owner web dashboard with incoming orders panel (accept/reject buttons), menu manager, operating hours editor, and analytics charts (daily orders, revenue, popular items).", "priority": "high", "type": "frontend", "related_requirement": "FR-08"}
+      {
+        "title": "Plan Restaurant Owner Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for restaurant owner dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Restaurant owners can manage menu items; View and accept/reject incoming orders; Update restaurant hours and availability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for restaurant owner dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for restaurant owner dashboard are explicitly defined",
+          "Implementation subtasks for restaurant owner dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Restaurant Owner Dashboard Backend Services",
+        "description": "Build the backend services for restaurant owner dashboard on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Restaurant owners can manage menu items; View and accept/reject incoming orders; Update restaurant hours and availability.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core restaurant owner dashboard business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for restaurant owner dashboard",
+          "API/service behavior for restaurant owner dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Restaurant Owner Dashboard Frontend Flow",
+        "description": "Build the frontend flow for restaurant owner dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The restaurant owner dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for restaurant owner dashboard behave correctly",
+          "The restaurant owner dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Restaurant Owner Dashboard Persistence Model",
+        "description": "Design the persistence layer for restaurant owner dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for restaurant owner dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for restaurant owner dashboard are defined correctly",
+          "Migrations for restaurant owner dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Restaurant Owner Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for restaurant owner dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for restaurant owner dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for restaurant owner dashboard work correctly",
+          "Reporting queries for restaurant owner dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Restaurant Owner Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for restaurant owner dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for restaurant owner dashboard are covered by automated tests",
+          "Permission checks and validation rules for restaurant owner dashboard are verified",
+          "Regression coverage exists for the most critical restaurant owner dashboard scenarios"
+        ]
+      }
     ],
     "FR-09": [
-      {"title": "Build Driver App API", "description": "Create driver endpoints: GET /api/driver/orders (assigned), PATCH /api/driver/orders/:id/status (picked_up/delivered), POST /api/driver/location (update position), GET /api/driver/earnings.", "priority": "high", "type": "backend", "related_requirement": "FR-09"},
-      {"title": "Build Driver App Screens", "description": "Create driver app with order queue, navigation integration (Google Maps), order detail with pickup/delivery addresses, status update buttons (Picked Up, Delivered), and daily earnings summary.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}
+      {
+        "title": "Plan Delivery Driver App Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for delivery driver app and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Driver receives order assignment notifications; Navigation to restaurant and customer address; Driver can mark order as picked up and delivered.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for delivery driver app is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for delivery driver app are explicitly defined",
+          "Implementation subtasks for delivery driver app can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Delivery Driver App Backend Services",
+        "description": "Build the backend services for delivery driver app on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Driver receives order assignment notifications; Navigation to restaurant and customer address; Driver can mark order as picked up and delivered.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core delivery driver app business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for delivery driver app",
+          "API/service behavior for delivery driver app is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Delivery Driver App Frontend Flow",
+        "description": "Build the frontend flow for delivery driver app with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The delivery driver app user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for delivery driver app behave correctly",
+          "The delivery driver app UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Delivery Driver App Persistence Model",
+        "description": "Design the persistence layer for delivery driver app. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The persistence model for delivery driver app supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for delivery driver app are defined correctly",
+          "Migrations for delivery driver app can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Delivery Driver App Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for delivery driver app. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Notification triggers for delivery driver app fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for delivery driver app are configurable and testable",
+          "Notification failures for delivery driver app are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Delivery Driver App Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for delivery driver app. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for delivery driver app are covered by automated tests",
+          "Permission checks and validation rules for delivery driver app are verified",
+          "Regression coverage exists for the most critical delivery driver app scenarios"
+        ]
+      }
     ],
     "FR-10": [
-      {"title": "Build Order History API", "description": "Create GET /api/orders with pagination and date filters. GET /api/orders/:id for detail. POST /api/orders/:id/reorder to clone items to cart. GET /api/orders/:id/invoice for PDF.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
-      {"title": "Build Order History Screen", "description": "Create order history list with order date, restaurant name, total, status. Detail view with items. Reorder button. Invoice download. Date range filter.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+      {
+        "title": "Plan Order History Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for order history and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View past orders with details and status; Reorder from previous orders with one tap; Download invoice for each order.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for order history is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for order history are explicitly defined",
+          "Implementation subtasks for order history can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Order History Backend Services",
+        "description": "Build the backend services for order history on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View past orders with details and status; Reorder from previous orders with one tap; Download invoice for each order.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core order history business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for order history",
+          "API/service behavior for order history is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Order History Frontend Flow",
+        "description": "Build the frontend flow for order history with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The order history user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for order history behave correctly",
+          "The order history UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Order History Persistence Model",
+        "description": "Design the persistence layer for order history. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for order history supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for order history are defined correctly",
+          "Migrations for order history can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Order History Reporting and KPI Logic",
+        "description": "Implement the reporting layer for order history, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for order history return accurate results",
+          "Filters, grouping, and export-ready structures for order history work correctly",
+          "Reporting queries for order history perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Order History Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for order history. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for order history are covered by automated tests",
+          "Permission checks and validation rules for order history are verified",
+          "Regression coverage exists for the most critical order history scenarios"
+        ]
+      }
     ],
     "FR-11": [
-      {"title": "Build Favorites API", "description": "Create POST /api/favorites/:restaurantId (toggle), GET /api/favorites (list). GET /api/suggestions based on order history and preferences. Track frequently ordered items.", "priority": "low", "type": "backend", "related_requirement": "FR-11"},
-      {"title": "Build Favorites Screen", "description": "Create favorites page with saved restaurants grid. Quick reorder section with frequently ordered items. Suggestion carousel based on past orders.", "priority": "low", "type": "frontend", "related_requirement": "FR-11"}
+      {
+        "title": "Plan Favorites and Saved Restaurants Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for favorites and saved restaurants and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can save favorite restaurants; Quick access to frequently ordered items; Favorites list accessible from profile.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for favorites and saved restaurants is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for favorites and saved restaurants are explicitly defined",
+          "Implementation subtasks for favorites and saved restaurants can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Favorites and Saved Restaurants Backend Services",
+        "description": "Build the backend services for favorites and saved restaurants on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can save favorite restaurants; Quick access to frequently ordered items; Favorites list accessible from profile.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core favorites and saved restaurants business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for favorites and saved restaurants",
+          "API/service behavior for favorites and saved restaurants is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Favorites and Saved Restaurants Frontend Flow",
+        "description": "Build the frontend flow for favorites and saved restaurants with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The favorites and saved restaurants user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for favorites and saved restaurants behave correctly",
+          "The favorites and saved restaurants UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Favorites and Saved Restaurants Persistence Model",
+        "description": "Design the persistence layer for favorites and saved restaurants. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The persistence model for favorites and saved restaurants supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for favorites and saved restaurants are defined correctly",
+          "Migrations for favorites and saved restaurants can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Favorites and Saved Restaurants Security and Access Rules",
+        "description": "Apply security controls to favorites and saved restaurants. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Access control rules for favorites and saved restaurants are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in favorites and saved restaurants are audited and protected against misuse",
+          "Security validation for favorites and saved restaurants passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Favorites and Saved Restaurants Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for favorites and saved restaurants. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for favorites and saved restaurants are covered by automated tests",
+          "Permission checks and validation rules for favorites and saved restaurants are verified",
+          "Regression coverage exists for the most critical favorites and saved restaurants scenarios"
+        ]
+      }
     ],
     "FR-12": [
-      {"title": "Build Support Chat API", "description": "Create WebSocket chat for customer support. POST /api/support/tickets (create ticket for order). Support image attachments. Store chat history. Route to available agents.", "priority": "medium", "type": "backend", "related_requirement": "FR-12"},
-      {"title": "Build Support Chat Screen", "description": "Create in-app chat with message bubbles, text input, image attachment button, and order reference. Show agent name and status. Chat history persists across sessions.", "priority": "medium", "type": "frontend", "related_requirement": "FR-12"}
+      {
+        "title": "Plan Customer Support Chat Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for customer support chat and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: In-app chat for order issues; Chat with customer support agent; Attach images of incorrect orders.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for customer support chat is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for customer support chat are explicitly defined",
+          "Implementation subtasks for customer support chat can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Customer Support Chat Backend Services",
+        "description": "Build the backend services for customer support chat on Flutter, Node.js, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: In-app chat for order issues; Chat with customer support agent; Attach images of incorrect orders.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core customer support chat business rules are implemented for Food Delivery Application",
+          "Validation, authorization, and error handling are covered for customer support chat",
+          "API/service behavior for customer support chat is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Customer Support Chat Frontend Flow",
+        "description": "Build the frontend flow for customer support chat with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The customer support chat user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for customer support chat behave correctly",
+          "The customer support chat UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Customer Support Chat Persistence Model",
+        "description": "Design the persistence layer for customer support chat. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The persistence model for customer support chat supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for customer support chat are defined correctly",
+          "Migrations for customer support chat can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Customer Support Chat Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for customer support chat. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for customer support chat are covered by automated tests",
+          "Permission checks and validation rules for customer support chat are verified",
+          "Regression coverage exists for the most critical customer support chat scenarios"
+        ]
+      }
     ]
   }
 }

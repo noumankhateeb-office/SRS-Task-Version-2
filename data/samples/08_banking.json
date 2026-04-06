@@ -1,102 +1,796 @@
 {
   "input": {
     "title": "Banking Application",
-    "technologies": ["React", "Java Spring Boot", "Oracle DB"],
+    "technologies": [
+      "React",
+      "Java Spring Boot",
+      "Oracle DB"
+    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Account Opening",
-        "requirements": ["Online application for savings and checking accounts", "KYC document upload and verification", "Initial deposit via card or transfer", "Account number generated upon approval"],
-        "acceptance_criteria": ["Application submitted with all required documents", "KYC verification completes within 24 hours", "Initial deposit is processed", "Account number is issued and communicated"]
+        "requirements": [
+          "Online application for savings and checking accounts",
+          "KYC document upload and verification",
+          "Initial deposit via card or transfer",
+          "Account number generated upon approval"
+        ]
       },
       "FR-02": {
         "title": "Fund Transfer",
-        "requirements": ["Transfer between own accounts", "Transfer to other bank accounts via routing number", "Instant transfers within same bank", "Scheduled and recurring transfers"],
-        "acceptance_criteria": ["Internal transfers process instantly", "External transfers initiate within business hours", "Scheduled transfers execute on set date", "Recurring transfers repeat as configured"]
+        "requirements": [
+          "Transfer between own accounts",
+          "Transfer to other bank accounts via routing number",
+          "Instant transfers within same bank",
+          "Scheduled and recurring transfers"
+        ]
       },
       "FR-03": {
         "title": "Bill Payment",
-        "requirements": ["Pay utility bills from account", "Save frequent billers for quick access", "Schedule recurring bill payments", "Payment confirmation and receipt"],
-        "acceptance_criteria": ["Bill is paid and balance deducted", "Saved billers appear in quick pay", "Recurring payments execute automatically", "Receipt is generated and downloadable"]
+        "requirements": [
+          "Pay utility bills from account",
+          "Save frequent billers for quick access",
+          "Schedule recurring bill payments",
+          "Payment confirmation and receipt"
+        ]
       },
       "FR-04": {
         "title": "Transaction History",
-        "requirements": ["View all transactions with date, amount, and type", "Filter by date range, type, and amount", "Search transactions by description", "Export statement as PDF or CSV"],
-        "acceptance_criteria": ["All transactions display correctly", "Filters return accurate results", "Search matches transaction descriptions", "Export generates complete file"]
+        "requirements": [
+          "View all transactions with date, amount, and type",
+          "Filter by date range, type, and amount",
+          "Search transactions by description",
+          "Export statement as PDF or CSV"
+        ]
       },
       "FR-05": {
         "title": "Two-Factor Authentication",
-        "requirements": ["OTP via SMS or authenticator app for login", "OTP required for fund transfers above threshold", "Biometric authentication option", "Recovery codes for lost device"],
-        "acceptance_criteria": ["OTP is required and validated on login", "High-value transfers require additional OTP", "Biometric auth works on supported devices", "Recovery codes grant access"]
+        "requirements": [
+          "OTP via SMS or authenticator app for login",
+          "OTP required for fund transfers above threshold",
+          "Biometric authentication option",
+          "Recovery codes for lost device"
+        ]
       },
       "FR-06": {
         "title": "Card Management",
-        "requirements": ["View linked debit and credit cards", "Freeze and unfreeze cards instantly", "Set spending limits per transaction and daily", "Report lost or stolen cards"],
-        "acceptance_criteria": ["All linked cards are displayed", "Freeze blocks all card transactions", "Spending limit blocks transactions above amount", "Lost card report triggers replacement"]
+        "requirements": [
+          "View linked debit and credit cards",
+          "Freeze and unfreeze cards instantly",
+          "Set spending limits per transaction and daily",
+          "Report lost or stolen cards"
+        ]
       },
       "FR-07": {
         "title": "Loan Application",
-        "requirements": ["Apply for personal loan with amount and tenure", "System calculates EMI based on interest rate", "Upload income documents for verification", "Track application status"],
-        "acceptance_criteria": ["Application is submitted with required documents", "EMI calculation matches expected formula", "Documents are verified by loan officer", "Status updates as application progresses"]
+        "requirements": [
+          "Apply for personal loan with amount and tenure",
+          "System calculates EMI based on interest rate",
+          "Upload income documents for verification",
+          "Track application status"
+        ]
       },
       "FR-08": {
         "title": "Account Alerts and Notifications",
-        "requirements": ["Balance alerts for low balance threshold", "Transaction alerts for debits above set amount", "Login alerts for unrecognized devices", "Custom alert preferences"],
-        "acceptance_criteria": ["Low balance alert triggers at threshold", "Large debit alert is sent immediately", "Unrecognized login sends alert", "Preferences are saved and applied"]
+        "requirements": [
+          "Balance alerts for low balance threshold",
+          "Transaction alerts for debits above set amount",
+          "Login alerts for unrecognized devices",
+          "Custom alert preferences"
+        ]
       },
       "FR-09": {
         "title": "Budget and Spending Analytics",
-        "requirements": ["Categorize transactions automatically", "Monthly spending breakdown by category", "Budget setting per category with alerts", "Spending trends over time"],
-        "acceptance_criteria": ["Transactions are categorized correctly", "Monthly breakdown matches actual spending", "Budget overspend triggers alert", "Trend charts show historical data"]
+        "requirements": [
+          "Categorize transactions automatically",
+          "Monthly spending breakdown by category",
+          "Budget setting per category with alerts",
+          "Spending trends over time"
+        ]
       },
       "FR-10": {
         "title": "Customer Support",
-        "requirements": ["In-app chat with support agents", "Call back request feature", "FAQ and help articles section", "Complaint tracking with reference number"],
-        "acceptance_criteria": ["Chat connects to available agent", "Call back is received within 1 hour", "FAQ articles are searchable", "Complaint has reference number and status tracking"]
+        "requirements": [
+          "In-app chat with support agents",
+          "Call back request feature",
+          "FAQ and help articles section",
+          "Complaint tracking with reference number"
+        ]
       }
     }
   },
   "output": {
     "FR-01": [
-      {"title": "Build Account Application API", "description": "Create POST /api/accounts/apply (type, personal details, KYC documents). Validate required fields. Store documents securely. Queue for KYC verification. Generate account number on approval.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
-      {"title": "Build Account Opening UI", "description": "Create multi-step application: Step 1 account type selection, Step 2 personal details form, Step 3 KYC document upload (ID, proof of address), Step 4 initial deposit. Application status tracker.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
-      {"title": "Create Accounts Database Schema", "description": "Design accounts table: id, account_number, user_id, type (savings/checking), balance, status (pending/active/frozen), opened_at. kyc_documents table: user_id, type, file_url, status, verified_at.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+      {
+        "title": "Plan Account Opening Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for account opening and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Online application for savings and checking accounts; KYC document upload and verification; Initial deposit via card or transfer.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for account opening is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for account opening are explicitly defined",
+          "Implementation subtasks for account opening can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Account Opening Backend Services",
+        "description": "Build the backend services for account opening on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Online application for savings and checking accounts; KYC document upload and verification; Initial deposit via card or transfer.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core account opening business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for account opening",
+          "API/service behavior for account opening is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Account Opening Frontend Flow",
+        "description": "Build the frontend flow for account opening with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The account opening user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for account opening behave correctly",
+          "The account opening UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Account Opening Persistence Model",
+        "description": "Design the persistence layer for account opening. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The persistence model for account opening supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for account opening are defined correctly",
+          "Migrations for account opening can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Account Opening Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for account opening. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for account opening are covered by automated tests",
+          "Permission checks and validation rules for account opening are verified",
+          "Regression coverage exists for the most critical account opening scenarios"
+        ]
+      }
     ],
     "FR-02": [
-      {"title": "Build Transfer API", "description": "Create POST /api/transfers (from_account, to_account, amount, type). Internal transfers: instant. External: via ACH with routing number. POST /api/transfers/schedule for future and recurring. Enforce daily limits.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
-      {"title": "Build Transfer UI", "description": "Create transfer page with source account dropdown, destination (own account or external with routing/account number), amount input, schedule options (now/future/recurring), and confirmation screen with OTP.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
-      {"title": "Write Transfer Tests", "description": "Test internal transfer deducts and credits instantly. Test external transfer creates pending record. Test insufficient balance is rejected. Test scheduled transfer executes on date. Test daily limit enforcement.", "priority": "medium", "type": "testing", "related_requirement": "FR-02"}
+      {
+        "title": "Plan Fund Transfer Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for fund transfer and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Transfer between own accounts; Transfer to other bank accounts via routing number; Instant transfers within same bank.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for fund transfer is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for fund transfer are explicitly defined",
+          "Implementation subtasks for fund transfer can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Fund Transfer Backend Services",
+        "description": "Build the backend services for fund transfer on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Transfer between own accounts; Transfer to other bank accounts via routing number; Instant transfers within same bank.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core fund transfer business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for fund transfer",
+          "API/service behavior for fund transfer is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Fund Transfer Frontend Flow",
+        "description": "Build the frontend flow for fund transfer with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The fund transfer user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for fund transfer behave correctly",
+          "The fund transfer UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Fund Transfer",
+        "description": "Implement the external integration points used by fund transfer, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by fund transfer are connected through stable integration layers",
+          "Timeout, retry, and failure handling for fund transfer integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for fund transfer are handled securely"
+        ]
+      },
+      {
+        "title": "Write Fund Transfer Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for fund transfer. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for fund transfer are covered by automated tests",
+          "Permission checks and validation rules for fund transfer are verified",
+          "Regression coverage exists for the most critical fund transfer scenarios"
+        ]
+      }
     ],
     "FR-03": [
-      {"title": "Build Bill Payment API", "description": "Create POST /api/bills/pay (biller_id, amount, account_id). POST /api/billers (save frequent biller). POST /api/bills/schedule (recurring). Generate payment receipt. Deduct from account.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
-      {"title": "Build Bill Payment UI", "description": "Create bill pay page with biller search/selection, saved billers quick access, amount input, account selector, and schedule options. Payment confirmation with receipt download.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+      {
+        "title": "Plan Bill Payment Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for bill payment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Pay utility bills from account; Save frequent billers for quick access; Schedule recurring bill payments.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for bill payment is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for bill payment are explicitly defined",
+          "Implementation subtasks for bill payment can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Bill Payment Backend Services",
+        "description": "Build the backend services for bill payment on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Pay utility bills from account; Save frequent billers for quick access; Schedule recurring bill payments.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core bill payment business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for bill payment",
+          "API/service behavior for bill payment is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Bill Payment Frontend Flow",
+        "description": "Build the frontend flow for bill payment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The bill payment user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for bill payment behave correctly",
+          "The bill payment UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Bill Payment",
+        "description": "Implement the external integration points used by bill payment, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "External dependencies used by bill payment are connected through stable integration layers",
+          "Timeout, retry, and failure handling for bill payment integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for bill payment are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Bill Payment Security and Access Rules",
+        "description": "Apply security controls to bill payment. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Access control rules for bill payment are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in bill payment are audited and protected against misuse",
+          "Security validation for bill payment passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Bill Payment Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for bill payment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for bill payment are covered by automated tests",
+          "Permission checks and validation rules for bill payment are verified",
+          "Regression coverage exists for the most critical bill payment scenarios"
+        ]
+      }
     ],
     "FR-04": [
-      {"title": "Build Transaction History API", "description": "Create GET /api/accounts/:id/transactions with pagination, filters (date_from, date_to, type, min_amount, max_amount), and search. GET /api/accounts/:id/statement for PDF/CSV export.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
-      {"title": "Build Transaction History UI", "description": "Create transaction list with date, description, amount (green credit/red debit), and running balance. Filter panel with date picker, type dropdown, amount range. Search bar. Export button.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+      {
+        "title": "Plan Transaction History Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for transaction history and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View all transactions with date, amount, and type; Filter by date range, type, and amount; Search transactions by description.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for transaction history is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for transaction history are explicitly defined",
+          "Implementation subtasks for transaction history can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Transaction History Backend Services",
+        "description": "Build the backend services for transaction history on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View all transactions with date, amount, and type; Filter by date range, type, and amount; Search transactions by description.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core transaction history business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for transaction history",
+          "API/service behavior for transaction history is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Transaction History Frontend Flow",
+        "description": "Build the frontend flow for transaction history with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The transaction history user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for transaction history behave correctly",
+          "The transaction history UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Transaction History Persistence Model",
+        "description": "Design the persistence layer for transaction history. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for transaction history supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for transaction history are defined correctly",
+          "Migrations for transaction history can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Transaction History Reporting and KPI Logic",
+        "description": "Implement the reporting layer for transaction history, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for transaction history return accurate results",
+          "Filters, grouping, and export-ready structures for transaction history work correctly",
+          "Reporting queries for transaction history perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Transaction History Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for transaction history. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for transaction history are covered by automated tests",
+          "Permission checks and validation rules for transaction history are verified",
+          "Regression coverage exists for the most critical transaction history scenarios"
+        ]
+      }
     ],
     "FR-05": [
-      {"title": "Build 2FA System", "description": "Implement OTP generation (6-digit, 5-min expiry) via SMS. Support TOTP authenticator apps. Biometric auth via device API. Generate 10 recovery codes on setup. Enforce 2FA on login and high-value transfers.", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
-      {"title": "Build 2FA Setup and Verification UI", "description": "Create 2FA setup flow with method selection (SMS/Authenticator/Biometric). QR code for authenticator setup. Recovery codes display with download option. OTP input screen for verification.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+      {
+        "title": "Plan Two-Factor Authentication Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for two-factor authentication and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: OTP via SMS or authenticator app for login; OTP required for fund transfers above threshold; Biometric authentication option.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for two-factor authentication is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for two-factor authentication are explicitly defined",
+          "Implementation subtasks for two-factor authentication can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Two-Factor Authentication Backend Services",
+        "description": "Build the backend services for two-factor authentication on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: OTP via SMS or authenticator app for login; OTP required for fund transfers above threshold; Biometric authentication option.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core two-factor authentication business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for two-factor authentication",
+          "API/service behavior for two-factor authentication is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Two-Factor Authentication Frontend Flow",
+        "description": "Build the frontend flow for two-factor authentication with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The two-factor authentication user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for two-factor authentication behave correctly",
+          "The two-factor authentication UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Two-Factor Authentication",
+        "description": "Implement the external integration points used by two-factor authentication, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "External dependencies used by two-factor authentication are connected through stable integration layers",
+          "Timeout, retry, and failure handling for two-factor authentication integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for two-factor authentication are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Two-Factor Authentication Security and Access Rules",
+        "description": "Apply security controls to two-factor authentication. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Access control rules for two-factor authentication are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in two-factor authentication are audited and protected against misuse",
+          "Security validation for two-factor authentication passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Two-Factor Authentication Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for two-factor authentication. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for two-factor authentication are covered by automated tests",
+          "Permission checks and validation rules for two-factor authentication are verified",
+          "Regression coverage exists for the most critical two-factor authentication scenarios"
+        ]
+      }
     ],
     "FR-06": [
-      {"title": "Build Card Management API", "description": "Create GET /api/cards (linked cards). POST /api/cards/:id/freeze, /api/cards/:id/unfreeze. PATCH /api/cards/:id/limits (per_transaction, daily). POST /api/cards/:id/report-lost.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
-      {"title": "Build Card Management UI", "description": "Create cards page with card display (masked number, type, status). Toggle switch for freeze/unfreeze. Limits input fields. Report Lost button with confirmation and replacement tracking.", "priority": "medium", "type": "frontend", "related_requirement": "FR-06"}
+      {
+        "title": "Plan Card Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for card management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View linked debit and credit cards; Freeze and unfreeze cards instantly; Set spending limits per transaction and daily.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for card management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for card management are explicitly defined",
+          "Implementation subtasks for card management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Card Management Backend Services",
+        "description": "Build the backend services for card management on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View linked debit and credit cards; Freeze and unfreeze cards instantly; Set spending limits per transaction and daily.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core card management business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for card management",
+          "API/service behavior for card management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Card Management Frontend Flow",
+        "description": "Build the frontend flow for card management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The card management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for card management behave correctly",
+          "The card management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Card Management Persistence Model",
+        "description": "Design the persistence layer for card management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for card management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for card management are defined correctly",
+          "Migrations for card management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Card Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for card management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for card management are covered by automated tests",
+          "Permission checks and validation rules for card management are verified",
+          "Regression coverage exists for the most critical card management scenarios"
+        ]
+      }
     ],
     "FR-07": [
-      {"title": "Build Loan Application API", "description": "Create POST /api/loans/apply (amount, tenure, purpose). Calculate EMI using standard formula. Document upload for income proof. Track status (submitted/reviewing/approved/disbursed/rejected).", "priority": "high", "type": "backend", "related_requirement": "FR-07"},
-      {"title": "Build Loan Application UI", "description": "Create loan application with amount slider, tenure selector, EMI calculator preview, income document upload, and submit. Status tracker showing application progress.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}
+      {
+        "title": "Plan Loan Application Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for loan application and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Apply for personal loan with amount and tenure; System calculates EMI based on interest rate; Upload income documents for verification.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for loan application is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for loan application are explicitly defined",
+          "Implementation subtasks for loan application can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Loan Application Backend Services",
+        "description": "Build the backend services for loan application on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Apply for personal loan with amount and tenure; System calculates EMI based on interest rate; Upload income documents for verification.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core loan application business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for loan application",
+          "API/service behavior for loan application is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Loan Application Frontend Flow",
+        "description": "Build the frontend flow for loan application with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The loan application user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for loan application behave correctly",
+          "The loan application UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Loan Application Persistence Model",
+        "description": "Design the persistence layer for loan application. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for loan application supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for loan application are defined correctly",
+          "Migrations for loan application can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Loan Application Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for loan application. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for loan application are covered by automated tests",
+          "Permission checks and validation rules for loan application are verified",
+          "Regression coverage exists for the most critical loan application scenarios"
+        ]
+      }
     ],
     "FR-08": [
-      {"title": "Build Alert System", "description": "Create notification service with alert types: low_balance, large_debit, unrecognized_login. Store alert preferences per user. Send via push, SMS, and email based on preference.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
-      {"title": "Build Alert Preferences UI", "description": "Create alert settings page with toggles for each alert type, threshold inputs for balance and debit amounts, channel selection (push/SMS/email), and test alert button.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+      {
+        "title": "Plan Account Alerts and Notifications Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for account alerts and notifications and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Balance alerts for low balance threshold; Transaction alerts for debits above set amount; Login alerts for unrecognized devices.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for account alerts and notifications is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for account alerts and notifications are explicitly defined",
+          "Implementation subtasks for account alerts and notifications can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Account Alerts and Notifications Backend Services",
+        "description": "Build the backend services for account alerts and notifications on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Balance alerts for low balance threshold; Transaction alerts for debits above set amount; Login alerts for unrecognized devices.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core account alerts and notifications business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for account alerts and notifications",
+          "API/service behavior for account alerts and notifications is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Account Alerts and Notifications Frontend Flow",
+        "description": "Build the frontend flow for account alerts and notifications with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The account alerts and notifications user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for account alerts and notifications behave correctly",
+          "The account alerts and notifications UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Account Alerts and Notifications Persistence Model",
+        "description": "Design the persistence layer for account alerts and notifications. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for account alerts and notifications supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for account alerts and notifications are defined correctly",
+          "Migrations for account alerts and notifications can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Account Alerts and Notifications Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for account alerts and notifications. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Notification triggers for account alerts and notifications fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for account alerts and notifications are configurable and testable",
+          "Notification failures for account alerts and notifications are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Account Alerts and Notifications Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for account alerts and notifications. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for account alerts and notifications are covered by automated tests",
+          "Permission checks and validation rules for account alerts and notifications are verified",
+          "Regression coverage exists for the most critical account alerts and notifications scenarios"
+        ]
+      }
     ],
     "FR-09": [
-      {"title": "Build Analytics API", "description": "Create GET /api/analytics/spending (monthly category breakdown). Auto-categorize transactions. POST /api/budgets (set per category). GET /api/analytics/trends (historical monthly totals).", "priority": "medium", "type": "backend", "related_requirement": "FR-09"},
-      {"title": "Build Spending Analytics Dashboard", "description": "Create analytics page with spending pie chart by category, monthly bar chart comparison, budget progress bars per category with alerts on overspend, and trend line chart.", "priority": "medium", "type": "frontend", "related_requirement": "FR-09"}
+      {
+        "title": "Plan Budget and Spending Analytics Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for budget and spending analytics and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Categorize transactions automatically; Monthly spending breakdown by category; Budget setting per category with alerts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for budget and spending analytics is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for budget and spending analytics are explicitly defined",
+          "Implementation subtasks for budget and spending analytics can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Budget and Spending Analytics Backend Services",
+        "description": "Build the backend services for budget and spending analytics on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Categorize transactions automatically; Monthly spending breakdown by category; Budget setting per category with alerts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core budget and spending analytics business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for budget and spending analytics",
+          "API/service behavior for budget and spending analytics is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Budget and Spending Analytics Frontend Flow",
+        "description": "Build the frontend flow for budget and spending analytics with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The budget and spending analytics user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for budget and spending analytics behave correctly",
+          "The budget and spending analytics UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Budget and Spending Analytics Persistence Model",
+        "description": "Design the persistence layer for budget and spending analytics. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The persistence model for budget and spending analytics supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for budget and spending analytics are defined correctly",
+          "Migrations for budget and spending analytics can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Budget and Spending Analytics Reporting and KPI Logic",
+        "description": "Implement the reporting layer for budget and spending analytics, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for budget and spending analytics return accurate results",
+          "Filters, grouping, and export-ready structures for budget and spending analytics work correctly",
+          "Reporting queries for budget and spending analytics perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Budget and Spending Analytics Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for budget and spending analytics. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Notification triggers for budget and spending analytics fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for budget and spending analytics are configurable and testable",
+          "Notification failures for budget and spending analytics are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Budget and Spending Analytics Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for budget and spending analytics. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for budget and spending analytics are covered by automated tests",
+          "Permission checks and validation rules for budget and spending analytics are verified",
+          "Regression coverage exists for the most critical budget and spending analytics scenarios"
+        ]
+      }
     ],
     "FR-10": [
-      {"title": "Build Support System API", "description": "Create WebSocket chat endpoint for live support. POST /api/support/callback (request call back). GET /api/support/faq (searchable articles). POST /api/support/complaints (with tracking number).", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
-      {"title": "Build Support Center UI", "description": "Create support hub with live chat widget, callback request form with preferred time, searchable FAQ section, and complaint form with reference number tracking.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+      {
+        "title": "Plan Customer Support Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for customer support and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: In-app chat with support agents; Call back request feature; FAQ and help articles section.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for customer support is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for customer support are explicitly defined",
+          "Implementation subtasks for customer support can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Customer Support Backend Services",
+        "description": "Build the backend services for customer support on React, Java Spring Boot, Oracle DB. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: In-app chat with support agents; Call back request feature; FAQ and help articles section.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core customer support business rules are implemented for Banking Application",
+          "Validation, authorization, and error handling are covered for customer support",
+          "API/service behavior for customer support is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Customer Support Frontend Flow",
+        "description": "Build the frontend flow for customer support with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The customer support user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for customer support behave correctly",
+          "The customer support UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Customer Support Persistence Model",
+        "description": "Design the persistence layer for customer support. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for customer support supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for customer support are defined correctly",
+          "Migrations for customer support can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Customer Support Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for customer support. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for customer support are covered by automated tests",
+          "Permission checks and validation rules for customer support are verified",
+          "Regression coverage exists for the most critical customer support scenarios"
+        ]
+      }
     ]
   }
 }

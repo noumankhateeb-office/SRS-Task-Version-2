@@ -1,83 +1,546 @@
 {
   "input": {
     "title": "Hotel Booking Platform",
-    "technologies": ["Vue.js", "Laravel", "MySQL"],
+    "technologies": [
+      "Vue.js",
+      "Laravel",
+      "MySQL"
+    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Hotel Search and Filters",
-        "requirements": ["Search by destination, check-in/out dates, and guests", "Filter by price range, star rating, amenities", "Sort by price, rating, distance from center", "Map view showing hotel locations"],
-        "acceptance_criteria": ["Search returns hotels matching criteria", "Filters narrow results correctly", "Sort changes order immediately", "Map pins correspond to listed hotels"]
+        "requirements": [
+          "Search by destination, check-in/out dates, and guests",
+          "Filter by price range, star rating, amenities",
+          "Sort by price, rating, distance from center",
+          "Map view showing hotel locations"
+        ]
       },
       "FR-02": {
         "title": "Room Reservation",
-        "requirements": ["View room types with photos, amenities, and prices", "Select room and complete booking", "System checks room availability in real-time", "Booking confirmation sent via email"],
-        "acceptance_criteria": ["Room details display correctly", "Booking creates reservation record", "Double booking is prevented", "Confirmation email received"]
+        "requirements": [
+          "View room types with photos, amenities, and prices",
+          "Select room and complete booking",
+          "System checks room availability in real-time",
+          "Booking confirmation sent via email"
+        ]
       },
       "FR-03": {
         "title": "Guest Profile and Preferences",
-        "requirements": ["Store guest preferences for room type and amenities", "Save frequent guest details for faster booking", "Loyalty points system for repeat customers", "View booking history"],
-        "acceptance_criteria": ["Preferences are saved and applied to searches", "Stored details auto-fill booking forms", "Points accumulate per booking", "History shows all past reservations"]
+        "requirements": [
+          "Store guest preferences for room type and amenities",
+          "Save frequent guest details for faster booking",
+          "Loyalty points system for repeat customers",
+          "View booking history"
+        ]
       },
       "FR-04": {
         "title": "Payment and Invoice",
-        "requirements": ["Pay via credit card, PayPal, or bank transfer", "Partial payment with deposit option", "Generate detailed invoice with tax breakdown", "Automated refund on cancellation within policy"],
-        "acceptance_criteria": ["Payments process successfully", "Deposit creates partial payment record", "Invoice shows itemized charges", "Refund processes per cancellation policy"]
+        "requirements": [
+          "Pay via credit card, PayPal, or bank transfer",
+          "Partial payment with deposit option",
+          "Generate detailed invoice with tax breakdown",
+          "Automated refund on cancellation within policy"
+        ]
       },
       "FR-05": {
         "title": "Booking Cancellation and Modification",
-        "requirements": ["Cancel booking per cancellation policy", "Modify dates or room type if available", "Free cancellation up to 48 hours before check-in", "Cancellation fees apply within 48 hours"],
-        "acceptance_criteria": ["Free cancellation processes full refund", "Late cancellation applies correct fee", "Date modification updates reservation", "Room change adjusts pricing"]
+        "requirements": [
+          "Cancel booking per cancellation policy",
+          "Modify dates or room type if available",
+          "Free cancellation up to 48 hours before check-in",
+          "Cancellation fees apply within 48 hours"
+        ]
       },
       "FR-06": {
         "title": "Hotel Owner Property Management",
-        "requirements": ["Add property with details, photos, and room types", "Set pricing per room type with seasonal rates", "Manage room inventory and availability calendar", "View booking reports and revenue"],
-        "acceptance_criteria": ["Property is created and listed", "Seasonal pricing applies correctly", "Calendar blocks unavailable dates", "Reports show accurate data"]
+        "requirements": [
+          "Add property with details, photos, and room types",
+          "Set pricing per room type with seasonal rates",
+          "Manage room inventory and availability calendar",
+          "View booking reports and revenue"
+        ]
       },
       "FR-07": {
         "title": "Guest Review System",
-        "requirements": ["Guests can rate hotel after checkout", "Rate cleanliness, service, location, value separately", "Write text review with optional photos", "Hotel can respond to reviews"],
-        "acceptance_criteria": ["Rating is only allowed after checkout", "Category ratings calculate overall score", "Photos upload with review", "Hotel response appears under review"]
+        "requirements": [
+          "Guests can rate hotel after checkout",
+          "Rate cleanliness, service, location, value separately",
+          "Write text review with optional photos",
+          "Hotel can respond to reviews"
+        ]
       },
       "FR-08": {
         "title": "Check-in and Check-out",
-        "requirements": ["Online check-in available 24 hours before arrival", "Generate digital room key via app", "Express check-out with email receipt", "Late check-out request option"],
-        "acceptance_criteria": ["Online check-in updates reservation status", "Digital key grants room access", "Check-out generates final receipt", "Late check-out applies additional charge"]
+        "requirements": [
+          "Online check-in available 24 hours before arrival",
+          "Generate digital room key via app",
+          "Express check-out with email receipt",
+          "Late check-out request option"
+        ]
       }
     }
   },
   "output": {
     "FR-01": [
-      {"title": "Build Hotel Search API", "description": "Create GET /api/hotels/search with params: destination, check_in, check_out, guests, min_price, max_price, stars, amenities, sort_by. Return paginated results with availability check. Geo-search for map view.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
-      {"title": "Build Search Interface", "description": "Create search page with destination autocomplete, date range picker, guest counter, and search button. Results page with hotel cards and filter sidebar. Map view toggle with pins.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
-      {"title": "Create Hotel Database Schema", "description": "Design hotels table: id, name, description, address, city, lat, lng, stars, amenities (JSON), images. rooms table: hotel_id, type, price, capacity, count. Add geo index on lat/lng.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+      {
+        "title": "Plan Hotel Search and Filters Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for hotel search and filters and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Search by destination, check-in/out dates, and guests; Filter by price range, star rating, amenities; Sort by price, rating, distance from center.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for hotel search and filters is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for hotel search and filters are explicitly defined",
+          "Implementation subtasks for hotel search and filters can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Hotel Search and Filters Backend Services",
+        "description": "Build the backend services for hotel search and filters on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Search by destination, check-in/out dates, and guests; Filter by price range, star rating, amenities; Sort by price, rating, distance from center.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core hotel search and filters business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for hotel search and filters",
+          "API/service behavior for hotel search and filters is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Hotel Search and Filters Frontend Flow",
+        "description": "Build the frontend flow for hotel search and filters with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The hotel search and filters user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for hotel search and filters behave correctly",
+          "The hotel search and filters UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Hotel Search and Filters Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for hotel search and filters. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for hotel search and filters are covered by automated tests",
+          "Permission checks and validation rules for hotel search and filters are verified",
+          "Regression coverage exists for the most critical hotel search and filters scenarios"
+        ]
+      }
     ],
     "FR-02": [
-      {"title": "Build Reservation API", "description": "Create POST /api/reservations (hotel_id, room_type, check_in, check_out, guests). Verify availability using concurrent-safe locking. Block dates. Send confirmation email. Return reservation details.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
-      {"title": "Build Room Selection and Booking UI", "description": "Create room listing for selected hotel with room photos, amenities icons, price per night, and total. Book Now flow with guest details form, payment, and confirmation page.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}
+      {
+        "title": "Plan Room Reservation Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for room reservation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View room types with photos, amenities, and prices; Select room and complete booking; System checks room availability in real-time.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for room reservation is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for room reservation are explicitly defined",
+          "Implementation subtasks for room reservation can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Room Reservation Backend Services",
+        "description": "Build the backend services for room reservation on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View room types with photos, amenities, and prices; Select room and complete booking; System checks room availability in real-time.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core room reservation business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for room reservation",
+          "API/service behavior for room reservation is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Room Reservation Frontend Flow",
+        "description": "Build the frontend flow for room reservation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The room reservation user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for room reservation behave correctly",
+          "The room reservation UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Room Reservation Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for room reservation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for room reservation are covered by automated tests",
+          "Permission checks and validation rules for room reservation are verified",
+          "Regression coverage exists for the most critical room reservation scenarios"
+        ]
+      }
     ],
     "FR-03": [
-      {"title": "Build Guest Profile API", "description": "Create GET/PATCH /api/profile/preferences (room type, amenities, bed type). GET /api/profile/loyalty (points balance, tier). GET /api/profile/bookings (history). Points awarded per booking.", "priority": "medium", "type": "backend", "related_requirement": "FR-03"},
-      {"title": "Build Profile and Loyalty Screen", "description": "Create profile page with saved preferences form, loyalty tier badge with progress bar, points balance, and booking history list with status badges.", "priority": "medium", "type": "frontend", "related_requirement": "FR-03"}
+      {
+        "title": "Plan Guest Profile and Preferences Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for guest profile and preferences and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Store guest preferences for room type and amenities; Save frequent guest details for faster booking; Loyalty points system for repeat customers.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for guest profile and preferences is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for guest profile and preferences are explicitly defined",
+          "Implementation subtasks for guest profile and preferences can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Guest Profile and Preferences Backend Services",
+        "description": "Build the backend services for guest profile and preferences on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Store guest preferences for room type and amenities; Save frequent guest details for faster booking; Loyalty points system for repeat customers.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core guest profile and preferences business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for guest profile and preferences",
+          "API/service behavior for guest profile and preferences is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Guest Profile and Preferences Frontend Flow",
+        "description": "Build the frontend flow for guest profile and preferences with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The guest profile and preferences user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for guest profile and preferences behave correctly",
+          "The guest profile and preferences UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Guest Profile and Preferences Persistence Model",
+        "description": "Design the persistence layer for guest profile and preferences. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for guest profile and preferences supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for guest profile and preferences are defined correctly",
+          "Migrations for guest profile and preferences can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Guest Profile and Preferences Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for guest profile and preferences. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for guest profile and preferences are covered by automated tests",
+          "Permission checks and validation rules for guest profile and preferences are verified",
+          "Regression coverage exists for the most critical guest profile and preferences scenarios"
+        ]
+      }
     ],
     "FR-04": [
-      {"title": "Build Payment API", "description": "Create POST /api/payments (full or deposit). Integrate payment gateway. Generate PDF invoice with tax breakdown. POST /api/payments/:id/refund (process refund per policy). Handle currency conversion.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
-      {"title": "Build Payment and Invoice UI", "description": "Create payment flow with method selection, amount summary (room + tax + fees), and processing screen. Invoice viewer with download button. Payment history in profile.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}
+      {
+        "title": "Plan Payment and Invoice Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for payment and invoice and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Pay via credit card, PayPal, or bank transfer; Partial payment with deposit option; Generate detailed invoice with tax breakdown.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for payment and invoice is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for payment and invoice are explicitly defined",
+          "Implementation subtasks for payment and invoice can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Payment and Invoice Backend Services",
+        "description": "Build the backend services for payment and invoice on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Pay via credit card, PayPal, or bank transfer; Partial payment with deposit option; Generate detailed invoice with tax breakdown.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core payment and invoice business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for payment and invoice",
+          "API/service behavior for payment and invoice is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Payment and Invoice Frontend Flow",
+        "description": "Build the frontend flow for payment and invoice with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The payment and invoice user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for payment and invoice behave correctly",
+          "The payment and invoice UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Payment and Invoice",
+        "description": "Implement the external integration points used by payment and invoice, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "External dependencies used by payment and invoice are connected through stable integration layers",
+          "Timeout, retry, and failure handling for payment and invoice integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for payment and invoice are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Payment and Invoice Security and Access Rules",
+        "description": "Apply security controls to payment and invoice. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Access control rules for payment and invoice are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in payment and invoice are audited and protected against misuse",
+          "Security validation for payment and invoice passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Payment and Invoice Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for payment and invoice. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for payment and invoice are covered by automated tests",
+          "Permission checks and validation rules for payment and invoice are verified",
+          "Regression coverage exists for the most critical payment and invoice scenarios"
+        ]
+      }
     ],
     "FR-05": [
-      {"title": "Build Cancellation and Modification API", "description": "Create DELETE /api/reservations/:id (cancel with policy enforcement: free if >48h, fee otherwise). PATCH /api/reservations/:id (modify dates/room with availability check and price adjustment).", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
-      {"title": "Build Manage Booking UI", "description": "Create booking management page with cancel and modify buttons. Cancellation shows policy terms and fee preview before confirming. Modification shows new availability and price difference.", "priority": "medium", "type": "frontend", "related_requirement": "FR-05"}
+      {
+        "title": "Plan Booking Cancellation and Modification Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for booking cancellation and modification and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Cancel booking per cancellation policy; Modify dates or room type if available; Free cancellation up to 48 hours before check-in.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for booking cancellation and modification is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for booking cancellation and modification are explicitly defined",
+          "Implementation subtasks for booking cancellation and modification can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Booking Cancellation and Modification Backend Services",
+        "description": "Build the backend services for booking cancellation and modification on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Cancel booking per cancellation policy; Modify dates or room type if available; Free cancellation up to 48 hours before check-in.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core booking cancellation and modification business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for booking cancellation and modification",
+          "API/service behavior for booking cancellation and modification is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Booking Cancellation and Modification Frontend Flow",
+        "description": "Build the frontend flow for booking cancellation and modification with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The booking cancellation and modification user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for booking cancellation and modification behave correctly",
+          "The booking cancellation and modification UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Booking Cancellation and Modification Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for booking cancellation and modification. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for booking cancellation and modification are covered by automated tests",
+          "Permission checks and validation rules for booking cancellation and modification are verified",
+          "Regression coverage exists for the most critical booking cancellation and modification scenarios"
+        ]
+      }
     ],
     "FR-06": [
-      {"title": "Build Property Management API", "description": "Create owner endpoints: POST /api/owner/properties (add hotel), PATCH /api/owner/properties/:id (update), POST /api/owner/rooms (add room type), PATCH /api/owner/pricing (set rates with date ranges).", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
-      {"title": "Build Owner Dashboard", "description": "Create property management dashboard with property editor, room inventory grid, pricing calendar with drag-to-set rates, availability calendar, and booking/revenue charts.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}
+      {
+        "title": "Plan Hotel Owner Property Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for hotel owner property management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Add property with details, photos, and room types; Set pricing per room type with seasonal rates; Manage room inventory and availability calendar.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for hotel owner property management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for hotel owner property management are explicitly defined",
+          "Implementation subtasks for hotel owner property management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Hotel Owner Property Management Backend Services",
+        "description": "Build the backend services for hotel owner property management on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Add property with details, photos, and room types; Set pricing per room type with seasonal rates; Manage room inventory and availability calendar.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core hotel owner property management business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for hotel owner property management",
+          "API/service behavior for hotel owner property management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Hotel Owner Property Management Frontend Flow",
+        "description": "Build the frontend flow for hotel owner property management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The hotel owner property management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for hotel owner property management behave correctly",
+          "The hotel owner property management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Hotel Owner Property Management Persistence Model",
+        "description": "Design the persistence layer for hotel owner property management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for hotel owner property management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for hotel owner property management are defined correctly",
+          "Migrations for hotel owner property management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Hotel Owner Property Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for hotel owner property management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for hotel owner property management are covered by automated tests",
+          "Permission checks and validation rules for hotel owner property management are verified",
+          "Regression coverage exists for the most critical hotel owner property management scenarios"
+        ]
+      }
     ],
     "FR-07": [
-      {"title": "Build Review API", "description": "Create POST /api/hotels/:id/reviews (after checkout only). Accept overall and category ratings (cleanliness, service, location, value), text, photos. Hotel owners: POST /api/reviews/:id/response.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
-      {"title": "Build Review Section UI", "description": "Create review section with category rating bars, individual review cards with photos, and review form (star selectors per category, text, photo upload). Hotel response displayed below review.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+      {
+        "title": "Plan Guest Review System Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for guest review system and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Guests can rate hotel after checkout; Rate cleanliness, service, location, value separately; Write text review with optional photos.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for guest review system is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for guest review system are explicitly defined",
+          "Implementation subtasks for guest review system can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Guest Review System Backend Services",
+        "description": "Build the backend services for guest review system on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Guests can rate hotel after checkout; Rate cleanliness, service, location, value separately; Write text review with optional photos.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core guest review system business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for guest review system",
+          "API/service behavior for guest review system is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Guest Review System Frontend Flow",
+        "description": "Build the frontend flow for guest review system with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The guest review system user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for guest review system behave correctly",
+          "The guest review system UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Guest Review System Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for guest review system. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for guest review system are covered by automated tests",
+          "Permission checks and validation rules for guest review system are verified",
+          "Regression coverage exists for the most critical guest review system scenarios"
+        ]
+      }
     ],
     "FR-08": [
-      {"title": "Build Digital Check-in API", "description": "Create POST /api/reservations/:id/checkin (available 24h before). Generate digital key token. POST /api/reservations/:id/checkout (express, generate receipt). PATCH for late checkout request.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
-      {"title": "Build Check-in/out Screens", "description": "Create online check-in form (verify details, submit). Digital key screen with QR code for room access. Express checkout button with email receipt confirmation. Late checkout request form.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+      {
+        "title": "Plan Check-in and Check-out Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for check-in and check-out and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Online check-in available 24 hours before arrival; Generate digital room key via app; Express check-out with email receipt.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for check-in and check-out is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for check-in and check-out are explicitly defined",
+          "Implementation subtasks for check-in and check-out can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Check-in and Check-out Backend Services",
+        "description": "Build the backend services for check-in and check-out on Vue.js, Laravel, MySQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Online check-in available 24 hours before arrival; Generate digital room key via app; Express check-out with email receipt.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core check-in and check-out business rules are implemented for Hotel Booking Platform",
+          "Validation, authorization, and error handling are covered for check-in and check-out",
+          "API/service behavior for check-in and check-out is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Check-in and Check-out Frontend Flow",
+        "description": "Build the frontend flow for check-in and check-out with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The check-in and check-out user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for check-in and check-out behave correctly",
+          "The check-in and check-out UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Check-in and Check-out",
+        "description": "Implement the external integration points used by check-in and check-out, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "External dependencies used by check-in and check-out are connected through stable integration layers",
+          "Timeout, retry, and failure handling for check-in and check-out integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for check-in and check-out are handled securely"
+        ]
+      },
+      {
+        "title": "Write Check-in and Check-out Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for check-in and check-out. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for check-in and check-out are covered by automated tests",
+          "Permission checks and validation rules for check-in and check-out are verified",
+          "Regression coverage exists for the most critical check-in and check-out scenarios"
+        ]
+      }
     ]
   }
 }

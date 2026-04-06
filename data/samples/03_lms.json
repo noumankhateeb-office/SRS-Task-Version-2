@@ -1,105 +1,736 @@
 {
   "input": {
     "title": "Learning Management System",
-    "technologies": ["React", "Django", "PostgreSQL"],
+    "technologies": [
+      "React",
+      "Django",
+      "PostgreSQL"
+    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Student Registration and Enrollment",
-        "requirements": ["Students can register with email and password", "Students can browse available courses", "Students can enroll in courses", "System tracks enrollment history"],
-        "acceptance_criteria": ["Student account is created successfully", "Course catalog shows available courses", "Enrollment adds student to course", "Enrollment history is accurately maintained"]
+        "requirements": [
+          "Students can register with email and password",
+          "Students can browse available courses",
+          "Students can enroll in courses",
+          "System tracks enrollment history"
+        ]
       },
       "FR-02": {
         "title": "Course Creation by Instructors",
-        "requirements": ["Instructors can create courses with title, description, and syllabus", "Courses support multiple modules and lessons", "Instructors can upload video lectures and documents", "Course can be published or kept as draft"],
-        "acceptance_criteria": ["Course is created with all required fields", "Modules and lessons can be ordered", "Video and document uploads work correctly", "Draft courses are not visible to students"]
+        "requirements": [
+          "Instructors can create courses with title, description, and syllabus",
+          "Courses support multiple modules and lessons",
+          "Instructors can upload video lectures and documents",
+          "Course can be published or kept as draft"
+        ]
       },
       "FR-03": {
         "title": "Video Lecture Playback",
-        "requirements": ["Students can watch video lectures within the platform", "Video player supports pause, seek, and playback speed", "System tracks video progress per student", "Resume from last watched position"],
-        "acceptance_criteria": ["Video plays without buffering on stable connection", "Playback controls work correctly", "Progress is saved automatically", "Student resumes from last position on return"]
+        "requirements": [
+          "Students can watch video lectures within the platform",
+          "Video player supports pause, seek, and playback speed",
+          "System tracks video progress per student",
+          "Resume from last watched position"
+        ]
       },
       "FR-04": {
         "title": "Quiz and Assessment System",
-        "requirements": ["Instructors can create quizzes with multiple choice questions", "Quizzes can have time limits", "System auto-grades multiple choice quizzes", "Students can view quiz results and correct answers"],
-        "acceptance_criteria": ["Quiz is created with correct questions and answers", "Timer enforces time limit", "Auto-grading produces correct scores", "Results show score and correct answers"]
+        "requirements": [
+          "Instructors can create quizzes with multiple choice questions",
+          "Quizzes can have time limits",
+          "System auto-grades multiple choice quizzes",
+          "Students can view quiz results and correct answers"
+        ]
       },
       "FR-05": {
         "title": "Assignment Submission",
-        "requirements": ["Instructors can create assignments with due dates", "Students can submit files and text for assignments", "Late submissions are flagged", "Instructors can grade and provide feedback"],
-        "acceptance_criteria": ["Assignment is created with due date", "Students can upload files up to 25MB", "Late flag appears for overdue submissions", "Grade and feedback are visible to student"]
+        "requirements": [
+          "Instructors can create assignments with due dates",
+          "Students can submit files and text for assignments",
+          "Late submissions are flagged",
+          "Instructors can grade and provide feedback"
+        ]
       },
       "FR-06": {
         "title": "Progress Tracking Dashboard",
-        "requirements": ["Students can view course completion percentage", "Dashboard shows completed and pending lessons", "Progress bar for each enrolled course", "Certificate generated on course completion"],
-        "acceptance_criteria": ["Completion percentage matches actual progress", "Dashboard shows accurate lesson status", "Progress bar updates after each lesson", "Certificate is downloadable as PDF"]
+        "requirements": [
+          "Students can view course completion percentage",
+          "Dashboard shows completed and pending lessons",
+          "Progress bar for each enrolled course",
+          "Certificate generated on course completion"
+        ]
       },
       "FR-07": {
         "title": "Discussion Forum",
-        "requirements": ["Each course has a discussion forum", "Students and instructors can create threads", "Users can reply to threads", "Instructor answers are highlighted"],
-        "acceptance_criteria": ["Forum is accessible from course page", "Threads are created and displayed correctly", "Replies appear under correct thread", "Instructor replies have a distinct badge"]
+        "requirements": [
+          "Each course has a discussion forum",
+          "Students and instructors can create threads",
+          "Users can reply to threads",
+          "Instructor answers are highlighted"
+        ]
       },
       "FR-08": {
         "title": "Course Rating and Review",
-        "requirements": ["Students can rate courses with 1-5 stars", "Students can write text reviews", "Average rating displayed on course page", "Only enrolled students can review"],
-        "acceptance_criteria": ["Rating is submitted successfully", "Review text is displayed on course page", "Average updates after new rating", "Non-enrolled users cannot submit reviews"]
+        "requirements": [
+          "Students can rate courses with 1-5 stars",
+          "Students can write text reviews",
+          "Average rating displayed on course page",
+          "Only enrolled students can review"
+        ]
       },
       "FR-09": {
         "title": "Payment and Subscription",
-        "requirements": ["Courses can be free or paid", "Payment via credit card or PayPal", "Subscription plans for unlimited access", "Refund within 30 days of purchase"],
-        "acceptance_criteria": ["Payment processes correctly", "Paid course access granted after payment", "Subscription unlocks all courses", "Refund reverses access and credits payment"]
+        "requirements": [
+          "Courses can be free or paid",
+          "Payment via credit card or PayPal",
+          "Subscription plans for unlimited access",
+          "Refund within 30 days of purchase"
+        ]
       },
       "FR-10": {
         "title": "Admin Analytics Dashboard",
-        "requirements": ["Admin can view total students, courses, and revenue", "Charts for enrollment trends over time", "Top-rated and most enrolled courses", "Instructor performance metrics"],
-        "acceptance_criteria": ["Dashboard shows accurate statistics", "Charts render correctly with real data", "Rankings are sorted correctly", "Data refreshes on page load"]
+        "requirements": [
+          "Admin can view total students, courses, and revenue",
+          "Charts for enrollment trends over time",
+          "Top-rated and most enrolled courses",
+          "Instructor performance metrics"
+        ]
       }
     }
   },
   "output": {
     "FR-01": [
-      {"title": "Build Student Registration API", "description": "Create POST /api/auth/register for student accounts. POST /api/courses/:id/enroll for enrollment. GET /api/courses for browsable catalog with filters. Track enrollment in enrollments table.", "priority": "high", "type": "backend", "related_requirement": "FR-01"},
-      {"title": "Build Registration and Catalog Pages", "description": "Create registration form with validation. Course catalog page with cards showing title, instructor, rating, price, and enrollment count. Enroll button on each course.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"},
-      {"title": "Create Enrollment Database Schema", "description": "Design enrollments table: id, student_id (FK), course_id (FK), enrolled_at, progress_percentage, status (active/completed/dropped). Add indexes on student_id and course_id.", "priority": "high", "type": "database", "related_requirement": "FR-01"}
+      {
+        "title": "Plan Student Registration and Enrollment Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for student registration and enrollment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Students can register with email and password; Students can browse available courses; Students can enroll in courses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for student registration and enrollment is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for student registration and enrollment are explicitly defined",
+          "Implementation subtasks for student registration and enrollment can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Student Registration and Enrollment Backend Services",
+        "description": "Build the backend services for student registration and enrollment on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Students can register with email and password; Students can browse available courses; Students can enroll in courses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core student registration and enrollment business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for student registration and enrollment",
+          "API/service behavior for student registration and enrollment is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Student Registration and Enrollment Frontend Flow",
+        "description": "Build the frontend flow for student registration and enrollment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The student registration and enrollment user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for student registration and enrollment behave correctly",
+          "The student registration and enrollment UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Student Registration and Enrollment",
+        "description": "Implement the external integration points used by student registration and enrollment, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External dependencies used by student registration and enrollment are connected through stable integration layers",
+          "Timeout, retry, and failure handling for student registration and enrollment integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for student registration and enrollment are handled securely"
+        ]
+      },
+      {
+        "title": "Write Student Registration and Enrollment Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for student registration and enrollment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for student registration and enrollment are covered by automated tests",
+          "Permission checks and validation rules for student registration and enrollment are verified",
+          "Regression coverage exists for the most critical student registration and enrollment scenarios"
+        ]
+      }
     ],
     "FR-02": [
-      {"title": "Build Course CRUD API", "description": "Create instructor endpoints: POST /api/courses (create), PATCH /api/courses/:id (update), DELETE /api/courses/:id. Nested: POST /api/courses/:id/modules, POST /api/modules/:id/lessons. Support file upload for videos and docs.", "priority": "high", "type": "backend", "related_requirement": "FR-02"},
-      {"title": "Build Course Builder UI", "description": "Create course creation wizard: Step 1 title/description/category. Step 2 module/lesson builder with drag-drop ordering. Step 3 media upload. Step 4 preview and publish/draft toggle.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"},
-      {"title": "Create Course Database Schema", "description": "Design courses table: id, instructor_id, title, description, category, price, status (draft/published), thumbnail_url, created_at. modules table: id, course_id, title, order. lessons table: id, module_id, title, type, content_url, duration, order.", "priority": "high", "type": "database", "related_requirement": "FR-02"}
+      {
+        "title": "Plan Course Creation by Instructors Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for course creation by instructors and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Instructors can create courses with title, description, and syllabus; Courses support multiple modules and lessons; Instructors can upload video lectures and documents.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for course creation by instructors is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for course creation by instructors are explicitly defined",
+          "Implementation subtasks for course creation by instructors can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Course Creation by Instructors Backend Services",
+        "description": "Build the backend services for course creation by instructors on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Instructors can create courses with title, description, and syllabus; Courses support multiple modules and lessons; Instructors can upload video lectures and documents.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core course creation by instructors business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for course creation by instructors",
+          "API/service behavior for course creation by instructors is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Course Creation by Instructors Frontend Flow",
+        "description": "Build the frontend flow for course creation by instructors with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The course creation by instructors user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for course creation by instructors behave correctly",
+          "The course creation by instructors UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Course Creation by Instructors Persistence Model",
+        "description": "Design the persistence layer for course creation by instructors. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The persistence model for course creation by instructors supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for course creation by instructors are defined correctly",
+          "Migrations for course creation by instructors can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Course Creation by Instructors",
+        "description": "Implement the external integration points used by course creation by instructors, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by course creation by instructors are connected through stable integration layers",
+          "Timeout, retry, and failure handling for course creation by instructors integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for course creation by instructors are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Course Creation by Instructors Security and Access Rules",
+        "description": "Apply security controls to course creation by instructors. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Access control rules for course creation by instructors are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in course creation by instructors are audited and protected against misuse",
+          "Security validation for course creation by instructors passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Course Creation by Instructors Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for course creation by instructors. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for course creation by instructors are covered by automated tests",
+          "Permission checks and validation rules for course creation by instructors are verified",
+          "Regression coverage exists for the most critical course creation by instructors scenarios"
+        ]
+      }
     ],
     "FR-03": [
-      {"title": "Build Video Streaming Service", "description": "Implement video storage and streaming. Support adaptive bitrate. Create API to track watch progress: POST /api/lessons/:id/progress (timestamp, percentage). Resume from saved position.", "priority": "high", "type": "backend", "related_requirement": "FR-03"},
-      {"title": "Build Video Player Component", "description": "Create custom video player with play/pause, seek bar, playback speed selector (0.5x-2x), volume control, fullscreen toggle, and progress indicator. Auto-save position every 10 seconds.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}
+      {
+        "title": "Plan Video Lecture Playback Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for video lecture playback and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Students can watch video lectures within the platform; Video player supports pause, seek, and playback speed; System tracks video progress per student.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for video lecture playback is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for video lecture playback are explicitly defined",
+          "Implementation subtasks for video lecture playback can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Video Lecture Playback Backend Services",
+        "description": "Build the backend services for video lecture playback on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Students can watch video lectures within the platform; Video player supports pause, seek, and playback speed; System tracks video progress per student.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core video lecture playback business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for video lecture playback",
+          "API/service behavior for video lecture playback is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Video Lecture Playback Frontend Flow",
+        "description": "Build the frontend flow for video lecture playback with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The video lecture playback user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for video lecture playback behave correctly",
+          "The video lecture playback UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Video Lecture Playback Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for video lecture playback. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for video lecture playback are covered by automated tests",
+          "Permission checks and validation rules for video lecture playback are verified",
+          "Regression coverage exists for the most critical video lecture playback scenarios"
+        ]
+      }
     ],
     "FR-04": [
-      {"title": "Build Quiz API", "description": "Create POST /api/courses/:id/quizzes (instructor creates quiz with questions, options, correct answers, time_limit). POST /api/quizzes/:id/submit (student submits answers). Auto-grade and return score.", "priority": "high", "type": "backend", "related_requirement": "FR-04"},
-      {"title": "Build Quiz UI", "description": "Create quiz-taking interface with timer countdown, question navigation, radio buttons for options, submit button. Results page showing score, correct vs selected answers.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"},
-      {"title": "Create Quiz Database Schema", "description": "Design quizzes table: id, course_id, title, time_limit_minutes. questions table: id, quiz_id, text, options (JSON array), correct_option_index. quiz_submissions table: student_id, quiz_id, answers, score, submitted_at.", "priority": "high", "type": "database", "related_requirement": "FR-04"}
+      {
+        "title": "Plan Quiz and Assessment System Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for quiz and assessment system and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Instructors can create quizzes with multiple choice questions; Quizzes can have time limits; System auto-grades multiple choice quizzes.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for quiz and assessment system is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for quiz and assessment system are explicitly defined",
+          "Implementation subtasks for quiz and assessment system can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Quiz and Assessment System Backend Services",
+        "description": "Build the backend services for quiz and assessment system on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Instructors can create quizzes with multiple choice questions; Quizzes can have time limits; System auto-grades multiple choice quizzes.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core quiz and assessment system business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for quiz and assessment system",
+          "API/service behavior for quiz and assessment system is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Quiz and Assessment System Frontend Flow",
+        "description": "Build the frontend flow for quiz and assessment system with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The quiz and assessment system user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for quiz and assessment system behave correctly",
+          "The quiz and assessment system UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Quiz and Assessment System Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for quiz and assessment system. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for quiz and assessment system are covered by automated tests",
+          "Permission checks and validation rules for quiz and assessment system are verified",
+          "Regression coverage exists for the most critical quiz and assessment system scenarios"
+        ]
+      }
     ],
     "FR-05": [
-      {"title": "Build Assignment API", "description": "Create POST /api/courses/:id/assignments (instructor creates with title, description, due_date, max_points). POST /api/assignments/:id/submit (student uploads file). PATCH /api/submissions/:id/grade (instructor grades).", "priority": "high", "type": "backend", "related_requirement": "FR-05"},
-      {"title": "Build Assignment UI", "description": "Create assignment page showing description, due date, and submission form with file upload (drag-drop, max 25MB). Submission status indicator. Instructor grading interface with score input and feedback textarea.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}
+      {
+        "title": "Plan Assignment Submission Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for assignment submission and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Instructors can create assignments with due dates; Students can submit files and text for assignments; Late submissions are flagged.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for assignment submission is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for assignment submission are explicitly defined",
+          "Implementation subtasks for assignment submission can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Assignment Submission Backend Services",
+        "description": "Build the backend services for assignment submission on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Instructors can create assignments with due dates; Students can submit files and text for assignments; Late submissions are flagged.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core assignment submission business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for assignment submission",
+          "API/service behavior for assignment submission is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Assignment Submission Frontend Flow",
+        "description": "Build the frontend flow for assignment submission with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The assignment submission user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for assignment submission behave correctly",
+          "The assignment submission UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Assignment Submission Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for assignment submission. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for assignment submission are covered by automated tests",
+          "Permission checks and validation rules for assignment submission are verified",
+          "Regression coverage exists for the most critical assignment submission scenarios"
+        ]
+      }
     ],
     "FR-06": [
-      {"title": "Build Progress Tracking API", "description": "Create GET /api/enrollments/:id/progress returning completed lessons, total lessons, percentage. Generate certificate on 100% completion. GET /api/certificates/:id for PDF download.", "priority": "high", "type": "backend", "related_requirement": "FR-06"},
-      {"title": "Build Student Dashboard", "description": "Create dashboard with enrolled courses grid, each showing progress bar, completion percentage, next lesson link. Certificates section for completed courses with download button.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"},
-      {"title": "Implement Certificate Generation", "description": "Create PDF certificate template with student name, course title, completion date, and unique certificate ID. Generate on course completion. Store in certificates table for verification.", "priority": "medium", "type": "backend", "related_requirement": "FR-06"}
+      {
+        "title": "Plan Progress Tracking Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for progress tracking dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Students can view course completion percentage; Dashboard shows completed and pending lessons; Progress bar for each enrolled course.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for progress tracking dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for progress tracking dashboard are explicitly defined",
+          "Implementation subtasks for progress tracking dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Progress Tracking Dashboard Backend Services",
+        "description": "Build the backend services for progress tracking dashboard on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Students can view course completion percentage; Dashboard shows completed and pending lessons; Progress bar for each enrolled course.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core progress tracking dashboard business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for progress tracking dashboard",
+          "API/service behavior for progress tracking dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Progress Tracking Dashboard Frontend Flow",
+        "description": "Build the frontend flow for progress tracking dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The progress tracking dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for progress tracking dashboard behave correctly",
+          "The progress tracking dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Progress Tracking Dashboard Persistence Model",
+        "description": "Design the persistence layer for progress tracking dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for progress tracking dashboard supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for progress tracking dashboard are defined correctly",
+          "Migrations for progress tracking dashboard can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Progress Tracking Dashboard",
+        "description": "Implement the external integration points used by progress tracking dashboard, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "External dependencies used by progress tracking dashboard are connected through stable integration layers",
+          "Timeout, retry, and failure handling for progress tracking dashboard integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for progress tracking dashboard are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Progress Tracking Dashboard Security and Access Rules",
+        "description": "Apply security controls to progress tracking dashboard. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Access control rules for progress tracking dashboard are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in progress tracking dashboard are audited and protected against misuse",
+          "Security validation for progress tracking dashboard passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Build Progress Tracking Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for progress tracking dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for progress tracking dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for progress tracking dashboard work correctly",
+          "Reporting queries for progress tracking dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Progress Tracking Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for progress tracking dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for progress tracking dashboard are covered by automated tests",
+          "Permission checks and validation rules for progress tracking dashboard are verified",
+          "Regression coverage exists for the most critical progress tracking dashboard scenarios"
+        ]
+      }
     ],
     "FR-07": [
-      {"title": "Build Forum API", "description": "Create CRUD for discussion threads: POST /api/courses/:id/threads, GET /api/courses/:id/threads (paginated), POST /api/threads/:id/replies. Mark instructor replies with is_instructor flag.", "priority": "medium", "type": "backend", "related_requirement": "FR-07"},
-      {"title": "Build Forum UI", "description": "Create discussion page with thread list, new thread form, and thread detail with replies. Instructor badge on instructor replies. Sort by newest or most replies.", "priority": "medium", "type": "frontend", "related_requirement": "FR-07"}
+      {
+        "title": "Plan Discussion Forum Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for discussion forum and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Each course has a discussion forum; Students and instructors can create threads; Users can reply to threads.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for discussion forum is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for discussion forum are explicitly defined",
+          "Implementation subtasks for discussion forum can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Discussion Forum Backend Services",
+        "description": "Build the backend services for discussion forum on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Each course has a discussion forum; Students and instructors can create threads; Users can reply to threads.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core discussion forum business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for discussion forum",
+          "API/service behavior for discussion forum is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Discussion Forum Frontend Flow",
+        "description": "Build the frontend flow for discussion forum with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The discussion forum user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for discussion forum behave correctly",
+          "The discussion forum UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Discussion Forum Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for discussion forum. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for discussion forum are covered by automated tests",
+          "Permission checks and validation rules for discussion forum are verified",
+          "Regression coverage exists for the most critical discussion forum scenarios"
+        ]
+      }
     ],
     "FR-08": [
-      {"title": "Build Course Review API", "description": "Create POST /api/courses/:id/reviews (rating 1-5, text). Verify enrollment. Calculate and cache average rating. GET /api/courses/:id/reviews with pagination and sort.", "priority": "medium", "type": "backend", "related_requirement": "FR-08"},
-      {"title": "Build Review Section UI", "description": "Create review section on course page with star rating summary, individual review cards, and review submission form (star selector + textarea). Only visible to enrolled students.", "priority": "medium", "type": "frontend", "related_requirement": "FR-08"}
+      {
+        "title": "Plan Course Rating and Review Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for course rating and review and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Students can rate courses with 1-5 stars; Students can write text reviews; Average rating displayed on course page.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for course rating and review is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for course rating and review are explicitly defined",
+          "Implementation subtasks for course rating and review can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Course Rating and Review Backend Services",
+        "description": "Build the backend services for course rating and review on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Students can rate courses with 1-5 stars; Students can write text reviews; Average rating displayed on course page.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core course rating and review business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for course rating and review",
+          "API/service behavior for course rating and review is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Course Rating and Review Frontend Flow",
+        "description": "Build the frontend flow for course rating and review with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The course rating and review user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for course rating and review behave correctly",
+          "The course rating and review UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Course Rating and Review Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for course rating and review. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for course rating and review are covered by automated tests",
+          "Permission checks and validation rules for course rating and review are verified",
+          "Regression coverage exists for the most critical course rating and review scenarios"
+        ]
+      }
     ],
     "FR-09": [
-      {"title": "Build Payment API", "description": "Create POST /api/payments/checkout (process course purchase). POST /api/subscriptions/create (subscription plan). POST /api/payments/:id/refund (within 30 days). Integrate payment gateway.", "priority": "high", "type": "backend", "related_requirement": "FR-09"},
-      {"title": "Build Payment UI", "description": "Create checkout page with course summary, payment method selection (card/PayPal), billing details form. Subscription plan comparison page. Purchase confirmation screen.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"},
-      {"title": "Create Payment Database Schema", "description": "Design payments table: id, user_id, course_id, amount, method, status, transaction_id, created_at. subscriptions table: user_id, plan, start_date, end_date, status. refunds table: payment_id, reason, status.", "priority": "high", "type": "database", "related_requirement": "FR-09"}
+      {
+        "title": "Plan Payment and Subscription Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for payment and subscription and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Courses can be free or paid; Payment via credit card or PayPal; Subscription plans for unlimited access.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for payment and subscription is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for payment and subscription are explicitly defined",
+          "Implementation subtasks for payment and subscription can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Payment and Subscription Backend Services",
+        "description": "Build the backend services for payment and subscription on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Courses can be free or paid; Payment via credit card or PayPal; Subscription plans for unlimited access.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core payment and subscription business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for payment and subscription",
+          "API/service behavior for payment and subscription is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Payment and Subscription Frontend Flow",
+        "description": "Build the frontend flow for payment and subscription with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The payment and subscription user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for payment and subscription behave correctly",
+          "The payment and subscription UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Payment and Subscription",
+        "description": "Implement the external integration points used by payment and subscription, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "External dependencies used by payment and subscription are connected through stable integration layers",
+          "Timeout, retry, and failure handling for payment and subscription integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for payment and subscription are handled securely"
+        ]
+      },
+      {
+        "title": "Harden Payment and Subscription Security and Access Rules",
+        "description": "Apply security controls to payment and subscription. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Access control rules for payment and subscription are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in payment and subscription are audited and protected against misuse",
+          "Security validation for payment and subscription passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Payment and Subscription Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for payment and subscription. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for payment and subscription are covered by automated tests",
+          "Permission checks and validation rules for payment and subscription are verified",
+          "Regression coverage exists for the most critical payment and subscription scenarios"
+        ]
+      }
     ],
     "FR-10": [
-      {"title": "Build Admin Analytics API", "description": "Create GET /api/admin/analytics returning total users, courses, revenue, enrollment trends (monthly), top courses by rating and enrollment. Cache results for performance.", "priority": "medium", "type": "backend", "related_requirement": "FR-10"},
-      {"title": "Build Admin Dashboard", "description": "Create admin analytics page with stat cards (total students, courses, revenue), line chart for enrollment trends, bar chart for top courses, table for instructor performance.", "priority": "medium", "type": "frontend", "related_requirement": "FR-10"}
+      {
+        "title": "Plan Admin Analytics Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for admin analytics dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Admin can view total students, courses, and revenue; Charts for enrollment trends over time; Top-rated and most enrolled courses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for admin analytics dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for admin analytics dashboard are explicitly defined",
+          "Implementation subtasks for admin analytics dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Admin Analytics Dashboard Backend Services",
+        "description": "Build the backend services for admin analytics dashboard on React, Django, PostgreSQL. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Admin can view total students, courses, and revenue; Charts for enrollment trends over time; Top-rated and most enrolled courses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core admin analytics dashboard business rules are implemented for Learning Management System",
+          "Validation, authorization, and error handling are covered for admin analytics dashboard",
+          "API/service behavior for admin analytics dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Admin Analytics Dashboard Frontend Flow",
+        "description": "Build the frontend flow for admin analytics dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The admin analytics dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for admin analytics dashboard behave correctly",
+          "The admin analytics dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Build Admin Analytics Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for admin analytics dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for admin analytics dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for admin analytics dashboard work correctly",
+          "Reporting queries for admin analytics dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Admin Analytics Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for admin analytics dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for admin analytics dashboard are covered by automated tests",
+          "Permission checks and validation rules for admin analytics dashboard are verified",
+          "Regression coverage exists for the most critical admin analytics dashboard scenarios"
+        ]
+      }
     ]
   }
 }

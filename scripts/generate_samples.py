@@ -210,76 +210,324 @@ MORE_DOMAINS = [
     ]),
 ]
 
-def generate_fr_data(title, requirements_text, acceptance_text):
-    """Generate FR entry."""
-    # Create varied requirement and AC lists
+def generate_fr_data(title, requirements_text, acceptance_text=None):
+    """Generate FR entry aligned with the latest SRS format."""
     reqs = requirements_text if isinstance(requirements_text, list) else [requirements_text]
-    acs = acceptance_text if isinstance(acceptance_text, list) else [acceptance_text]
-    return {
+    entry = {
         "title": title,
         "requirements": reqs,
-        "acceptance_criteria": acs
+    }
+    if acceptance_text:
+        acs = acceptance_text if isinstance(acceptance_text, list) else [acceptance_text]
+        entry["acceptance_criteria"] = acs
+    return entry
+
+
+def build_project_input(title, techs, frs):
+    """Build richer training input aligned with the production SRS schema."""
+    module_titles = [fr["title"] for fr in frs.values()][:10]
+    actor_defaults = ["Admin", "Manager", "Employee", "User"]
+    scope = [f"{fr['title']} workflows" for fr in list(frs.values())[:6]]
+
+    backend_stack = [tech for tech in techs if tech.lower() not in {"react", "next.js", "angular", "vue", "vue.js", "react native"}]
+    operating_environment = {
+        "frontend": f"Web-based interface built with {techs[0]} and accessible through modern browsers.",
+        "backend": f"Service layer implemented with {', '.join(backend_stack) if backend_stack else 'REST APIs'} for business operations.",
+        "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments.",
     }
 
-def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs):
-    """Generate realistic output tasks for a given FR."""
-    tasks = []
-    
-    # Backend task
-    tasks.append({
-        "title": f"Build {fr_title} API",
-        "description": f"Create REST API endpoints for {fr_title.lower()} feature in {domain_title}. Implement business logic, validation, database operations, and error handling. Add authentication and authorization checks.",
-        "priority": random.choice(["high", "high", "medium"]),
-        "type": "backend",
-        "related_requirement": fr_id
-    })
-    
-    # Frontend task
-    tasks.append({
-        "title": f"Build {fr_title} UI",
-        "description": f"Create user interface components for {fr_title.lower()}. Implement responsive design with form validation, loading states, error handling, and smooth transitions. Connect to API endpoints.",
-        "priority": random.choice(["high", "high", "medium"]),
-        "type": "frontend",
-        "related_requirement": fr_id
-    })
-    
-    # Sometimes add database task
-    if random.random() < 0.3:
-        tasks.append({
-            "title": f"Design {fr_title} Database Schema",
-            "description": f"Create database tables/collections for {fr_title.lower()}. Define fields, data types, constraints, indexes, and relationships. Add migration scripts.",
-            "priority": "high",
-            "type": "database",
-            "related_requirement": fr_id
-        })
-    
-    # Sometimes add testing task
-    if random.random() < 0.4:
-        tasks.append({
-            "title": f"Write {fr_title} Tests",
-            "description": f"Write unit and integration tests for {fr_title.lower()} feature. Cover happy path, error cases, edge cases, and validation rules. Achieve minimum 80% coverage.",
-            "priority": "medium",
-            "type": "testing",
-            "related_requirement": fr_id
-        })
-    
+    non_functional_requirements = {
+        "NFR-01": {
+            "title": "Security and Access Control",
+            "requirements": [
+                "All sensitive data must be encrypted in transit and at rest",
+                "Role-based authorization must restrict access by module and action",
+                "All authentication events and privileged actions must be logged",
+            ],
+        },
+        "NFR-02": {
+            "title": "Performance and Scalability",
+            "requirements": [
+                "Core pages and dashboards should load within acceptable enterprise SLAs",
+                "The platform must support concurrent usage across multiple departments",
+                "Background jobs and reporting workloads should not block transactional workflows",
+            ],
+        },
+        "NFR-03": {
+            "title": "Reliability and Recoverability",
+            "requirements": [
+                "Automated backups must run on a defined schedule",
+                "Critical workflows should support retry-safe processing and audit logging",
+                "Operational alerts should be generated for failures and degraded services",
+            ],
+        },
+    }
+
+    return {
+        "title": title,
+        "description": f"{title} is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+        "technologies": techs,
+        "actors": actor_defaults,
+        "user_classes": {
+            "Admin": "Configures the system, manages users, and oversees permissions and settings.",
+            "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
+            "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
+            "User": "Generic authenticated platform user with access limited by role and department.",
+        },
+        "definitions": {
+            "Admin": "System user with full administrative privileges.",
+            "Manager": "Operational owner of a department, module, or workflow.",
+            "Employee": "End user performing role-specific business operations.",
+        },
+        "modules": module_titles,
+        "scope": scope,
+        "constraints": [
+            "Initial release will focus on the web platform only",
+            "Role-based access control is mandatory across all modules",
+            "Operational data must be auditable and retained according to policy",
+        ],
+        "operating_environment": operating_environment,
+        "non_functional_requirements": non_functional_requirements,
+        "system_attributes": {
+            "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
+            "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
+            "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
+            "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries.",
+        },
+        "out_of_scope": [
+            "Native mobile applications in the first release",
+            "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
+            "Non-core experimental modules outside the platform's operational workflows",
+        ],
+        "functional_requirements": frs,
+    }
+
+
+def build_task_acceptance_criteria(task_type, fr_title, domain_title):
+    """Create task-level definition of done for training outputs."""
+    feature_lower = fr_title.lower()
+
+    if task_type == "backend":
+        return [
+            f"Core {feature_lower} business rules are implemented for {domain_title}",
+            f"Validation, authorization, and error handling are covered for {feature_lower}",
+            f"API/service behavior for {feature_lower} is testable and documented for integration",
+        ]
+
+    if task_type == "frontend":
+        return [
+            f"The {feature_lower} user flow is accessible and responsive across supported browsers",
+            f"Forms, filters, tables, and feedback states for {feature_lower} behave correctly",
+            f"The {feature_lower} UI is fully integrated with backend APIs and handles loading and error states",
+        ]
+
+    if task_type == "database":
+        return [
+            f"The persistence model for {feature_lower} supports required workflows and reporting needs",
+            f"Indexes, constraints, and relationships for {feature_lower} are defined correctly",
+            f"Migrations for {feature_lower} can be applied safely in target environments",
+        ]
+
+    if task_type == "testing":
+        return [
+            f"Happy path and failure cases for {feature_lower} are covered by automated tests",
+            f"Permission checks and validation rules for {feature_lower} are verified",
+            f"Regression coverage exists for the most critical {feature_lower} scenarios",
+        ]
+
+    return [
+        f"The {feature_lower} task is implemented and verifiable",
+        f"Edge cases for {feature_lower} are handled cleanly",
+        f"Relevant stakeholders can validate the completed {feature_lower} workflow",
+    ]
+
+
+def summarize_requirements(requirements, limit=3):
+    """Extract the most important requirement bullets for task descriptions."""
+    cleaned = [str(item).strip().rstrip(".") for item in (requirements or []) if str(item).strip()]
+    return cleaned[:limit]
+
+
+def create_task(fr_id, fr_title, domain_title, task_title, description, priority, task_type, acceptance_criteria):
+    """Create a normalized detailed task."""
+    return {
+        "title": task_title,
+        "description": description,
+        "priority": priority,
+        "type": task_type,
+        "related_requirement": fr_id,
+        "acceptance_criteria": acceptance_criteria,
+    }
+
+
+def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs, fr_data=None):
+    """Generate multiple detailed tasks for a given FR."""
+    feature_lower = fr_title.lower()
+    requirements = summarize_requirements((fr_data or {}).get("requirements", []), limit=4)
+    requirement_summary = "; ".join(requirements[:3]) if requirements else f"core {feature_lower} workflow requirements"
+    stack_summary = ", ".join(techs[:4]) if techs else "the target application stack"
+
+    signals = " ".join([feature_lower, requirement_summary]).lower()
+    needs_database = any(keyword in signals for keyword in [
+        "inventory", "management", "tracking", "history", "reports", "billing",
+        "payroll", "supplier", "vendor", "document", "project", "asset", "order",
+        "record", "transaction", "attendance", "evaluation", "customer", "ticket",
+    ])
+    needs_security = any(keyword in signals for keyword in [
+        "auth", "access", "encryption", "audit", "backup", "restore", "payment",
+        "tax", "role", "permission", "rbac", "sso",
+    ])
+    needs_reporting = any(keyword in signals for keyword in [
+        "dashboard", "report", "analytics", "monitoring", "kpi", "history",
+    ])
+    needs_notifications = any(keyword in signals for keyword in [
+        "notification", "alert", "reminder", "approval", "deadline",
+    ])
+    needs_integration = any(keyword in signals for keyword in [
+        "email", "sms", "payment", "api", "import", "export", "sso", "gateway",
+        "bank", "restore", "backup",
+    ])
+
+    tasks = [
+        create_task(
+            fr_id,
+            fr_title,
+            domain_title,
+            f"Plan {fr_title} Workflow and Contracts",
+            f"Review the SRS requirement bullets for {feature_lower} and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: {requirement_summary}.",
+            "high",
+            "backend",
+            [
+                f"The end-to-end workflow for {feature_lower} is documented from trigger to completion",
+                f"Validation rules, role restrictions, and error scenarios for {feature_lower} are explicitly defined",
+                f"Implementation subtasks for {feature_lower} can be picked up independently by engineering",
+            ],
+        ),
+        create_task(
+            fr_id,
+            fr_title,
+            domain_title,
+            f"Implement {fr_title} Backend Services",
+            f"Build the backend services for {feature_lower} on {stack_summary}. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: {requirement_summary}.",
+            "high",
+            "backend",
+            build_task_acceptance_criteria("backend", fr_title, domain_title),
+        ),
+        create_task(
+            fr_id,
+            fr_title,
+            domain_title,
+            f"Implement {fr_title} Frontend Flow",
+            f"Build the frontend flow for {feature_lower} with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+            "high",
+            "frontend",
+            build_task_acceptance_criteria("frontend", fr_title, domain_title),
+        ),
+    ]
+
+    if needs_database:
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Design {fr_title} Persistence Model",
+                f"Design the persistence layer for {feature_lower}. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+                "high",
+                "database",
+                build_task_acceptance_criteria("database", fr_title, domain_title),
+            )
+        )
+
+    if needs_integration:
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Integrate External Dependencies for {fr_title}",
+                f"Implement the external integration points used by {feature_lower}, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+                "high",
+                "backend",
+                [
+                    f"External dependencies used by {feature_lower} are connected through stable integration layers",
+                    f"Timeout, retry, and failure handling for {feature_lower} integrations are implemented and testable",
+                    f"Secrets, credentials, and integration logs for {feature_lower} are handled securely",
+                ],
+            )
+        )
+
+    if needs_security:
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Harden {fr_title} Security and Access Rules",
+                f"Apply security controls to {feature_lower}. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+                "high",
+                "backend",
+                [
+                    f"Access control rules for {feature_lower} are enforced consistently across API and UI layers",
+                    f"Sensitive operations and data paths in {feature_lower} are audited and protected against misuse",
+                    f"Security validation for {feature_lower} passes review and automated checks",
+                ],
+            )
+        )
+
+    if needs_reporting:
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Build {fr_title} Reporting and KPI Logic",
+                f"Implement the reporting layer for {feature_lower}, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+                "medium",
+                "backend",
+                [
+                    f"KPI and reporting calculations for {feature_lower} return accurate results",
+                    f"Filters, grouping, and export-ready structures for {feature_lower} work correctly",
+                    f"Reporting queries for {feature_lower} perform within acceptable limits",
+                ],
+            )
+        )
+
+    if needs_notifications:
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Implement {fr_title} Notifications and Workflow Triggers",
+                f"Add notifications and event-driven workflow triggers for {feature_lower}. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+                "medium",
+                "backend",
+                [
+                    f"Notification triggers for {feature_lower} fire on the correct workflow events",
+                    f"Recipients, templates, and delivery channels for {feature_lower} are configurable and testable",
+                    f"Notification failures for {feature_lower} are observable and recoverable",
+                ],
+            )
+        )
+
+    tasks.append(
+        create_task(
+            fr_id,
+            fr_title,
+            domain_title,
+            f"Write {fr_title} Automated and End-to-End Tests",
+            f"Write unit, integration, and end-to-end tests for {feature_lower}. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+            "medium",
+            "testing",
+            build_task_acceptance_criteria("testing", fr_title, domain_title),
+        )
+    )
+
     return tasks
 
 def generate_simple_frs(fr_titles):
-    """Generate FRs from a list of titles with auto-generated requirements."""
-    requirement_templates = [
-        "System shall support {feature} with complete functionality",
-        "Users can access and manage {feature} from the interface",
-        "All {feature} data must be validated before processing",
-        "{feature} must be secured with proper authentication and authorization",
-    ]
-    ac_templates = [
-        "{feature} functions correctly as specified",
-        "Users can successfully complete all {feature} operations",
-        "System handles errors gracefully for {feature}",
-        "Performance meets requirements for {feature} operations",
-    ]
-    
+    """Generate FRs from a list of titles with requirements only."""
     frs = {}
     for i, title in enumerate(fr_titles):
         fr_id = f"FR-{i+1:02d}"
@@ -296,19 +544,9 @@ def generate_simple_frs(fr_titles):
         if num_reqs >= 5:
             reqs.append(f"Enable notifications for important {feature} events")
         
-        # Generate 3-4 acceptance criteria
-        num_acs = random.randint(3, 4)
-        acs = []
-        acs.append(f"User can successfully perform all {feature} operations")
-        acs.append(f"System validates all {feature} inputs correctly")
-        acs.append(f"Error messages display clearly for {feature} failures")
-        if num_acs >= 4:
-            acs.append(f"{feature} data persists correctly across sessions")
-        
         frs[fr_id] = {
             "title": title,
             "requirements": reqs,
-            "acceptance_criteria": acs
         }
     
     return frs
@@ -319,14 +557,10 @@ def create_sample(filepath, title, techs, fr_titles):
     
     output = {}
     for fr_id in frs:
-        output[fr_id] = generate_tasks_for_fr(fr_id, frs[fr_id]["title"], title, techs)
+        output[fr_id] = generate_tasks_for_fr(fr_id, frs[fr_id]["title"], title, techs, frs[fr_id])
     
     sample = {
-        "input": {
-            "title": title,
-            "technologies": techs,
-            "functional_requirements": frs
-        },
+        "input": build_project_input(title, techs, frs),
         "output": output
     }
     
@@ -346,17 +580,13 @@ def main():
         
         frs = {}
         output = {}
-        for i, (title, reqs, acs) in enumerate(fr_data):
+        for i, (title, reqs, _acs) in enumerate(fr_data):
             fr_id = f"FR-{i+1:02d}"
-            frs[fr_id] = {"title": title, "requirements": reqs, "acceptance_criteria": acs}
-            output[fr_id] = generate_tasks_for_fr(fr_id, title, domain["title"], domain["tech"])
+            frs[fr_id] = {"title": title, "requirements": reqs}
+            output[fr_id] = generate_tasks_for_fr(fr_id, title, domain["title"], domain["tech"], frs[fr_id])
         
         sample = {
-            "input": {
-                "title": domain["title"],
-                "technologies": domain["tech"],
-                "functional_requirements": frs
-            },
+            "input": build_project_input(domain["title"], domain["tech"], frs),
             "output": output
         }
         
@@ -433,6 +663,11 @@ def main():
           "Submittal Tracking", "Punch List Creation", "Inspection Scheduling", "Quality Assurance Checklists", "Safety Incident Reporting", "Safety Training Tracking", "OSHA Compliance Checklist", "Drawing and Blueprint Management",
           "3D Model Viewer Integration", "Photo and Video Documentation", "Time-lapse Camera Integration", "Client Portal with Progress", "Permit and License Tracking", "Warranty Tracking", "Asset Handover Documentation",
           "Analytics and Project Reports", "Multi-project Dashboard"]),
+        ("51_enterprise_erp.json", "Enterprise Resource Planning System", ["React", "Node.js", "MongoDB", "Express"],
+         ["User Authentication", "User Role Management", "Financial Transaction Tracking", "Payroll Management", "Sales and CRM", "Inventory Management", "Procurement Management", "Time and Attendance Management",
+          "Performance Evaluation", "Real-time Reporting and Dashboards", "Document Management", "Customer Order Management", "Supplier Management", "Vendor Payment Management", "Bank Reconciliation", "Project Management",
+          "Asset Management", "Audit Trail and Log Management", "Multi-Currency Support", "Tax Management", "Marketing Campaign Tracking", "Data Backup and Restore", "System Notifications and Alerts", "Workflow Automation",
+          "User Activity Monitoring", "Helpdesk and Support Ticketing", "Role-Based Access Control", "User Self-Service Portal", "Data Encryption", "System Availability and Downtime"]),
     ]
     
     for filename, title, techs, fr_titles in extra_domains:
@@ -441,7 +676,7 @@ def main():
     
     # Count total
     total_files = len(DOMAINS) + len(MORE_DOMAINS) + len(extra_domains)
-    print(f"\n  Generated {total_files} new sample files (23-50)")
+    print(f"\n  Generated {total_files} sample files")
 
 
 if __name__ == "__main__":

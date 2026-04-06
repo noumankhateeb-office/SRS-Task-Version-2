@@ -1,11 +1,11 @@
-# SRS → Tasks Generator
+# SRS -> Tasks Generator
 
 An ML pipeline that converts Software Requirements Specification (SRS) documents into actionable development tasks.
 
 ## Architecture
 
-```
-SRS PDF/Text → [PyMuPDF] → Raw Text → [SpaCy + Regex] → Structured JSON → [FLAN-T5-base + LoRA] → Tasks JSON
+```text
+SRS PDF/Text -> [PyMuPDF] -> Raw Text -> [SpaCy + Regex] -> Structured JSON -> [FLAN-T5-base + LoRA] -> Tasks JSON
                               Stage 1: Parsing                              Stage 2: Generation
 ```
 
@@ -21,10 +21,20 @@ python -m spacy download en_core_web_sm
 ### 2. Prepare Training Data
 
 Training data lives in `data/samples/` as individual JSON files. Each file is a JSON object with:
-- `input`: Structured SRS JSON (title, technologies, functional_requirements, etc.)
-- `output`: Array of task objects (title, description, priority, type, related_requirement)
+- `input`: Structured SRS JSON including title, description, technologies, actors, constraints, non-functional requirements, and functional requirements
+- `output`: Tasks grouped by requirement ID
 
-Add your own examples as new `.json` files in the same directory. **Minimum 20-30 examples recommended.**
+The parser and training pipeline support both:
+- Markdown SRS files with headings like `### 3.1 Functional Requirements`
+- Plain enterprise SRS files with headings like `3.1 Functional Requirements`
+
+Use `samples/sample_srs_erp.md` as the reference enterprise template.
+
+If you want to regenerate the bundled synthetic training samples with the richer schema:
+
+```bash
+python scripts/generate_samples.py
+```
 
 ### 3. Train the Model
 
@@ -33,30 +43,34 @@ python src/train.py --data data/samples --epochs 15
 ```
 
 Options:
-- `--data PATH` — Path to training data directory or JSONL file (default: `data/samples/`)
-- `--output PATH` — Where to save the model (default: `models/srs-task-adapter/`)
-- `--epochs N` — Training epochs (default: 15)
-- `--batch-size N` — Batch size (default: 4, reduce to 2 if out of memory)
-- `--lr FLOAT` — Learning rate (default: 3e-4)
+- `--data PATH` - Path to training data directory or JSONL file (default: `data/samples/`)
+- `--output PATH` - Where to save the model (default: `models/srs-task-adapter/`)
+- `--epochs N` - Number of epochs (default: 15)
+- `--batch-size N` - Batch size (default: 4, reduce to 2 if out of memory)
+- `--lr FLOAT` - Learning rate (default: `3e-4`)
 
 ### 4. Generate Tasks
 
-**From a PDF:**
+From a PDF:
+
 ```bash
 python src/generate.py --pdf path/to/srs.pdf
 ```
 
-**From a text file:**
+From a text file:
+
 ```bash
 python src/generate.py --file path/to/srs.md
 ```
 
-**From raw text:**
+From raw text:
+
 ```bash
 python src/generate.py --input "The system shall allow users to..."
 ```
 
-**From pre-parsed JSON:**
+From pre-parsed JSON:
+
 ```bash
 python src/generate.py --json path/to/srs.json
 ```
@@ -70,13 +84,15 @@ python src/server.py
 ```
 
 Endpoints:
-- `POST /parse-srs` — Upload SRS PDF → get structured JSON (Stage 1 only)
-- `POST /generate-tasks` — Upload SRS PDF → get development tasks (full pipeline)
-- `GET /health` — Health check
+- `POST /parse-srs` - Upload SRS PDF/TXT/MD and get structured JSON
+- `POST /generate-tasks` - Upload SRS PDF/TXT/MD and get generated tasks
+- `POST /parse-srs-text` - Parse raw SRS text to JSON
+- `POST /generate-tasks-text` - Generate tasks from raw SRS text
+- `GET /health` - Health check
 
-API runs at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
+API runs at `http://localhost:8000`. Interactive docs are available at `http://localhost:8000/docs`.
 
-## Stage 1: SRS Parser (standalone)
+## Stage 1: SRS Parser
 
 Parse an SRS document into structured JSON without generating tasks:
 
@@ -85,27 +101,37 @@ python src/srs_to_json.py path/to/srs.pdf
 python src/srs_to_json.py path/to/srs.md output.json
 ```
 
+## Validation
+
+Run the parser smoke tests:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
 ## Project Structure
 
-```
-SRS-Task Generator/
-├── data/
-│   └── samples/                  # Training data (individual JSON files)
-│       ├── 01_ecommerce_login.json
-│       ├── 02_ecommerce_registration.json
-│       └── ...                   # Add your own examples here
-├── uploads/                  # Uploaded SRS PDFs
-├── output/                   # Generated task JSONs
-├── src/
-│   ├── pdf_parser.py         # PDF text extraction
-│   ├── srs_to_json.py        # Stage 1: SRS → structured JSON
-│   ├── prepare_data.py       # Training data preparation
-│   ├── train.py              # Model fine-tuning
-│   ├── generate.py           # Full pipeline inference
-│   └── server.py             # FastAPI REST server
-├── models/                   # Saved model weights
-├── requirements.txt
-└── README.md
+```text
+SRS-Task-Generator/
+|-- data/
+|   `-- samples/                  # Training data (JSON files)
+|-- uploads/                      # Uploaded SRS PDFs and text files
+|-- output/                       # Generated task JSONs
+|-- samples/                      # Example SRS inputs, including ERP template
+|-- scripts/
+|   `-- generate_samples.py       # Synthetic sample generation
+|-- src/
+|   |-- pdf_parser.py             # PDF/text extraction
+|   |-- srs_to_json.py            # Stage 1: SRS -> structured JSON
+|   |-- prepare_data.py           # Training data preparation
+|   |-- train.py                  # Model fine-tuning
+|   |-- generate.py               # Full pipeline inference
+|   `-- server.py                 # FastAPI REST server
+|-- tests/
+|   `-- test_srs_parser.py        # Parser smoke tests
+|-- models/                       # Saved model weights
+|-- requirements.txt
+`-- README.md
 ```
 
 ## Task Output Format
@@ -118,18 +144,21 @@ Each generated task contains:
   "description": "Create POST /api/auth/login...",
   "priority": "high",
   "type": "backend",
-  "related_requirement": "FR-01"
+  "related_requirement": "FR-01",
+  "acceptance_criteria": [
+    "Validation, authorization, and error handling are covered",
+    "The implementation is testable and documented for integration"
+  ]
 }
 ```
 
-- **priority**: `high`, `medium`, `low`
-- **type**: `backend`, `frontend`, `database`, `testing`
-- **related_requirement**: Links back to the FR/NFR ID
+- `priority`: `high`, `medium`, `low`
+- `type`: `backend`, `frontend`, `database`, `testing`
+- `related_requirement`: Links the task back to the FR/NFR ID
+- `acceptance_criteria`: Definition of done for the task itself
 
 ## Requirements
 
 - Python 3.11+
 - 4-6 GB RAM for training
-- NVIDIA GPU optional (speeds up training 10-20x)
-# SRS-Task-Generator
-# SRS-Task-Version-2
+- NVIDIA GPU optional for faster training

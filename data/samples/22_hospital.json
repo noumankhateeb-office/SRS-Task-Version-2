@@ -1,70 +1,2253 @@
 {
   "input": {
     "title": "Hospital Management System",
-    "technologies": ["Angular", "Java Spring Boot", "PostgreSQL", "Redis"],
+    "technologies": [
+      "Angular",
+      "Java Spring Boot",
+      "PostgreSQL",
+      "Redis"
+    ],
     "functional_requirements": {
-      "FR-01": {"title": "Patient Registration", "requirements": ["Register with demographics and insurance", "Generate unique patient ID (MRN)", "Upload ID and insurance cards", "Emergency contact information"], "acceptance_criteria": ["Patient record created", "MRN generated and unique", "Documents stored securely", "Contacts accessible to staff"]},
-      "FR-02": {"title": "Outpatient Appointment", "requirements": ["Book by department and doctor", "View doctor schedule availability", "Appointment confirmation via SMS/email", "Walk-in queue management"], "acceptance_criteria": ["Appointment booked", "Schedule reflects availability", "Notifications sent", "Walk-ins added to queue"]},
-      "FR-03": {"title": "Inpatient Admission", "requirements": ["Admit patient with bed assignment", "Ward and room management", "Expected discharge date tracking", "Admission orders and care plan"], "acceptance_criteria": ["Patient admitted with bed", "Room availability tracked", "Discharge date plannable", "Orders created on admission"]},
-      "FR-04": {"title": "Electronic Medical Records", "requirements": ["Patient history, diagnoses, and treatments", "Lab and radiology results integration", "Allergy and medication tracking", "Clinical notes by providers"], "acceptance_criteria": ["Records comprehensive and accessible", "Results display correctly", "Alerts for allergies shown", "Notes saved per encounter"]},
-      "FR-05": {"title": "Doctor Order Entry", "requirements": ["Order lab tests and imaging", "Prescribe medications with dosage", "Clinical decision support alerts", "Order sets for common conditions"], "acceptance_criteria": ["Orders processed to departments", "Prescriptions include all details", "Alerts fire for interactions", "Order sets pre-populate"]},
-      "FR-06": {"title": "Nursing Station", "requirements": ["Patient list with vital signs display", "Medication administration recording", "Nursing assessment forms", "Shift handoff documentation"], "acceptance_criteria": ["Patient board shows current vitals", "Med admin logged with time", "Assessments saved per shift", "Handoff notes accessible to next shift"]},
-      "FR-07": {"title": "Laboratory Module", "requirements": ["Receive and process lab orders", "Sample collection tracking", "Result entry and validation", "Critical value alerts"], "acceptance_criteria": ["Orders received from OE", "Samples tracked with barcodes", "Results validated before release", "Critical values alert doctor"]},
-      "FR-08": {"title": "Radiology Module", "requirements": ["Imaging order management", "PACS integration for image viewing", "Radiology report dictation", "Report delivery to ordering doctor"], "acceptance_criteria": ["Orders queued for imaging", "Images viewable in PACS", "Reports created and signed", "Doctor notified of report"]},
-      "FR-09": {"title": "Pharmacy Module", "requirements": ["Receive prescriptions from doctor orders", "Drug dispensing workflow", "Drug interaction and allergy checking", "Inventory management for medications"], "acceptance_criteria": ["Prescriptions received and queued", "Dispensing tracked per patient", "Interactions flagged before dispensing", "Inventory deducted on dispense"]},
-      "FR-10": {"title": "Billing and Invoicing", "requirements": ["Charge capture for all services", "Insurance claim submission", "Patient billing statements", "Payment processing and receipts"], "acceptance_criteria": ["Charges generated per service", "Claims submitted electronically", "Statements mailed/emailed", "Payments recorded correctly"]},
-      "FR-11": {"title": "Surgery Scheduling", "requirements": ["Schedule surgeries with OR assignment", "Pre-operative checklist", "Surgical team assignment", "Post-operative notes"], "acceptance_criteria": ["Surgery scheduled with OR", "Checklist completed before surgery", "Team assigned and notified", "Notes saved post-surgery"]},
-      "FR-12": {"title": "Emergency Department", "requirements": ["Triage assessment and priority scoring", "ED patient tracking board", "Rapid assessment documentation", "Admission or discharge from ED"], "acceptance_criteria": ["Triage completed with score", "Board shows all ED patients", "Assessment documented quickly", "Disposition processed correctly"]},
-      "FR-13": {"title": "Blood Bank", "requirements": ["Donor registration and screening", "Blood typing and cross-matching", "Blood product inventory tracking", "Transfusion request and approval"], "acceptance_criteria": ["Donors registered with screening", "Typing results stored", "Inventory tracked by product type", "Transfusion approved with cross-match"]},
-      "FR-14": {"title": "Discharge Planning", "requirements": ["Discharge summary creation", "Medication reconciliation", "Follow-up appointment scheduling", "Discharge instructions for patient"], "acceptance_criteria": ["Summary completed by doctor", "Medications reconciled", "Follow-up booked", "Instructions provided to patient"]},
-      "FR-15": {"title": "Medical Equipment Tracking", "requirements": ["Equipment inventory with location", "Maintenance schedule and logs", "Equipment assignment to departments", "Calibration tracking"], "acceptance_criteria": ["Equipment cataloged with location", "Maintenance alerts triggered", "Assignments tracked", "Calibration dates monitored"]},
-      "FR-16": {"title": "Staff Scheduling", "requirements": ["Shift scheduling for doctors and nurses", "On-call rotation management", "Overtime tracking", "Credential and license verification"], "acceptance_criteria": ["Shifts created and assigned", "On-call rotation published", "Overtime calculated correctly", "Expired licenses flagged"]},
-      "FR-17": {"title": "Infection Control", "requirements": ["Infection case reporting", "Outbreak tracking and alerts", "Isolation room management", "Antibiogram reports"], "acceptance_criteria": ["Cases reported with details", "Outbreaks detected by pattern", "Isolation rooms tracked", "Antibiogram data accurate"]},
-      "FR-18": {"title": "Dietary Services", "requirements": ["Patient diet order management", "Meal planning per dietary restriction", "Kitchen preparation lists", "Meal delivery tracking"], "acceptance_criteria": ["Diet orders from doctors processed", "Meals planned per restrictions", "Kitchen receives prep lists", "Delivery confirmed per patient"]},
-      "FR-19": {"title": "Patient Portal", "requirements": ["View appointments and results", "Request prescription refills", "Secure messaging with doctor", "Bill payment online"], "acceptance_criteria": ["Portal shows accurate data", "Refill request reaches pharmacy", "Messages encrypted end-to-end", "Payments process correctly"]},
-      "FR-20": {"title": "Clinical Dashboard", "requirements": ["Overview of hospital occupancy", "Department-wise patient statistics", "Critical patient alerts", "Quality metrics and KPIs"], "acceptance_criteria": ["Occupancy percentage accurate", "Stats breakdown by department", "Critical alerts visible", "KPIs calculated correctly"]},
-      "FR-21": {"title": "Inventory and Supply Chain", "requirements": ["Supply catalog management", "Purchase requisition workflow", "Vendor management", "Stock level monitoring with auto-reorder"], "acceptance_criteria": ["Catalog maintained", "Requisitions approved and processed", "Vendors tracked with performance", "Reorder triggers at threshold"]},
-      "FR-22": {"title": "Telemedicine Integration", "requirements": ["Video consultation for outpatients", "Remote monitoring data integration", "E-prescription during teleconsult", "Teleconsult billing"], "acceptance_criteria": ["Video call connects reliably", "Remote data displays in EMR", "Prescriptions generated from call", "Billing captures teleconsult fee"]},
-      "FR-23": {"title": "Quality and Safety", "requirements": ["Incident reporting system", "Root cause analysis workflows", "Quality improvement projects tracking", "Patient satisfaction surveys"], "acceptance_criteria": ["Incidents reported and categorized", "RCA completed with actions", "Projects tracked with deadlines", "Surveys distributed and analyzed"]},
-      "FR-24": {"title": "Insurance and Pre-Authorization", "requirements": ["Insurance eligibility verification", "Pre-authorization requests", "Claim status tracking", "Denial management and appeals"], "acceptance_criteria": ["Eligibility checked in real-time", "Pre-auth submitted and tracked", "Claim status updated", "Denials appealed with documentation"]},
-      "FR-25": {"title": "Referral Management", "requirements": ["Internal and external referrals", "Referral tracking and status", "Specialist availability check", "Referral documentation transfer"], "acceptance_criteria": ["Referrals submitted correctly", "Status updates tracked", "Availability shown before referral", "Documents transferred securely"]},
-      "FR-26": {"title": "Mortuary Management", "requirements": ["Deceased patient processing", "Body storage tracking", "Death certificate generation", "Family notification and documentation"], "acceptance_criteria": ["Processing recorded", "Storage locations tracked", "Certificate generated with details", "Family notified with documentation"]},
-      "FR-27": {"title": "Clinical Research", "requirements": ["Research protocol management", "Patient enrollment in studies", "Data collection forms", "IRB approval tracking"], "acceptance_criteria": ["Protocols managed centrally", "Eligible patients enrolled", "Data captured per protocol", "IRB status tracked"]},
-      "FR-28": {"title": "Reporting and BI", "requirements": ["Operational reports (census, admissions, discharges)", "Financial reports (revenue, AR aging, collections)", "Clinical reports (infection rates, mortality, readmissions)", "Custom report builder with drill-down"], "acceptance_criteria": ["Reports show accurate data", "Financial metrics match accounting", "Clinical metrics calculated correctly", "Drill-down reveals details"]},
-      "FR-29": {"title": "Access Control", "requirements": ["Role-based access per department", "Multi-factor authentication", "Audit trail for all access", "Break-the-glass emergency access"], "acceptance_criteria": ["Roles restrict views and actions", "MFA required for login", "All access logged", "Emergency access logged and reported"]},
-      "FR-30": {"title": "System Administration", "requirements": ["User account management", "System configuration settings", "Data backup and recovery", "System health monitoring"], "acceptance_criteria": ["Accounts managed by admin", "Settings configurable without code", "Backups run on schedule", "Health dashboard shows uptime"]}
+      "FR-01": {
+        "title": "Patient Registration",
+        "requirements": [
+          "Register with demographics and insurance",
+          "Generate unique patient ID (MRN)",
+          "Upload ID and insurance cards",
+          "Emergency contact information"
+        ]
+      },
+      "FR-02": {
+        "title": "Outpatient Appointment",
+        "requirements": [
+          "Book by department and doctor",
+          "View doctor schedule availability",
+          "Appointment confirmation via SMS/email",
+          "Walk-in queue management"
+        ]
+      },
+      "FR-03": {
+        "title": "Inpatient Admission",
+        "requirements": [
+          "Admit patient with bed assignment",
+          "Ward and room management",
+          "Expected discharge date tracking",
+          "Admission orders and care plan"
+        ]
+      },
+      "FR-04": {
+        "title": "Electronic Medical Records",
+        "requirements": [
+          "Patient history, diagnoses, and treatments",
+          "Lab and radiology results integration",
+          "Allergy and medication tracking",
+          "Clinical notes by providers"
+        ]
+      },
+      "FR-05": {
+        "title": "Doctor Order Entry",
+        "requirements": [
+          "Order lab tests and imaging",
+          "Prescribe medications with dosage",
+          "Clinical decision support alerts",
+          "Order sets for common conditions"
+        ]
+      },
+      "FR-06": {
+        "title": "Nursing Station",
+        "requirements": [
+          "Patient list with vital signs display",
+          "Medication administration recording",
+          "Nursing assessment forms",
+          "Shift handoff documentation"
+        ]
+      },
+      "FR-07": {
+        "title": "Laboratory Module",
+        "requirements": [
+          "Receive and process lab orders",
+          "Sample collection tracking",
+          "Result entry and validation",
+          "Critical value alerts"
+        ]
+      },
+      "FR-08": {
+        "title": "Radiology Module",
+        "requirements": [
+          "Imaging order management",
+          "PACS integration for image viewing",
+          "Radiology report dictation",
+          "Report delivery to ordering doctor"
+        ]
+      },
+      "FR-09": {
+        "title": "Pharmacy Module",
+        "requirements": [
+          "Receive prescriptions from doctor orders",
+          "Drug dispensing workflow",
+          "Drug interaction and allergy checking",
+          "Inventory management for medications"
+        ]
+      },
+      "FR-10": {
+        "title": "Billing and Invoicing",
+        "requirements": [
+          "Charge capture for all services",
+          "Insurance claim submission",
+          "Patient billing statements",
+          "Payment processing and receipts"
+        ]
+      },
+      "FR-11": {
+        "title": "Surgery Scheduling",
+        "requirements": [
+          "Schedule surgeries with OR assignment",
+          "Pre-operative checklist",
+          "Surgical team assignment",
+          "Post-operative notes"
+        ]
+      },
+      "FR-12": {
+        "title": "Emergency Department",
+        "requirements": [
+          "Triage assessment and priority scoring",
+          "ED patient tracking board",
+          "Rapid assessment documentation",
+          "Admission or discharge from ED"
+        ]
+      },
+      "FR-13": {
+        "title": "Blood Bank",
+        "requirements": [
+          "Donor registration and screening",
+          "Blood typing and cross-matching",
+          "Blood product inventory tracking",
+          "Transfusion request and approval"
+        ]
+      },
+      "FR-14": {
+        "title": "Discharge Planning",
+        "requirements": [
+          "Discharge summary creation",
+          "Medication reconciliation",
+          "Follow-up appointment scheduling",
+          "Discharge instructions for patient"
+        ]
+      },
+      "FR-15": {
+        "title": "Medical Equipment Tracking",
+        "requirements": [
+          "Equipment inventory with location",
+          "Maintenance schedule and logs",
+          "Equipment assignment to departments",
+          "Calibration tracking"
+        ]
+      },
+      "FR-16": {
+        "title": "Staff Scheduling",
+        "requirements": [
+          "Shift scheduling for doctors and nurses",
+          "On-call rotation management",
+          "Overtime tracking",
+          "Credential and license verification"
+        ]
+      },
+      "FR-17": {
+        "title": "Infection Control",
+        "requirements": [
+          "Infection case reporting",
+          "Outbreak tracking and alerts",
+          "Isolation room management",
+          "Antibiogram reports"
+        ]
+      },
+      "FR-18": {
+        "title": "Dietary Services",
+        "requirements": [
+          "Patient diet order management",
+          "Meal planning per dietary restriction",
+          "Kitchen preparation lists",
+          "Meal delivery tracking"
+        ]
+      },
+      "FR-19": {
+        "title": "Patient Portal",
+        "requirements": [
+          "View appointments and results",
+          "Request prescription refills",
+          "Secure messaging with doctor",
+          "Bill payment online"
+        ]
+      },
+      "FR-20": {
+        "title": "Clinical Dashboard",
+        "requirements": [
+          "Overview of hospital occupancy",
+          "Department-wise patient statistics",
+          "Critical patient alerts",
+          "Quality metrics and KPIs"
+        ]
+      },
+      "FR-21": {
+        "title": "Inventory and Supply Chain",
+        "requirements": [
+          "Supply catalog management",
+          "Purchase requisition workflow",
+          "Vendor management",
+          "Stock level monitoring with auto-reorder"
+        ]
+      },
+      "FR-22": {
+        "title": "Telemedicine Integration",
+        "requirements": [
+          "Video consultation for outpatients",
+          "Remote monitoring data integration",
+          "E-prescription during teleconsult",
+          "Teleconsult billing"
+        ]
+      },
+      "FR-23": {
+        "title": "Quality and Safety",
+        "requirements": [
+          "Incident reporting system",
+          "Root cause analysis workflows",
+          "Quality improvement projects tracking",
+          "Patient satisfaction surveys"
+        ]
+      },
+      "FR-24": {
+        "title": "Insurance and Pre-Authorization",
+        "requirements": [
+          "Insurance eligibility verification",
+          "Pre-authorization requests",
+          "Claim status tracking",
+          "Denial management and appeals"
+        ]
+      },
+      "FR-25": {
+        "title": "Referral Management",
+        "requirements": [
+          "Internal and external referrals",
+          "Referral tracking and status",
+          "Specialist availability check",
+          "Referral documentation transfer"
+        ]
+      },
+      "FR-26": {
+        "title": "Mortuary Management",
+        "requirements": [
+          "Deceased patient processing",
+          "Body storage tracking",
+          "Death certificate generation",
+          "Family notification and documentation"
+        ]
+      },
+      "FR-27": {
+        "title": "Clinical Research",
+        "requirements": [
+          "Research protocol management",
+          "Patient enrollment in studies",
+          "Data collection forms",
+          "IRB approval tracking"
+        ]
+      },
+      "FR-28": {
+        "title": "Reporting and BI",
+        "requirements": [
+          "Operational reports (census, admissions, discharges)",
+          "Financial reports (revenue, AR aging, collections)",
+          "Clinical reports (infection rates, mortality, readmissions)",
+          "Custom report builder with drill-down"
+        ]
+      },
+      "FR-29": {
+        "title": "Access Control",
+        "requirements": [
+          "Role-based access per department",
+          "Multi-factor authentication",
+          "Audit trail for all access",
+          "Break-the-glass emergency access"
+        ]
+      },
+      "FR-30": {
+        "title": "System Administration",
+        "requirements": [
+          "User account management",
+          "System configuration settings",
+          "Data backup and recovery",
+          "System health monitoring"
+        ]
+      }
     }
   },
   "output": {
-    "FR-01": [{"title": "Build Patient Registration API", "description": "Create POST /api/patients (demographics, insurance, emergency contacts). Generate MRN. Document upload to HIPAA-compliant storage.", "priority": "high", "type": "backend", "related_requirement": "FR-01"}, {"title": "Build Registration UI", "description": "Create registration form with demographics, insurance cards scan/upload, emergency contact inputs, and MRN display on completion.", "priority": "high", "type": "frontend", "related_requirement": "FR-01"}],
-    "FR-02": [{"title": "Build Appointment API", "description": "Create GET /api/doctors/:id/slots, POST /api/appointments, walk-in queue POST /api/queue/add. SMS/email confirmation.", "priority": "high", "type": "backend", "related_requirement": "FR-02"}, {"title": "Build Appointment UI", "description": "Create booking with department/doctor selection, calendar with available slots, and walk-in queue management screen.", "priority": "high", "type": "frontend", "related_requirement": "FR-02"}],
-    "FR-03": [{"title": "Build Admission API", "description": "Create POST /api/admissions (patient, ward, room, bed, admitting_doctor). Bed management. Expected discharge tracking. Care plan CRUD.", "priority": "high", "type": "backend", "related_requirement": "FR-03"}, {"title": "Build Admission UI", "description": "Create admission form with bed selector (floor plan view), ward dashboard with occupancy, and care plan builder.", "priority": "high", "type": "frontend", "related_requirement": "FR-03"}],
-    "FR-04": [{"title": "Build EMR API", "description": "Create comprehensive patient record: GET /api/patients/:id/emr. Problem list, allergy list, medication list, notes, results. HIPAA audit logging.", "priority": "high", "type": "backend", "related_requirement": "FR-04"}, {"title": "Build EMR Viewer", "description": "Create patient chart with tabs: summary, history, problems, allergies (red alerts), medications, results, notes. Timeline view.", "priority": "high", "type": "frontend", "related_requirement": "FR-04"}],
-    "FR-05": [{"title": "Build Order Entry API", "description": "Create POST /api/orders (type: lab/imaging/medication). Clinical decision support rules engine. Order sets CRUD. Route to respective department.", "priority": "high", "type": "backend", "related_requirement": "FR-05"}, {"title": "Build Order Entry UI", "description": "Create order entry with search, medication form with dosage calculator, CDS alerts popup, and order set quick-select.", "priority": "high", "type": "frontend", "related_requirement": "FR-05"}],
-    "FR-06": [{"title": "Build Nursing API", "description": "Create patient board endpoint. Medication admin recording. Nursing assessment CRUD. Shift handoff notes.", "priority": "high", "type": "backend", "related_requirement": "FR-06"}, {"title": "Build Nursing Station UI", "description": "Create patient board with vitals, med admin barcode scan and recording, assessment forms, and handoff note editor.", "priority": "high", "type": "frontend", "related_requirement": "FR-06"}],
-    "FR-07": [{"title": "Build Lab Module API", "description": "Create lab order receiving. Sample tracking with barcode. Result entry and tech/pathologist validation. Critical value notification.", "priority": "high", "type": "backend", "related_requirement": "FR-07"}, {"title": "Build Lab Module UI", "description": "Create lab worklist, sample collection tracking, result entry grid, validation workflow, and critical value alert popup.", "priority": "high", "type": "frontend", "related_requirement": "FR-07"}],
-    "FR-08": [{"title": "Build Radiology API", "description": "Create imaging order queue. PACS API integration. Report dictation and sign-off workflow. Result delivery notification.", "priority": "high", "type": "backend", "related_requirement": "FR-08"}, {"title": "Build Radiology UI", "description": "Create imaging worklist, PACS viewer embed, report editor with templates, and sign-off workflow.", "priority": "high", "type": "frontend", "related_requirement": "FR-08"}],
-    "FR-09": [{"title": "Build Pharmacy API", "description": "Create prescription queue. Dispensing workflow. Drug-drug and drug-allergy interaction engine. Pharmacy inventory tracking.", "priority": "high", "type": "backend", "related_requirement": "FR-09"}, {"title": "Build Pharmacy UI", "description": "Create prescription queue, dispensing verification screen, interaction alerts, and medication inventory dashboard.", "priority": "high", "type": "frontend", "related_requirement": "FR-09"}],
-    "FR-10": [{"title": "Build Billing API", "description": "Create charge capture per service. Insurance claim engine (837/835 EDI). Patient statement generation. Payment processing.", "priority": "high", "type": "backend", "related_requirement": "FR-10"}, {"title": "Build Billing UI", "description": "Create charge review, claim submission tracker, patient billing portal, and payment receipt generation.", "priority": "high", "type": "frontend", "related_requirement": "FR-10"}],
-    "FR-11": [{"title": "Build Surgery API", "description": "Create OR scheduling with room assignment. Pre-op checklist. Team assignment and notification. Post-op note creation.", "priority": "high", "type": "backend", "related_requirement": "FR-11"}, {"title": "Build Surgery UI", "description": "Create OR schedule calendar, pre-op checklist with sign-offs, team assignment, and post-op note template.", "priority": "high", "type": "frontend", "related_requirement": "FR-11"}],
-    "FR-12": [{"title": "Build ED Module API", "description": "Create triage assessment with ESI scoring. ED tracking board data. Rapid documentation. Disposition workflow (admit/discharge/transfer).", "priority": "high", "type": "backend", "related_requirement": "FR-12"}, {"title": "Build ED Module UI", "description": "Create triage form, ED tracking board with color-coded acuity, rapid assessment templates, and disposition buttons.", "priority": "high", "type": "frontend", "related_requirement": "FR-12"}],
-    "FR-13": [{"title": "Build Blood Bank API", "description": "Create donor registration. Blood typing/cross-match results. Inventory per blood product. Transfusion request and approval workflow.", "priority": "medium", "type": "backend", "related_requirement": "FR-13"}, {"title": "Build Blood Bank UI", "description": "Create donor registration, typing results entry, blood product inventory grid, and transfusion request form with cross-match check.", "priority": "medium", "type": "frontend", "related_requirement": "FR-13"}],
-    "FR-14": [{"title": "Build Discharge API", "description": "Create discharge summary template. Medication reconciliation. Follow-up appointment scheduling. Discharge instruction generation.", "priority": "high", "type": "backend", "related_requirement": "FR-14"}, {"title": "Build Discharge UI", "description": "Create discharge summary editor, medication reconciliation checklist, follow-up scheduler, and instruction printout.", "priority": "high", "type": "frontend", "related_requirement": "FR-14"}],
-    "FR-15": [{"title": "Build Equipment API", "description": "Create equipment CRUD with location tracking. Maintenance scheduling. Assignment to departments. Calibration date tracking.", "priority": "medium", "type": "backend", "related_requirement": "FR-15"}, {"title": "Build Equipment UI", "description": "Create equipment inventory, location map, maintenance schedule calendar, and calibration alerts.", "priority": "medium", "type": "frontend", "related_requirement": "FR-15"}],
-    "FR-16": [{"title": "Build Staff Scheduling API", "description": "Create shift CRUD. On-call rotation. Overtime tracking. Credential verification with license expiry alerts.", "priority": "medium", "type": "backend", "related_requirement": "FR-16"}, {"title": "Build Staff Schedule UI", "description": "Create shift calendar, on-call roster, overtime summary, and credential expiry dashboard.", "priority": "medium", "type": "frontend", "related_requirement": "FR-16"}],
-    "FR-17": [{"title": "Build Infection Control API", "description": "Create case reporting, outbreak pattern detection, isolation room tracking, and antibiogram data management.", "priority": "medium", "type": "backend", "related_requirement": "FR-17"}, {"title": "Build IC Dashboard", "description": "Create infection case form, outbreak alert map, isolation room board, and antibiogram table.", "priority": "medium", "type": "frontend", "related_requirement": "FR-17"}],
-    "FR-18": [{"title": "Build Dietary API", "description": "Create diet order processing. Meal plan generation per restrictions. Kitchen prep list. Delivery confirmation.", "priority": "low", "type": "backend", "related_requirement": "FR-18"}, {"title": "Build Dietary UI", "description": "Create diet order viewer, meal plan editor, kitchen prep list print, and delivery tracking board.", "priority": "low", "type": "frontend", "related_requirement": "FR-18"}],
-    "FR-19": [{"title": "Build Patient Portal API", "description": "Create patient-facing endpoints for appointments, results, refill requests, secure messaging, and bill pay.", "priority": "medium", "type": "backend", "related_requirement": "FR-19"}, {"title": "Build Patient Portal", "description": "Create portal with appointment calendar, lab results viewer, refill request form, messaging inbox, and bill pay.", "priority": "medium", "type": "frontend", "related_requirement": "FR-19"}],
-    "FR-20": [{"title": "Build Clinical Dashboard API", "description": "Create occupancy, department stats, critical alerts, and quality KPI endpoints with real-time data.", "priority": "medium", "type": "backend", "related_requirement": "FR-20"}, {"title": "Build Clinical Dashboard", "description": "Create hospital overview with occupancy gauge, department stat cards, critical patient alert feed, and KPI charts.", "priority": "medium", "type": "frontend", "related_requirement": "FR-20"}],
-    "FR-21": [{"title": "Build Supply Chain API", "description": "Create supply catalog, purchase requisition workflow, vendor CRUD, and auto-reorder at stock threshold.", "priority": "medium", "type": "backend", "related_requirement": "FR-21"}, {"title": "Build Supply Chain UI", "description": "Create supply catalog, requisition form with approval, vendor management, and stock level dashboard.", "priority": "medium", "type": "frontend", "related_requirement": "FR-21"}],
-    "FR-22": [{"title": "Build Telehealth API", "description": "Create video consultation endpoints. Remote monitoring data ingestion. E-prescription during call. Teleconsult billing code.", "priority": "medium", "type": "backend", "related_requirement": "FR-22"}, {"title": "Build Telehealth UI", "description": "Create video call interface, remote data display panel, in-call prescription form, and teleconsult billing capture.", "priority": "medium", "type": "frontend", "related_requirement": "FR-22"}],
-    "FR-23": [{"title": "Build Quality API", "description": "Create incident reporting, RCA workflow, QI project tracking, and patient satisfaction survey system.", "priority": "medium", "type": "backend", "related_requirement": "FR-23"}, {"title": "Build Quality UI", "description": "Create incident form, RCA template wizard, QI project board, and survey results dashboard.", "priority": "medium", "type": "frontend", "related_requirement": "FR-23"}],
-    "FR-24": [{"title": "Build Insurance API", "description": "Create eligibility check integration, pre-auth request workflow, claim status tracker, and denial appeal management.", "priority": "high", "type": "backend", "related_requirement": "FR-24"}, {"title": "Build Insurance UI", "description": "Create eligibility checker, pre-auth form, claim tracker, and denial management with appeal documentation.", "priority": "high", "type": "frontend", "related_requirement": "FR-24"}],
-    "FR-25": [{"title": "Build Referral API", "description": "Create internal/external referral CRUD. Specialist availability. Status tracking. Secure document transfer.", "priority": "medium", "type": "backend", "related_requirement": "FR-25"}, {"title": "Build Referral UI", "description": "Create referral form with specialist search, status tracker, and document sharing interface.", "priority": "medium", "type": "frontend", "related_requirement": "FR-25"}],
-    "FR-26": [{"title": "Build Mortuary API", "description": "Create deceased processing. Storage location tracking. Death certificate generation. Family notification workflow.", "priority": "low", "type": "backend", "related_requirement": "FR-26"}, {"title": "Build Mortuary UI", "description": "Create processing form, storage board, death certificate generator, and family contact interface.", "priority": "low", "type": "frontend", "related_requirement": "FR-26"}],
-    "FR-27": [{"title": "Build Research API", "description": "Create protocol management, patient enrollment, research data forms, and IRB status tracking.", "priority": "low", "type": "backend", "related_requirement": "FR-27"}, {"title": "Build Research UI", "description": "Create protocol library, enrollment criteria matcher, data collection forms, and IRB tracker.", "priority": "low", "type": "frontend", "related_requirement": "FR-27"}],
-    "FR-28": [{"title": "Build BI and Reports API", "description": "Create operational, financial, and clinical report endpoints. Custom report query builder with drill-down. Export PDF/CSV.", "priority": "medium", "type": "backend", "related_requirement": "FR-28"}, {"title": "Build Reports Center", "description": "Create report library with operational, financial, clinical categories. Custom builder with dimensions and filters. Scheduled reports.", "priority": "medium", "type": "frontend", "related_requirement": "FR-28"}],
-    "FR-29": [{"title": "Build Access Control System", "description": "Create role-based permissions per department. MFA implementation. Comprehensive audit logging. Break-the-glass with justification and alert.", "priority": "high", "type": "backend", "related_requirement": "FR-29"}, {"title": "Build Access Admin UI", "description": "Create role management with department permissions, MFA setup, audit log viewer with search, and BTG alert dashboard.", "priority": "high", "type": "frontend", "related_requirement": "FR-29"}],
-    "FR-30": [{"title": "Build System Admin API", "description": "Create user management CRUD. System config CRUD. Backup scheduler. Health monitoring endpoints.", "priority": "high", "type": "backend", "related_requirement": "FR-30"}, {"title": "Build Admin Panel", "description": "Create user management table, system settings editor, backup status and schedule, and health dashboard with uptime and errors.", "priority": "medium", "type": "frontend", "related_requirement": "FR-30"}]
+    "FR-01": [
+      {
+        "title": "Plan Patient Registration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for patient registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with demographics and insurance; Generate unique patient ID (MRN); Upload ID and insurance cards.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The end-to-end workflow for patient registration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for patient registration are explicitly defined",
+          "Implementation subtasks for patient registration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Patient Registration Backend Services",
+        "description": "Build the backend services for patient registration on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with demographics and insurance; Generate unique patient ID (MRN); Upload ID and insurance cards.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Core patient registration business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for patient registration",
+          "API/service behavior for patient registration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Patient Registration Frontend Flow",
+        "description": "Build the frontend flow for patient registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The patient registration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for patient registration behave correctly",
+          "The patient registration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Patient Registration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for patient registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Happy path and failure cases for patient registration are covered by automated tests",
+          "Permission checks and validation rules for patient registration are verified",
+          "Regression coverage exists for the most critical patient registration scenarios"
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Plan Outpatient Appointment Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for outpatient appointment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Book by department and doctor; View doctor schedule availability; Appointment confirmation via SMS/email.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The end-to-end workflow for outpatient appointment is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for outpatient appointment are explicitly defined",
+          "Implementation subtasks for outpatient appointment can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Outpatient Appointment Backend Services",
+        "description": "Build the backend services for outpatient appointment on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Book by department and doctor; View doctor schedule availability; Appointment confirmation via SMS/email.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Core outpatient appointment business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for outpatient appointment",
+          "API/service behavior for outpatient appointment is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Outpatient Appointment Frontend Flow",
+        "description": "Build the frontend flow for outpatient appointment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The outpatient appointment user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for outpatient appointment behave correctly",
+          "The outpatient appointment UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Outpatient Appointment",
+        "description": "Implement the external integration points used by outpatient appointment, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External dependencies used by outpatient appointment are connected through stable integration layers",
+          "Timeout, retry, and failure handling for outpatient appointment integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for outpatient appointment are handled securely"
+        ]
+      },
+      {
+        "title": "Write Outpatient Appointment Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for outpatient appointment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Happy path and failure cases for outpatient appointment are covered by automated tests",
+          "Permission checks and validation rules for outpatient appointment are verified",
+          "Regression coverage exists for the most critical outpatient appointment scenarios"
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Plan Inpatient Admission Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for inpatient admission and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Admit patient with bed assignment; Ward and room management; Expected discharge date tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The end-to-end workflow for inpatient admission is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for inpatient admission are explicitly defined",
+          "Implementation subtasks for inpatient admission can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Inpatient Admission Backend Services",
+        "description": "Build the backend services for inpatient admission on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Admit patient with bed assignment; Ward and room management; Expected discharge date tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Core inpatient admission business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for inpatient admission",
+          "API/service behavior for inpatient admission is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Inpatient Admission Frontend Flow",
+        "description": "Build the frontend flow for inpatient admission with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The inpatient admission user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for inpatient admission behave correctly",
+          "The inpatient admission UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Inpatient Admission Persistence Model",
+        "description": "Design the persistence layer for inpatient admission. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "The persistence model for inpatient admission supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for inpatient admission are defined correctly",
+          "Migrations for inpatient admission can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Inpatient Admission Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for inpatient admission. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Happy path and failure cases for inpatient admission are covered by automated tests",
+          "Permission checks and validation rules for inpatient admission are verified",
+          "Regression coverage exists for the most critical inpatient admission scenarios"
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Plan Electronic Medical Records Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for electronic medical records and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Patient history, diagnoses, and treatments; Lab and radiology results integration; Allergy and medication tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The end-to-end workflow for electronic medical records is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for electronic medical records are explicitly defined",
+          "Implementation subtasks for electronic medical records can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Electronic Medical Records Backend Services",
+        "description": "Build the backend services for electronic medical records on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Patient history, diagnoses, and treatments; Lab and radiology results integration; Allergy and medication tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Core electronic medical records business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for electronic medical records",
+          "API/service behavior for electronic medical records is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Electronic Medical Records Frontend Flow",
+        "description": "Build the frontend flow for electronic medical records with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The electronic medical records user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for electronic medical records behave correctly",
+          "The electronic medical records UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Electronic Medical Records Persistence Model",
+        "description": "Design the persistence layer for electronic medical records. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "The persistence model for electronic medical records supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for electronic medical records are defined correctly",
+          "Migrations for electronic medical records can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Electronic Medical Records Reporting and KPI Logic",
+        "description": "Implement the reporting layer for electronic medical records, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for electronic medical records return accurate results",
+          "Filters, grouping, and export-ready structures for electronic medical records work correctly",
+          "Reporting queries for electronic medical records perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Electronic Medical Records Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for electronic medical records. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Happy path and failure cases for electronic medical records are covered by automated tests",
+          "Permission checks and validation rules for electronic medical records are verified",
+          "Regression coverage exists for the most critical electronic medical records scenarios"
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Plan Doctor Order Entry Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for doctor order entry and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Order lab tests and imaging; Prescribe medications with dosage; Clinical decision support alerts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The end-to-end workflow for doctor order entry is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for doctor order entry are explicitly defined",
+          "Implementation subtasks for doctor order entry can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Doctor Order Entry Backend Services",
+        "description": "Build the backend services for doctor order entry on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Order lab tests and imaging; Prescribe medications with dosage; Clinical decision support alerts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Core doctor order entry business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for doctor order entry",
+          "API/service behavior for doctor order entry is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Doctor Order Entry Frontend Flow",
+        "description": "Build the frontend flow for doctor order entry with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The doctor order entry user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for doctor order entry behave correctly",
+          "The doctor order entry UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Doctor Order Entry Persistence Model",
+        "description": "Design the persistence layer for doctor order entry. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The persistence model for doctor order entry supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for doctor order entry are defined correctly",
+          "Migrations for doctor order entry can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Implement Doctor Order Entry Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for doctor order entry. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Notification triggers for doctor order entry fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for doctor order entry are configurable and testable",
+          "Notification failures for doctor order entry are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Doctor Order Entry Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for doctor order entry. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Happy path and failure cases for doctor order entry are covered by automated tests",
+          "Permission checks and validation rules for doctor order entry are verified",
+          "Regression coverage exists for the most critical doctor order entry scenarios"
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Plan Nursing Station Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for nursing station and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Patient list with vital signs display; Medication administration recording; Nursing assessment forms.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The end-to-end workflow for nursing station is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for nursing station are explicitly defined",
+          "Implementation subtasks for nursing station can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Nursing Station Backend Services",
+        "description": "Build the backend services for nursing station on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Patient list with vital signs display; Medication administration recording; Nursing assessment forms.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Core nursing station business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for nursing station",
+          "API/service behavior for nursing station is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Nursing Station Frontend Flow",
+        "description": "Build the frontend flow for nursing station with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The nursing station user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for nursing station behave correctly",
+          "The nursing station UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Nursing Station Persistence Model",
+        "description": "Design the persistence layer for nursing station. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The persistence model for nursing station supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for nursing station are defined correctly",
+          "Migrations for nursing station can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Nursing Station Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for nursing station. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Happy path and failure cases for nursing station are covered by automated tests",
+          "Permission checks and validation rules for nursing station are verified",
+          "Regression coverage exists for the most critical nursing station scenarios"
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Plan Laboratory Module Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for laboratory module and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Receive and process lab orders; Sample collection tracking; Result entry and validation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The end-to-end workflow for laboratory module is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for laboratory module are explicitly defined",
+          "Implementation subtasks for laboratory module can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Laboratory Module Backend Services",
+        "description": "Build the backend services for laboratory module on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Receive and process lab orders; Sample collection tracking; Result entry and validation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Core laboratory module business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for laboratory module",
+          "API/service behavior for laboratory module is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Laboratory Module Frontend Flow",
+        "description": "Build the frontend flow for laboratory module with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The laboratory module user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for laboratory module behave correctly",
+          "The laboratory module UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Laboratory Module Persistence Model",
+        "description": "Design the persistence layer for laboratory module. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The persistence model for laboratory module supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for laboratory module are defined correctly",
+          "Migrations for laboratory module can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Laboratory Module Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for laboratory module. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Happy path and failure cases for laboratory module are covered by automated tests",
+          "Permission checks and validation rules for laboratory module are verified",
+          "Regression coverage exists for the most critical laboratory module scenarios"
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Plan Radiology Module Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for radiology module and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Imaging order management; PACS integration for image viewing; Radiology report dictation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The end-to-end workflow for radiology module is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for radiology module are explicitly defined",
+          "Implementation subtasks for radiology module can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Radiology Module Backend Services",
+        "description": "Build the backend services for radiology module on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Imaging order management; PACS integration for image viewing; Radiology report dictation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Core radiology module business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for radiology module",
+          "API/service behavior for radiology module is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Radiology Module Frontend Flow",
+        "description": "Build the frontend flow for radiology module with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The radiology module user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for radiology module behave correctly",
+          "The radiology module UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Radiology Module Persistence Model",
+        "description": "Design the persistence layer for radiology module. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "The persistence model for radiology module supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for radiology module are defined correctly",
+          "Migrations for radiology module can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Radiology Module Reporting and KPI Logic",
+        "description": "Implement the reporting layer for radiology module, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for radiology module return accurate results",
+          "Filters, grouping, and export-ready structures for radiology module work correctly",
+          "Reporting queries for radiology module perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Radiology Module Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for radiology module. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Happy path and failure cases for radiology module are covered by automated tests",
+          "Permission checks and validation rules for radiology module are verified",
+          "Regression coverage exists for the most critical radiology module scenarios"
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Plan Pharmacy Module Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for pharmacy module and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Receive prescriptions from doctor orders; Drug dispensing workflow; Drug interaction and allergy checking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The end-to-end workflow for pharmacy module is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for pharmacy module are explicitly defined",
+          "Implementation subtasks for pharmacy module can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Pharmacy Module Backend Services",
+        "description": "Build the backend services for pharmacy module on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Receive prescriptions from doctor orders; Drug dispensing workflow; Drug interaction and allergy checking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Core pharmacy module business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for pharmacy module",
+          "API/service behavior for pharmacy module is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Pharmacy Module Frontend Flow",
+        "description": "Build the frontend flow for pharmacy module with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The pharmacy module user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for pharmacy module behave correctly",
+          "The pharmacy module UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Pharmacy Module Persistence Model",
+        "description": "Design the persistence layer for pharmacy module. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "The persistence model for pharmacy module supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for pharmacy module are defined correctly",
+          "Migrations for pharmacy module can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Pharmacy Module Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for pharmacy module. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Happy path and failure cases for pharmacy module are covered by automated tests",
+          "Permission checks and validation rules for pharmacy module are verified",
+          "Regression coverage exists for the most critical pharmacy module scenarios"
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Plan Billing and Invoicing Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for billing and invoicing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Charge capture for all services; Insurance claim submission; Patient billing statements.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The end-to-end workflow for billing and invoicing is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for billing and invoicing are explicitly defined",
+          "Implementation subtasks for billing and invoicing can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Billing and Invoicing Backend Services",
+        "description": "Build the backend services for billing and invoicing on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Charge capture for all services; Insurance claim submission; Patient billing statements.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Core billing and invoicing business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for billing and invoicing",
+          "API/service behavior for billing and invoicing is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Billing and Invoicing Frontend Flow",
+        "description": "Build the frontend flow for billing and invoicing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The billing and invoicing user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for billing and invoicing behave correctly",
+          "The billing and invoicing UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Billing and Invoicing Persistence Model",
+        "description": "Design the persistence layer for billing and invoicing. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The persistence model for billing and invoicing supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for billing and invoicing are defined correctly",
+          "Migrations for billing and invoicing can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Billing and Invoicing Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for billing and invoicing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Happy path and failure cases for billing and invoicing are covered by automated tests",
+          "Permission checks and validation rules for billing and invoicing are verified",
+          "Regression coverage exists for the most critical billing and invoicing scenarios"
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Plan Surgery Scheduling Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for surgery scheduling and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Schedule surgeries with OR assignment; Pre-operative checklist; Surgical team assignment.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The end-to-end workflow for surgery scheduling is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for surgery scheduling are explicitly defined",
+          "Implementation subtasks for surgery scheduling can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Surgery Scheduling Backend Services",
+        "description": "Build the backend services for surgery scheduling on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Schedule surgeries with OR assignment; Pre-operative checklist; Surgical team assignment.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Core surgery scheduling business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for surgery scheduling",
+          "API/service behavior for surgery scheduling is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Surgery Scheduling Frontend Flow",
+        "description": "Build the frontend flow for surgery scheduling with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "The surgery scheduling user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for surgery scheduling behave correctly",
+          "The surgery scheduling UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Surgery Scheduling Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for surgery scheduling. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Happy path and failure cases for surgery scheduling are covered by automated tests",
+          "Permission checks and validation rules for surgery scheduling are verified",
+          "Regression coverage exists for the most critical surgery scheduling scenarios"
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Plan Emergency Department Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for emergency department and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Triage assessment and priority scoring; ED patient tracking board; Rapid assessment documentation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The end-to-end workflow for emergency department is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for emergency department are explicitly defined",
+          "Implementation subtasks for emergency department can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Emergency Department Backend Services",
+        "description": "Build the backend services for emergency department on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Triage assessment and priority scoring; ED patient tracking board; Rapid assessment documentation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Core emergency department business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for emergency department",
+          "API/service behavior for emergency department is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Emergency Department Frontend Flow",
+        "description": "Build the frontend flow for emergency department with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The emergency department user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for emergency department behave correctly",
+          "The emergency department UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Emergency Department Persistence Model",
+        "description": "Design the persistence layer for emergency department. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "The persistence model for emergency department supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for emergency department are defined correctly",
+          "Migrations for emergency department can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Emergency Department",
+        "description": "Implement the external integration points used by emergency department, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "External dependencies used by emergency department are connected through stable integration layers",
+          "Timeout, retry, and failure handling for emergency department integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for emergency department are handled securely"
+        ]
+      },
+      {
+        "title": "Write Emergency Department Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for emergency department. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Happy path and failure cases for emergency department are covered by automated tests",
+          "Permission checks and validation rules for emergency department are verified",
+          "Regression coverage exists for the most critical emergency department scenarios"
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Plan Blood Bank Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for blood bank and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Donor registration and screening; Blood typing and cross-matching; Blood product inventory tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The end-to-end workflow for blood bank is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for blood bank are explicitly defined",
+          "Implementation subtasks for blood bank can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Blood Bank Backend Services",
+        "description": "Build the backend services for blood bank on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Donor registration and screening; Blood typing and cross-matching; Blood product inventory tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Core blood bank business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for blood bank",
+          "API/service behavior for blood bank is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Blood Bank Frontend Flow",
+        "description": "Build the frontend flow for blood bank with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The blood bank user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for blood bank behave correctly",
+          "The blood bank UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Blood Bank Persistence Model",
+        "description": "Design the persistence layer for blood bank. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "The persistence model for blood bank supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for blood bank are defined correctly",
+          "Migrations for blood bank can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for Blood Bank",
+        "description": "Implement the external integration points used by blood bank, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "External dependencies used by blood bank are connected through stable integration layers",
+          "Timeout, retry, and failure handling for blood bank integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for blood bank are handled securely"
+        ]
+      },
+      {
+        "title": "Write Blood Bank Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for blood bank. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Happy path and failure cases for blood bank are covered by automated tests",
+          "Permission checks and validation rules for blood bank are verified",
+          "Regression coverage exists for the most critical blood bank scenarios"
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Plan Discharge Planning Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for discharge planning and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Discharge summary creation; Medication reconciliation; Follow-up appointment scheduling.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The end-to-end workflow for discharge planning is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for discharge planning are explicitly defined",
+          "Implementation subtasks for discharge planning can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Discharge Planning Backend Services",
+        "description": "Build the backend services for discharge planning on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Discharge summary creation; Medication reconciliation; Follow-up appointment scheduling.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Core discharge planning business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for discharge planning",
+          "API/service behavior for discharge planning is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Discharge Planning Frontend Flow",
+        "description": "Build the frontend flow for discharge planning with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "The discharge planning user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for discharge planning behave correctly",
+          "The discharge planning UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Discharge Planning Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for discharge planning. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Happy path and failure cases for discharge planning are covered by automated tests",
+          "Permission checks and validation rules for discharge planning are verified",
+          "Regression coverage exists for the most critical discharge planning scenarios"
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Plan Medical Equipment Tracking Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for medical equipment tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Equipment inventory with location; Maintenance schedule and logs; Equipment assignment to departments.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The end-to-end workflow for medical equipment tracking is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for medical equipment tracking are explicitly defined",
+          "Implementation subtasks for medical equipment tracking can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Medical Equipment Tracking Backend Services",
+        "description": "Build the backend services for medical equipment tracking on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Equipment inventory with location; Maintenance schedule and logs; Equipment assignment to departments.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Core medical equipment tracking business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for medical equipment tracking",
+          "API/service behavior for medical equipment tracking is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Medical Equipment Tracking Frontend Flow",
+        "description": "Build the frontend flow for medical equipment tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The medical equipment tracking user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for medical equipment tracking behave correctly",
+          "The medical equipment tracking UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Medical Equipment Tracking Persistence Model",
+        "description": "Design the persistence layer for medical equipment tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "The persistence model for medical equipment tracking supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for medical equipment tracking are defined correctly",
+          "Migrations for medical equipment tracking can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Medical Equipment Tracking Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for medical equipment tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Happy path and failure cases for medical equipment tracking are covered by automated tests",
+          "Permission checks and validation rules for medical equipment tracking are verified",
+          "Regression coverage exists for the most critical medical equipment tracking scenarios"
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Plan Staff Scheduling Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for staff scheduling and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Shift scheduling for doctors and nurses; On-call rotation management; Overtime tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The end-to-end workflow for staff scheduling is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for staff scheduling are explicitly defined",
+          "Implementation subtasks for staff scheduling can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Staff Scheduling Backend Services",
+        "description": "Build the backend services for staff scheduling on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Shift scheduling for doctors and nurses; On-call rotation management; Overtime tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Core staff scheduling business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for staff scheduling",
+          "API/service behavior for staff scheduling is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Staff Scheduling Frontend Flow",
+        "description": "Build the frontend flow for staff scheduling with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The staff scheduling user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for staff scheduling behave correctly",
+          "The staff scheduling UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Staff Scheduling Persistence Model",
+        "description": "Design the persistence layer for staff scheduling. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "The persistence model for staff scheduling supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for staff scheduling are defined correctly",
+          "Migrations for staff scheduling can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Staff Scheduling Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for staff scheduling. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-16",
+        "acceptance_criteria": [
+          "Happy path and failure cases for staff scheduling are covered by automated tests",
+          "Permission checks and validation rules for staff scheduling are verified",
+          "Regression coverage exists for the most critical staff scheduling scenarios"
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Plan Infection Control Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for infection control and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Infection case reporting; Outbreak tracking and alerts; Isolation room management.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The end-to-end workflow for infection control is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for infection control are explicitly defined",
+          "Implementation subtasks for infection control can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Infection Control Backend Services",
+        "description": "Build the backend services for infection control on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Infection case reporting; Outbreak tracking and alerts; Isolation room management.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Core infection control business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for infection control",
+          "API/service behavior for infection control is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Infection Control Frontend Flow",
+        "description": "Build the frontend flow for infection control with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The infection control user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for infection control behave correctly",
+          "The infection control UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Infection Control Persistence Model",
+        "description": "Design the persistence layer for infection control. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "The persistence model for infection control supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for infection control are defined correctly",
+          "Migrations for infection control can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Infection Control Reporting and KPI Logic",
+        "description": "Implement the reporting layer for infection control, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for infection control return accurate results",
+          "Filters, grouping, and export-ready structures for infection control work correctly",
+          "Reporting queries for infection control perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Infection Control Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for infection control. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Notification triggers for infection control fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for infection control are configurable and testable",
+          "Notification failures for infection control are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Infection Control Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for infection control. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-17",
+        "acceptance_criteria": [
+          "Happy path and failure cases for infection control are covered by automated tests",
+          "Permission checks and validation rules for infection control are verified",
+          "Regression coverage exists for the most critical infection control scenarios"
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Plan Dietary Services Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for dietary services and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Patient diet order management; Meal planning per dietary restriction; Kitchen preparation lists.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The end-to-end workflow for dietary services is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for dietary services are explicitly defined",
+          "Implementation subtasks for dietary services can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Dietary Services Backend Services",
+        "description": "Build the backend services for dietary services on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Patient diet order management; Meal planning per dietary restriction; Kitchen preparation lists.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Core dietary services business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for dietary services",
+          "API/service behavior for dietary services is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Dietary Services Frontend Flow",
+        "description": "Build the frontend flow for dietary services with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The dietary services user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for dietary services behave correctly",
+          "The dietary services UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Dietary Services Persistence Model",
+        "description": "Design the persistence layer for dietary services. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "The persistence model for dietary services supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for dietary services are defined correctly",
+          "Migrations for dietary services can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Dietary Services Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for dietary services. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-18",
+        "acceptance_criteria": [
+          "Happy path and failure cases for dietary services are covered by automated tests",
+          "Permission checks and validation rules for dietary services are verified",
+          "Regression coverage exists for the most critical dietary services scenarios"
+        ]
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Plan Patient Portal Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for patient portal and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View appointments and results; Request prescription refills; Secure messaging with doctor.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The end-to-end workflow for patient portal is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for patient portal are explicitly defined",
+          "Implementation subtasks for patient portal can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Patient Portal Backend Services",
+        "description": "Build the backend services for patient portal on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View appointments and results; Request prescription refills; Secure messaging with doctor.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Core patient portal business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for patient portal",
+          "API/service behavior for patient portal is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Patient Portal Frontend Flow",
+        "description": "Build the frontend flow for patient portal with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "The patient portal user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for patient portal behave correctly",
+          "The patient portal UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Write Patient Portal Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for patient portal. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-19",
+        "acceptance_criteria": [
+          "Happy path and failure cases for patient portal are covered by automated tests",
+          "Permission checks and validation rules for patient portal are verified",
+          "Regression coverage exists for the most critical patient portal scenarios"
+        ]
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Plan Clinical Dashboard Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for clinical dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Overview of hospital occupancy; Department-wise patient statistics; Critical patient alerts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The end-to-end workflow for clinical dashboard is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for clinical dashboard are explicitly defined",
+          "Implementation subtasks for clinical dashboard can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Clinical Dashboard Backend Services",
+        "description": "Build the backend services for clinical dashboard on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Overview of hospital occupancy; Department-wise patient statistics; Critical patient alerts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Core clinical dashboard business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for clinical dashboard",
+          "API/service behavior for clinical dashboard is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Clinical Dashboard Frontend Flow",
+        "description": "Build the frontend flow for clinical dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "The clinical dashboard user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for clinical dashboard behave correctly",
+          "The clinical dashboard UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Build Clinical Dashboard Reporting and KPI Logic",
+        "description": "Implement the reporting layer for clinical dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for clinical dashboard return accurate results",
+          "Filters, grouping, and export-ready structures for clinical dashboard work correctly",
+          "Reporting queries for clinical dashboard perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Implement Clinical Dashboard Notifications and Workflow Triggers",
+        "description": "Add notifications and event-driven workflow triggers for clinical dashboard. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Notification triggers for clinical dashboard fire on the correct workflow events",
+          "Recipients, templates, and delivery channels for clinical dashboard are configurable and testable",
+          "Notification failures for clinical dashboard are observable and recoverable"
+        ]
+      },
+      {
+        "title": "Write Clinical Dashboard Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for clinical dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-20",
+        "acceptance_criteria": [
+          "Happy path and failure cases for clinical dashboard are covered by automated tests",
+          "Permission checks and validation rules for clinical dashboard are verified",
+          "Regression coverage exists for the most critical clinical dashboard scenarios"
+        ]
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Plan Inventory and Supply Chain Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for inventory and supply chain and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Supply catalog management; Purchase requisition workflow; Vendor management.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "The end-to-end workflow for inventory and supply chain is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for inventory and supply chain are explicitly defined",
+          "Implementation subtasks for inventory and supply chain can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Inventory and Supply Chain Backend Services",
+        "description": "Build the backend services for inventory and supply chain on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Supply catalog management; Purchase requisition workflow; Vendor management.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "Core inventory and supply chain business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for inventory and supply chain",
+          "API/service behavior for inventory and supply chain is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Inventory and Supply Chain Frontend Flow",
+        "description": "Build the frontend flow for inventory and supply chain with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "The inventory and supply chain user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for inventory and supply chain behave correctly",
+          "The inventory and supply chain UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Inventory and Supply Chain Persistence Model",
+        "description": "Design the persistence layer for inventory and supply chain. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "The persistence model for inventory and supply chain supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for inventory and supply chain are defined correctly",
+          "Migrations for inventory and supply chain can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Inventory and Supply Chain Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for inventory and supply chain. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-21",
+        "acceptance_criteria": [
+          "Happy path and failure cases for inventory and supply chain are covered by automated tests",
+          "Permission checks and validation rules for inventory and supply chain are verified",
+          "Regression coverage exists for the most critical inventory and supply chain scenarios"
+        ]
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Plan Telemedicine Integration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for telemedicine integration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Video consultation for outpatients; Remote monitoring data integration; E-prescription during teleconsult.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "The end-to-end workflow for telemedicine integration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for telemedicine integration are explicitly defined",
+          "Implementation subtasks for telemedicine integration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Telemedicine Integration Backend Services",
+        "description": "Build the backend services for telemedicine integration on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Video consultation for outpatients; Remote monitoring data integration; E-prescription during teleconsult.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "Core telemedicine integration business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for telemedicine integration",
+          "API/service behavior for telemedicine integration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Telemedicine Integration Frontend Flow",
+        "description": "Build the frontend flow for telemedicine integration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "The telemedicine integration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for telemedicine integration behave correctly",
+          "The telemedicine integration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Build Telemedicine Integration Reporting and KPI Logic",
+        "description": "Implement the reporting layer for telemedicine integration, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for telemedicine integration return accurate results",
+          "Filters, grouping, and export-ready structures for telemedicine integration work correctly",
+          "Reporting queries for telemedicine integration perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Telemedicine Integration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for telemedicine integration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-22",
+        "acceptance_criteria": [
+          "Happy path and failure cases for telemedicine integration are covered by automated tests",
+          "Permission checks and validation rules for telemedicine integration are verified",
+          "Regression coverage exists for the most critical telemedicine integration scenarios"
+        ]
+      }
+    ],
+    "FR-23": [
+      {
+        "title": "Plan Quality and Safety Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for quality and safety and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Incident reporting system; Root cause analysis workflows; Quality improvement projects tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "The end-to-end workflow for quality and safety is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for quality and safety are explicitly defined",
+          "Implementation subtasks for quality and safety can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Quality and Safety Backend Services",
+        "description": "Build the backend services for quality and safety on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Incident reporting system; Root cause analysis workflows; Quality improvement projects tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "Core quality and safety business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for quality and safety",
+          "API/service behavior for quality and safety is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Quality and Safety Frontend Flow",
+        "description": "Build the frontend flow for quality and safety with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "The quality and safety user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for quality and safety behave correctly",
+          "The quality and safety UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Quality and Safety Persistence Model",
+        "description": "Design the persistence layer for quality and safety. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "The persistence model for quality and safety supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for quality and safety are defined correctly",
+          "Migrations for quality and safety can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Quality and Safety Reporting and KPI Logic",
+        "description": "Implement the reporting layer for quality and safety, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for quality and safety return accurate results",
+          "Filters, grouping, and export-ready structures for quality and safety work correctly",
+          "Reporting queries for quality and safety perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Quality and Safety Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for quality and safety. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-23",
+        "acceptance_criteria": [
+          "Happy path and failure cases for quality and safety are covered by automated tests",
+          "Permission checks and validation rules for quality and safety are verified",
+          "Regression coverage exists for the most critical quality and safety scenarios"
+        ]
+      }
+    ],
+    "FR-24": [
+      {
+        "title": "Plan Insurance and Pre-Authorization Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for insurance and pre-authorization and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Insurance eligibility verification; Pre-authorization requests; Claim status tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "The end-to-end workflow for insurance and pre-authorization is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for insurance and pre-authorization are explicitly defined",
+          "Implementation subtasks for insurance and pre-authorization can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Insurance and Pre-Authorization Backend Services",
+        "description": "Build the backend services for insurance and pre-authorization on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Insurance eligibility verification; Pre-authorization requests; Claim status tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "Core insurance and pre-authorization business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for insurance and pre-authorization",
+          "API/service behavior for insurance and pre-authorization is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Insurance and Pre-Authorization Frontend Flow",
+        "description": "Build the frontend flow for insurance and pre-authorization with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "The insurance and pre-authorization user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for insurance and pre-authorization behave correctly",
+          "The insurance and pre-authorization UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Insurance and Pre-Authorization Persistence Model",
+        "description": "Design the persistence layer for insurance and pre-authorization. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "The persistence model for insurance and pre-authorization supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for insurance and pre-authorization are defined correctly",
+          "Migrations for insurance and pre-authorization can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Harden Insurance and Pre-Authorization Security and Access Rules",
+        "description": "Apply security controls to insurance and pre-authorization. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "Access control rules for insurance and pre-authorization are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in insurance and pre-authorization are audited and protected against misuse",
+          "Security validation for insurance and pre-authorization passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Insurance and Pre-Authorization Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for insurance and pre-authorization. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-24",
+        "acceptance_criteria": [
+          "Happy path and failure cases for insurance and pre-authorization are covered by automated tests",
+          "Permission checks and validation rules for insurance and pre-authorization are verified",
+          "Regression coverage exists for the most critical insurance and pre-authorization scenarios"
+        ]
+      }
+    ],
+    "FR-25": [
+      {
+        "title": "Plan Referral Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for referral management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Internal and external referrals; Referral tracking and status; Specialist availability check.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-25",
+        "acceptance_criteria": [
+          "The end-to-end workflow for referral management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for referral management are explicitly defined",
+          "Implementation subtasks for referral management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Referral Management Backend Services",
+        "description": "Build the backend services for referral management on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Internal and external referrals; Referral tracking and status; Specialist availability check.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-25",
+        "acceptance_criteria": [
+          "Core referral management business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for referral management",
+          "API/service behavior for referral management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Referral Management Frontend Flow",
+        "description": "Build the frontend flow for referral management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-25",
+        "acceptance_criteria": [
+          "The referral management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for referral management behave correctly",
+          "The referral management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Referral Management Persistence Model",
+        "description": "Design the persistence layer for referral management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-25",
+        "acceptance_criteria": [
+          "The persistence model for referral management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for referral management are defined correctly",
+          "Migrations for referral management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Referral Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for referral management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-25",
+        "acceptance_criteria": [
+          "Happy path and failure cases for referral management are covered by automated tests",
+          "Permission checks and validation rules for referral management are verified",
+          "Regression coverage exists for the most critical referral management scenarios"
+        ]
+      }
+    ],
+    "FR-26": [
+      {
+        "title": "Plan Mortuary Management Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for mortuary management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Deceased patient processing; Body storage tracking; Death certificate generation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-26",
+        "acceptance_criteria": [
+          "The end-to-end workflow for mortuary management is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for mortuary management are explicitly defined",
+          "Implementation subtasks for mortuary management can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Mortuary Management Backend Services",
+        "description": "Build the backend services for mortuary management on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Deceased patient processing; Body storage tracking; Death certificate generation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-26",
+        "acceptance_criteria": [
+          "Core mortuary management business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for mortuary management",
+          "API/service behavior for mortuary management is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Mortuary Management Frontend Flow",
+        "description": "Build the frontend flow for mortuary management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-26",
+        "acceptance_criteria": [
+          "The mortuary management user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for mortuary management behave correctly",
+          "The mortuary management UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Mortuary Management Persistence Model",
+        "description": "Design the persistence layer for mortuary management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-26",
+        "acceptance_criteria": [
+          "The persistence model for mortuary management supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for mortuary management are defined correctly",
+          "Migrations for mortuary management can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Mortuary Management Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for mortuary management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-26",
+        "acceptance_criteria": [
+          "Happy path and failure cases for mortuary management are covered by automated tests",
+          "Permission checks and validation rules for mortuary management are verified",
+          "Regression coverage exists for the most critical mortuary management scenarios"
+        ]
+      }
+    ],
+    "FR-27": [
+      {
+        "title": "Plan Clinical Research Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for clinical research and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Research protocol management; Patient enrollment in studies; Data collection forms.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-27",
+        "acceptance_criteria": [
+          "The end-to-end workflow for clinical research is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for clinical research are explicitly defined",
+          "Implementation subtasks for clinical research can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Clinical Research Backend Services",
+        "description": "Build the backend services for clinical research on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Research protocol management; Patient enrollment in studies; Data collection forms.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-27",
+        "acceptance_criteria": [
+          "Core clinical research business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for clinical research",
+          "API/service behavior for clinical research is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Clinical Research Frontend Flow",
+        "description": "Build the frontend flow for clinical research with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-27",
+        "acceptance_criteria": [
+          "The clinical research user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for clinical research behave correctly",
+          "The clinical research UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Clinical Research Persistence Model",
+        "description": "Design the persistence layer for clinical research. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-27",
+        "acceptance_criteria": [
+          "The persistence model for clinical research supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for clinical research are defined correctly",
+          "Migrations for clinical research can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Write Clinical Research Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for clinical research. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-27",
+        "acceptance_criteria": [
+          "Happy path and failure cases for clinical research are covered by automated tests",
+          "Permission checks and validation rules for clinical research are verified",
+          "Regression coverage exists for the most critical clinical research scenarios"
+        ]
+      }
+    ],
+    "FR-28": [
+      {
+        "title": "Plan Reporting and BI Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for reporting and bi and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Operational reports (census, admissions, discharges); Financial reports (revenue, AR aging, collections); Clinical reports (infection rates, mortality, readmissions).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-28",
+        "acceptance_criteria": [
+          "The end-to-end workflow for reporting and bi is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for reporting and bi are explicitly defined",
+          "Implementation subtasks for reporting and bi can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Reporting and BI Backend Services",
+        "description": "Build the backend services for reporting and bi on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Operational reports (census, admissions, discharges); Financial reports (revenue, AR aging, collections); Clinical reports (infection rates, mortality, readmissions).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-28",
+        "acceptance_criteria": [
+          "Core reporting and bi business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for reporting and bi",
+          "API/service behavior for reporting and bi is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Reporting and BI Frontend Flow",
+        "description": "Build the frontend flow for reporting and bi with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-28",
+        "acceptance_criteria": [
+          "The reporting and bi user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for reporting and bi behave correctly",
+          "The reporting and bi UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design Reporting and BI Persistence Model",
+        "description": "Design the persistence layer for reporting and bi. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-28",
+        "acceptance_criteria": [
+          "The persistence model for reporting and bi supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for reporting and bi are defined correctly",
+          "Migrations for reporting and bi can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Build Reporting and BI Reporting and KPI Logic",
+        "description": "Implement the reporting layer for reporting and bi, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-28",
+        "acceptance_criteria": [
+          "KPI and reporting calculations for reporting and bi return accurate results",
+          "Filters, grouping, and export-ready structures for reporting and bi work correctly",
+          "Reporting queries for reporting and bi perform within acceptable limits"
+        ]
+      },
+      {
+        "title": "Write Reporting and BI Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for reporting and bi. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-28",
+        "acceptance_criteria": [
+          "Happy path and failure cases for reporting and bi are covered by automated tests",
+          "Permission checks and validation rules for reporting and bi are verified",
+          "Regression coverage exists for the most critical reporting and bi scenarios"
+        ]
+      }
+    ],
+    "FR-29": [
+      {
+        "title": "Plan Access Control Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for access control and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Role-based access per department; Multi-factor authentication; Audit trail for all access.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-29",
+        "acceptance_criteria": [
+          "The end-to-end workflow for access control is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for access control are explicitly defined",
+          "Implementation subtasks for access control can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement Access Control Backend Services",
+        "description": "Build the backend services for access control on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Role-based access per department; Multi-factor authentication; Audit trail for all access.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-29",
+        "acceptance_criteria": [
+          "Core access control business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for access control",
+          "API/service behavior for access control is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement Access Control Frontend Flow",
+        "description": "Build the frontend flow for access control with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-29",
+        "acceptance_criteria": [
+          "The access control user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for access control behave correctly",
+          "The access control UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Harden Access Control Security and Access Rules",
+        "description": "Apply security controls to access control. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-29",
+        "acceptance_criteria": [
+          "Access control rules for access control are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in access control are audited and protected against misuse",
+          "Security validation for access control passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write Access Control Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for access control. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-29",
+        "acceptance_criteria": [
+          "Happy path and failure cases for access control are covered by automated tests",
+          "Permission checks and validation rules for access control are verified",
+          "Regression coverage exists for the most critical access control scenarios"
+        ]
+      }
+    ],
+    "FR-30": [
+      {
+        "title": "Plan System Administration Workflow and Contracts",
+        "description": "Review the SRS requirement bullets for system administration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: User account management; System configuration settings; Data backup and recovery.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "The end-to-end workflow for system administration is documented from trigger to completion",
+          "Validation rules, role restrictions, and error scenarios for system administration are explicitly defined",
+          "Implementation subtasks for system administration can be picked up independently by engineering"
+        ]
+      },
+      {
+        "title": "Implement System Administration Backend Services",
+        "description": "Build the backend services for system administration on Angular, Java Spring Boot, PostgreSQL, Redis. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: User account management; System configuration settings; Data backup and recovery.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "Core system administration business rules are implemented for Hospital Management System",
+          "Validation, authorization, and error handling are covered for system administration",
+          "API/service behavior for system administration is testable and documented for integration"
+        ]
+      },
+      {
+        "title": "Implement System Administration Frontend Flow",
+        "description": "Build the frontend flow for system administration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "The system administration user flow is accessible and responsive across supported browsers",
+          "Forms, filters, tables, and feedback states for system administration behave correctly",
+          "The system administration UI is fully integrated with backend APIs and handles loading and error states"
+        ]
+      },
+      {
+        "title": "Design System Administration Persistence Model",
+        "description": "Design the persistence layer for system administration. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "The persistence model for system administration supports required workflows and reporting needs",
+          "Indexes, constraints, and relationships for system administration are defined correctly",
+          "Migrations for system administration can be applied safely in target environments"
+        ]
+      },
+      {
+        "title": "Integrate External Dependencies for System Administration",
+        "description": "Implement the external integration points used by system administration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "External dependencies used by system administration are connected through stable integration layers",
+          "Timeout, retry, and failure handling for system administration integrations are implemented and testable",
+          "Secrets, credentials, and integration logs for system administration are handled securely"
+        ]
+      },
+      {
+        "title": "Harden System Administration Security and Access Rules",
+        "description": "Apply security controls to system administration. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "Access control rules for system administration are enforced consistently across API and UI layers",
+          "Sensitive operations and data paths in system administration are audited and protected against misuse",
+          "Security validation for system administration passes review and automated checks"
+        ]
+      },
+      {
+        "title": "Write System Administration Automated and End-to-End Tests",
+        "description": "Write unit, integration, and end-to-end tests for system administration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-30",
+        "acceptance_criteria": [
+          "Happy path and failure cases for system administration are covered by automated tests",
+          "Permission checks and validation rules for system administration are verified",
+          "Regression coverage exists for the most critical system administration scenarios"
+        ]
+      }
+    ]
   }
 }
