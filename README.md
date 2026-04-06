@@ -88,7 +88,18 @@ python src/generate.py --json path/to/srs.json
 
 Tasks are saved to `output/tasks.json` by default.
 
-### 5. Run API Server
+### 5. Evaluate the Model
+
+```bash
+python src/evaluate.py --eval-data data/evaluation --adapter models/srs-task-adapter
+```
+
+This writes a timestamped report into `evaluation_results/` with:
+- generated predictions for each evaluation file
+- `summary.json` containing numeric metrics
+- `report.md` with readable findings and recommendations
+
+### 6. Run API Server
 
 ```bash
 python src/server.py
@@ -129,6 +140,7 @@ SRS-Task-Generator/
 |   `-- evaluation/               # Holdout evaluation data (JSON files)
 |-- uploads/                      # Uploaded SRS PDFs and text files
 |-- output/                       # Generated task JSONs
+|-- evaluation_results/           # Timestamped evaluation reports
 |-- samples/                      # Example SRS inputs, including ERP template
 |-- scripts/
 |   `-- generate_samples.py       # Synthetic sample generation
@@ -137,6 +149,7 @@ SRS-Task-Generator/
 |   |-- srs_to_json.py            # Stage 1: SRS -> structured JSON
 |   |-- prepare_data.py           # Training data preparation
 |   |-- train.py                  # Model fine-tuning
+|   |-- evaluate.py               # Holdout evaluation and reporting
 |   |-- generate.py               # Full pipeline inference
 |   `-- server.py                 # FastAPI REST server
 |-- tests/
