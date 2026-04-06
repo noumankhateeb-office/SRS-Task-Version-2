@@ -515,6 +515,54 @@
             display: flex;
         }
 
+        .sample-toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .sample-picker {
+            flex: 1;
+            min-width: 240px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sample-picker label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .sample-picker select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .sample-picker select:focus {
+            outline: none;
+            border-color: var(--accent-text);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            background: var(--bg-surface);
+        }
+
+        .sample-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
         .text-input-area textarea {
             flex: 1;
             min-height: 210px;
@@ -1081,6 +1129,18 @@
 
                     <!-- Text Input Mode -->
                     <div class="text-input-area" id="textMode">
+                        <div class="sample-toolbar">
+                            <div class="sample-picker">
+                                <label for="sampleSrsSelect">Quick Sample SRS</label>
+                                <select id="sampleSrsSelect">
+                                    <option value="">Choose a sample SRS to load into the editor</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-secondary" id="loadSampleBtn" type="button">
+                                Load Sample
+                            </button>
+                        </div>
+                        <div class="sample-hint" id="sampleHint">Select a bundled sample SRS to test parsing and task generation from the frontend.</div>
                         <textarea id="srsTextInput" placeholder="Paste your SRS document text here...
 
 Example:
@@ -1163,6 +1223,7 @@ Example:
         let selectedFile = null;
         let currentView = 'cards';
         let inputMode = 'file'; // 'file' or 'text'
+        let sampleLibrary = [];
 
         // ============================================
         // DOM ELEMENTS
@@ -1185,6 +1246,9 @@ Example:
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         const loadingSubtext = document.getElementById('loadingSubtext');
+        const sampleSrsSelect = document.getElementById('sampleSrsSelect');
+        const loadSampleBtn = document.getElementById('loadSampleBtn');
+        const sampleHint = document.getElementById('sampleHint');
 
         // ============================================
         // HEALTH CHECK
@@ -1219,6 +1283,87 @@ Example:
 
         checkHealth();
         setInterval(checkHealth, 15000);
+
+        // ============================================
+        // SAMPLE SRS LIBRARY
+        // ============================================
+        async function loadSampleLibrary() {
+            try {
+                const res = await fetch(`${API_BASE}/sample-srs`);
+                if (!res.ok) {
+                    throw new Error('Unable to load sample SRS library');
+                }
+
+                const data = await res.json();
+                sampleLibrary = Array.isArray(data.samples) ? data.samples : [];
+                renderSampleLibrary();
+            } catch (err) {
+                sampleHint.textContent = 'Bundled sample SRS files are unavailable right now.';
+                sampleSrsSelect.disabled = true;
+                loadSampleBtn.disabled = true;
+                console.error(err);
+            }
+        }
+
+        function renderSampleLibrary() {
+            sampleSrsSelect.innerHTML = '<option value="">Choose a sample SRS to load into the editor</option>';
+
+            sampleLibrary.forEach((sample, index) => {
+                const option = document.createElement('option');
+                option.value = sample.id;
+                option.textContent = `${index + 1}. ${sample.title}`;
+                sampleSrsSelect.appendChild(option);
+            });
+
+            const hasSamples = sampleLibrary.length > 0;
+            sampleSrsSelect.disabled = !hasSamples;
+            loadSampleBtn.disabled = !hasSamples;
+            sampleHint.textContent = hasSamples
+                ? 'Pick a sample SRS, review it in the editor, then click Generate Tasks or Parse Only.'
+                : 'No bundled sample SRS files were found.';
+        }
+
+        async function loadSelectedSample() {
+            const sampleId = sampleSrsSelect.value;
+            if (!sampleId) {
+                showToast('Choose a sample SRS first.', 'error');
+                return;
+            }
+
+            loadSampleBtn.disabled = true;
+            sampleHint.textContent = 'Loading selected sample SRS...';
+
+            try {
+                const res = await fetch(`${API_BASE}/sample-srs/${encodeURIComponent(sampleId)}`);
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || 'Failed to load sample SRS');
+                }
+
+                const data = await res.json();
+                const sample = data.sample || {};
+                setTextInputValue(sample.text || '');
+                sampleHint.textContent = `Loaded ${sample.title || sample.filename || sampleId}. You can edit it before running generation.`;
+                showToast(`Loaded ${sample.title || sampleId}`, 'success');
+            } catch (err) {
+                sampleHint.textContent = 'Failed to load the selected sample SRS.';
+                showToast(`Error: ${err.message}`, 'error');
+            } finally {
+                loadSampleBtn.disabled = sampleLibrary.length === 0;
+            }
+        }
+
+        sampleSrsSelect.addEventListener('change', () => {
+            if (sampleSrsSelect.value) {
+                loadSelectedSample();
+            } else {
+                sampleHint.textContent = 'Pick a sample SRS, review it in the editor, then click Generate Tasks or Parse Only.';
+            }
+        });
+
+        loadSampleBtn.addEventListener('click', loadSelectedSample);
+
+        loadSampleLibrary();
 
         // ============================================
         // FILE UPLOAD HANDLERS
@@ -1261,8 +1406,7 @@ Example:
             uploadZone.classList.add('has-file');
             uploadZone.querySelector('h3').textContent = 'File ready!';
             uploadZone.querySelector('.upload-icon').textContent = '✅';
-            generateBtn.disabled = false;
-            parseOnlyBtn.disabled = false;
+            updateActionButtons();
         }
 
         function clearFile() {
@@ -1272,8 +1416,7 @@ Example:
             uploadZone.classList.remove('has-file');
             uploadZone.querySelector('h3').textContent = 'Drop your SRS file here';
             uploadZone.querySelector('.upload-icon').textContent = '📂';
-            generateBtn.disabled = true;
-            parseOnlyBtn.disabled = true;
+            updateActionButtons();
         }
 
         function formatFileSize(bytes) {
@@ -1297,29 +1440,35 @@ Example:
                 textTabBtn.classList.remove('active');
                 fileMode.style.display = 'block';
                 textMode.classList.remove('visible');
-                // Enable buttons based on file selection
-                generateBtn.disabled = !selectedFile;
-                parseOnlyBtn.disabled = !selectedFile;
             } else {
                 textTabBtn.classList.add('active');
                 fileTabBtn.classList.remove('active');
                 fileMode.style.display = 'none';
                 textMode.classList.add('visible');
-                // Enable buttons based on text content
-                const hasText = srsTextInput.value.trim().length > 0;
-                generateBtn.disabled = !hasText;
-                parseOnlyBtn.disabled = !hasText;
             }
+            updateActionButtons();
+        }
+
+        function setTextInputValue(text) {
+            srsTextInput.value = text;
+            const len = text.length;
+            charCount.textContent = len;
+            updateActionButtons();
+        }
+
+        function updateActionButtons() {
+            const hasInput = inputMode === 'file'
+                ? Boolean(selectedFile)
+                : srsTextInput.value.trim().length > 0;
+            generateBtn.disabled = !hasInput;
+            parseOnlyBtn.disabled = !hasInput;
         }
 
         // Text input character count and button enable
         srsTextInput.addEventListener('input', () => {
             const len = srsTextInput.value.length;
             charCount.textContent = len;
-            if (inputMode === 'text') {
-                generateBtn.disabled = len === 0;
-                parseOnlyBtn.disabled = len === 0;
-            }
+            updateActionButtons();
         });
 
         // ============================================

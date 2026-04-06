@@ -14,10 +14,8 @@ Usage:
     uvicorn src.server:app --host 0.0.0.0 --port 8000 --reload
 """
 
-import json
 import logging
 import sys
-import tempfile
 from pathlib import Path
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
@@ -42,8 +40,10 @@ PROJECT_ROOT = Path(__file__).parent.parent
 UPLOADS_DIR = PROJECT_ROOT / "uploads"
 UPLOADS_DIR.mkdir(exist_ok=True)
 STATIC_DIR = PROJECT_ROOT / "static"
+SAMPLES_DIR = PROJECT_ROOT / "samples"
 
 ALLOWED_EXTENSIONS = {".pdf", ".txt", ".md"}
+SAMPLE_FILE_PATTERN = ("*.md", "*.txt")
 
 # ---------------------------------------------------------------------------
 # App Setup
@@ -139,6 +139,47 @@ async def _save_upload(file: UploadFile) -> Path:
     return save_path
 
 
+def _extract_sample_title(path: Path) -> str:
+    """Build a human-friendly title for an SRS sample file."""
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for line in lines:
+        stripped = line.strip().strip("#").strip()
+        if stripped:
+            return stripped
+    return path.stem.replace("_", " ").title()
+
+
+def _get_sample_srs_library() -> list[dict[str, str]]:
+    """Return the bundled sample SRS files available to the frontend."""
+    library: list[dict[str, str]] = []
+    seen: set[str] = set()
+
+    for pattern in SAMPLE_FILE_PATTERN:
+        for path in sorted(SAMPLES_DIR.glob(pattern)):
+            sample_id = path.stem
+            if sample_id in seen:
+                continue
+            seen.add(sample_id)
+            library.append(
+                {
+                    "id": sample_id,
+                    "filename": path.name,
+                    "title": _extract_sample_title(path),
+                }
+            )
+
+    return library
+
+
+def _get_sample_path(sample_id: str) -> Path:
+    """Resolve a sample id to a real file path."""
+    for pattern in SAMPLE_FILE_PATTERN:
+        candidate = SAMPLES_DIR / f"{sample_id}{pattern[1:]}"
+        if candidate.exists():
+            return candidate
+    raise HTTPException(status_code=404, detail=f"Sample SRS '{sample_id}' not found.")
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
@@ -159,6 +200,30 @@ async def health_check():
     return {
         "status": "healthy",
         "model_loaded": _generator is not None and _generator.model is not None,
+    }
+
+
+@app.get("/sample-srs")
+async def list_sample_srs():
+    """List bundled sample SRS files for quick frontend evaluation."""
+    return {
+        "status": "success",
+        "samples": _get_sample_srs_library(),
+    }
+
+
+@app.get("/sample-srs/{sample_id}")
+async def get_sample_srs(sample_id: str):
+    """Return the raw text for a bundled sample SRS."""
+    sample_path = _get_sample_path(sample_id)
+    return {
+        "status": "success",
+        "sample": {
+            "id": sample_id,
+            "filename": sample_path.name,
+            "title": _extract_sample_title(sample_path),
+            "text": sample_path.read_text(encoding="utf-8"),
+        },
     }
 
 

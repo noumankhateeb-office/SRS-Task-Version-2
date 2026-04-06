@@ -4,7 +4,15 @@ Each sample covers a unique domain with realistic requirements.
 """
 import json
 import os
-import random
+import re
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.srs_to_json import parse_srs
 
 # ── Domain definitions with FR pools ──────────────────────────────
 DOMAINS = [
@@ -526,30 +534,198 @@ def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs, fr_data=None):
 
     return tasks
 
+def _feature_slug(title):
+    """Normalize a feature title for sentence construction."""
+    cleaned = re.sub(r"\s+", " ", title.strip())
+    return cleaned.lower() if cleaned else "the feature"
+
+
+def _build_auth_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"Users must be able to complete {feature} through the approved entry points provided by the platform.",
+        f"The system must validate submitted credentials, identity data, and required fields before allowing {feature} to continue.",
+        f"{feature_title} must enforce secure handling of sensitive data, failed attempts, and audit logging for security review.",
+        f"The user interface for {feature} should provide clear success, failure, and recovery messages for common scenarios.",
+    ]
+
+
+def _build_reporting_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"The system must provide {feature} with role-appropriate filters, date ranges, and drill-down views.",
+        f"{feature_title} should calculate metrics from current transactional data and keep summaries aligned with source records.",
+        f"Authorized users must be able to export or share {feature} outputs in formats used by business teams.",
+        f"The platform should retain query history, report configuration, or dashboard preferences where that improves repeated analysis.",
+    ]
+
+
+def _build_notification_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"The system must trigger {feature} when the relevant business events or threshold conditions occur.",
+        f"Users should be able to configure delivery channels, timing, or opt-in preferences related to {feature}.",
+        f"{feature_title} must record delivery outcomes, retries, and failures for operational follow-up.",
+        f"The interface should let authorized users review recent {feature} events and the current notification status.",
+    ]
+
+
+def _build_search_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"Users must be able to use {feature} to locate records quickly using relevant keywords, categories, or structured filters.",
+        f"{feature_title} should support sorting, pagination, and clear empty-state behavior when no matching records are found.",
+        f"The system must return results that reflect current access permissions and only expose data the requesting user is allowed to view.",
+        f"Recent selections, saved filters, or contextual shortcuts should be supported where they improve repeated use of {feature}.",
+    ]
+
+
+def _build_integration_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"The platform must support {feature} through stable service contracts with external systems or internal integration layers.",
+        f"{feature_title} should validate inbound and outbound payloads before data is accepted or shared with downstream systems.",
+        f"Failures, retries, and reconciliation outcomes for {feature} must be observable through logs, alerts, and operational dashboards.",
+        f"Credentials, tokens, and connection settings used by {feature} must be managed securely and rotated according to policy.",
+    ]
+
+
+def _build_workflow_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"Authorized users must be able to create, update, and complete {feature} according to the approved business workflow.",
+        f"The system should validate required fields, status transitions, and role-based actions before saving {feature} changes.",
+        f"{feature_title} must maintain a clear history of assignments, approvals, or status updates for operational traceability.",
+        f"The interface should surface the current workflow state, next available actions, and blocking conditions for {feature}.",
+    ]
+
+
+def _build_management_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"The system must provide end-to-end {feature} capabilities for creating, updating, viewing, and retiring relevant business records.",
+        f"{feature_title} should support role-based permissions, validation rules, and duplicate-prevention checks where appropriate.",
+        f"Users must be able to search, filter, and review historical activity related to {feature} without leaving the module context.",
+        f"The platform should maintain auditability for important actions performed within {feature} and retain operational history for reporting.",
+    ]
+
+
+def _build_tracking_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"The system must capture {feature} data in real time or near real time as operational events occur.",
+        f"{feature_title} should provide a timeline, status history, or change log so users can understand what happened and when.",
+        f"Users must be able to review, filter, and reconcile {feature} records against the related business entities.",
+        f"The platform should flag missing, inconsistent, or exception conditions that require attention during {feature}.",
+    ]
+
+
+def _build_default_requirements(feature_title):
+    feature = _feature_slug(feature_title)
+    return [
+        f"The system must support {feature} as a complete business workflow within the application.",
+        f"{feature_title} should validate required inputs, enforce role-based permissions, and prevent invalid state changes.",
+        f"Users must be able to review the current state and recent activity associated with {feature} from the relevant module.",
+        f"The platform should log significant actions, failures, and user-visible events related to {feature} for operational support.",
+    ]
+
+
+def build_realistic_requirements(feature_title):
+    """Create more natural SRS requirement bullets from a feature title."""
+    signals = feature_title.lower()
+
+    if any(keyword in signals for keyword in ["authentication", "login", "registration", "identity", "verification", "account", "security", "access", "rbac", "encryption", "privacy", "fraud"]):
+        return _build_auth_requirements(feature_title)
+    if any(keyword in signals for keyword in ["report", "dashboard", "analytics", "kpi", "insight", "metric"]):
+        return _build_reporting_requirements(feature_title)
+    if any(keyword in signals for keyword in ["notification", "alert", "reminder"]):
+        return _build_notification_requirements(feature_title)
+    if any(keyword in signals for keyword in ["api", "integration", "sync", "import", "export", "gateway", "webhook", "feed"]):
+        return _build_integration_requirements(feature_title)
+    if any(keyword in signals for keyword in ["workflow", "approval", "automation", "booking", "checkout", "reservation", "order", "ticket", "appointment", "schedule", "assignment", "project", "task"]):
+        return _build_workflow_requirements(feature_title)
+    if any(keyword in signals for keyword in ["tracking", "monitoring", "history", "audit", "log", "reconciliation"]):
+        return _build_tracking_requirements(feature_title)
+    if any(keyword in signals for keyword in ["management", "portal", "profile", "payout", "payment", "payroll", "inventory", "supplier", "vendor", "asset", "document", "customer", "campaign", "attendance"]):
+        return _build_management_requirements(feature_title)
+    if any(keyword in signals for keyword in ["search", "catalog", "discovery", "browse", "wishlist", "filter"]):
+        return _build_search_requirements(feature_title)
+    return _build_default_requirements(feature_title)
+
+
 def generate_simple_frs(fr_titles):
-    """Generate FRs from a list of titles with requirements only."""
+    """Generate FRs from a list of titles with realistic requirements only."""
     frs = {}
     for i, title in enumerate(fr_titles):
         fr_id = f"FR-{i+1:02d}"
-        feature = title.lower()
-        
-        # Generate 3-5 requirements
-        num_reqs = random.randint(3, 5)
-        reqs = []
-        reqs.append(f"Implement complete {feature} functionality")
-        reqs.append(f"All {feature} operations must be validated and authorized")
-        reqs.append(f"System shall maintain audit log for {feature} actions")
-        if num_reqs >= 4:
-            reqs.append(f"Support search and filtering within {feature}")
-        if num_reqs >= 5:
-            reqs.append(f"Enable notifications for important {feature} events")
-        
+        reqs = build_realistic_requirements(title)
+
         frs[fr_id] = {
             "title": title,
             "requirements": reqs,
         }
-    
+
     return frs
+
+
+def _clean_text_tree(value):
+    """Strip lightweight markdown artifacts from parsed sample content."""
+    if isinstance(value, dict):
+        return {key: _clean_text_tree(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_clean_text_tree(item) for item in value]
+    if isinstance(value, str):
+        cleaned = value.replace("**", "")
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+        return cleaned
+    return value
+
+
+CURATED_SAMPLE_OVERRIDES = {
+    "01_ecommerce.json": {
+        "title": "E-Commerce Platform",
+        "technologies": ["Next.js", "Prisma", "MongoDB"],
+        "actors": ["Customer", "Admin"],
+    },
+    "51_enterprise_erp.json": {
+        "title": "Enterprise Resource Planning System",
+        "technologies": ["React", "Node.js", "MongoDB", "Express"],
+        "actors": ["Admin", "Manager", "Employee"],
+    },
+}
+
+
+def create_sample_from_markdown(sample_filename, markdown_filename):
+    """Create a sample JSON by parsing an authored markdown SRS."""
+    markdown_path = PROJECT_ROOT / "samples" / markdown_filename
+    parsed = _clean_text_tree(parse_srs(markdown_path.read_text(encoding="utf-8")).to_dict())
+    parsed.update(CURATED_SAMPLE_OVERRIDES.get(sample_filename, {}))
+
+    output = {}
+    title = parsed.get("title", sample_filename)
+    technologies = parsed.get("technologies", [])
+    frs = parsed.get("functional_requirements", {})
+    for fr_id, fr_data in frs.items():
+        fr_data.pop("acceptance_criteria", None)
+        output[fr_id] = generate_tasks_for_fr(
+            fr_id,
+            fr_data.get("title", fr_id),
+            title,
+            technologies,
+            fr_data,
+        )
+
+    sample = {
+        "input": parsed,
+        "output": output,
+    }
+
+    output_path = PROJECT_ROOT / "data" / "samples" / sample_filename
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(sample, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+    print(f"  Created {sample_filename} from {markdown_filename}: {len(frs)} FRs")
 
 def create_sample(filepath, title, techs, fr_titles):
     """Create a complete training sample file."""
@@ -572,6 +748,14 @@ def create_sample(filepath, title, techs, fr_titles):
 
 def main():
     base_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "samples")
+
+    curated_markdown_samples = [
+        ("01_ecommerce.json", "sample_srs_ecommerce.md"),
+        ("51_enterprise_erp.json", "sample_srs_erp.md"),
+    ]
+
+    for sample_filename, markdown_filename in curated_markdown_samples:
+        create_sample_from_markdown(sample_filename, markdown_filename)
     
     # Process detailed domains (23, 24)
     for domain in DOMAINS:
@@ -663,11 +847,6 @@ def main():
           "Submittal Tracking", "Punch List Creation", "Inspection Scheduling", "Quality Assurance Checklists", "Safety Incident Reporting", "Safety Training Tracking", "OSHA Compliance Checklist", "Drawing and Blueprint Management",
           "3D Model Viewer Integration", "Photo and Video Documentation", "Time-lapse Camera Integration", "Client Portal with Progress", "Permit and License Tracking", "Warranty Tracking", "Asset Handover Documentation",
           "Analytics and Project Reports", "Multi-project Dashboard"]),
-        ("51_enterprise_erp.json", "Enterprise Resource Planning System", ["React", "Node.js", "MongoDB", "Express"],
-         ["User Authentication", "User Role Management", "Financial Transaction Tracking", "Payroll Management", "Sales and CRM", "Inventory Management", "Procurement Management", "Time and Attendance Management",
-          "Performance Evaluation", "Real-time Reporting and Dashboards", "Document Management", "Customer Order Management", "Supplier Management", "Vendor Payment Management", "Bank Reconciliation", "Project Management",
-          "Asset Management", "Audit Trail and Log Management", "Multi-Currency Support", "Tax Management", "Marketing Campaign Tracking", "Data Backup and Restore", "System Notifications and Alerts", "Workflow Automation",
-          "User Activity Monitoring", "Helpdesk and Support Ticketing", "Role-Based Access Control", "User Self-Service Portal", "Data Encryption", "System Availability and Downtime"]),
     ]
     
     for filename, title, techs, fr_titles in extra_domains:
@@ -675,7 +854,7 @@ def main():
         create_sample(filepath, title, techs, fr_titles)
     
     # Count total
-    total_files = len(DOMAINS) + len(MORE_DOMAINS) + len(extra_domains)
+    total_files = len(curated_markdown_samples) + len(DOMAINS) + len(MORE_DOMAINS) + len(extra_domains)
     print(f"\n  Generated {total_files} sample files")
 
 

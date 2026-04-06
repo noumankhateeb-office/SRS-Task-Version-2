@@ -1,12 +1,97 @@
 {
   "input": {
     "title": "Ride Sharing Application",
+    "description": "Ride Sharing Application is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
     "technologies": [
       "React Native",
       "Go",
       "PostgreSQL",
       "Redis",
       "RabbitMQ"
+    ],
+    "actors": [
+      "Admin",
+      "Manager",
+      "Employee",
+      "User"
+    ],
+    "user_classes": {
+      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
+      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
+      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
+      "User": "Generic authenticated platform user with access limited by role and department."
+    },
+    "definitions": {
+      "Admin": "System user with full administrative privileges.",
+      "Manager": "Operational owner of a department, module, or workflow.",
+      "Employee": "End user performing role-specific business operations."
+    },
+    "modules": [
+      "Rider Registration",
+      "Driver Registration",
+      "Ride Booking",
+      "Driver Matching",
+      "Real-time Trip Tracking",
+      "Fare Calculation",
+      "Payment Processing",
+      "Rating and Feedback",
+      "Driver Earnings Dashboard",
+      "Safety Features"
+    ],
+    "scope": [
+      "Rider Registration workflows",
+      "Driver Registration workflows",
+      "Ride Booking workflows",
+      "Driver Matching workflows",
+      "Real-time Trip Tracking workflows",
+      "Fare Calculation workflows"
+    ],
+    "constraints": [
+      "Initial release will focus on the web platform only",
+      "Role-based access control is mandatory across all modules",
+      "Operational data must be auditable and retained according to policy"
+    ],
+    "operating_environment": {
+      "frontend": "Web-based interface built with React Native and accessible through modern browsers.",
+      "backend": "Service layer implemented with Go, PostgreSQL, Redis, RabbitMQ for business operations.",
+      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Security and Access Control",
+        "requirements": [
+          "All sensitive data must be encrypted in transit and at rest",
+          "Role-based authorization must restrict access by module and action",
+          "All authentication events and privileged actions must be logged"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance and Scalability",
+        "requirements": [
+          "Core pages and dashboards should load within acceptable enterprise SLAs",
+          "The platform must support concurrent usage across multiple departments",
+          "Background jobs and reporting workloads should not block transactional workflows"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability and Recoverability",
+        "requirements": [
+          "Automated backups must run on a defined schedule",
+          "Critical workflows should support retry-safe processing and audit logging",
+          "Operational alerts should be generated for failures and degraded services"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
+      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
+      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
+      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
+    },
+    "out_of_scope": [
+      "Native mobile applications in the first release",
+      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
+      "Non-core experimental modules outside the platform's operational workflows"
     ],
     "functional_requirements": {
       "FR-01": {
