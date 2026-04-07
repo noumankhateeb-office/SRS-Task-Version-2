@@ -5,7 +5,7 @@ An ML pipeline that converts Software Requirements Specification (SRS) documents
 ## Architecture
 
 ```text
-SRS PDF/Text -> [PyMuPDF] -> Raw Text -> [SpaCy + Regex] -> Structured JSON -> [Qwen2.5-7B-Instruct + LoRA] -> Tasks JSON
+SRS PDF/Text -> [PyMuPDF] -> Raw Text -> [SpaCy + Regex] -> Structured JSON -> [Qwen2.5-1.5B-Instruct + LoRA] -> Tasks JSON
                               Stage 1: Parsing                              Stage 2: Generation
 ```
 
@@ -47,7 +47,7 @@ The evaluation set is intentionally generated from separate domains and is not m
 ### 3. Train the Model
 
 ```bash
-python src/train.py --data data/training --eval-data data/evaluation --epochs 15
+python src/train.py --data data/training --eval-data data/evaluation --batch-size 1 --grad-accum 1 --epochs 3
 ```
 
 The training pipeline now uses a separate holdout evaluation dataset instead of splitting the training folder internally.
@@ -56,9 +56,10 @@ Options:
 - `--data PATH` - Path to training data directory or JSONL file (default: `data/training/`)
 - `--eval-data PATH` - Path to holdout evaluation directory or JSONL file (default: `data/evaluation/`)
 - `--output PATH` - Where to save the model (default: `models/srs-task-adapter/`)
-- `--epochs N` - Number of epochs (default: 15)
-- `--batch-size N` - Batch size (default: 4, reduce to 2 if out of memory)
-- `--lr FLOAT` - Learning rate (default: `3e-4`)
+- `--epochs N` - Number of epochs (default: 5)
+- `--batch-size N` - Batch size (default: 1)
+- `--grad-accum N` - Gradient accumulation steps (default: 1)
+- `--lr FLOAT` - Learning rate (default: `2e-4`)
 
 ### 4. Generate Tasks
 

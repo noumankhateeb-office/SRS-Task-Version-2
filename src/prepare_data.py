@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct"
+MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
 MAX_INPUT_LENGTH = 1024
 MAX_TARGET_LENGTH = 1536
 MAX_SEQUENCE_LENGTH = MAX_INPUT_LENGTH + MAX_TARGET_LENGTH + 1

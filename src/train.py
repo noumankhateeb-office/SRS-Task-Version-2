@@ -1,7 +1,7 @@
 """
 Training Script
 ================
-Fine-tunes Qwen2.5-7B-Instruct with LoRA (Low-Rank Adaptation) for
+Fine-tunes Qwen2.5-1.5B-Instruct with LoRA (Low-Rank Adaptation) for
 SRS JSON to development task generation.
 
 Usage:
@@ -34,9 +34,9 @@ DEFAULT_EVAL_DATA_PATH = Path(__file__).parent.parent / "data" / "evaluation"
 DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "models" / "srs-task-adapter"
 
 LORA_CONFIG = LoraConfig(
-    r=16,
-    lora_alpha=32,
-    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+    r=8,
+    lora_alpha=16,
+    target_modules=["q_proj", "v_proj"],
     lora_dropout=0.05,
     bias="none",
     task_type=TaskType.CAUSAL_LM,
@@ -96,7 +96,8 @@ def setup_model(model_name: str = MODEL_NAME) -> tuple:
 
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
-        torch_dtype=torch_dtype,
+        dtype=torch_dtype,
+        low_cpu_mem_usage=True,
     )
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -137,7 +138,7 @@ def get_training_args(
     epochs: int = 5,
     batch_size: int = 1,
     learning_rate: float = 2e-4,
-    gradient_accumulation_steps: int = 8,
+    gradient_accumulation_steps: int = 1,
 ) -> TrainingArguments:
     """
     Create training arguments for causal LM fine-tuning.
@@ -163,8 +164,8 @@ def get_training_args(
         gradient_accumulation_steps=gradient_accumulation_steps,
         learning_rate=learning_rate,
         weight_decay=0.01,
-        warmup_steps=50,
-        logging_steps=10,
+        warmup_steps=20,
+        logging_steps=1,
         eval_strategy="epoch",
         save_strategy="epoch",
         save_total_limit=2,
@@ -190,6 +191,7 @@ def train(
     epochs: int = 5,
     batch_size: int = 1,
     learning_rate: float = 2e-4,
+    gradient_accumulation_steps: int = 1,
 ) -> None:
     """
     Run the full training pipeline.
@@ -201,6 +203,7 @@ def train(
         epochs: Number of training epochs.
         batch_size: Per-device batch size.
         learning_rate: Learning rate.
+        gradient_accumulation_steps: Number of mini-batches to accumulate before an optimizer step.
     """
     logger.info("=" * 60)
     logger.info("SRS TO TASKS MODEL TRAINING")
@@ -227,6 +230,7 @@ def train(
         epochs=epochs,
         batch_size=batch_size,
         learning_rate=learning_rate,
+        gradient_accumulation_steps=gradient_accumulation_steps,
     )
 
     trainer = Trainer(
@@ -241,6 +245,7 @@ def train(
     logger.info("Starting training...")
     logger.info("  Epochs: %d", epochs)
     logger.info("  Batch size: %d", batch_size)
+    logger.info("  Gradient accumulation: %d", gradient_accumulation_steps)
     logger.info("  Learning rate: %s", learning_rate)
     logger.info("  Train examples: %d", len(train_dataset))
     logger.info("  Eval examples: %d", len(val_dataset))
@@ -271,7 +276,7 @@ def train(
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Fine-tune Qwen2.5-7B-Instruct with LoRA for SRS to tasks generation."
+        description="Fine-tune Qwen2.5-1.5B-Instruct with LoRA for SRS to tasks generation."
     )
     parser.add_argument(
         "--data",
@@ -309,6 +314,12 @@ def parse_args() -> argparse.Namespace:
         default=2e-4,
         help="Learning rate (default: 2e-4).",
     )
+    parser.add_argument(
+        "--grad-accum",
+        type=int,
+        default=1,
+        help="Gradient accumulation steps (default: 1 for 8GB-class GPUs).",
+    )
 
     return parser.parse_args()
 
@@ -329,4 +340,5 @@ if __name__ == "__main__":
         epochs=args.epochs,
         batch_size=args.batch_size,
         learning_rate=args.lr,
+        gradient_accumulation_steps=args.grad_accum,
     )
