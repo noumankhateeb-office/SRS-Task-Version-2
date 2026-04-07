@@ -951,59 +951,136 @@
         }
 
         /* ============================================
-           LOADING OVERLAY
+           GENERATION STATUS
            ============================================ */
-        .loading-overlay {
+        .generation-status {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 100;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 255, 0.95));
+            border: 1px solid rgba(99, 102, 241, 0.14);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            box-shadow: var(--shadow-sm);
+            gap: 12px;
+        }
+
+        .generation-status.visible {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .generation-status[data-state="complete"] {
+            border-color: rgba(16, 185, 129, 0.2);
+            background: linear-gradient(180deg, rgba(244, 255, 251, 0.98), rgba(236, 253, 245, 0.94));
+        }
+
+        .generation-status[data-state="error"] {
+            border-color: rgba(239, 68, 68, 0.22);
+            background: linear-gradient(180deg, rgba(255, 250, 250, 0.98), rgba(254, 242, 242, 0.94));
+        }
+
+        .generation-status-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .generation-indicator {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 24px;
+            font-size: 11px;
+            font-weight: 800;
         }
 
-        .loading-overlay.visible {
-            display: flex;
-        }
-
-        .spinner-container {
-            position: relative;
-            width: 56px;
-            height: 56px;
-        }
-
-        .spinner {
-            width: 56px;
-            height: 56px;
-            border: 3px solid var(--border);
+        .generation-indicator.working {
+            border: 2px solid rgba(99, 102, 241, 0.18);
             border-top-color: var(--accent-start);
             border-right-color: var(--accent-end);
-            border-radius: 50%;
-            animation: spin 0.9s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            animation: spin 0.9s linear infinite;
+        }
+
+        .generation-indicator.complete {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .generation-indicator.error {
+            background: #ef4444;
+            color: #ffffff;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        .loading-text {
-            font-size: 17px;
-            font-weight: 600;
+        .generation-status-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .generation-status-title {
+            font-size: 14px;
+            font-weight: 700;
             color: var(--text-primary);
         }
 
-        .loading-subtext {
-            font-size: 13px;
+        .generation-status-subtext {
+            font-size: 12px;
             color: var(--text-muted);
-            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .generation-status-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .generation-log {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 160px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .generation-log-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .generation-log-entry::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-top: 6px;
+            background: rgba(99, 102, 241, 0.35);
+            flex-shrink: 0;
+        }
+
+        .generation-log-entry.complete::before {
+            background: rgba(16, 185, 129, 0.7);
+        }
+
+        .generation-log-entry.error::before {
+            background: rgba(239, 68, 68, 0.8);
         }
 
         /* ============================================
@@ -1186,6 +1263,21 @@ Example:
 
                     <!-- Results -->
                     <div class="results-content" id="resultsContent">
+                        <div class="generation-status" id="generationStatus" data-state="working">
+                            <div class="generation-status-header">
+                                <div class="generation-indicator working" id="generationIndicator"></div>
+                                <div class="generation-status-copy">
+                                    <div class="generation-status-title" id="generationStatusTitle">Generating tasks...</div>
+                                    <div class="generation-status-subtext" id="generationStatusSubtext">Live progress will appear here while your SRS is being processed.</div>
+                                </div>
+                            </div>
+                            <div class="generation-status-meta">
+                                <span id="generationProgressLabel">Waiting to start...</span>
+                                <span id="generationProgressCount">0 tasks ready</span>
+                            </div>
+                            <div class="generation-log" id="generationLog"></div>
+                        </div>
+
                         <!-- View Toggle -->
                         <div class="json-toggle">
                             <button class="active" id="cardsViewBtn" onclick="switchView('cards')">Cards</button>
@@ -1208,15 +1300,6 @@ Example:
         </div>
     </div>
 
-    <!-- LOADING OVERLAY -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner-container">
-            <div class="spinner"></div>
-        </div>
-        <div class="loading-text" id="loadingText">Generating tasks...</div>
-        <div class="loading-subtext" id="loadingSubtext">This may take a moment on first run</div>
-    </div>
-
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
@@ -1229,6 +1312,8 @@ Example:
         let currentView = 'cards';
         let inputMode = 'file'; // 'file' or 'text'
         let sampleLibrary = [];
+        let isBusy = false;
+        let streamedTasks = [];
 
         // ============================================
         // DOM ELEMENTS
@@ -1240,6 +1325,7 @@ Example:
         const fileSize = document.getElementById('fileSize');
         const removeFile = document.getElementById('removeFile');
         const generateBtn = document.getElementById('generateBtn');
+        const generateBtnText = document.getElementById('generateBtnText');
         const parseOnlyBtn = document.getElementById('parseOnlyBtn');
         const resultsPlaceholder = document.getElementById('resultsPlaceholder');
         const resultsContent = document.getElementById('resultsContent');
@@ -1248,12 +1334,18 @@ Example:
         const srsTextInput = document.getElementById('srsTextInput');
         const charCount = document.getElementById('charCount');
         const taskCount = document.getElementById('taskCount');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const loadingText = document.getElementById('loadingText');
-        const loadingSubtext = document.getElementById('loadingSubtext');
+        const generationStatus = document.getElementById('generationStatus');
+        const generationIndicator = document.getElementById('generationIndicator');
+        const generationStatusTitle = document.getElementById('generationStatusTitle');
+        const generationStatusSubtext = document.getElementById('generationStatusSubtext');
+        const generationProgressLabel = document.getElementById('generationProgressLabel');
+        const generationProgressCount = document.getElementById('generationProgressCount');
+        const generationLog = document.getElementById('generationLog');
         const sampleSrsSelect = document.getElementById('sampleSrsSelect');
         const loadSampleBtn = document.getElementById('loadSampleBtn');
         const sampleHint = document.getElementById('sampleHint');
+        const defaultGenerateBtnText = generateBtnText.textContent;
+        const defaultParseOnlyBtnText = parseOnlyBtn.innerHTML;
 
         // ============================================
         // HEALTH CHECK
@@ -1468,8 +1560,8 @@ Example:
             const hasInput = inputMode === 'file'
                 ? Boolean(selectedFile)
                 : srsTextInput.value.trim().length > 0;
-            generateBtn.disabled = !hasInput;
-            parseOnlyBtn.disabled = !hasInput;
+            generateBtn.disabled = isBusy || !hasInput;
+            parseOnlyBtn.disabled = isBusy || !hasInput;
         }
 
         // Text input character count and button enable
@@ -1482,54 +1574,296 @@ Example:
         // ============================================
         // GENERATE TASKS
         // ============================================
-        generateBtn.addEventListener('click', () => callAPI('generate', 'Generating tasks...', 'ML model is processing your SRS'));
-        parseOnlyBtn.addEventListener('click', () => callAPI('parse', 'Parsing SRS...', 'Extracting structured data from your document'));
+        generateBtn.addEventListener('click', callGenerateStream);
+        parseOnlyBtn.addEventListener('click', () => callAPI('parse'));
 
-        async function callAPI(action, loadText, loadSubtext) {
-            showLoading(loadText, loadSubtext);
-
-            try {
-                let res;
-
-                if (inputMode === 'file') {
-                    if (!selectedFile) return hideLoading();
-                    const formData = new FormData();
-                    formData.append('file', selectedFile);
-                    const endpoint = action === 'generate' ? '/generate-tasks' : '/parse-srs';
-                    res = await fetch(`${API_BASE}${endpoint}`, {
+        function buildRequestConfig(action, useStream = false) {
+            if (inputMode === 'file') {
+                if (!selectedFile) return null;
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+                return {
+                    endpoint: useStream ? '/generate-tasks-stream' : (action === 'generate' ? '/generate-tasks' : '/parse-srs'),
+                    options: {
                         method: 'POST',
                         body: formData,
-                    });
-                } else {
-                    const text = srsTextInput.value.trim();
-                    if (!text) return hideLoading();
-                    const endpoint = action === 'generate' ? '/generate-tasks-text' : '/parse-srs-text';
-                    res = await fetch(`${API_BASE}${endpoint}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ text }),
-                    });
-                }
+                    },
+                };
+            }
 
+            const text = srsTextInput.value.trim();
+            if (!text) return null;
+            return {
+                endpoint: useStream ? '/generate-tasks-stream-text' : (action === 'generate' ? '/generate-tasks-text' : '/parse-srs-text'),
+                options: {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text }),
+                },
+            };
+        }
+
+        function setBusyState(action, busy) {
+            isBusy = busy;
+            generateBtnText.textContent = busy && action === 'generate'
+                ? 'Generating...'
+                : defaultGenerateBtnText;
+            parseOnlyBtn.innerHTML = busy && action === 'parse'
+                ? 'Parsing...'
+                : defaultParseOnlyBtnText;
+            updateActionButtons();
+        }
+
+        function showResultsPanel() {
+            resultsPlaceholder.style.display = 'none';
+            resultsContent.classList.add('visible');
+        }
+
+        function resetResultViews() {
+            streamedTasks = [];
+            tasksList.innerHTML = '';
+            jsonOutput.textContent = '';
+        }
+
+        function setGenerationState(state) {
+            generationStatus.dataset.state = state;
+            generationIndicator.className = `generation-indicator ${state}`;
+            generationIndicator.textContent = state === 'complete'
+                ? '✓'
+                : state === 'error'
+                    ? '!'
+                    : '';
+        }
+
+        function appendGenerationLog(message, tone = 'info') {
+            if (!message) return;
+            const entry = document.createElement('div');
+            entry.className = `generation-log-entry${tone === 'complete' || tone === 'error' ? ` ${tone}` : ''}`;
+            entry.textContent = message;
+            generationLog.appendChild(entry);
+            generationLog.scrollTop = generationLog.scrollHeight;
+        }
+
+        function beginResultsSession(title, subtext, progressLabel = 'Starting...', progressCount = '0 tasks ready') {
+            showResultsPanel();
+            resetResultViews();
+            generationLog.innerHTML = '';
+            generationStatus.classList.add('visible');
+            setGenerationState('working');
+            generationStatusTitle.textContent = title;
+            generationStatusSubtext.textContent = subtext;
+            generationProgressLabel.textContent = progressLabel;
+            generationProgressCount.textContent = progressCount;
+            taskCount.style.display = 'inline-flex';
+            taskCount.className = 'badge badge-warning';
+            taskCount.textContent = 'Working...';
+            switchView('cards');
+        }
+
+        function markResultsSessionComplete(title, subtext, progressLabel, progressCount) {
+            setGenerationState('complete');
+            generationStatusTitle.textContent = title;
+            generationStatusSubtext.textContent = subtext;
+            if (progressLabel) generationProgressLabel.textContent = progressLabel;
+            if (progressCount) generationProgressCount.textContent = progressCount;
+        }
+
+        function markResultsSessionError(message) {
+            setGenerationState('error');
+            generationStatusTitle.textContent = 'Request failed';
+            generationStatusSubtext.textContent = message;
+            generationProgressCount.textContent = `${streamedTasks.length} task${streamedTasks.length === 1 ? '' : 's'} ready`;
+            appendGenerationLog(message, 'error');
+        }
+
+        function formatRequirementProgress(current, total) {
+            if (!total) return 'Preparing requirements...';
+            if (!current) return `0 / ${total} requirements`;
+            return `${current} / ${total} requirements`;
+        }
+
+        async function readErrorMessage(res) {
+            try {
+                const err = await res.json();
+                return err.detail || err.message || 'Server error';
+            } catch {
+                return `Server error (${res.status})`;
+            }
+        }
+
+        async function callAPI(action) {
+            const request = buildRequestConfig(action, false);
+            if (!request) return;
+
+            setBusyState(action, true);
+            beginResultsSession(
+                'Parsing SRS...',
+                'Extracting structured data from your document.',
+                'Reviewing sections...',
+                'Structured JSON pending'
+            );
+            appendGenerationLog('Parsing started.');
+
+            try {
+                const res = await fetch(`${API_BASE}${request.endpoint}`, request.options);
                 if (!res.ok) {
-                    const err = await res.json();
-                    throw new Error(err.detail || 'Server error');
+                    throw new Error(await readErrorMessage(res));
                 }
 
                 const data = await res.json();
-                hideLoading();
-
-                if (action === 'generate') {
-                    displayTasks(data.tasks || []);
-                    showToast(`Generated ${data.task_count || 0} tasks successfully!`, 'success');
-                } else {
-                    displayParsedSRS(data.srs || {});
-                    showToast('SRS parsed successfully!', 'success');
-                }
+                displayParsedSRS(data.srs || {});
+                markResultsSessionComplete(
+                    'Parsing complete',
+                    'Structured SRS data is ready to review.',
+                    'JSON output available',
+                    'Structured JSON ready'
+                );
+                appendGenerationLog('SRS parsing completed successfully.', 'complete');
+                showToast('SRS parsed successfully!', 'success');
             } catch (err) {
-                hideLoading();
+                markResultsSessionError(err.message);
                 showToast(`Error: ${err.message}`, 'error');
+            } finally {
+                setBusyState(action, false);
             }
+        }
+
+        async function callGenerateStream() {
+            const request = buildRequestConfig('generate', true);
+            if (!request) return;
+
+            setBusyState('generate', true);
+            beginResultsSession(
+                'Generating tasks...',
+                'Live progress will appear here while each requirement is processed.',
+                'Waiting for the first update...',
+                '0 tasks ready'
+            );
+            appendGenerationLog('Task generation started.');
+
+            let sawCompleteEvent = false;
+
+            try {
+                const res = await fetch(`${API_BASE}${request.endpoint}`, request.options);
+                if (!res.ok) {
+                    throw new Error(await readErrorMessage(res));
+                }
+                if (!res.body) {
+                    throw new Error('This browser does not support streaming responses.');
+                }
+
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                const flushBuffer = (finalChunk = false) => {
+                    const lines = buffer.split('\n');
+                    buffer = finalChunk ? '' : (lines.pop() || '');
+
+                    lines.forEach(line => {
+                        if (!line.trim()) return;
+                        const event = JSON.parse(line);
+                        if (processStreamEvent(event)) {
+                            sawCompleteEvent = true;
+                        }
+                    });
+                };
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    flushBuffer();
+                }
+
+                buffer += decoder.decode();
+                flushBuffer(true);
+
+                if (!sawCompleteEvent) {
+                    throw new Error('Generation stopped before the final result was received.');
+                }
+
+                showToast(`Generated ${streamedTasks.length} tasks successfully!`, 'success');
+            } catch (err) {
+                markResultsSessionError(err.message);
+                showToast(`Error: ${err.message}`, 'error');
+            } finally {
+                setBusyState('generate', false);
+            }
+        }
+
+        function processStreamEvent(event) {
+            if (!event || !event.event) return false;
+
+            if (event.event === 'error') {
+                throw new Error(event.message || 'Generation failed.');
+            }
+
+            if (event.event === 'stage') {
+                generationStatusSubtext.textContent = event.message || 'Working...';
+
+                if (typeof event.total_requirements === 'number') {
+                    generationProgressLabel.textContent = formatRequirementProgress(0, event.total_requirements);
+                }
+
+                if (typeof event.functional_requirement_count === 'number') {
+                    generationProgressLabel.textContent = `${event.functional_requirement_count} requirements found`;
+                }
+
+                appendGenerationLog(event.message);
+                return false;
+            }
+
+            if (event.event === 'progress') {
+                generationStatusTitle.textContent = 'Generating tasks...';
+                generationStatusSubtext.textContent = event.message || 'Working on the next requirement...';
+                generationProgressLabel.textContent = formatRequirementProgress(
+                    event.current_requirement,
+                    event.total_requirements
+                );
+                generationProgressCount.textContent = `${event.total_task_count || streamedTasks.length} tasks ready`;
+                appendGenerationLog(event.message);
+                return false;
+            }
+
+            if (event.event === 'task_batch') {
+                const newTasks = normalizeTasksForDisplay(event.tasks || []);
+                if (newTasks.length) {
+                    appendStreamedTasks(newTasks);
+                }
+
+                generationStatusTitle.textContent = 'Generating tasks...';
+                generationStatusSubtext.textContent = event.message || 'A new task batch is ready.';
+                generationProgressLabel.textContent = formatRequirementProgress(
+                    event.current_requirement,
+                    event.total_requirements
+                );
+                generationProgressCount.textContent = `${event.total_task_count || streamedTasks.length} tasks ready`;
+                appendGenerationLog(
+                    event.requirement_title
+                        ? `${event.message} for ${event.requirement_title}`
+                        : event.message,
+                    'complete'
+                );
+                return false;
+            }
+
+            if (event.event === 'complete') {
+                const finalTasks = Array.isArray(event.tasks) ? event.tasks : streamedTasks;
+                displayTasks(finalTasks);
+                markResultsSessionComplete(
+                    'Task generation complete',
+                    event.message || 'All generated tasks are ready below.',
+                    event.total_requirements
+                        ? `${event.total_requirements} requirements processed`
+                        : 'Generation finished',
+                    `${event.task_count || streamedTasks.length} tasks ready`
+                );
+                appendGenerationLog(event.message || 'Task generation completed successfully.', 'complete');
+                return true;
+            }
+
+            return false;
         }
 
         // ============================================
@@ -1541,49 +1875,13 @@ Example:
             resultsPlaceholder.style.display = 'none';
             resultsContent.classList.add('visible');
             taskCount.style.display = 'inline-flex';
+            taskCount.className = 'badge badge-success';
             taskCount.textContent = `${normalizedTasks.length} tasks`;
 
-            // Render cards
+            streamedTasks = [...normalizedTasks];
             tasksList.innerHTML = '';
             normalizedTasks.forEach((task, i) => {
-                const card = document.createElement('div');
-                card.className = 'task-card';
-                card.style.animationDelay = `${i * 0.05}s`;
-
-                const type = (task.type || 'unknown').toLowerCase();
-                const priority = (task.priority || 'medium').toLowerCase();
-                const relatedReq = task.related_requirement && task.related_requirement !== '-' ? task.related_requirement : '';
-                const desc = task.description || '';
-                const acceptanceCriteria = Array.isArray(task.acceptance_criteria) ? task.acceptance_criteria : [];
-
-                // Build description items as bullet points if multi-sentence
-                const descHtml = desc ? desc.split(/[.\n]/).filter(s => s.trim().length > 3).map(s => `<li>${escapeHtml(s.trim())}</li>`).join('') : '';
-                const acceptanceHtml = acceptanceCriteria.length
-                    ? `
-                        <div class="task-acceptance">
-                            <div class="task-acceptance-title">Acceptance Criteria</div>
-                            <ul class="task-desc-list">${acceptanceCriteria.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
-                        </div>
-                    `
-                    : '';
-
-                card.innerHTML = `
-                    <div class="task-card-header">
-                        <div class="task-number">${i + 1}</div>
-                        <div class="task-title">${escapeHtml(task.title || 'Untitled Task')}</div>
-                    </div>
-                    ${descHtml ? `<ul class="task-desc-list">${descHtml}</ul>` : ''}
-                    ${acceptanceHtml}
-                    <div class="task-meta">
-                        <div class="task-tags">
-                            <span class="tag tag-${type}">${type}</span>
-                            <span class="tag tag-${priority}">${priority}</span>
-                            ${relatedReq ? `<span class="tag tag-unknown">${escapeHtml(relatedReq)}</span>` : ''}
-                        </div>
-                    </div>
-                `;
-
-                tasksList.appendChild(card);
+                tasksList.appendChild(renderTaskCard(task, i));
             });
 
             // JSON view
@@ -1593,6 +1891,60 @@ Example:
             switchView('cards');
         }
 
+        function appendStreamedTasks(tasks) {
+            const startIndex = streamedTasks.length;
+            streamedTasks.push(...tasks);
+            tasks.forEach((task, index) => {
+                tasksList.appendChild(renderTaskCard(task, startIndex + index));
+            });
+            jsonOutput.textContent = JSON.stringify(streamedTasks, null, 2);
+            taskCount.style.display = 'inline-flex';
+            taskCount.className = 'badge badge-success';
+            taskCount.textContent = `${streamedTasks.length} tasks`;
+        }
+
+        function renderTaskCard(task, index) {
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.style.animationDelay = `${index * 0.05}s`;
+
+            const type = (task.type || 'unknown').toLowerCase();
+            const priority = (task.priority || 'medium').toLowerCase();
+            const relatedReq = task.related_requirement && task.related_requirement !== '-' ? task.related_requirement : '';
+            const desc = task.description || '';
+            const acceptanceCriteria = Array.isArray(task.acceptance_criteria) ? task.acceptance_criteria : [];
+
+            const descHtml = desc
+                ? desc.split(/[.\n]/).filter(s => s.trim().length > 3).map(s => `<li>${escapeHtml(s.trim())}</li>`).join('')
+                : '';
+            const acceptanceHtml = acceptanceCriteria.length
+                ? `
+                    <div class="task-acceptance">
+                        <div class="task-acceptance-title">Acceptance Criteria</div>
+                        <ul class="task-desc-list">${acceptanceCriteria.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+                    </div>
+                `
+                : '';
+
+            card.innerHTML = `
+                <div class="task-card-header">
+                    <div class="task-number">${index + 1}</div>
+                    <div class="task-title">${escapeHtml(task.title || 'Untitled Task')}</div>
+                </div>
+                ${descHtml ? `<ul class="task-desc-list">${descHtml}</ul>` : ''}
+                ${acceptanceHtml}
+                <div class="task-meta">
+                    <div class="task-tags">
+                        <span class="tag tag-${type}">${type}</span>
+                        <span class="tag tag-${priority}">${priority}</span>
+                        ${relatedReq ? `<span class="tag tag-unknown">${escapeHtml(relatedReq)}</span>` : ''}
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
         function displayParsedSRS(srs) {
             resultsPlaceholder.style.display = 'none';
             resultsContent.classList.add('visible');
@@ -1600,6 +1952,7 @@ Example:
             taskCount.textContent = 'Parsed';
             taskCount.className = 'badge badge-warning';
 
+            streamedTasks = [];
             tasksList.innerHTML = '<div class="task-card"><div class="task-description" style="padding-left:0">SRS parsed successfully. Switch to JSON view to see the structured output.</div></div>';
             jsonOutput.textContent = JSON.stringify(srs, null, 2);
             switchView('json');
@@ -1629,16 +1982,6 @@ Example:
         // ============================================
         // UTILITIES
         // ============================================
-        function showLoading(text, subtext) {
-            loadingText.textContent = text;
-            loadingSubtext.textContent = subtext;
-            loadingOverlay.classList.add('visible');
-        }
-
-        function hideLoading() {
-            loadingOverlay.classList.remove('visible');
-        }
-
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;

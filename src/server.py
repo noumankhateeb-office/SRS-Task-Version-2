@@ -15,12 +15,14 @@ Usage:
 """
 
 import logging
+import json
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
@@ -180,6 +182,60 @@ def _get_sample_path(sample_id: str) -> Path:
     raise HTTPException(status_code=404, detail=f"Sample SRS '{sample_id}' not found.")
 
 
+def _stream_event(payload: dict) -> bytes:
+    """Encode a streaming payload as one NDJSON line."""
+    return (json.dumps(payload, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def _generate_task_events_from_text(text: str) -> Iterator[bytes]:
+    """Stream task generation status updates and partial results for raw SRS text."""
+    try:
+        yield _stream_event(
+            {
+                "event": "stage",
+                "stage": "parse",
+                "message": "Parsing SRS into structured requirements...",
+            }
+        )
+        srs_doc = parse_srs(text)
+        srs_json = srs_doc.to_dict()
+
+        functional_count = len(srs_json.get("functional_requirements", {}))
+        non_functional_count = len(srs_json.get("non_functional_requirements", {}))
+        yield _stream_event(
+            {
+                "event": "stage",
+                "stage": "parse_complete",
+                "message": (
+                    f"Parsed {functional_count} functional requirements and "
+                    f"{non_functional_count} non-functional requirements."
+                ),
+                "functional_requirement_count": functional_count,
+                "non_functional_requirement_count": non_functional_count,
+            }
+        )
+
+        yield _stream_event(
+            {
+                "event": "stage",
+                "stage": "model",
+                "message": "Preparing the ML model for task generation...",
+            }
+        )
+        generator = get_generator()
+
+        for event in generator.iter_generate_from_json(srs_json):
+            yield _stream_event(event)
+    except Exception as e:
+        logger.exception("Error streaming task generation")
+        yield _stream_event(
+            {
+                "event": "error",
+                "message": f"Internal error: {str(e)}",
+            }
+        )
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
@@ -308,6 +364,46 @@ async def generate_tasks_endpoint(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 
+@app.post("/generate-tasks-stream")
+async def generate_tasks_stream_endpoint(file: UploadFile = File(...)):
+    """
+    Stream task generation updates for an uploaded SRS document.
+
+    Returns newline-delimited JSON events so the frontend can render
+    live progress and partial task results.
+    """
+    file_path = await _save_upload(file)
+
+    def event_stream():
+        try:
+            yield _stream_event(
+                {
+                    "event": "stage",
+                    "stage": "extract",
+                    "message": f"Reading {file.filename}...",
+                }
+            )
+            raw_text = extract_text_from_file(file_path)
+            yield _stream_event(
+                {
+                    "event": "stage",
+                    "stage": "extract_complete",
+                    "message": f"Loaded {len(raw_text)} characters from {file.filename}.",
+                }
+            )
+            yield from _generate_task_events_from_text(raw_text)
+        except Exception as e:
+            logger.exception("Error streaming uploaded task generation")
+            yield _stream_event(
+                {
+                    "event": "error",
+                    "message": f"Internal error: {str(e)}",
+                }
+            )
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+
+
 @app.post("/parse-srs-text")
 async def parse_srs_text_endpoint(body: dict):
     """
@@ -362,6 +458,24 @@ async def generate_tasks_text_endpoint(body: dict):
     except Exception as e:
         logger.exception("Error generating tasks from text")
         raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
+
+
+@app.post("/generate-tasks-stream-text")
+async def generate_tasks_stream_text_endpoint(body: dict):
+    """
+    Stream task generation updates for plain SRS text.
+
+    Returns newline-delimited JSON events so the frontend can render
+    live progress and partial task results.
+    """
+    text = body.get("text", "").strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="No text provided.")
+
+    return StreamingResponse(
+        _generate_task_events_from_text(text),
+        media_type="application/x-ndjson",
+    )
 
 
 # ---------------------------------------------------------------------------

@@ -1,18 +1,12 @@
 """
 Inference Script (Full Pipeline)
 =================================
-Runs the complete SRS → Tasks pipeline:
+Runs the complete SRS to tasks pipeline:
   1. Accept input (PDF, text file, raw text, or pre-parsed JSON)
   2. Extract text from PDF (if applicable)
-  3. Stage 1: Parse SRS text → structured JSON
-  4. Stage 2: Feed JSON to fine-tuned FLAN-T5 → generate tasks
+  3. Stage 1: Parse SRS text to structured JSON
+  4. Stage 2: Feed JSON to fine-tuned Qwen with LoRA to generate tasks
   5. Output validated tasks as JSON
-
-Usage:
-    python src/generate.py --pdf path/to/srs.pdf
-    python src/generate.py --file path/to/srs.txt
-    python src/generate.py --input "The system shall..."
-    python src/generate.py --json path/to/srs.json
 """
 
 import argparse
@@ -20,22 +14,24 @@ import json
 import logging
 import re
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 
 import torch
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from peft import PeftModel
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 from pdf_parser import extract_text_from_file
-from srs_to_json import parse_srs
 from prepare_data import (
     MODEL_NAME,
-    INSTRUCTION_PREFIX,
+    MAX_INPUT_LENGTH,
     MAX_TARGET_LENGTH,
     build_fr_prompt_input,
+    build_prompt_text,
 )
+from srs_to_json import parse_srs
 
 logger = logging.getLogger(__name__)
 
@@ -46,14 +42,14 @@ logger = logging.getLogger(__name__)
 DEFAULT_ADAPTER_PATH = Path(__file__).parent.parent / "models" / "srs-task-adapter"
 DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "output"
 
-# Generation parameters
 GENERATION_CONFIG = {
     "max_new_tokens": MAX_TARGET_LENGTH,
-    "num_beams": 4,
-    "early_stopping": True,
-    "no_repeat_ngram_size": 3,
-    "length_penalty": 1.0,
+    "do_sample": False,
+    "repetition_penalty": 1.05,
 }
+
+ALLOWED_PRIORITIES = {"high", "medium", "low"}
+ALLOWED_TYPES = {"backend", "frontend", "database", "testing", "general"}
 
 
 # ---------------------------------------------------------------------------
@@ -64,7 +60,7 @@ class TaskGenerator:
     """
     Generates development tasks from SRS documents.
 
-    Combines the SRS parser (Stage 1) with the fine-tuned FLAN-T5
+    Combines the SRS parser (Stage 1) with the fine-tuned Qwen
     model (Stage 2) for end-to-end task generation.
     """
 
@@ -73,13 +69,6 @@ class TaskGenerator:
         adapter_path: str | Path = DEFAULT_ADAPTER_PATH,
         base_model: str = MODEL_NAME,
     ):
-        """
-        Initialize the task generator.
-
-        Args:
-            adapter_path: Path to the trained LoRA adapter directory.
-            base_model: HuggingFace model identifier for the base model.
-        """
         self.adapter_path = Path(adapter_path)
         self.base_model = base_model
         self.model = None
@@ -89,7 +78,20 @@ class TaskGenerator:
     def load_model(self) -> None:
         """Load the base model with the trained LoRA adapter."""
         logger.info("Loading base model: %s", self.base_model)
-        base_model = AutoModelForSeq2SeqLM.from_pretrained(self.base_model)
+
+        torch_dtype = torch.float32
+        if torch.cuda.is_available():
+            torch_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+
+        base_model = AutoModelForCausalLM.from_pretrained(
+            self.base_model,
+            torch_dtype=torch_dtype,
+        )
+
+        self.tokenizer = AutoTokenizer.from_pretrained(self.base_model)
+        if self.tokenizer.pad_token is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.tokenizer.padding_side = "right"
 
         if self.adapter_path.exists():
             logger.info("Loading LoRA adapter from: %s", self.adapter_path)
@@ -102,46 +104,21 @@ class TaskGenerator:
             )
             self.model = base_model
 
+        self.model.config.pad_token_id = self.tokenizer.pad_token_id
         self.model = self.model.to(self.device)
         self.model.eval()
-
-        self.tokenizer = AutoTokenizer.from_pretrained(self.base_model)
 
         logger.info("Model loaded on device: %s", self.device)
 
     def generate_from_pdf(self, pdf_path: str | Path) -> list[dict]:
-        """
-        Generate tasks from an SRS PDF file.
-
-        Full pipeline: PDF → text → JSON → tasks.
-
-        Args:
-            pdf_path: Path to the SRS PDF file.
-
-        Returns:
-            List of generated task dictionaries.
-        """
+        """Generate tasks from an SRS PDF file."""
         logger.info("Processing PDF: %s", pdf_path)
-
-        # Step 1: Extract text
         raw_text = extract_text_from_file(pdf_path)
         logger.info("Extracted %d characters from PDF", len(raw_text))
-
         return self.generate_from_text(raw_text)
 
     def generate_from_text(self, srs_text: str) -> list[dict]:
-        """
-        Generate tasks from raw SRS text.
-
-        Pipeline: text → JSON (Stage 1) → tasks (Stage 2).
-
-        Args:
-            srs_text: Raw SRS document text.
-
-        Returns:
-            List of generated task dictionaries.
-        """
-        # Stage 1: Parse SRS → structured JSON
+        """Generate tasks from raw SRS text."""
         logger.info("Stage 1: Parsing SRS text to structured JSON...")
         srs_doc = parse_srs(srs_text)
         srs_json = srs_doc.to_dict()
@@ -155,19 +132,17 @@ class TaskGenerator:
         return self.generate_from_json(srs_json)
 
     def generate_from_json(self, srs_json: dict) -> list[dict]:
-        """
-        Generate tasks from a structured SRS JSON.
+        """Generate tasks from a structured SRS JSON."""
+        final_tasks: list[dict] = []
 
-        Processes each Functional Requirement (FR) individually to match
-        the per-FR training format. This avoids token truncation and
-        produces much better results.
+        for event in self.iter_generate_from_json(srs_json):
+            if event.get("event") == "complete":
+                final_tasks = event.get("tasks", [])
 
-        Args:
-            srs_json: Structured SRS dictionary.
+        return final_tasks
 
-        Returns:
-            List of generated task dictionaries (aggregated from all FRs).
-        """
+    def iter_generate_from_json(self, srs_json: dict) -> Iterator[dict]:
+        """Generate tasks from a structured SRS JSON and emit progress events."""
         if self.model is None:
             self.load_model()
 
@@ -175,76 +150,132 @@ class TaskGenerator:
 
         if not frs:
             logger.warning("No functional requirements found in SRS JSON.")
-            return []
+            yield {
+                "event": "complete",
+                "message": "No functional requirements found in the SRS.",
+                "task_count": 0,
+                "tasks": [],
+                "total_requirements": 0,
+            }
+            return
 
+        total_requirements = len(frs)
         logger.info(
             "Stage 2: Generating tasks for %d FRs (per-FR processing)...",
-            len(frs),
+            total_requirements,
         )
+
+        yield {
+            "event": "stage",
+            "stage": "generate",
+            "message": f"Generating tasks for {total_requirements} requirements...",
+            "total_requirements": total_requirements,
+        }
 
         all_tasks: list[dict] = []
 
-        for fr_id, fr_data in frs.items():
-            # Build compact per-FR input (matches training data format)
+        for index, (fr_id, fr_data) in enumerate(frs.items(), start=1):
             fr_input = build_fr_prompt_input(srs_json, fr_id, fr_data)
-
-            input_text = INSTRUCTION_PREFIX + json.dumps(
-                fr_input, separators=(",", ":")
-            )
+            fr_title = fr_data.get("title", "").strip() or "Untitled Requirement"
+            input_text = build_prompt_text(fr_input)
 
             logger.info(
                 "  Processing %s: %s (%d chars)",
                 fr_id,
-                fr_data.get("title", ""),
+                fr_title,
                 len(input_text),
             )
 
-            # Tokenize
+            yield {
+                "event": "progress",
+                "stage": "generate",
+                "message": f"Generating tasks for {fr_id}: {fr_title}",
+                "current_requirement": index,
+                "total_requirements": total_requirements,
+                "requirement_id": fr_id,
+                "requirement_title": fr_title,
+                "total_task_count": len(all_tasks),
+            }
+
             inputs = self.tokenizer(
                 input_text,
-                max_length=512,
+                max_length=MAX_INPUT_LENGTH,
                 truncation=True,
                 return_tensors="pt",
             ).to(self.device)
 
-            # Generate
+            generation_kwargs = dict(GENERATION_CONFIG)
+            generation_kwargs["pad_token_id"] = self.tokenizer.pad_token_id
+            generation_kwargs["eos_token_id"] = self.tokenizer.eos_token_id
+
             with torch.no_grad():
                 output_ids = self.model.generate(
                     **inputs,
-                    **GENERATION_CONFIG,
+                    **generation_kwargs,
                 )
 
-            # Decode
+            prompt_length = inputs["input_ids"].shape[1]
+            generated_ids = output_ids[0][prompt_length:]
             raw_output = self.tokenizer.decode(
-                output_ids[0], skip_special_tokens=True
-            )
+                generated_ids,
+                skip_special_tokens=True,
+            ).strip()
             logger.debug("  Raw output for %s: %s", fr_id, raw_output[:300])
 
-            # Parse tasks for this FR
             fr_tasks = self._parse_output(raw_output)
 
-            # Ensure related_requirement is set
             for task in fr_tasks:
                 if task.get("related_requirement", "-") == "-":
                     task["related_requirement"] = fr_id
 
             all_tasks.extend(fr_tasks)
+            batch_count = len(fr_tasks)
 
-        logger.info("Generated %d total tasks across %d FRs", len(all_tasks), len(frs))
-        return all_tasks
+            yield {
+                "event": "task_batch",
+                "stage": "generate",
+                "message": (
+                    f"Generated {batch_count} task"
+                    f"{'' if batch_count == 1 else 's'} for {fr_id}"
+                ),
+                "current_requirement": index,
+                "total_requirements": total_requirements,
+                "requirement_id": fr_id,
+                "requirement_title": fr_title,
+                "generated_task_count": batch_count,
+                "total_task_count": len(all_tasks),
+                "tasks": fr_tasks,
+            }
+
+        logger.info(
+            "Generated %d total tasks across %d FRs",
+            len(all_tasks),
+            total_requirements,
+        )
+        yield {
+            "event": "complete",
+            "message": (
+                f"Generated {len(all_tasks)} tasks across "
+                f"{total_requirements} requirements."
+            ),
+            "task_count": len(all_tasks),
+            "tasks": all_tasks,
+            "total_requirements": total_requirements,
+        }
+
+    @staticmethod
+    def _normalize_enum(value: str, allowed_values: set[str], default: str) -> str:
+        cleaned = str(value or "").strip().lower()
+        if cleaned in allowed_values:
+            return cleaned
+        for allowed in allowed_values:
+            if allowed in cleaned:
+                return allowed
+        return default
 
     @staticmethod
     def _parse_output(raw_output: str) -> list[dict]:
-        """
-        Parse and validate the model's raw text output into task dicts.
-
-        Args:
-            raw_output: Raw text from model generation.
-
-        Returns:
-            List of validated task dictionaries.
-        """
-        # Try to parse as JSON directly
+        """Parse and validate the model's raw text output into task dicts."""
         try:
             result = json.loads(raw_output)
             if isinstance(result, list):
@@ -254,7 +285,6 @@ class TaskGenerator:
         except json.JSONDecodeError:
             pass
 
-        # Try to find JSON array in the output
         json_match = re.search(r"\[.*\]", raw_output, re.DOTALL)
         if json_match:
             try:
@@ -264,7 +294,6 @@ class TaskGenerator:
             except json.JSONDecodeError:
                 pass
 
-        # Try to find JSON object in the output
         json_match = re.search(r"\{.*\}", raw_output, re.DOTALL)
         if json_match:
             try:
@@ -274,19 +303,25 @@ class TaskGenerator:
             except json.JSONDecodeError:
                 pass
 
-        # Model returned plain text — wrap it as a task
         recovered_tasks = TaskGenerator._recover_tasks_from_text(raw_output)
         if recovered_tasks:
             return recovered_tasks
 
         logger.warning("Could not parse model output as JSON. Raw output: %s", raw_output)
-        return [{"title": "Generated Output", "description": raw_output, "priority": "medium", "type": "general"}]
+        return [
+            {
+                "title": "Generated Output",
+                "description": raw_output,
+                "priority": "medium",
+                "type": "general",
+                "related_requirement": "-",
+                "acceptance_criteria": [],
+            }
+        ]
 
     @staticmethod
     def _recover_tasks_from_text(raw_output: str) -> list[dict]:
-        """
-        Recover task-like structures from malformed JSON-ish model output.
-        """
+        """Recover task-like structures from malformed JSON-ish model output."""
         key_pattern = re.compile(
             r'["\']?(title|description|priority|type|related_requirement|acceptance_criteria)["\']?\s*:\s*',
             re.IGNORECASE,
@@ -317,9 +352,7 @@ class TaskGenerator:
 
     @staticmethod
     def _clean_recovered_value(value: str) -> str:
-        """
-        Clean a field value extracted from malformed JSON-like text.
-        """
+        """Clean a field value extracted from malformed JSON-like text."""
         text = value.strip()
         if not text:
             return ""
@@ -379,27 +412,23 @@ class TaskGenerator:
 
     @staticmethod
     def _normalize_tasks(items: list) -> list[dict]:
-        """
-        Normalize a list of items into proper task dictionaries.
-
-        Handles cases where the model outputs strings, partial dicts,
-        or other non-standard formats.
-
-        Args:
-            items: List of items (may be dicts, strings, or mixed).
-
-        Returns:
-            List of properly structured task dicts.
-        """
+        """Normalize a list of items into proper task dictionaries."""
         tasks = []
         for i, item in enumerate(items):
             if isinstance(item, dict):
-                # Ensure minimum required fields
                 task = {
                     "title": str(item.get("title", f"Task {i + 1}")).strip() or f"Task {i + 1}",
                     "description": str(item.get("description", "")).strip(),
-                    "priority": str(item.get("priority", "medium")).strip().lower() or "medium",
-                    "type": str(item.get("type", "general")).strip().lower() or "general",
+                    "priority": TaskGenerator._normalize_enum(
+                        str(item.get("priority", "medium")),
+                        ALLOWED_PRIORITIES,
+                        "medium",
+                    ),
+                    "type": TaskGenerator._normalize_enum(
+                        str(item.get("type", "general")),
+                        ALLOWED_TYPES,
+                        "general",
+                    ),
                     "related_requirement": str(item.get("related_requirement", "-")).strip() or "-",
                     "acceptance_criteria": TaskGenerator._normalize_acceptance_criteria(
                         item.get("acceptance_criteria", [])
@@ -407,16 +436,16 @@ class TaskGenerator:
                 }
                 tasks.append(task)
             elif isinstance(item, str) and item.strip():
-                # Convert plain string into a task dict
-                tasks.append({
-                    "title": item.strip()[:100],
-                    "description": item.strip(),
-                    "priority": "medium",
-                    "type": "general",
-                    "related_requirement": "-",
-                    "acceptance_criteria": [],
-                })
-            # Skip None, empty strings, etc.
+                tasks.append(
+                    {
+                        "title": item.strip()[:100],
+                        "description": item.strip(),
+                        "priority": "medium",
+                        "type": "general",
+                        "related_requirement": "-",
+                        "acceptance_criteria": [],
+                    }
+                )
         return tasks
 
 
@@ -425,15 +454,7 @@ class TaskGenerator:
 # ---------------------------------------------------------------------------
 
 def format_tasks(tasks: list[dict]) -> str:
-    """
-    Format tasks for console display.
-
-    Args:
-        tasks: List of task dictionaries.
-
-    Returns:
-        Formatted string for display.
-    """
+    """Format tasks for console display."""
     lines: list[str] = []
     lines.append(f"\n{'='*70}")
     lines.append(f"  GENERATED TASKS ({len(tasks)} total)")
@@ -455,18 +476,11 @@ def format_tasks(tasks: list[dict]) -> str:
         lines.append("")
 
     lines.append(f"{'='*70}")
-
     return "\n".join(lines)
 
 
 def save_tasks(tasks: list[dict], output_path: Path) -> None:
-    """
-    Save generated tasks to a JSON file.
-
-    Args:
-        tasks: List of task dictionaries.
-        output_path: Path to save the JSON file.
-    """
+    """Save generated tasks to a JSON file."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
         json.dumps(tasks, indent=2, ensure_ascii=False),
@@ -485,22 +499,12 @@ def parse_args() -> argparse.Namespace:
         description="Generate development tasks from an SRS document.",
     )
 
-    # Input source (mutually exclusive)
     input_group = parser.add_mutually_exclusive_group(required=True)
-    input_group.add_argument(
-        "--pdf", type=Path, help="Path to SRS PDF file."
-    )
-    input_group.add_argument(
-        "--file", type=Path, help="Path to SRS text/markdown file."
-    )
-    input_group.add_argument(
-        "--input", type=str, help="Raw SRS text string."
-    )
-    input_group.add_argument(
-        "--json", type=Path, help="Path to pre-parsed SRS JSON file."
-    )
+    input_group.add_argument("--pdf", type=Path, help="Path to SRS PDF file.")
+    input_group.add_argument("--file", type=Path, help="Path to SRS text/markdown file.")
+    input_group.add_argument("--input", type=str, help="Raw SRS text string.")
+    input_group.add_argument("--json", type=Path, help="Path to pre-parsed SRS JSON file.")
 
-    # Options
     parser.add_argument(
         "--adapter",
         type=Path,
@@ -525,10 +529,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     """Main entry point for CLI usage."""
     args = parse_args()
-
     generator = TaskGenerator(adapter_path=args.adapter)
 
-    # Determine input source and generate
     if args.pdf:
         tasks = generator.generate_from_pdf(args.pdf)
     elif args.file:
@@ -543,10 +545,8 @@ def main() -> None:
         logger.error("No input provided.")
         sys.exit(1)
 
-    # Display results
     print(format_tasks(tasks))
 
-    # Save to file
     if not args.no_save:
         save_tasks(tasks, args.output)
 

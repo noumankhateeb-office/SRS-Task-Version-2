@@ -5,7 +5,7 @@ An ML pipeline that converts Software Requirements Specification (SRS) documents
 ## Architecture
 
 ```text
-SRS PDF/Text -> [PyMuPDF] -> Raw Text -> [SpaCy + Regex] -> Structured JSON -> [FLAN-T5-base + LoRA] -> Tasks JSON
+SRS PDF/Text -> [PyMuPDF] -> Raw Text -> [SpaCy + Regex] -> Structured JSON -> [Qwen2.5-7B-Instruct + LoRA] -> Tasks JSON
                               Stage 1: Parsing                              Stage 2: Generation
 ```
 

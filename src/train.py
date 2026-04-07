@@ -1,14 +1,13 @@
 """
 Training Script
 ================
-Fine-tunes FLAN-T5-base with LoRA (Low-Rank Adaptation) for
-SRS JSON → Development Tasks generation.
+Fine-tunes Qwen2.5-7B-Instruct with LoRA (Low-Rank Adaptation) for
+SRS JSON to development task generation.
 
 Usage:
-    python src/train.py                            # Uses default data path
-    python src/train.py --data data/training       # Custom data path
+    python src/train.py
     python src/train.py --data data/training --eval-data data/evaluation
-    python src/train.py --epochs 15 --batch-size 2
+    python src/train.py --epochs 5 --batch-size 1
 """
 
 import argparse
@@ -17,18 +16,12 @@ import sys
 from pathlib import Path
 
 import torch
-from transformers import (
-    AutoModelForSeq2SeqLM,
-    AutoTokenizer,
-    DataCollatorForSeq2Seq,
-    Seq2SeqTrainer,
-    Seq2SeqTrainingArguments,
-)
 from peft import LoraConfig, TaskType, get_peft_model
+from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
-from prepare_data import prepare_datasets, MODEL_NAME, MAX_TARGET_LENGTH
+from prepare_data import MODEL_NAME, prepare_datasets
 
 logger = logging.getLogger(__name__)
 
@@ -43,11 +36,42 @@ DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "models" / "srs-task-adapter
 LORA_CONFIG = LoraConfig(
     r=16,
     lora_alpha=32,
-    target_modules=["q", "v"],
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
     lora_dropout=0.05,
     bias="none",
-    task_type=TaskType.SEQ_2_SEQ_LM,
+    task_type=TaskType.CAUSAL_LM,
 )
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _build_data_collator(tokenizer: AutoTokenizer):
+    """Pad each batch to its longest example instead of a global max length."""
+
+    pad_token_id = tokenizer.pad_token_id
+
+    def collate(features: list[dict]) -> dict[str, torch.Tensor]:
+        max_length = max(len(feature["input_ids"]) for feature in features)
+
+        batch_input_ids: list[list[int]] = []
+        batch_attention_mask: list[list[int]] = []
+        batch_labels: list[list[int]] = []
+
+        for feature in features:
+            pad_length = max_length - len(feature["input_ids"])
+            batch_input_ids.append(feature["input_ids"] + ([pad_token_id] * pad_length))
+            batch_attention_mask.append(feature["attention_mask"] + ([0] * pad_length))
+            batch_labels.append(feature["labels"] + ([-100] * pad_length))
+
+        return {
+            "input_ids": torch.tensor(batch_input_ids, dtype=torch.long),
+            "attention_mask": torch.tensor(batch_attention_mask, dtype=torch.long),
+            "labels": torch.tensor(batch_labels, dtype=torch.long),
+        }
+
+    return collate
 
 
 # ---------------------------------------------------------------------------
@@ -65,12 +89,33 @@ def setup_model(model_name: str = MODEL_NAME) -> tuple:
         Tuple of (model, tokenizer).
     """
     logger.info("Loading base model: %s", model_name)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+    torch_dtype = torch.float32
+    if torch.cuda.is_available():
+        torch_dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        torch_dtype=torch_dtype,
+    )
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "right"
+
+    model.config.pad_token_id = tokenizer.pad_token_id
+    model.config.use_cache = False
+
     # Apply LoRA
-    logger.info("Applying LoRA configuration (r=%d, alpha=%d)", LORA_CONFIG.r, LORA_CONFIG.lora_alpha)
+    logger.info(
+        "Applying LoRA configuration (r=%d, alpha=%d)",
+        LORA_CONFIG.r,
+        LORA_CONFIG.lora_alpha,
+    )
     model = get_peft_model(model, LORA_CONFIG)
+    model.enable_input_require_grads()
+    model.gradient_checkpointing_enable()
 
     # Log trainable parameters
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -89,13 +134,13 @@ def setup_model(model_name: str = MODEL_NAME) -> tuple:
 
 def get_training_args(
     output_dir: Path,
-    epochs: int = 15,
-    batch_size: int = 4,
-    learning_rate: float = 3e-4,
-    gradient_accumulation_steps: int = 2,
-) -> Seq2SeqTrainingArguments:
+    epochs: int = 5,
+    batch_size: int = 1,
+    learning_rate: float = 2e-4,
+    gradient_accumulation_steps: int = 8,
+) -> TrainingArguments:
     """
-    Create training arguments for Seq2SeqTrainer.
+    Create training arguments for causal LM fine-tuning.
 
     Args:
         output_dir: Directory to save model checkpoints.
@@ -105,9 +150,12 @@ def get_training_args(
         gradient_accumulation_steps: Steps to accumulate gradients.
 
     Returns:
-        Configured Seq2SeqTrainingArguments.
+        Configured TrainingArguments.
     """
-    return Seq2SeqTrainingArguments(
+    use_bf16 = torch.cuda.is_available() and torch.cuda.is_bf16_supported()
+    use_fp16 = torch.cuda.is_available() and not use_bf16
+
+    return TrainingArguments(
         output_dir=str(output_dir),
         num_train_epochs=epochs,
         per_device_train_batch_size=batch_size,
@@ -123,11 +171,11 @@ def get_training_args(
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
         greater_is_better=False,
-        predict_with_generate=True,
-        generation_max_length=MAX_TARGET_LENGTH,
-        fp16=False,
+        bf16=use_bf16,
+        fp16=use_fp16,
         report_to="none",
         remove_unused_columns=False,
+        gradient_checkpointing=True,
     )
 
 
@@ -139,9 +187,9 @@ def train(
     data_path: Path = DEFAULT_DATA_PATH,
     eval_data_path: Path = DEFAULT_EVAL_DATA_PATH,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
-    epochs: int = 15,
-    batch_size: int = 4,
-    learning_rate: float = 3e-4,
+    epochs: int = 5,
+    batch_size: int = 1,
+    learning_rate: float = 2e-4,
 ) -> None:
     """
     Run the full training pipeline.
@@ -155,10 +203,9 @@ def train(
         learning_rate: Learning rate.
     """
     logger.info("=" * 60)
-    logger.info("SRS → TASKS MODEL TRAINING")
+    logger.info("SRS TO TASKS MODEL TRAINING")
     logger.info("=" * 60)
 
-    # Detect device
     device = "cuda" if torch.cuda.is_available() else "cpu"
     logger.info("Device: %s", device)
 
@@ -167,24 +214,14 @@ def train(
         gpu_mem = torch.cuda.get_device_properties(0).total_memory / (1024**3)
         logger.info("GPU: %s (%.1f GB)", gpu_name, gpu_mem)
 
-    # Prepare data
     train_dataset, val_dataset, tokenizer = prepare_datasets(
         data_path,
         eval_data_path,
     )
 
-    # Setup model
     model, _ = setup_model()
+    data_collator = _build_data_collator(tokenizer)
 
-    # Data collator
-    data_collator = DataCollatorForSeq2Seq(
-        tokenizer=tokenizer,
-        model=model,
-        padding=True,
-        label_pad_token_id=-100,
-    )
-
-    # Training arguments
     training_args = get_training_args(
         output_dir=output_dir,
         epochs=epochs,
@@ -192,8 +229,7 @@ def train(
         learning_rate=learning_rate,
     )
 
-    # Trainer
-    trainer = Seq2SeqTrainer(
+    trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
@@ -202,7 +238,6 @@ def train(
         data_collator=data_collator,
     )
 
-    # Train
     logger.info("Starting training...")
     logger.info("  Epochs: %d", epochs)
     logger.info("  Batch size: %d", batch_size)
@@ -212,7 +247,6 @@ def train(
 
     train_result = trainer.train()
 
-    # Log results
     logger.info("Training complete!")
     logger.info("  Train loss: %.4f", train_result.training_loss)
     logger.info(
@@ -220,7 +254,6 @@ def train(
         train_result.metrics.get("train_runtime", 0),
     )
 
-    # Save the LoRA adapter
     logger.info("Saving LoRA adapter to: %s", output_dir)
     model.save_pretrained(str(output_dir))
     tokenizer.save_pretrained(str(output_dir))
@@ -238,7 +271,7 @@ def train(
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Fine-tune FLAN-T5-base with LoRA for SRS → Tasks generation."
+        description="Fine-tune Qwen2.5-7B-Instruct with LoRA for SRS to tasks generation."
     )
     parser.add_argument(
         "--data",
@@ -261,20 +294,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--epochs",
         type=int,
-        default=15,
-        help="Number of training epochs (default: 15).",
+        default=5,
+        help="Number of training epochs (default: 5).",
     )
     parser.add_argument(
         "--batch-size",
         type=int,
-        default=4,
-        help="Per-device batch size (default: 4, reduce if OOM).",
+        default=1,
+        help="Per-device batch size (default: 1, reduce if OOM).",
     )
     parser.add_argument(
         "--lr",
         type=float,
-        default=3e-4,
-        help="Learning rate (default: 3e-4).",
+        default=2e-4,
+        help="Learning rate (default: 2e-4).",
     )
 
     return parser.parse_args()

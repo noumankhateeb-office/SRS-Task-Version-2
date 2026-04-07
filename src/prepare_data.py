@@ -2,8 +2,8 @@
 Data Preparation Module
 ========================
 Loads training data from a directory of JSON files or a JSONL file,
-formats it for FLAN-T5 seq2seq training, tokenizes input/target pairs,
-and creates HuggingFace datasets.
+formats it for causal-instruct LoRA training, tokenizes prompt/response
+pairs, and creates HuggingFace datasets.
 """
 
 import json
@@ -20,15 +20,25 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-MODEL_NAME = "google/flan-t5-base"
-MAX_INPUT_LENGTH = 512
-MAX_TARGET_LENGTH = 1024
+MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct"
+MAX_INPUT_LENGTH = 1024
+MAX_TARGET_LENGTH = 1536
+MAX_SEQUENCE_LENGTH = MAX_INPUT_LENGTH + MAX_TARGET_LENGTH + 1
 LEGACY_DATA_PATH_NAME = "samples"
 DEFAULT_DATA_PATH_NAME = "training"
 
 INSTRUCTION_PREFIX = (
-    "Generate development tasks as JSON from this software requirements specification:\n\n"
+    "You are a senior software planning assistant.\n"
+    "Generate implementation-ready development tasks for the provided functional requirement.\n"
+    "Return ONLY a valid JSON array with no markdown fences or commentary.\n"
+    "Each task object must contain exactly these keys: "
+    "title, description, priority, type, related_requirement, acceptance_criteria.\n"
+    "Allowed priority values: high, medium, low.\n"
+    "Allowed type values: backend, frontend, database, testing, general.\n"
+    "Keep tasks concise, concrete, and directly tied to the requirement.\n\n"
+    "SRS JSON:\n"
 )
+RESPONSE_PREFIX = "\n\nTasks JSON:\n"
 
 CONTEXT_LIST_FIELDS = (
     "technologies",
@@ -79,6 +89,15 @@ def build_fr_prompt_input(
         }
 
     return payload
+
+
+def build_prompt_text(input_payload: dict[str, Any]) -> str:
+    """Build the user prompt text used for both training and inference."""
+    if isinstance(input_payload, dict):
+        serialized_payload = json.dumps(input_payload, separators=(",", ":"))
+    else:
+        serialized_payload = str(input_payload)
+    return INSTRUCTION_PREFIX + serialized_payload + RESPONSE_PREFIX
 
 
 # ---------------------------------------------------------------------------
@@ -145,7 +164,7 @@ def _load_from_directory(dir_path: Path) -> list[dict[str, Any]]:
 
     Each file contains a full SRS project with multiple FRs. This function
     splits each file into **per-FR training pairs** so that each training
-    example is small enough for T5's 512-token input limit.
+    example is small enough for the configured input token limit.
 
     Input for each pair:
         {"title": "...", "technologies": [...], "fr_id": "FR-01", "fr": {...}}
@@ -339,9 +358,9 @@ def _load_from_jsonl(file_path: Path) -> list[dict[str, Any]]:
 
 def format_examples(data: list[dict[str, Any]]) -> dict[str, list[str]]:
     """
-    Convert raw training data into input-target text pairs for T5.
+    Convert raw training data into prompt/response text pairs.
 
-    The input gets an instruction prefix and the SRS JSON is serialized.
+    The input becomes an instruction prompt with serialized SRS JSON.
     The target is the tasks array serialized as JSON.
 
     Args:
@@ -354,14 +373,7 @@ def format_examples(data: list[dict[str, Any]]) -> dict[str, list[str]]:
     targets: list[str] = []
 
     for entry in data:
-        # Serialize SRS JSON input
-        if isinstance(entry["input"], dict):
-            input_json = json.dumps(entry["input"], separators=(",", ":"))
-        else:
-            input_json = str(entry["input"])
-
-        input_text = INSTRUCTION_PREFIX + input_json
-        inputs.append(input_text)
+        inputs.append(build_prompt_text(entry["input"]))
 
         # Serialize tasks output
         if isinstance(entry["output"], (list, dict)):
@@ -382,43 +394,63 @@ def tokenize_dataset(dataset: Dataset, tokenizer: AutoTokenizer) -> Dataset:
     """
     Tokenize the dataset for model training.
 
-    Pads inputs to MAX_INPUT_LENGTH and targets to MAX_TARGET_LENGTH.
-    Replaces padding token IDs with -100 in labels so they are ignored
-    during loss computation.
+    Builds causal language-model examples where the prompt tokens are masked
+    out in the labels and only the target task JSON contributes to the loss.
+
+    Padding is intentionally deferred to the data collator so batches are
+    padded only to the longest example they actually contain.
 
     Args:
         dataset: HuggingFace Dataset with 'input_text' and 'target_text' columns.
-        tokenizer: T5 tokenizer instance.
+        tokenizer: Causal LM tokenizer instance.
 
     Returns:
         Tokenized dataset ready for training.
     """
 
     def _tokenize_fn(examples: dict[str, list[str]]) -> dict[str, Any]:
-        model_inputs = tokenizer(
+        batch_input_ids: list[list[int]] = []
+        batch_attention_mask: list[list[int]] = []
+        batch_labels: list[list[int]] = []
+        eos_tokens = (
+            [tokenizer.eos_token_id]
+            if tokenizer.eos_token_id is not None
+            else []
+        )
+
+        for input_text, target_text in zip(
             examples["input_text"],
-            max_length=MAX_INPUT_LENGTH,
-            truncation=True,
-            padding="max_length",
-        )
+            examples["target_text"],
+            strict=True,
+        ):
+            prompt_ids = tokenizer(
+                input_text,
+                max_length=MAX_INPUT_LENGTH,
+                truncation=True,
+                add_special_tokens=True,
+            )["input_ids"]
+            target_ids = tokenizer(
+                target_text,
+                max_length=MAX_TARGET_LENGTH,
+                truncation=True,
+                add_special_tokens=False,
+            )["input_ids"]
 
-        labels = tokenizer(
-            text_target=examples["target_text"],
-            max_length=MAX_TARGET_LENGTH,
-            truncation=True,
-            padding="max_length",
-        )
-
-        # Replace padding token IDs with -100 (ignored by loss function)
-        model_inputs["labels"] = [
-            [
-                token_id if token_id != tokenizer.pad_token_id else -100
-                for token_id in label
+            input_ids = (prompt_ids + target_ids + eos_tokens)[:MAX_SEQUENCE_LENGTH]
+            labels = ([-100] * len(prompt_ids) + target_ids + eos_tokens)[
+                :MAX_SEQUENCE_LENGTH
             ]
-            for label in labels["input_ids"]
-        ]
+            attention_mask = [1] * len(input_ids)
 
-        return model_inputs
+            batch_input_ids.append(input_ids)
+            batch_attention_mask.append(attention_mask)
+            batch_labels.append(labels)
+
+        return {
+            "input_ids": batch_input_ids,
+            "attention_mask": batch_attention_mask,
+            "labels": batch_labels,
+        }
 
     tokenized = dataset.map(
         _tokenize_fn,
@@ -475,6 +507,9 @@ def prepare_datasets(
     # Load tokenizer
     logger.info("Loading tokenizer: %s", model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "right"
 
     # Tokenize both splits
     train_dataset = tokenize_dataset(train_dataset_raw, tokenizer)
