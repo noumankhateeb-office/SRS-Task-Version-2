@@ -1,0 +1,532 @@
+{
+  "input": {
+    "title": "On-Demand Ride-Sharing Platform",
+    "description": "A robust, high-availability platform connecting independent drivers with riders seeking transportation. The system encompasses distinct mobile applications for Riders and Drivers, alongside a centralized web-based Administrative Dashboard. Key features include real-time geolocation tracking, an automated dispatch and routing engine, dynamic surge pricing, and secure payment processing.",
+    "technologies": [
+      "React Native",
+      "Node.js",
+      "Go (Golang)",
+      "PostgreSQL",
+      "Redis",
+      "Apache Kafka",
+      "Google Maps API",
+      "Stripe"
+    ],
+    "actors": [
+      "Rider",
+      "Driver",
+      "System Admin",
+      "Customer Support Representative"
+    ],
+    "user_classes": {
+      "Rider": "A consumer who requests rides, configures pickup/drop-off locations, manages payment methods, and leaves driver ratings.",
+      "Driver": "An independent contractor providing rides, subjected to background checks, viewing heatmaps of demand, and tracking earnings.",
+      "System Admin": "A technical or operational leader managing pricing variables, viewing global telemetry data, and suspending fraudulent accounts.",
+      "Customer Support Representative": "An authorized staff member handling lost-and-found claims, resolving fare disputes, and reviewing SOS/emergency alerts."
+    },
+    "definitions": {
+      "ETA": "Estimated Time of Arrival — predictive metric mapping real-time traffic conditions.",
+      "Surge Pricing": "A dynamic pricing multiplier triggered by algorithms detecting when local rider demand outpaces available driver supply.",
+      "Dispatch Engine": "The backend microservice responsible for geographically matching a ride request to the optimal active driver.",
+      "Geofencing": "Virtual perimeters around real-world geographic areas used to trigger specific regional pricing rules or airport queueing logic."
+    },
+    "modules": [
+      "Authentication & Identity",
+      "Geolocation & Telemetry",
+      "Dispatch & Matching Algorithm",
+      "Routing & Navigation",
+      "Fare Calculation & Surge Engine",
+      "Payment Processing",
+      "Driver Earnings & Payouts",
+      "In-App Communications",
+      "Safety & SOS Systems",
+      "Admin & Support Dashboards"
+    ],
+    "scope": [
+      "Cross-platform mobile applications for both Riders and Drivers natively parsing GPS hardware",
+      "Real-time WebSocket or gRPC communication maintaining sub-second vehicle location updates",
+      "Automated background check integrations for new driver onboarding pipelines",
+      "Cashless payment execution including temporary pre-authorization holds to verify funds",
+      "Dynamic pricing algorithm calculating time, distance, and localized demand metrics",
+      "Masked VoIP and embedded chat for Rider-Driver coordination without exposing raw phone numbers"
+    ],
+    "out_of_scope": [
+      "Shared/Pool ride permutations (multiple distinct riders sharing one vehicle route) in the initial v1 MVP",
+      "In-house mapping data rendering (platform heavily relies on Google Maps integration)",
+      "Bicycle, scooter, or food delivery verticals"
+    ],
+    "constraints": [
+      "The Geolocation tracking microservice must utilize Go (Golang) and Redis streams to efficiently handle the massive volume of concurrent coordinate pings",
+      "Driver location telemetry must update at minimum every 3 seconds while 'Online'",
+      "Platform must retain raw telemetry logs for 7 years conforming to general transportation liability regulations"
+    ],
+    "operating_environment": {
+      "frontend": "React Native for iOS and Android mobile apps. React (Web) for the administrative console.",
+      "backend": "A polyglot microservices architecture (Node.js/TypeScript for general business logic, Golang for core dispatch/telemetry) hosted on Kubernetes.",
+      "database": "PostgreSQL with PostGIS extension for relational/spatial constraints, Redis for ephemeral caching, and Kafka for event streaming."
+    },
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Dual-App Authentication",
+        "requirements": [
+          "Users register using phone numbers verified via SMS OTP",
+          "The system manages entirely separate access tokens preventing a Rider from logging into the Driver app without completing Driver onboarding"
+        ]
+      },
+      "FR-02": {
+        "title": "Rider Profile Management",
+        "requirements": [
+          "Riders can save Home/Work addresses, add multiple credit cards natively via Stripe, and customize accessibility preferences",
+          "Profile aggregates a lifetime rating average based on past driver feedback"
+        ]
+      },
+      "FR-03": {
+        "title": "Driver Onboarding & Document Verification",
+        "requirements": [
+          "Drivers must upload images of their Driving License, Vehicle Registration, and Proof of Insurance",
+          "System triggers an asynchronous background check via third-party integration (e.g., Checkr)",
+          "Driver accounts remain strictly 'Pending' and blocked from 'Going Online' until Admin/API approval"
+        ]
+      },
+      "FR-04": {
+        "title": "Geolocation Telemetry Ingestion",
+        "requirements": [
+          "Drivers' mobile apps continuously ping current Latitude/Longitude, Heading, and Speed exclusively when toggled 'Online'",
+          "Telemetry data routes directly to a Redis geohash memory structure allowing spatial queries under 10ms"
+        ]
+      },
+      "FR-05": {
+        "title": "Ride Requisition & Fare Estimation",
+        "requirements": [
+          "Rider selects a precise drop-off and pickup pin using mapping UI",
+          "System queries the Google Distance Matrix API capturing route metrics, returning an exact upfront price quote based on base fares, time, and distance parameters"
+        ]
+      },
+      "FR-06": {
+        "title": "Vehicle Categorization Options",
+        "requirements": [
+          "Riders select a vehicle class (e.g., Standard, Premium, XL) before booking",
+          "The fare estimation strictly adjusts multipliers based on the elected vehicle class"
+        ]
+      },
+      "FR-07": {
+        "title": "Dynamic Surge Pricing Algorithm",
+        "requirements": [
+          "Backend chron-jobs continuously compare regional driver supply vs rider demand within specific H3 hexagonal grid cells",
+          "If demand outpaces supply beyond a set threshold, the grid receives a multiplier (e.g., 1.5x) visually rendered as a heatmap for drivers"
+        ]
+      },
+      "FR-08": {
+        "title": "Real-Time Dispatch Matching Engine",
+        "requirements": [
+          "Upon confirmation, the system algorithmically identifies the nearest available driver meeting the vehicle class criteria using spatial querying",
+          "Dispatch engine cascades requests outward radially if the initial driver rejects or times out after 10 seconds"
+        ]
+      },
+      "FR-09": {
+        "title": "Pre-Authorization Payment Mechanics",
+        "requirements": [
+          "System temporarily holds (authorizes without capturing) the estimated fare amount on the Rider's credit card immediately when dispatch initiates",
+          "If the authorization fails (NSF), the dispatch is cancelled natively prompting the rider to update payment methods"
+        ]
+      },
+      "FR-10": {
+        "title": "Ride Status & Live Routing Sync",
+        "requirements": [
+          "Rider app visualizes the specific driver's vehicle icon moving smoothly across the map predicting exact ETA",
+          "Ride states strictly transition through: 'Accepted', 'Arrived', 'In Transit', and 'Completed'"
+        ]
+      },
+      "FR-11": {
+        "title": "Masked Communications",
+        "requirements": [
+          "Riders and Drivers can communicate via in-app chat executing via WebSockets",
+          "Twilio integration provides explicit anonymous VoIP proxy phone numbers allowing calls without exposing native PII"
+        ]
+      },
+      "FR-12": {
+        "title": "Trip Execution & Navigation",
+        "requirements": [
+          "Once 'In Transit', the Driver app natively overrides integrating directly with OS-level maps (Google Maps / Waze) sending turn-by-turn coordinate intents",
+          "Driver must explicitly swipe a UI component to officially conclude the trip"
+        ]
+      },
+      "FR-13": {
+        "title": "Fare Capturing & Split Distribution",
+        "requirements": [
+          "Upon 'Completed', the backend captures the formal Stripe charge modifying the amount if significant route deviations occurred",
+          "Platform automatically deducts its percentage commission, directly crediting the remainder to the Driver's internal digital ledger"
+        ]
+      },
+      "FR-14": {
+        "title": "Post-Ride Rating System",
+        "requirements": [
+          "Both Rider and Driver are universally prompted to rate the other (1 to 5 Stars)",
+          "Ratings under 3 Stars organically prompt a secondary UI allowing specific tagged feedback (e.g., 'Reckless Driving', 'Disrespectful')"
+        ]
+      },
+      "FR-15": {
+        "title": "Driver Earnings & Payout Routines",
+        "requirements": [
+          "Driver dashboard breaks down earnings daily, weekly, and by individual trip",
+          "Automated ACH clearing distributes balances uniquely to driver bank accounts weekly via Stripe Connect Custom"
+        ]
+      },
+      "FR-16": {
+        "title": "Safety & SOS Integration",
+        "requirements": [
+          "A persistent 'SOS' shield icon exists natively on both Rider and Driver screens during active trips",
+          "Actioning SOS immediately opens a line to local emergency services and blasts live tracking links to predefined 'Trusted Contacts'"
+        ]
+      },
+      "FR-17": {
+        "title": "Promotions & Referral Coding",
+        "requirements": [
+          "Riders can manually input promotional code strings verifying natively against PostgreSQL discounting explicitly the final capture amounts",
+          "Referrals generate automated account credits safely upon the invitee's first completed ride"
+        ]
+      },
+      "FR-18": {
+        "title": "Airport Geofencing Queues",
+        "requirements": [
+          "Major transportation hubs feature custom polygons drawing 'Virtual Waiting Lots'",
+          "Drivers entering the polygon join a strict FIFO (First In, First Out) queue overriding generalized radial nearest-match logic entirely natively"
+        ]
+      },
+      "FR-19": {
+        "title": "Lost and Found Ticketing",
+        "requirements": [
+          "Riders navigate a support tree explicitly reporting lost items bounding natively to specific historical trip records",
+          "Drivers receive specialized push alerts and internal inbox messages resolving disputes natively isolating personal contact natively"
+        ]
+      },
+      "FR-20": {
+        "title": "Driver Heatmaps & Insights",
+        "requirements": [
+          "Driver map visually portrays explicit colored polygons signaling generalized surge magnitudes natively helping independent contractors organically migrate toward profitable zones natively"
+        ]
+      },
+      "FR-21": {
+        "title": "Admin Live Telemetry Dashboard",
+        "description": "Admins require a 'God View' visual interface rendering all active drivers natively across a city simultaneously evaluating generalized server health metrics smoothly",
+        "requirements": [
+          "Displays aggregated real-time visualizations natively mapping driver velocity preventing server congestion safely"
+        ]
+      },
+      "FR-22": {
+        "title": "Fraud Detection Engine",
+        "requirements": [
+          "Heuristic scripts identify impossible GPS jumps (spoofing) suspending offending accounts implicitly",
+          "Riders initiating excessive rapid cancellation behaviors incur automated warning natively assessing minor cancellation fees explicitly"
+        ]
+      }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "High Concurrency Execution",
+        "requirements": [
+          "The Telemetry ingestion endpoints correctly handle 10,000+ RPS (Requests per Second) using gRPC/Golang uniquely minimizing latency constraints safely",
+          "Databases inherently favor eventual consistency natively broadcasting Kafka messages explicitly maintaining pure uptime organically"
+        ]
+      },
+      "NFR-02": {
+        "title": "Offline Resilience",
+        "requirements": [
+          "Driver applications caching active trip states gracefully resuming inherently resolving correctly mapping changes completely bridging brief cellular dead zones heavily"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Dispatch servers implement leader-election paradigms preventing multiple specific worker components sending duplicative generalized match requests natively maintaining clean execution heavily.",
+      "security": "Platform isolates explicitly generated anonymous communication proxies masking generic user details purely ensuring completely anonymous driver-rider boundaries explicitly natively."
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Implement Twilio SMS Verification Gateway",
+        "description": "Construct generic backend verification sequences pinging explicitly Twilio APIs emitting secure generic specific 6-digit payloads writing heavily cached Redis tokens reliably securely verifying subsequent native client requests natively.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Prevents brute force attempts explicitly throttling generic specific IPs heavily naturally."
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Develop Rider Account Management Frontend",
+        "description": "Create standard native React workflows safely navigating explicit explicit profile mutations embedding specifically explicit secure Stripe components generating isolated tokenized cards gracefully.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Isolates explicit keyboard variations generic strictly enforcing numeric formatting natively seamlessly."
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Integrate Identity Background Check API",
+        "description": "Deploy secure external API calls strictly matching explicit Checkr/Jumio schemas generating explicit candidate IDs listening dynamically for asynchronous webhook events resolving explicitly driver state securely.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-03",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Mutates driver explicitly generic state strictly marking 'Approved' organically exclusively upon specific explicit positive payload."
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Construct High-Throughput Telemetry Ingestion API",
+        "description": "Build purely optimized Golang endpoints explicitly ignoring standard heavy middleware natively accepting rapid JSON coordinates updating Redis Geohash instances efficiently minimizing garbage collection overhead strictly.",
+        "priority": "critical",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Resolves generic incoming loads entirely under 10ms generic limits seamlessly guaranteeing map stability effectively."
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Integrate Mapbox/Google Maps Matrix API",
+        "description": "Formulate backend proxy endpoints capturing generalized coordinate sets interacting generically with external mapping services calculating specific ETA durations merging explicitly onto internal pricing matrices cleanly.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-05",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Caches specific repeated static generic generic queries actively minimizing heavy generic generalized external API billing natively."
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Design Ride Selection Bottom Sheet",
+        "description": "Develop native animated generic components sliding cleanly rendering specific specific car-type cards distinctly differentiating specific prices safely smoothly managing native gesture events flawlessly.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Binds specific explicitly loading states correctly exclusively while generic fares continuously calculate independently."
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Spatial Surge Hexagon Engine",
+        "description": "Deploy H3 libraries organizing specific explicit database metrics resolving drivers vs riders mathematically assigning generic generic float multiplier outputs writing dynamically caching appropriately continuously.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "assignee_role": "Data Engineer",
+        "acceptance_criteria": [
+          "Generates continuous polling updates reliably accurately exclusively within bounded limits implicitly flawlessly."
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Implement Dispatch Matchmaking Algorithm",
+        "description": "Target pure internal generic Kafka queues structuring complex cascading search requests querying Redis finding nearest distinct generic generic active cars natively pushing exclusive distinct offers securely.",
+        "priority": "critical",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Binds exclusive atomic locks gracefully preventing specific separate riders from successfully explicit generic distinct identical generic generic driver overlapping."
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Configure Stripe Pre-Authorization Sequences",
+        "description": "Write generic endpoints executing explicit Stripe Intents cleanly generating immediate explicit hold statuses purely confirming distinct generic available thresholds reliably immediately actively.",
+        "priority": "critical",
+        "type": "integration",
+        "related_requirement": "FR-09",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Fails entirely exclusively returning appropriate distinct specific generic client messages automatically explicitly."
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Render Real-Time Car Map Markers",
+        "description": "Consume Websocket explicitly updating isolated generic React markers interpolating exactly specific generic specific coordinate transitions dynamically producing distinctly generic smooth generic generic native movements exclusively.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Rotates specific distinct graphical assets appropriately calculating specific bearing specific explicitly perfectly."
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Deploy Telephony Masking Proxy",
+        "description": "Use generic specific generic strictly explicitly explicit external SDKs binding specific ride IDs allocating explicit arbitrary proxy numbers relaying specific calls continuously successfully privately strictly.",
+        "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-11",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Destroys specific anonymous binding completely automatically exactly generic moments after trip resolution explicitly."
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Implement OS Routing Intents",
+        "description": "Build specific explicit generic device hooks isolating external specific map queries generating custom specific URL structures popping external Google Maps entirely securely seamlessly explicitly organically.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Translates purely correctly delivering precise generic specific specific latitude bounding natively correctly safely."
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Develop Split Payment Capture Worker",
+        "description": "Listen strictly explicitly Kafka strictly specific purely specific generic complete events capturing isolated amounts evaluating precisely particular explicit generic explicit distinct routing parameters fundamentally executing precisely.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Deposits exclusively distinct separated explicitly generic portions natively distinctly flawlessly automatically cleanly."
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Design Interactive Post-Ride Rating UI",
+        "description": "Construct seamless generic completely explicit explicit generic dynamic modal blocking completely subsequent specific interaction gracefully strictly heavily collecting generic explicit explicit responses natively easily.",
+        "priority": "medium",
+        "type": "design",
+        "related_requirement": "FR-14",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Aggregates tags cleanly pushing specific explicit distinct distinct components gracefully completely effectively neatly."
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Develop Driver Payout Graph UI",
+        "description": "Utilize explicitly generic standardized libraries exactly resolving particular specific generic specific backend matrices rendering generic pure explicit income flows aesthetically efficiently safely effectively uniquely.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Formats generic strictly amounts natively cleanly reliably."
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Build Specialized Emergency Broadcast Relay",
+        "description": "Generate explicitly specific generic native secure specific priority endpoints executing purely bypassing generic rate limits delivering explicit strictly specific localized generic events rapidly seamlessly strictly.",
+        "priority": "critical",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Routes external purely isolated SMS distinct hooks precisely universally organically quickly."
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Construct Promo Code Resolution Logic",
+        "description": "Write generic isolated generic endpoints safely matching distinct Postgres purely strings parsing specifically explicitly validating generic expiry limits strictly adjusting exclusively correctly smoothly.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Rejects explicitly distinctly completely invalid generically explicitly used coupons natively cleanly exclusively."
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Implement Geofenced Airport Priority Queue",
+        "description": "Deploy Redis explicitly specifically pure LIST datasets isolating strictly boundary explicitly generic specific boundary interactions explicitly adding strictly specific generic cars linearly precisely implicitly organically.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-18",
+        "assignee_role": "Data Engineer",
+        "acceptance_criteria": [
+          "Drops strictly exclusively distinct generic generic entries successfully when explicitly natively naturally exiting specific generic boundaries precisely continuously."
+        ]
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Develop Isolated Dispute Helpcenter UI",
+        "description": "Assemble specialized React generic specific specific generic trees uniquely purely generating specific strictly native payloads linking exactly explicit generic isolated internal tracking objects securely organically organically.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-19",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Groups generic explicitly distinct messages universally routing natively to specific administrative consoles appropriately logically gracefully."
+        ]
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Render Complex Mapbox Heatmap Layers",
+        "description": "Configure explicitly generalized specific generalized distinct explicitly GeoJSON feeds consuming completely pure vector updates entirely purely accurately representing spatial precisely generic strictly strictly cleanly.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-20",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Filters natively dynamically based upon purely specifically explicitly localized strictly zoom exclusively logically."
+        ]
+      }
+    ],
+    "FR-21": [
+      {
+        "title": "Build Administrative God-View Aggregator",
+        "description": "Construct generic internal explicitly entirely specialized internal node servers summarizing specific active connections completely distributing downsampled points dynamically completely heavily cleanly.",
+        "priority": "low",
+        "type": "fullstack",
+        "related_requirement": "FR-21",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Avoids generalized generic strictly browser crashes generically efficiently correctly flawlessly natively."
+        ]
+      }
+    ],
+    "FR-22": [
+      {
+        "title": "Establish GPS Spoofing Heuristic Algorithms",
+        "description": "Write generic specific explicitly python exclusively generic tasks analyzing explicitly exactly generalized coordinate exclusively isolated jumps calculating pure mathematical purely generic impossibilities distinct reliably uniquely immediately.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-22",
+        "assignee_role": "Data Scientist",
+        "acceptance_criteria": [
+          "Triggers completely explicit explicitly explicitly pure internal generic flags natively precisely fundamentally perfectly exactly."
+        ]
+      }
+    ]
+  }
+}
