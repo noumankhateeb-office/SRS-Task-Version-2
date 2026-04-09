@@ -1,913 +1,913 @@
 {
   "input": {
     "title": "Social Media Application",
-    "description": "Social Media Application is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "description": "A mobile-first social networking platform where users create profiles, share text and image posts, follow other users, interact through likes and comments, exchange direct messages, and share ephemeral stories. The platform includes a personalized news feed, user discovery, content moderation tools, and granular privacy controls.",
     "technologies": [
       "React Native",
       "Node.js",
       "Firebase"
     ],
     "actors": [
+      "User",
       "Admin",
-      "Manager",
-      "Employee",
-      "User"
+      "Moderator"
     ],
     "user_classes": {
-      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
-      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
-      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
-      "User": "Generic authenticated platform user with access limited by role and department."
+      "User": "Registered individual who creates content, interacts with other users, and manages their own profile and privacy settings.",
+      "Admin": "Platform administrator with full access to user management, content moderation dashboards, and platform configuration.",
+      "Moderator": "Staff member who reviews flagged content, issues warnings, and manages content visibility."
     },
     "definitions": {
-      "Admin": "System user with full administrative privileges.",
-      "Manager": "Operational owner of a department, module, or workflow.",
-      "Employee": "End user performing role-specific business operations."
+      "Feed": "Personalized timeline of posts from followed users and suggested content, ordered by relevance and recency.",
+      "Story": "Ephemeral image or short video post that disappears after 24 hours.",
+      "Thread": "A direct message conversation between two users.",
+      "Engagement": "User interactions with content including likes, comments, shares, and saves."
     },
     "modules": [
-      "User Registration and Authentication",
-      "User Profile Creation",
-      "Post Creation and Sharing",
+      "Authentication",
+      "User Profiles",
+      "Post Management",
       "News Feed",
-      "Like and Comment System",
-      "Follow and Unfollow",
+      "Social Interactions",
       "Direct Messaging",
-      "Story Feature",
-      "User Search and Discovery",
-      "Push Notifications"
+      "Stories",
+      "Search and Discovery",
+      "Notifications",
+      "Content Moderation",
+      "Privacy and Settings"
     ],
     "scope": [
-      "User Registration and Authentication workflows",
-      "User Profile Creation workflows",
-      "Post Creation and Sharing workflows",
-      "News Feed workflows",
-      "Like and Comment System workflows",
-      "Follow and Unfollow workflows"
+      "User registration with email/phone and OAuth via Google and Apple",
+      "Profile creation and editing with avatar, bio, and links",
+      "Text and image/video post creation with captions and hashtags",
+      "Personalized news feed with infinite scroll",
+      "Like, comment, and share functionality on posts",
+      "Follow/unfollow system with follower and following counts",
+      "Real-time one-on-one direct messaging",
+      "24-hour ephemeral stories with view tracking",
+      "User search by name, username, and hashtag search",
+      "Push notifications for social interactions",
+      "Content reporting, flagging, and admin moderation",
+      "Privacy settings for profile visibility and message permissions"
+    ],
+    "out_of_scope": [
+      "Group chats and community channels",
+      "Live streaming or video calling",
+      "Marketplace or commerce features",
+      "Content monetization and creator payouts",
+      "Algorithmic content recommendation using ML models in the first release"
     ],
     "constraints": [
-      "Initial release will focus on the web platform only",
-      "Role-based access control is mandatory across all modules",
-      "Operational data must be auditable and retained according to policy"
+      "The mobile app must be built with React Native for cross-platform iOS and Android support",
+      "Firebase is used for authentication, real-time database for messaging, and cloud storage for media",
+      "Node.js backend handles business logic, feed generation, and moderation workflows",
+      "Image uploads must be compressed and resized server-side to reduce bandwidth usage",
+      "All media must be stored in Firebase Cloud Storage with CDN delivery"
     ],
     "operating_environment": {
-      "frontend": "Web-based interface built with React Native and accessible through modern browsers.",
-      "backend": "Service layer implemented with Node.js, Firebase for business operations.",
-      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+      "frontend": "React Native application deployed to iOS App Store and Google Play Store.",
+      "backend": "Node.js REST API deployed on Google Cloud Run. Firebase for auth, real-time messaging, and storage.",
+      "deployment": "CI/CD via GitHub Actions. Backend deploys to Cloud Run. App builds via EAS Build for React Native."
     },
-    "non_functional_requirements": {
-      "NFR-01": {
-        "title": "Security and Access Control",
-        "requirements": [
-          "All sensitive data must be encrypted in transit and at rest",
-          "Role-based authorization must restrict access by module and action",
-          "All authentication events and privileged actions must be logged"
-        ]
-      },
-      "NFR-02": {
-        "title": "Performance and Scalability",
-        "requirements": [
-          "Core pages and dashboards should load within acceptable enterprise SLAs",
-          "The platform must support concurrent usage across multiple departments",
-          "Background jobs and reporting workloads should not block transactional workflows"
-        ]
-      },
-      "NFR-03": {
-        "title": "Reliability and Recoverability",
-        "requirements": [
-          "Automated backups must run on a defined schedule",
-          "Critical workflows should support retry-safe processing and audit logging",
-          "Operational alerts should be generated for failures and degraded services"
-        ]
-      }
-    },
-    "system_attributes": {
-      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
-      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
-      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
-      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
-    },
-    "out_of_scope": [
-      "Native mobile applications in the first release",
-      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
-      "Non-core experimental modules outside the platform's operational workflows"
-    ],
     "functional_requirements": {
       "FR-01": {
         "title": "User Registration and Authentication",
         "requirements": [
-          "Users can register with email or social media accounts",
-          "Password must be securely hashed",
-          "System sends verification email after registration",
-          "Social login via Google and Facebook"
+          "Users can register with email or phone number and a password",
+          "Email or phone verification is required before full account access",
+          "OAuth sign-in via Google and Apple is supported",
+          "Users must choose a unique username during registration",
+          "JWT-based session tokens are issued on login with automatic refresh",
+          "Account lockout occurs after 5 consecutive failed login attempts for 15 minutes"
         ]
       },
       "FR-02": {
-        "title": "User Profile Creation",
+        "title": "User Profile",
         "requirements": [
-          "Users can create profile with name, bio, and profile picture",
-          "Profile picture supports JPEG and PNG up to 5MB",
-          "Username must be unique and 3-20 characters",
-          "Bio is optional with max 160 characters"
+          "Users can set a profile picture, display name, bio (max 150 characters), and website link",
+          "Profile page shows the user's post count, follower count, and following count",
+          "Profile displays a grid of the user's posts in reverse chronological order",
+          "Users can switch between public and private account modes",
+          "Username changes are limited to once every 30 days",
+          "Verified badge is displayed for admin-verified accounts"
         ]
       },
       "FR-03": {
         "title": "Post Creation and Sharing",
         "requirements": [
-          "Users can create posts with text, images, and videos",
-          "Posts can be public or private",
-          "Users can tag other users in posts",
-          "Posts support hashtags for discoverability"
+          "Users can create text posts with a caption up to 2200 characters",
+          "Posts can include up to 10 images or a single video up to 60 seconds",
+          "Images are automatically compressed and resized to standard dimensions",
+          "Users can tag other users in posts and captions using @mentions",
+          "Posts can include hashtags that become searchable links",
+          "Users can edit post captions after publishing but cannot change media",
+          "Users can delete their own posts at any time"
         ]
       },
       "FR-04": {
         "title": "News Feed",
         "requirements": [
-          "Display posts from followed users in chronological order",
-          "Infinite scroll loading for feed",
-          "Pull-to-refresh for latest posts",
-          "Show post author, content, like count, and comment count"
+          "Feed displays posts from followed users sorted by a combination of recency and engagement",
+          "Feed loads incrementally with infinite scroll pagination",
+          "New posts from followed users appear at the top with a 'new posts available' indicator",
+          "Feed excludes posts from blocked users and muted accounts",
+          "Pull-to-refresh fetches the latest posts",
+          "Feed renders text, single image, image carousel, and video post types"
         ]
       },
       "FR-05": {
-        "title": "Like and Comment System",
+        "title": "Likes and Comments",
         "requirements": [
-          "Users can like and unlike posts",
-          "Users can comment on posts",
-          "Comments support text and emoji",
-          "Post owner receives notification on like and comment"
+          "Users can like and unlike posts with a single tap",
+          "Like count is displayed on each post and updates in real time",
+          "Users can add text comments on posts",
+          "Comments support @mention tagging with autocomplete",
+          "Comment authors can delete their own comments",
+          "Post owners can delete any comment on their posts",
+          "Nested replies to comments are supported up to one level deep"
         ]
       },
       "FR-06": {
         "title": "Follow and Unfollow",
         "requirements": [
-          "Users can follow other users",
-          "Users can unfollow users they follow",
-          "Follower and following counts displayed on profile",
-          "Private accounts require follow approval"
+          "Users can follow and unfollow other users from their profile or posts",
+          "Following a private account sends a follow request that must be approved",
+          "Users can view their followers list and following list",
+          "Users can remove a follower from their followers list",
+          "Follow requests can be accepted or declined from a pending requests screen",
+          "Follower and following counts update in real time on profiles"
         ]
       },
       "FR-07": {
         "title": "Direct Messaging",
         "requirements": [
-          "Users can send private text messages",
-          "Messages delivered in real-time",
-          "Users can block and report abusive messages",
-          "Read receipts show delivery status"
+          "Users can send text messages to any user they follow or who follows them",
+          "Messages are delivered in real time using WebSocket or Firebase Realtime Database",
+          "Message threads show sender name, avatar, last message preview, and timestamp",
+          "Unread message count badge appears on the messages tab icon",
+          "Users can delete individual messages from their view",
+          "Typing indicator shows when the other user is composing a message",
+          "Users can share posts to other users via direct message"
         ]
       },
       "FR-08": {
-        "title": "Story Feature",
+        "title": "Stories",
         "requirements": [
-          "Users can post stories that disappear after 24 hours",
-          "Stories support images and short videos",
-          "Stories show viewer list to the author",
-          "Stories appear at top of the feed"
+          "Users can upload an image or short video as a story visible for 24 hours",
+          "Stories appear in a horizontal scrollable bar at the top of the feed",
+          "Tapping a user's avatar opens their story in a full-screen viewer with auto-advance",
+          "Story owners can see a list of users who viewed their story",
+          "Stories from followed users are displayed; stories from unfollowed users are hidden",
+          "Users can reply to a story which opens a direct message thread"
         ]
       },
       "FR-09": {
-        "title": "User Search and Discovery",
+        "title": "Search and Discovery",
         "requirements": [
-          "Search bar to find users by name or username",
-          "Explore page showing trending posts",
-          "Suggested users based on mutual connections",
-          "Search results show user avatar, name, and follower count"
+          "Users can search for other users by name or username with autocomplete suggestions",
+          "Hashtag search shows all public posts tagged with the searched hashtag",
+          "Explore page shows trending posts and popular hashtags",
+          "Recently searched users and hashtags are saved for quick access",
+          "Search results exclude blocked users and private accounts the user does not follow"
         ]
       },
       "FR-10": {
         "title": "Push Notifications",
         "requirements": [
-          "Notifications for likes, comments, follows, and messages",
-          "Users can customize notification preferences",
-          "Notification center shows all recent activity",
-          "Badge count on app icon"
+          "Users receive push notifications for new followers, likes, comments, and mentions",
+          "Users receive push notifications for new direct messages",
+          "Users receive a notification when a follow request is approved",
+          "In-app notification feed shows all notifications with read/unread status",
+          "Users can configure which notification types they want to receive",
+          "Notification preferences are synced across devices"
         ]
       },
       "FR-11": {
         "title": "Content Moderation",
         "requirements": [
-          "Users can report inappropriate content",
-          "Admin dashboard for reviewing reports",
-          "Automatic content filtering for profanity",
-          "Admin can remove posts and ban users"
+          "Users can report posts, comments, or profiles for violations",
+          "Reports include a reason category (spam, harassment, nudity, misinformation, other)",
+          "Moderators can review reported content and take action: approve, remove content, or warn user",
+          "Accounts accumulating 3 warnings are automatically suspended for review",
+          "Admin dashboard shows moderation queue, action history, and violation statistics",
+          "Removed content is replaced with a violation notice visible to the author"
         ]
       },
       "FR-12": {
         "title": "Privacy Settings",
         "requirements": [
-          "Users can set account to private",
-          "Users can control who can message them",
-          "Users can hide online status",
-          "Users can download their data"
+          "Users can set their account to private, requiring follow approval for non-followers to see posts",
+          "Users can block other users, hiding all mutual content and preventing interactions",
+          "Users can mute other users, hiding their posts from the feed without unfollowing",
+          "Users can control who can send them direct messages: everyone, followers only, or no one",
+          "Users can hide their online status and last seen timestamp",
+          "Users can download a copy of all their data (profile, posts, messages) as a data export"
         ]
       }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Performance",
+        "requirements": [
+          "News feed must load the first page within 2 seconds on a 4G connection",
+          "Image uploads must complete within 5 seconds for images up to 10MB",
+          "Direct messages must be delivered within 1 second in real time"
+        ]
+      },
+      "NFR-02": {
+        "title": "Scalability",
+        "requirements": [
+          "The platform must support 100,000 concurrent users without degradation",
+          "Feed generation must remain efficient as a user's follower graph grows to 10,000+"
+        ]
+      },
+      "NFR-03": {
+        "title": "Security",
+        "requirements": [
+          "All data in transit must be encrypted via HTTPS/TLS",
+          "User passwords must be hashed with bcrypt",
+          "Direct message content must be encrypted at rest",
+          "Authentication tokens must expire and rotate according to security best practices"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Media uploads are resumable. Failed message deliveries are retried with exponential backoff.",
+      "scalability": "Feed computation uses fan-out-on-read for users with few followers and fan-out-on-write for popular accounts.",
+      "security": "Direct messages are encrypted at rest. OAuth tokens are stored securely in the device keychain.",
+      "maintainability": "API versioning ensures backward compatibility. Feature flags control rollout of new features."
     }
   },
   "output": {
     "FR-01": [
       {
-        "title": "Design User Registration and Authentication UI",
-        "description": "Design the user interface for user registration and authentication. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "UI design for user registration and authentication is complete and reviewable.",
-          "The user registration and authentication design is responsive and accessible.",
-          "The design for user registration and authentication aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of User Registration and Authentication",
-        "description": "Implement the frontend behavior for user registration and authentication. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can register with email or social media accounts; Password must be securely hashed; System sends verification email after registration.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Frontend implements the required user registration and authentication user interactions.",
-          "Validation, loading, and error states for user registration and authentication are handled in the UI.",
-          "Frontend behavior for user registration and authentication is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of User Registration and Authentication",
-        "description": "Implement the backend logic for user registration and authentication. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can register with email or social media accounts; Password must be securely hashed; System sends verification email after registration.",
+        "title": "Build Registration API with Email and Phone Verification",
+        "description": "Create POST /api/auth/register accepting email or phone, password, and chosen username. Validate username uniqueness and format (alphanumeric, underscores, 3-30 chars). Hash password with bcrypt. Send a 6-digit OTP via email or SMS for verification. Create POST /api/auth/verify-otp that confirms the code and activates the account. OTP expires after 10 minutes.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Backend logic for user registration and authentication is implemented and testable.",
-          "APIs and business rules for user registration and authentication enforce validation and security requirements.",
-          "Data handling for user registration and authentication is reliable and supports the required workflow."
+          "Registration with duplicate username returns 409 with suggestion alternatives.",
+          "Registration with duplicate email/phone returns 409 without revealing which account owns it.",
+          "OTP is sent via email or SMS depending on the registration method.",
+          "Expired OTP returns 400 with option to resend.",
+          "Account is inactive until OTP verification is complete."
         ]
       },
       {
-        "title": "Security Hardening for User Registration and Authentication",
-        "description": "Implement the security controls required for user registration and authentication. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "title": "Implement OAuth Login (Google and Apple)",
+        "description": "Implement Google Sign-In and Apple Sign-In flows for React Native. On successful OAuth, call POST /api/auth/oauth with the provider token. Backend verifies the token with the provider, creates or links an account using the provider email, and returns JWT access and refresh tokens. First-time OAuth users are prompted to choose a username before account creation is finalized.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Google OAuth creates a new account or links to existing email-based account.",
+          "Apple OAuth handles the privacy relay email correctly.",
+          "First-time OAuth users must set a unique username before proceeding.",
+          "Returning OAuth users receive tokens immediately without re-registration.",
+          "Invalid or expired provider tokens return 401."
+        ]
+      },
+      {
+        "title": "Build Login Screen and Auth Flow UI",
+        "description": "Implement the React Native screens for login (email/phone + password), registration (email/phone + password + username), OTP verification (6-digit input with auto-focus and resend timer), Google and Apple sign-in buttons, and forgot password flow. Store tokens securely in device keychain. Implement automatic token refresh on 401 responses.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Login form validates email/phone format and shows inline errors.",
+          "OTP screen auto-focuses the digit inputs and shows a countdown for resend.",
+          "Google and Apple buttons trigger the native OAuth flow on each platform.",
+          "Tokens are stored in secure keychain storage, not AsyncStorage.",
+          "Automatic token refresh retries the failed request transparently."
+        ]
+      },
+      {
+        "title": "Implement Account Lockout and Rate Limiting",
+        "description": "Track failed login attempts per account. After 5 consecutive failures within 30 minutes, lock the account for 15 minutes. Return a 429 response with the lockout duration. Implement IP-based rate limiting on auth endpoints (30 requests per minute). Send an email/SMS alert to the user when their account is locked.",
         "priority": "high",
         "type": "security",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Security controls for user registration and authentication enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for user registration and authentication are logged, validated, and protected against misuse.",
-          "The implementation of user registration and authentication satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "6th failed login attempt returns 429 with remaining lockout time.",
+          "Successful login resets the failure counter.",
+          "Lockout automatically expires after 15 minutes.",
+          "User receives a security alert notification when account is locked.",
+          "IP-based rate limiting blocks excessive requests from a single IP."
         ]
       },
       {
-        "title": "Integrate User Registration and Authentication with External Services",
-        "description": "Integrate user registration and authentication with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
-        "priority": "medium",
-        "type": "integration",
+        "title": "Create Users and Auth Schema",
+        "description": "Define the Firestore collections and document schema: users (uid, username, email, phone, passwordHash, displayName, avatarUrl, bio, websiteLink, isPrivate, isVerified, createdAt, updatedAt), auth_providers (userId, provider, providerUid), login_attempts (userId, attempts, lockedUntil). Create indexes for username lookup, email lookup, and phone lookup.",
+        "priority": "high",
+        "type": "database",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "External or cross-system integrations required by user registration and authentication exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for user registration and authentication integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by user registration and authentication are configured and secured correctly."
+          "Username field has a unique constraint enforced at the application level.",
+          "Email and phone fields are indexed for fast login lookups.",
+          "Auth provider documents link OAuth accounts to user records.",
+          "Login attempts documents support TTL for automatic cleanup."
         ]
       },
       {
-        "title": "Testing User Registration and Authentication Functionality",
-        "description": "Create and execute tests for user registration and authentication. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Authentication Module Tests",
+        "description": "Test registration with email and phone, duplicate username rejection, OTP verification (valid, expired, wrong code), login with correct and wrong credentials, account lockout after 5 failures, lockout expiry, Google and Apple OAuth account creation and linking, token refresh, and rate limiting.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for user registration and authentication.",
-          "Security, validation, and permission checks for user registration and authentication are verified.",
-          "Regression coverage exists for the most important user registration and authentication behaviors."
+          "Registration tests cover email, phone, and OAuth pathways.",
+          "OTP tests verify valid, expired, and incorrect code scenarios.",
+          "Lockout tests confirm activation after 5 failures and automatic expiry.",
+          "Token refresh tests verify transparent retry on expired access tokens."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Design User Profile Creation UI",
-        "description": "Design the user interface for user profile creation. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "UI design for user profile creation is complete and reviewable.",
-          "The user profile creation design is responsive and accessible.",
-          "The design for user profile creation aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of User Profile Creation",
-        "description": "Implement the frontend behavior for user profile creation. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can create profile with name, bio, and profile picture; Profile picture supports JPEG and PNG up to 5MB; Username must be unique and 3-20 characters.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Frontend implements the required user profile creation user interactions.",
-          "Validation, loading, and error states for user profile creation are handled in the UI.",
-          "Frontend behavior for user profile creation is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of User Profile Creation",
-        "description": "Implement the backend logic for user profile creation. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can create profile with name, bio, and profile picture; Profile picture supports JPEG and PNG up to 5MB; Username must be unique and 3-20 characters.",
+        "title": "Build Profile API Endpoints",
+        "description": "Create GET /api/users/:username that returns the public profile (displayName, avatar, bio, link, postCount, followerCount, followingCount, isPrivate, isVerified) plus the relationship status (following, followed_by, requested, blocked, none) relative to the authenticated viewer. Create PATCH /api/users/me for updating displayName, bio, websiteLink, and isPrivate. Enforce username change limit of once per 30 days via lastUsernameChange timestamp.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Backend logic for user profile creation is implemented and testable.",
-          "APIs and business rules for user profile creation enforce validation and security requirements.",
-          "Data handling for user profile creation is reliable and supports the required workflow."
+          "Public profile returns correct post, follower, and following counts.",
+          "Relationship status is accurate for all states (following, blocked, none, etc.).",
+          "Private account profiles hide the post grid for non-followers.",
+          "Username change within 30 days of last change returns 400 with the next allowed date.",
+          "Bio longer than 150 characters is rejected with 400."
         ]
       },
       {
-        "title": "Database Design for User Profile Creation",
-        "description": "Design the data model and persistence strategy for user profile creation. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
+        "title": "Build Profile Avatar Upload",
+        "description": "Create POST /api/users/me/avatar that accepts an image file, validates format (JPEG, PNG, WebP) and size (max 5MB), resizes to 400x400px and 150x150px thumbnails, uploads to Firebase Cloud Storage, and updates the user's avatarUrl. Delete the previous avatar from storage when a new one is uploaded.",
+        "priority": "medium",
+        "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The data model for user profile creation supports the required workflow.",
-          "Relationships, constraints, and indexes for user profile creation are defined correctly.",
-          "Schema changes for user profile creation can be applied safely in target environments."
+          "Avatar is resized to two dimensions (400px and 150px) and stored as WebP.",
+          "Invalid file formats return 400 with supported formats listed.",
+          "Files over 5MB return 413.",
+          "Previous avatar is deleted from storage to avoid orphaned files.",
+          "Avatar URL is updated on the user document and returned in the response."
         ]
       },
       {
-        "title": "Testing User Profile Creation Functionality",
-        "description": "Create and execute tests for user profile creation. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Profile Screen UI",
+        "description": "Implement the React Native profile screen showing avatar (tappable to view full-size or change if own profile), display name, username, bio, website link (tappable), stats row (posts, followers, following as tappable numbers), follow/unfollow/requested button for other users, and a post grid below. For own profile, show an Edit Profile button that opens the edit form. Implement pull-to-refresh and load-more for the post grid.",
         "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Own profile shows Edit Profile button; others show Follow/Unfollow/Requested.",
+          "Tapping follower/following counts navigates to the respective list.",
+          "Post grid loads paginated with placeholder shimmer during loading.",
+          "Private profile of non-followed user shows a lock icon instead of posts.",
+          "Edit profile form pre-fills current values and validates on submit."
+        ]
+      },
+      {
+        "title": "Write Profile Module Tests",
+        "description": "Test profile retrieval for own profile, public user, private user (followed vs. not followed), blocked user. Test profile update with valid data, bio over 150 chars, username change cooldown. Test avatar upload with valid image, invalid format, oversized file, and storage cleanup.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for user profile creation.",
-          "Security, validation, and permission checks for user profile creation are verified.",
-          "Regression coverage exists for the most important user profile creation behaviors."
+          "Private profile correctly hides posts for non-followers.",
+          "Blocked user profiles return 404 instead of 403.",
+          "Avatar upload tests verify image processing and storage.",
+          "Username change cooldown is enforced correctly."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Design Post Creation and Sharing UI",
-        "description": "Design the user interface for post creation and sharing. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "UI design for post creation and sharing is complete and reviewable.",
-          "The post creation and sharing design is responsive and accessible.",
-          "The design for post creation and sharing aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Post Creation and Sharing",
-        "description": "Implement the frontend behavior for post creation and sharing. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can create posts with text, images, and videos; Posts can be public or private; Users can tag other users in posts.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Frontend implements the required post creation and sharing user interactions.",
-          "Validation, loading, and error states for post creation and sharing are handled in the UI.",
-          "Frontend behavior for post creation and sharing is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Post Creation and Sharing",
-        "description": "Implement the backend logic for post creation and sharing. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can create posts with text, images, and videos; Posts can be public or private; Users can tag other users in posts.",
+        "title": "Build Post Creation API",
+        "description": "Create POST /api/posts accepting caption (max 2200 chars), media files (up to 10 images or 1 video up to 60s), and tagged usernames. Process images: compress to 80% quality, resize to max 1080px width, generate thumbnail. Process video: transcode to H.264 720p if needed that needs to be max 60 seconds. Extract hashtags from caption and store as searchable tags. Store media in Firebase Cloud Storage and create the post document with userId, caption, mediaUrls, hashtags, mentionedUsers, createdAt.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Backend logic for post creation and sharing is implemented and testable.",
-          "APIs and business rules for post creation and sharing enforce validation and security requirements.",
-          "Data handling for post creation and sharing is reliable and supports the required workflow."
+          "Post with valid caption and images is created and returns the post object with media URLs.",
+          "Caption over 2200 characters returns 400.",
+          "More than 10 images in a single post returns 400.",
+          "Video longer than 60 seconds returns 400.",
+          "Hashtags are extracted from caption and stored as a searchable array.",
+          "@mentioned users are validated and stored as references."
         ]
       },
       {
-        "title": "Testing Post Creation and Sharing Functionality",
-        "description": "Create and execute tests for post creation and sharing. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Post Edit and Delete API",
+        "description": "Create PATCH /api/posts/:postId that allows the author to update the caption only (media cannot be changed). Re-extract hashtags and mentions from the updated caption. Create DELETE /api/posts/:postId that removes the post document, deletes all associated media from Cloud Storage, and removes associated likes, comments, and notifications. Only the post author can edit or delete.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Caption edit updates hashtags and mentions correctly.",
+          "Non-author edit/delete attempts return 403.",
+          "Delete removes the post, its media files, all comments, and all likes.",
+          "Edit records the updatedAt timestamp."
+        ]
+      },
+      {
+        "title": "Build Post Creation UI with Media Picker",
+        "description": "Implement the React Native post creation screen with a multi-line text input for caption (character counter showing remaining), media picker supporting camera and gallery selection, multi-image selector with reorder and remove, video recorder with 60-second timer, and preview carousel showing selected media. Show inline hashtag highlighting in the caption as the user types. Add a tag users button that opens a searchable user list.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Media picker allows selecting up to 10 images or 1 video from gallery or camera.",
+          "Selected images show in a reorderable preview carousel with remove buttons.",
+          "Character counter turns red when approaching or exceeding the 2200-character limit.",
+          "Hashtags are visually highlighted in the caption text input.",
+          "Upload progress indicators show per-file progress during submission."
+        ]
+      },
+      {
+        "title": "Implement Media Processing Pipeline",
+        "description": "Build a server-side media processing service that runs after upload: for images — validate format, strip EXIF data (except orientation), compress to 80% WebP quality, resize to 1080px max width, generate a 300px thumbnail. For videos — validate duration (max 60s) and format, transcode to H.264 720p MP4 if needed, extract a poster frame. Store processed files in Firebase Cloud Storage with CDN-friendly paths.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Images are stripped of EXIF data for privacy (GPS, camera info).",
+          "Processed images are stored as WebP with a 300px thumbnail variant.",
+          "Videos are transcoded to H.264 720p with a poster frame image.",
+          "Processing completes within 10 seconds for typical uploads.",
+          "Original files are deleted after processing to save storage costs."
+        ]
+      },
+      {
+        "title": "Write Post Creation and Media Tests",
+        "description": "Test post creation with text only, text + single image, text + multiple images, text + video, caption over limit, too many images, video over 60s. Test caption editing with hashtag re-extraction. Test deletion cascading (media, likes, comments). Test media processing: image compression, EXIF stripping, video transcoding, and thumbnail generation.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for post creation and sharing.",
-          "Security, validation, and permission checks for post creation and sharing are verified.",
-          "Regression coverage exists for the most important post creation and sharing behaviors."
+          "All post type combinations create valid posts.",
+          "Validation tests reject oversized content with specific errors.",
+          "Deletion cascade tests verify all related data is cleaned up.",
+          "Media processing tests verify output dimensions and format."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Design News Feed UI",
-        "description": "Design the user interface for news feed. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "UI design for news feed is complete and reviewable.",
-          "The news feed design is responsive and accessible.",
-          "The design for news feed aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of News Feed",
-        "description": "Implement the frontend behavior for news feed. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Display posts from followed users in chronological order; Infinite scroll loading for feed; Pull-to-refresh for latest posts.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Frontend implements the required news feed user interactions.",
-          "Validation, loading, and error states for news feed are handled in the UI.",
-          "Frontend behavior for news feed is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of News Feed",
-        "description": "Implement the backend logic for news feed. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Display posts from followed users in chronological order; Infinite scroll loading for feed; Pull-to-refresh for latest posts.",
+        "title": "Build Feed Generation API",
+        "description": "Create GET /api/feed that returns the authenticated user's personalized feed. Fetch posts from followed users, score each post by combining recency (time decay) and engagement (likes + comments weighted), sort by score descending, and return paginated results (20 per page) with cursor-based pagination. Exclude posts from blocked and muted users. Include the viewer's like status on each post. Support a 'new posts available' check via GET /api/feed/updates?since=timestamp.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Backend logic for news feed is implemented and testable.",
-          "APIs and business rules for news feed enforce validation and security requirements.",
-          "Data handling for news feed is reliable and supports the required workflow."
+          "Feed returns posts from followed users only (excluding blocked and muted).",
+          "Posts are ranked by a combination of recency and engagement score.",
+          "Cursor-based pagination returns consistent results without duplicates.",
+          "Each post includes the viewer's like status (liked: true/false).",
+          "Feed updates endpoint returns a count of new posts since the given timestamp.",
+          "Feed for a user following 1000 accounts returns within 500ms."
         ]
       },
       {
-        "title": "Database Design for News Feed",
-        "description": "Design the data model and persistence strategy for news feed. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Feed Screen UI",
+        "description": "Implement the React Native feed screen with an infinite-scroll FlatList rendering post cards. Each card shows: author avatar and username (tappable to profile), post media (single image, carousel with dots indicator, or video with play controls), caption with expandable 'more' link, like button with animation, comment count link, share button, and relative timestamp. Add a pull-to-refresh gesture and a 'New posts' floating button that scrolls to top when tapped.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The data model for news feed supports the required workflow.",
-          "Relationships, constraints, and indexes for news feed are defined correctly.",
-          "Schema changes for news feed can be applied safely in target environments."
+          "Feed loads first page and renders posts within 2 seconds.",
+          "Infinite scroll fetches the next page when scrolling near the bottom.",
+          "Image carousels swipe horizontally with page dots indicator.",
+          "Videos autoplay muted when in viewport and pause when scrolled away.",
+          "Pull-to-refresh fetches latest posts and shows a loading spinner.",
+          "'New posts' button appears when updates are available and scrolls to top."
         ]
       },
       {
-        "title": "Security Hardening for News Feed",
-        "description": "Implement the security controls required for news feed. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
-        "priority": "high",
-        "type": "security",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Security controls for news feed enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for news feed are logged, validated, and protected against misuse.",
-          "The implementation of news feed satisfies the relevant privacy, audit, or compliance expectations in the SRS."
-        ]
-      },
-      {
-        "title": "Testing News Feed Functionality",
-        "description": "Create and execute tests for news feed. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Feed Generation Tests",
+        "description": "Test feed returns only followed users' posts, excludes blocked users, excludes muted users, rankings by recency and engagement, pagination consistency across multiple pages, empty feed for user following nobody, feed updates endpoint returns correct count, and feed performance with large follower graphs (1000+ following).",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for news feed.",
-          "Security, validation, and permission checks for news feed are verified.",
-          "Regression coverage exists for the most important news feed behaviors."
+          "Feed correctly excludes posts from blocked and muted users.",
+          "Pagination test fetches 3 consecutive pages without duplicates or gaps.",
+          "Ranking test verifies higher-engagement recent posts appear before older ones.",
+          "Performance test confirms sub-500ms response for users following 1000 accounts."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Design Like and Comment System UI",
-        "description": "Design the user interface for like and comment system. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "UI design for like and comment system is complete and reviewable.",
-          "The like and comment system design is responsive and accessible.",
-          "The design for like and comment system aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Like and Comment System",
-        "description": "Implement the frontend behavior for like and comment system. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can like and unlike posts; Users can comment on posts; Comments support text and emoji.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Frontend implements the required like and comment system user interactions.",
-          "Validation, loading, and error states for like and comment system are handled in the UI.",
-          "Frontend behavior for like and comment system is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Like and Comment System",
-        "description": "Implement the backend logic for like and comment system. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can like and unlike posts; Users can comment on posts; Comments support text and emoji.",
+        "title": "Build Like and Unlike API",
+        "description": "Create POST /api/posts/:postId/like that adds a like record (userId, postId, createdAt) and increments the post's likeCount atomically. Create DELETE /api/posts/:postId/like that removes the like and decrements the count. Prevent duplicate likes (idempotent). Trigger a push notification to the post author (unless self-like). Create GET /api/posts/:postId/likes that returns a paginated list of users who liked the post.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Backend logic for like and comment system is implemented and testable.",
-          "APIs and business rules for like and comment system enforce validation and security requirements.",
-          "Data handling for like and comment system is reliable and supports the required workflow."
+          "Liking a post increments likeCount atomically and returns the updated count.",
+          "Liking an already-liked post is idempotent and returns 200.",
+          "Unlike decrements the count and removes the like record.",
+          "Post author receives a notification on like (not for self-likes).",
+          "Likes list returns users with avatar and username, paginated."
         ]
       },
       {
-        "title": "Testing Like and Comment System Functionality",
-        "description": "Create and execute tests for like and comment system. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Comment System API",
+        "description": "Create POST /api/posts/:postId/comments accepting text (max 1000 chars) and optional parentCommentId for replies (max 1 level). Extract @mentions from comment text. Create GET /api/posts/:postId/comments returning top-level comments with nested replies, paginated. Create DELETE /api/posts/:postId/comments/:commentId allowing deletion by comment author or post owner. Trigger notifications for comment and mention.",
         "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Comments are created with the correct post and author references.",
+          "Replies are nested under parent comments (max 1 level deep).",
+          "Replying to a reply attaches to the same parent (no deeper nesting).",
+          "Comment deletion by author or post owner returns 200; others get 403.",
+          "@mentioned users receive notifications with a link to the comment.",
+          "Comment count on the post updates atomically."
+        ]
+      },
+      {
+        "title": "Build Like Animation and Comments UI",
+        "description": "Implement the double-tap-to-like gesture on post images with a heart animation overlay. Build the like button with filled/outlined heart toggle and count display. Build the comments bottom sheet with top-level comments and expandable replies. Comment input bar with @mention autocomplete that searches followed users. Swipe-to-delete for own comments. Long-press menu for post owners to delete any comment.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Double-tap on image shows a heart animation and likes the post.",
+          "Like button toggles between filled and outlined with count update.",
+          "Comments bottom sheet shows threaded replies with 'View replies' expand.",
+          "@mention autocomplete shows matching usernames from followed users.",
+          "Swipe-to-delete reveals a delete button on own comments."
+        ]
+      },
+      {
+        "title": "Write Likes and Comments Tests",
+        "description": "Test like, unlike, duplicate like idempotency, like count accuracy, likes list pagination. Test comment creation, reply nesting (1 level max), @mention extraction, deletion by author, deletion by post owner, deletion rejection for other users, comment count accuracy, and notification triggering for comments and mentions.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for like and comment system.",
-          "Security, validation, and permission checks for like and comment system are verified.",
-          "Regression coverage exists for the most important like and comment system behaviors."
+          "Like count tests verify atomic increment/decrement under concurrent likes.",
+          "Comment nesting tests confirm max 1-level depth enforcement.",
+          "Deletion permission tests verify author and post owner access.",
+          "Notification tests confirm correct triggers for likes, comments, and mentions."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Design Follow and Unfollow UI",
-        "description": "Design the user interface for follow and unfollow. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "UI design for follow and unfollow is complete and reviewable.",
-          "The follow and unfollow design is responsive and accessible.",
-          "The design for follow and unfollow aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Follow and Unfollow",
-        "description": "Implement the frontend behavior for follow and unfollow. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can follow other users; Users can unfollow users they follow; Follower and following counts displayed on profile.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Frontend implements the required follow and unfollow user interactions.",
-          "Validation, loading, and error states for follow and unfollow are handled in the UI.",
-          "Frontend behavior for follow and unfollow is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Follow and Unfollow",
-        "description": "Implement the backend logic for follow and unfollow. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can follow other users; Users can unfollow users they follow; Follower and following counts displayed on profile.",
+        "title": "Build Follow System API",
+        "description": "Create POST /api/users/:userId/follow that creates a follow relationship or a pending follow request (for private accounts). Create DELETE /api/users/:userId/follow to unfollow. Create POST /api/follow-requests/:requestId/accept and /reject for handling pending requests. Create DELETE /api/users/:userId/followers to remove a follower. Create GET /api/users/:userId/followers and /following with paginated user lists. Update follower/following counts atomically.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Backend logic for follow and unfollow is implemented and testable.",
-          "APIs and business rules for follow and unfollow enforce validation and security requirements.",
-          "Data handling for follow and unfollow is reliable and supports the required workflow."
+          "Following a public account creates an immediate follow relationship.",
+          "Following a private account creates a pending request instead.",
+          "Accepting a follow request creates the relationship and updates counts.",
+          "Rejecting a request deletes it without notification.",
+          "Removing a follower decrements counts and deletes the relationship.",
+          "Follower and following counts are atomically consistent."
         ]
       },
       {
-        "title": "Database Design for Follow and Unfollow",
-        "description": "Design the data model and persistence strategy for follow and unfollow. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Follow UI Components",
+        "description": "Implement the Follow/Unfollow/Requested button component that shows the correct state based on the relationship. Build the followers and following list screens with user cards (avatar, name, username, follow-back button). Build the follow requests screen showing pending requests with accept/decline buttons. Add follow/unfollow actions on post feeds and user search results.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The data model for follow and unfollow supports the required workflow.",
-          "Relationships, constraints, and indexes for follow and unfollow are defined correctly.",
-          "Schema changes for follow and unfollow can be applied safely in target environments."
+          "Button shows 'Follow', 'Following' (with unfollow on long-press), or 'Requested' based on state.",
+          "Followers list shows a 'Remove' button next to each follower on own profile.",
+          "Follow requests screen shows pending requests with accept/decline actions.",
+          "Following/unfollowing from feed or search updates the button state immediately."
         ]
       },
       {
-        "title": "Testing Follow and Unfollow Functionality",
-        "description": "Create and execute tests for follow and unfollow. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Follow System Tests",
+        "description": "Test follow public user, follow private user (request flow), accept/reject request, unfollow, remove follower, follower/following count accuracy, prevent self-follow, prevent following blocked users, follower list pagination, and concurrent follow/unfollow race conditions.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for follow and unfollow.",
-          "Security, validation, and permission checks for follow and unfollow are verified.",
-          "Regression coverage exists for the most important follow and unfollow behaviors."
+          "Public and private follow flows are tested separately.",
+          "Self-follow and blocked-user follow are rejected.",
+          "Count accuracy tests verify atomic updates under concurrent operations.",
+          "Follow request accept/reject tests verify correct state transitions."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Design Direct Messaging UI",
-        "description": "Design the user interface for direct messaging. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "UI design for direct messaging is complete and reviewable.",
-          "The direct messaging design is responsive and accessible.",
-          "The design for direct messaging aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Direct Messaging",
-        "description": "Implement the frontend behavior for direct messaging. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can send private text messages; Messages delivered in real-time; Users can block and report abusive messages.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Frontend implements the required direct messaging user interactions.",
-          "Validation, loading, and error states for direct messaging are handled in the UI.",
-          "Frontend behavior for direct messaging is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Direct Messaging",
-        "description": "Implement the backend logic for direct messaging. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can send private text messages; Messages delivered in real-time; Users can block and report abusive messages.",
+        "title": "Build Real-Time Messaging Backend",
+        "description": "Implement direct messaging using Firebase Realtime Database for real-time delivery. Create message thread documents (participants, lastMessage, lastTimestamp, unreadCounts). Create POST /api/messages/threads to initiate a thread (validate messaging permissions based on follow relationships). Messages within threads are stored as sub-documents with senderId, text, createdAt, readAt. Implement real-time listeners for new messages and read receipts. POST /api/messages/threads/:threadId/messages to send a message.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Backend logic for direct messaging is implemented and testable.",
-          "APIs and business rules for direct messaging enforce validation and security requirements.",
-          "Data handling for direct messaging is reliable and supports the required workflow."
+          "Messages are delivered in real time via Firebase listeners.",
+          "Thread creation enforces message permission settings (follow-based).",
+          "Unread count per thread updates when messages arrive and resets on read.",
+          "Messages include sender info and timestamp.",
+          "Sending to a blocked user returns 403."
         ]
       },
       {
-        "title": "Database Design for Direct Messaging",
-        "description": "Design the data model and persistence strategy for direct messaging. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Messaging UI",
+        "description": "Implement the React Native messaging screens: threads list showing each conversation with the other user's avatar, name, last message preview, timestamp, and unread badge. Thread detail screen with message bubbles (sent right in blue, received left in gray), timestamps on time gaps, typing indicator at the bottom, and text input with send button. Implement post sharing via DM — when a user taps 'Share' on a post, open a user picker and send the post as a message card.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The data model for direct messaging supports the required workflow.",
-          "Relationships, constraints, and indexes for direct messaging are defined correctly.",
-          "Schema changes for direct messaging can be applied safely in target environments."
+          "Thread list sorts by most recent message and shows unread badges.",
+          "Messages appear in real time without manual refresh.",
+          "Typing indicator shows when the other user is composing.",
+          "Shared posts render as tappable cards within the message thread.",
+          "Unread badge on the messages tab icon reflects total unread count."
         ]
       },
       {
-        "title": "Testing Direct Messaging Functionality",
-        "description": "Create and execute tests for direct messaging. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Implement Message Encryption at Rest",
+        "description": "Encrypt message content before storing in Firebase Realtime Database using AES-256 encryption with per-thread encryption keys. Store encryption keys in a secure server-side key store (not in the client). Decrypt messages server-side before delivery to authenticated thread participants. Ensure deleted messages have their ciphertext removed from storage.",
+        "priority": "high",
+        "type": "security",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Message content is stored as ciphertext in Firebase, not plain text.",
+          "Encryption keys are stored server-side and never sent to the client.",
+          "Only authenticated thread participants can decrypt and read messages.",
+          "Deleted messages have ciphertext fully removed from storage."
+        ]
+      },
+      {
+        "title": "Write Messaging Module Tests",
+        "description": "Test thread creation between mutual followers, thread creation rejection when messaging is disabled by recipient, message sending and real-time delivery, unread count updates, message deletion, typing indicator events, post sharing via DM, message encryption (verify stored data is not plaintext), and messaging blocked users.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for direct messaging.",
-          "Security, validation, and permission checks for direct messaging are verified.",
-          "Regression coverage exists for the most important direct messaging behaviors."
+          "Permission tests verify messaging restrictions based on follow and settings.",
+          "Real-time delivery test confirms messages appear on both sides.",
+          "Encryption test verifies Firebase stored data is not readable plaintext.",
+          "Blocked user messaging returns appropriate error."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Design Story Feature UI",
-        "description": "Design the user interface for story feature. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "UI design for story feature is complete and reviewable.",
-          "The story feature design is responsive and accessible.",
-          "The design for story feature aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Story Feature",
-        "description": "Implement the frontend behavior for story feature. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can post stories that disappear after 24 hours; Stories support images and short videos; Stories show viewer list to the author.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Frontend implements the required story feature user interactions.",
-          "Validation, loading, and error states for story feature are handled in the UI.",
-          "Frontend behavior for story feature is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Story Feature",
-        "description": "Implement the backend logic for story feature. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can post stories that disappear after 24 hours; Stories support images and short videos; Stories show viewer list to the author.",
-        "priority": "high",
+        "title": "Build Stories API",
+        "description": "Create POST /api/stories accepting an image or video (max 15 seconds). Process media with the same pipeline as posts. Store with a 24-hour TTL. Create GET /api/stories/feed that returns stories from followed users grouped by user, sorted by most recently updated. Create GET /api/stories/:storyId/viewers that returns the list of users who viewed the story (only visible to the author). Create POST /api/stories/:storyId/view to record a view. Implement a scheduled cleanup job that deletes expired stories and their media.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Backend logic for story feature is implemented and testable.",
-          "APIs and business rules for story feature enforce validation and security requirements.",
-          "Data handling for story feature is reliable and supports the required workflow."
+          "Stories expire exactly 24 hours after creation.",
+          "Stories feed groups by user and shows users with unseen stories first.",
+          "View tracking records unique viewers (no duplicate counts).",
+          "Viewer list is only accessible to the story author.",
+          "Expired stories and their media are cleaned up by the scheduled job.",
+          "Story replies create a DM thread with the story referenced."
         ]
       },
       {
-        "title": "Testing Story Feature Functionality",
-        "description": "Create and execute tests for story feature. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Build Stories UI",
+        "description": "Implement the stories bar at the top of the feed showing followed users' avatars in circles with a gradient ring for unseen stories and a gray ring for seen. Tapping opens a full-screen story viewer with auto-advance (5 seconds for images), progress bars at the top, tap-left/tap-right for prev/next, and swipe-down to dismiss. Show the viewer count at the bottom for own stories. Add a reply input that opens a DM to the story author. Build the story camera screen with image capture and 15-second video recording.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Stories bar shows gradient ring for unseen and gray for seen stories.",
+          "Full-screen viewer auto-advances with progress bars and supports tap navigation.",
+          "Own stories show view count, tappable to see viewer list.",
+          "Reply input is visible at the bottom of other users' stories.",
+          "Story camera supports photo and timed video recording (max 15s)."
+        ]
+      },
+      {
+        "title": "Write Stories Module Tests",
+        "description": "Test story creation with image and video, 24-hour expiry enforcement, stories feed grouping and ordering (unseen first), view tracking (unique per user), viewer list access control (author only), story reply creating DM thread, expired story cleanup job, and stories from unfollowed/blocked users being excluded.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for story feature.",
-          "Security, validation, and permission checks for story feature are verified.",
-          "Regression coverage exists for the most important story feature behaviors."
+          "Expiry test confirms story is not returned in feed after 24 hours.",
+          "View tracking prevents duplicate views from the same user.",
+          "Feed ordering places users with unseen stories before seen ones.",
+          "Cleanup job removes expired stories and associated media files."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Design User Search and Discovery UI",
-        "description": "Design the user interface for user search and discovery. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "UI design for user search and discovery is complete and reviewable.",
-          "The user search and discovery design is responsive and accessible.",
-          "The design for user search and discovery aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of User Search and Discovery",
-        "description": "Implement the frontend behavior for user search and discovery. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Search bar to find users by name or username; Explore page showing trending posts; Suggested users based on mutual connections.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Frontend implements the required user search and discovery user interactions.",
-          "Validation, loading, and error states for user search and discovery are handled in the UI.",
-          "Frontend behavior for user search and discovery is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of User Search and Discovery",
-        "description": "Implement the backend logic for user search and discovery. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Search bar to find users by name or username; Explore page showing trending posts; Suggested users based on mutual connections.",
-        "priority": "high",
+        "title": "Build Search API",
+        "description": "Create GET /api/search/users?q=query that searches users by display name and username with prefix matching and returns results ranked by follower count. Create GET /api/search/hashtags?q=query that searches hashtags by prefix and returns results ranked by post count. Create GET /api/explore/trending that returns the top 20 trending hashtags (highest post count in last 24 hours) and top trending posts (highest engagement in last 24 hours). Exclude blocked users and private accounts from search results.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Backend logic for user search and discovery is implemented and testable.",
-          "APIs and business rules for user search and discovery enforce validation and security requirements.",
-          "Data handling for user search and discovery is reliable and supports the required workflow."
+          "User search returns matches by name and username, ranked by follower count.",
+          "Hashtag search returns matching hashtags with post counts.",
+          "Trending hashtags are calculated from the last 24 hours of posts.",
+          "Blocked users and non-followed private accounts are excluded from results.",
+          "Search results return within 300ms for the general user base."
         ]
       },
       {
-        "title": "Testing User Search and Discovery Functionality",
-        "description": "Create and execute tests for user search and discovery. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Build Search and Explore UI",
+        "description": "Implement the React Native search screen with a text input that shows autocomplete results as the user types (debounced at 300ms). Show tabs for Users and Hashtags in results. Build the explore page with a trending hashtags section and a grid of trending posts. Implement recent searches with clear all button stored locally. Tapping a hashtag navigates to a page showing all posts with that hashtag.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Search autocomplete triggers after 300ms debounce with results.",
+          "Users tab shows avatar, display name, username, and follow status.",
+          "Hashtags tab shows hashtag name and post count.",
+          "Explore page renders trending hashtags as tappable chips and trending posts in a grid.",
+          "Recent searches persist across app restarts and can be cleared."
+        ]
+      },
+      {
+        "title": "Write Search and Discovery Tests",
+        "description": "Test user search by name and username, hashtag search by prefix, trending calculation over 24-hour window, exclusion of blocked and private users from results, empty search results, and search performance under load.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for user search and discovery.",
-          "Security, validation, and permission checks for user search and discovery are verified.",
-          "Regression coverage exists for the most important user search and discovery behaviors."
+          "User search matches partial name and username correctly.",
+          "Trending hashtags reflect the last 24 hours only, not all time.",
+          "Blocked and private user exclusions work correctly in results.",
+          "Search responds within 300ms for the expected database size."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Design Push Notifications UI",
-        "description": "Design the user interface for push notifications. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "UI design for push notifications is complete and reviewable.",
-          "The push notifications design is responsive and accessible.",
-          "The design for push notifications aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Push Notifications",
-        "description": "Implement the frontend behavior for push notifications. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Notifications for likes, comments, follows, and messages; Users can customize notification preferences; Notification center shows all recent activity.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Frontend implements the required push notifications user interactions.",
-          "Validation, loading, and error states for push notifications are handled in the UI.",
-          "Frontend behavior for push notifications is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Push Notifications",
-        "description": "Implement the backend logic for push notifications. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Notifications for likes, comments, follows, and messages; Users can customize notification preferences; Notification center shows all recent activity.",
+        "title": "Build Push Notification Service",
+        "description": "Implement a notification service that sends push notifications via Firebase Cloud Messaging (FCM). Create notification triggers for: new follower, like on post, comment on post, @mention in comment, new DM, follow request accepted. Store device FCM tokens per user (support multiple devices). Queue notifications and batch-send to avoid rate limits. Build GET /api/notifications returning the in-app notification feed with read/unread status and PATCH /api/notifications/:id/read to mark as read.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Backend logic for push notifications is implemented and testable.",
-          "APIs and business rules for push notifications enforce validation and security requirements.",
-          "Data handling for push notifications is reliable and supports the required workflow."
+          "Push notifications are delivered to all registered devices for the user.",
+          "Each notification type has a specific title and body format.",
+          "In-app notification feed returns notifications sorted by newest with read/unread status.",
+          "Marking a notification as read updates the unread count.",
+          "Notifications are not sent for actions by blocked or muted users."
         ]
       },
       {
-        "title": "Testing Push Notifications Functionality",
-        "description": "Create and execute tests for push notifications. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Notification Preferences API",
+        "description": "Create GET/PATCH /api/users/me/notification-preferences that allows users to enable or disable each notification type: likes, comments, mentions, followers, follow_requests, direct_messages. Store preferences in the user document. The notification service checks preferences before sending. Preferences sync across devices via the API.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Users can disable specific notification types independently.",
+          "Disabled notification types are not sent via push or stored in the feed.",
+          "Default preferences enable all notification types for new users.",
+          "Preferences persist and sync across multiple devices."
+        ]
+      },
+      {
+        "title": "Build Notifications UI",
+        "description": "Implement the React Native notifications screen showing a chronological feed of notifications grouped by today, this week, and earlier. Each notification shows the actor's avatar, action description, and timestamp. Unread notifications have a visual indicator (dot or highlight). Tapping a notification navigates to the relevant content (post, profile, or message). Show an unread badge on the tab bar icon. Build the notification preferences screen with toggles for each notification type.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Notifications are grouped by time period (today, this week, earlier).",
+          "Unread notifications are visually distinct from read ones.",
+          "Tapping a notification navigates to the correct screen.",
+          "Tab badge shows the total unread count and updates in real time.",
+          "Preferences screen toggles persist and take effect immediately."
+        ]
+      },
+      {
+        "title": "Configure Firebase Cloud Messaging Integration",
+        "description": "Set up FCM for both iOS and Android in the React Native app. Configure APNs certificates for iOS push delivery. Implement device token registration on app launch and token refresh. Handle background and foreground notification display. Configure notification channels on Android for different notification types.",
         "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Push notifications are delivered on both iOS and Android devices.",
+          "APNs certificate is configured for iOS production and sandbox.",
+          "Device tokens are registered on app launch and updated on refresh.",
+          "Foreground notifications show as in-app banners, not system notifications.",
+          "Android notification channels allow users to control types at the OS level."
+        ]
+      },
+      {
+        "title": "Write Notification Module Tests",
+        "description": "Test notification triggers for all event types (follow, like, comment, mention, DM, request accepted). Test preference enforcement — disabled types should not generate notifications. Test multi-device delivery. Test notification feed pagination and read/unread status. Test that actions from blocked/muted users do not trigger notifications.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for push notifications.",
-          "Security, validation, and permission checks for push notifications are verified.",
-          "Regression coverage exists for the most important push notifications behaviors."
+          "Each event type correctly triggers the corresponding notification.",
+          "Disabled notification types are suppressed in push and in-app feed.",
+          "Multi-device test confirms delivery to all registered tokens.",
+          "Blocked/muted user actions do not generate notifications."
         ]
       }
     ],
     "FR-11": [
       {
-        "title": "Design Content Moderation UI",
-        "description": "Design the user interface for content moderation. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "UI design for content moderation is complete and reviewable.",
-          "The content moderation design is responsive and accessible.",
-          "The design for content moderation aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Content Moderation",
-        "description": "Implement the frontend behavior for content moderation. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can report inappropriate content; Admin dashboard for reviewing reports; Automatic content filtering for profanity.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "Frontend implements the required content moderation user interactions.",
-          "Validation, loading, and error states for content moderation are handled in the UI.",
-          "Frontend behavior for content moderation is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Content Moderation",
-        "description": "Implement the backend logic for content moderation. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can report inappropriate content; Admin dashboard for reviewing reports; Automatic content filtering for profanity.",
+        "title": "Build Content Reporting API",
+        "description": "Create POST /api/reports accepting targetType (post, comment, user), targetId, and reason (spam, harassment, nudity, misinformation, other). Create the report record with reporter, target, reason, status (pending), and timestamp. Prevent duplicate reports from the same user for the same target. Create GET /api/admin/reports with filtering by status, reason, and target type, sorted by newest first. Create PATCH /api/admin/reports/:reportId with action (dismiss, remove_content, warn_user, suspend_user).",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "Backend logic for content moderation is implemented and testable.",
-          "APIs and business rules for content moderation enforce validation and security requirements.",
-          "Data handling for content moderation is reliable and supports the required workflow."
+          "Reports are created with correct target references and reason.",
+          "Duplicate reports from the same reporter for the same target return 409.",
+          "Admin reports endpoint supports filtering by status, reason, and type.",
+          "Remove action hides the content and replaces it with a violation notice.",
+          "Warn action increments the user's warning count; 3 warnings trigger suspension.",
+          "Suspended accounts cannot log in and see a suspension message."
         ]
       },
       {
-        "title": "Database Design for Content Moderation",
-        "description": "Design the data model and persistence strategy for content moderation. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
+        "title": "Build Admin Moderation Dashboard",
+        "description": "Build a web-based admin panel (Next.js or React) showing the moderation queue: list of pending reports with content preview, reporter info, and reason. Action buttons for dismiss, remove content, warn user, and suspend user. Moderation history view showing all past actions with moderator name and timestamp. Statistics dashboard showing report volume by reason, average resolution time, and active violations.",
+        "priority": "medium",
+        "type": "frontend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The data model for content moderation supports the required workflow.",
-          "Relationships, constraints, and indexes for content moderation are defined correctly.",
-          "Schema changes for content moderation can be applied safely in target environments."
+          "Moderation queue shows pending reports with content preview and reporter details.",
+          "One-click actions (dismiss, remove, warn, suspend) update the report immediately.",
+          "Action history is filterable by moderator, action type, and date range.",
+          "Statistics dashboard shows charts for report volume and resolution metrics."
         ]
       },
       {
-        "title": "Testing Content Moderation Functionality",
-        "description": "Create and execute tests for content moderation. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Content Moderation Tests",
+        "description": "Test report creation for posts, comments, and users. Test duplicate report prevention. Test admin actions: dismiss (report resolved, content stays), remove (content hidden, violation notice shown), warn (warning count incremented), suspend (account locked at 3 warnings). Test that suspended users cannot log in. Test moderation queue filtering and pagination.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for content moderation.",
-          "Security, validation, and permission checks for content moderation are verified.",
-          "Regression coverage exists for the most important content moderation behaviors."
+          "All report target types (post, comment, user) are tested.",
+          "Three-warning suspension is triggered automatically.",
+          "Removed content shows violation notice to the author.",
+          "Suspended account login returns 403 with suspension message."
         ]
       }
     ],
     "FR-12": [
       {
-        "title": "Design Privacy Settings UI",
-        "description": "Design the user interface for privacy settings. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "UI design for privacy settings is complete and reviewable.",
-          "The privacy settings design is responsive and accessible.",
-          "The design for privacy settings aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Privacy Settings",
-        "description": "Implement the frontend behavior for privacy settings. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can set account to private; Users can control who can message them; Users can hide online status.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "Frontend implements the required privacy settings user interactions.",
-          "Validation, loading, and error states for privacy settings are handled in the UI.",
-          "Frontend behavior for privacy settings is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Privacy Settings",
-        "description": "Implement the backend logic for privacy settings. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can set account to private; Users can control who can message them; Users can hide online status.",
+        "title": "Build Privacy Controls API",
+        "description": "Create PATCH /api/users/me/privacy for updating privacy settings: isPrivate (public/private toggle), messagePermission (everyone/followers/none), showOnlineStatus, showLastSeen. Create POST /api/users/:userId/block and DELETE /api/users/:userId/block for blocking/unblocking. Blocking removes the follow relationship in both directions, hides all mutual content, and prevents all interactions. Create POST /api/users/:userId/mute and DELETE /api/users/:userId/mute for muting/unmuting (hides posts from feed without unfollowing).",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Backend logic for privacy settings is implemented and testable.",
-          "APIs and business rules for privacy settings enforce validation and security requirements.",
-          "Data handling for privacy settings is reliable and supports the required workflow."
+          "Setting account to private immediately requires follow approval for new followers.",
+          "Blocking removes mutual follows, hides content, and prevents search discovery.",
+          "Unblocking does not restore the previous follow relationship.",
+          "Muting hides posts from feed without changing the follow state.",
+          "Message permission 'none' prevents all incoming DM thread creation.",
+          "Online status and last seen are hidden when the respective setting is off."
         ]
       },
       {
-        "title": "Security Hardening for Privacy Settings",
-        "description": "Implement the security controls required for privacy settings. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
-        "priority": "high",
-        "type": "security",
+        "title": "Build Data Export API",
+        "description": "Create POST /api/users/me/data-export that queues a background job to compile all user data: profile info, all posts with media URLs, all comments, direct message history, followers and following lists, and settings. Package as a ZIP file, store temporarily in Cloud Storage, and email the user a download link valid for 48 hours. Limit export requests to once per 7 days.",
+        "priority": "low",
+        "type": "backend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Security controls for privacy settings enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for privacy settings are logged, validated, and protected against misuse.",
-          "The implementation of privacy settings satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "Export includes profile, posts, comments, messages, and relationships.",
+          "ZIP file is generated asynchronously without blocking the API.",
+          "Download link is emailed to the user and expires after 48 hours.",
+          "Repeated export requests within 7 days return 429 with next allowed date.",
+          "Temporary export files are cleaned up after link expiry."
         ]
       },
       {
-        "title": "Testing Privacy Settings Functionality",
-        "description": "Create and execute tests for privacy settings. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Privacy Settings UI",
+        "description": "Implement the React Native privacy settings screen with toggles for: private account, online status, last seen, and message permissions (segmented control: everyone/followers/none). Build the blocked users list with unblock buttons. Build the muted users list with unmute buttons. Add a data export request button with a confirmation dialog and a status indicator for pending exports.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Privacy toggle changes take effect immediately via API call.",
+          "Blocked and muted user lists load with pagination.",
+          "Unblock and unmute actions update the list immediately.",
+          "Data export button shows a confirmation and then a pending status.",
+          "Message permission segmented control correctly reflects and updates the setting."
+        ]
+      },
+      {
+        "title": "Write Privacy and Security Tests",
+        "description": "Test private account toggle and its effect on follow behavior. Test block/unblock: mutual follow removal, content hiding, search exclusion, interaction prevention. Test mute/unmute: feed exclusion without follow change. Test message permissions enforcement. Test data export generation, download link expiry, and rate limiting. Test online status and last seen hiding.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for privacy settings.",
-          "Security, validation, and permission checks for privacy settings are verified.",
-          "Regression coverage exists for the most important privacy settings behaviors."
+          "Block tests verify all side effects: follow removal, content hiding, search exclusion.",
+          "Mute tests verify feed exclusion without unfollowing.",
+          "Message permission tests verify enforcement for each setting level.",
+          "Data export tests verify ZIP content and download link lifecycle."
         ]
       }
     ]

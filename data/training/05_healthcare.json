@@ -1,843 +1,820 @@
 {
   "input": {
     "title": "Healthcare Patient Portal",
-    "description": "Healthcare Patient Portal is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "description": "A HIPAA-compliant web portal that enables patients to manage their healthcare experience online. Patients can register, book appointments with providers, access medical records and lab results, manage prescriptions, communicate securely with care teams, pay bills, and verify insurance coverage. The system integrates with existing Electronic Health Record (EHR) systems via HL7 FHIR APIs.",
     "technologies": [
       "Angular",
       "Spring Boot",
       "PostgreSQL"
     ],
     "actors": [
+      "Patient",
+      "Provider",
       "Admin",
-      "Manager",
-      "Employee",
-      "User"
+      "Lab Technician"
     ],
     "user_classes": {
-      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
-      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
-      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
-      "User": "Generic authenticated platform user with access limited by role and department."
+      "Patient": "Registered individual who accesses their health records, books appointments, communicates with providers, manages prescriptions, and pays medical bills through the portal.",
+      "Provider": "Licensed physician, nurse practitioner, or specialist who manages their schedule, reviews patient records, responds to messages, and writes prescriptions.",
+      "Admin": "Healthcare facility administrator who manages users, provider schedules, billing configuration, insurance integrations, and compliance settings.",
+      "Lab Technician": "Clinical staff who upload lab results and attach them to patient records for provider review and patient access."
     },
     "definitions": {
-      "Admin": "System user with full administrative privileges.",
-      "Manager": "Operational owner of a department, module, or workflow.",
-      "Employee": "End user performing role-specific business operations."
+      "PHI": "Protected Health Information — any individually identifiable health information that is subject to HIPAA privacy and security rules.",
+      "EHR": "Electronic Health Record — the digital system of record for patient health data, integrated via FHIR APIs.",
+      "FHIR": "Fast Healthcare Interoperability Resources — the standard API specification for exchanging healthcare data between systems.",
+      "Encounter": "A documented interaction between a patient and provider, including visit notes, diagnoses, and treatment plans.",
+      "Formulary": "The list of prescription medications covered by a patient's insurance plan."
     },
     "modules": [
-      "Patient Registration",
-      "Appointment Booking",
-      "Medical Records Access",
+      "Authentication and Identity Verification",
+      "Appointment Scheduling",
+      "Medical Records",
       "Prescription Management",
       "Secure Messaging",
-      "Lab Results Viewing",
+      "Lab Results",
       "Billing and Payments",
-      "Appointment Reminders",
+      "Notifications and Reminders",
       "Insurance Verification",
-      "Emergency Contact Management"
+      "Emergency Contacts and Advance Directives"
     ],
     "scope": [
-      "Patient Registration workflows",
-      "Appointment Booking workflows",
-      "Medical Records Access workflows",
-      "Prescription Management workflows",
-      "Secure Messaging workflows",
-      "Lab Results Viewing workflows"
+      "Patient self-registration with identity verification and HIPAA consent",
+      "Appointment booking with provider search, availability calendar, and visit type selection",
+      "Read access to medical records including encounter notes, diagnoses, allergies, and immunizations",
+      "Prescription viewing, refill requests, and pharmacy selection",
+      "HIPAA-compliant secure messaging between patients and care teams",
+      "Lab result viewing with abnormal value flagging and provider annotations",
+      "Online bill pay with itemized statements and insurance adjustment breakdowns",
+      "Automated appointment reminders via email, SMS, and in-app notifications",
+      "Real-time insurance eligibility verification via payer APIs",
+      "Emergency contact and advance directive management"
+    ],
+    "out_of_scope": [
+      "Telemedicine video visits (planned for Phase 2)",
+      "Provider-side clinical documentation and order entry",
+      "Pharmacy dispensing workflow",
+      "Clinical decision support and drug interaction checking",
+      "Medical device integration"
     ],
     "constraints": [
-      "Initial release will focus on the web platform only",
-      "Role-based access control is mandatory across all modules",
-      "Operational data must be auditable and retained according to policy"
+      "All PHI must be encrypted at rest (AES-256) and in transit (TLS 1.2+) per HIPAA Security Rule",
+      "Audit logs must record every access to PHI with user ID, timestamp, action, and resource accessed",
+      "Session timeout must enforce automatic logout after 15 minutes of inactivity",
+      "Multi-factor authentication is required for all patient and provider accounts",
+      "The portal must integrate with existing EHR systems via HL7 FHIR R4 APIs",
+      "Password requirements: minimum 12 characters, upper, lower, digit, special character",
+      "Data retention must comply with state-specific medical record retention laws (minimum 7 years)"
     ],
     "operating_environment": {
-      "frontend": "Web-based interface built with Angular and accessible through modern browsers.",
-      "backend": "Service layer implemented with Spring Boot, PostgreSQL for business operations.",
-      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+      "frontend": "Angular SPA deployed behind a WAF (Web Application Firewall) on a HIPAA-compliant hosting provider.",
+      "backend": "Spring Boot REST API deployed on AWS ECS with HIPAA BAA. Spring Security for authentication and authorization.",
+      "database": "PostgreSQL on AWS RDS with encryption at rest enabled. Transparent Data Encryption (TDE) for PHI columns.",
+      "integration": "HL7 FHIR R4 endpoints for EHR integration. Payer eligibility APIs for insurance verification. Stripe for payment processing with HIPAA-compliant configuration."
     },
-    "non_functional_requirements": {
-      "NFR-01": {
-        "title": "Security and Access Control",
-        "requirements": [
-          "All sensitive data must be encrypted in transit and at rest",
-          "Role-based authorization must restrict access by module and action",
-          "All authentication events and privileged actions must be logged"
-        ]
-      },
-      "NFR-02": {
-        "title": "Performance and Scalability",
-        "requirements": [
-          "Core pages and dashboards should load within acceptable enterprise SLAs",
-          "The platform must support concurrent usage across multiple departments",
-          "Background jobs and reporting workloads should not block transactional workflows"
-        ]
-      },
-      "NFR-03": {
-        "title": "Reliability and Recoverability",
-        "requirements": [
-          "Automated backups must run on a defined schedule",
-          "Critical workflows should support retry-safe processing and audit logging",
-          "Operational alerts should be generated for failures and degraded services"
-        ]
-      }
-    },
-    "system_attributes": {
-      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
-      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
-      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
-      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
-    },
-    "out_of_scope": [
-      "Native mobile applications in the first release",
-      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
-      "Non-core experimental modules outside the platform's operational workflows"
-    ],
     "functional_requirements": {
       "FR-01": {
-        "title": "Patient Registration",
+        "title": "Patient Registration and Identity Verification",
         "requirements": [
-          "Register with personal details and insurance info",
-          "Verify identity via email and phone",
-          "Upload ID documents for verification",
-          "Accept terms and privacy policy"
+          "Patients register with full legal name, date of birth, email, phone, and a government-issued ID upload for identity verification",
+          "Email and phone are verified via OTP before account activation",
+          "Password must meet HIPAA-strength requirements: 12+ characters with upper, lower, digit, and special character",
+          "Multi-factor authentication (MFA) is mandatory — patients choose between SMS OTP or authenticator app (TOTP)",
+          "Patient must review and digitally sign HIPAA consent and Notice of Privacy Practices during registration",
+          "Identity verification is reviewed and approved by admin before full portal access is granted",
+          "Patients can designate authorized representatives (e.g., parents for minors) with documented consent"
         ]
       },
       "FR-02": {
         "title": "Appointment Booking",
         "requirements": [
-          "View available time slots for each doctor",
-          "Book appointments by selecting doctor, date, and time",
-          "Confirmation email and SMS sent after booking",
-          "Cancel or reschedule at least 24 hours before"
+          "Patients can search for providers by name, specialty, location, and available dates",
+          "Provider profiles show name, credentials, specialties, bio, accepted insurance plans, and patient ratings",
+          "Available appointment slots are displayed in a calendar view based on provider schedule and visit type duration",
+          "Visit types include: new patient, follow-up, annual physical, urgent care, and specialist consultation",
+          "Patients select a slot, provide a reason for visit, and confirm the booking",
+          "Booking confirmation is sent via email and SMS with calendar attachment (ICS file)",
+          "Patients can reschedule or cancel appointments up to 24 hours before the scheduled time",
+          "No-show tracking: patients with 3+ no-shows in 12 months see a warning and may have booking restrictions"
         ]
       },
       "FR-03": {
         "title": "Medical Records Access",
         "requirements": [
-          "View complete medical history",
-          "Records include diagnoses, treatments, lab results",
-          "Records in reverse chronological order",
-          "Download records as PDF"
+          "Patients can view their medical record summary including: active diagnoses, allergies, medications, immunizations, and surgical history",
+          "Encounter history shows past visits with date, provider name, reason, diagnoses, and visit notes",
+          "Each record entry displays the data source (portal, EHR import, lab) and last updated timestamp",
+          "Patients can download their complete medical record as a FHIR-compliant JSON bundle or a human-readable PDF",
+          "Record access is restricted to the authenticated patient and their authorized representatives",
+          "Every access to medical records is logged in the HIPAA audit trail"
         ]
       },
       "FR-04": {
         "title": "Prescription Management",
         "requirements": [
-          "View current active prescriptions",
-          "Request refills for eligible prescriptions",
-          "Doctor approves refill requests",
-          "Track refill history"
+          "Patients can view all current and past prescriptions with medication name, dosage, frequency, prescribing provider, and refills remaining",
+          "Patients can request a prescription refill for eligible medications (refills remaining > 0 and not expired)",
+          "Refill requests are sent to the prescribing provider for approval",
+          "Patients can select or change their preferred pharmacy from a searchable list",
+          "Approved refills are sent electronically to the selected pharmacy via e-prescribing integration",
+          "Patients receive a notification when a refill is approved, denied, or ready for pickup",
+          "Controlled substance prescriptions require additional provider verification before refill approval"
         ]
       },
       "FR-05": {
         "title": "Secure Messaging",
         "requirements": [
-          "Send messages to assigned doctors",
-          "Support text and file attachments up to 5MB",
-          "All messages encrypted in transit and at rest",
-          "Doctors can reply from their dashboard"
+          "Patients can send secure messages to their assigned care team (primary provider, nurse, care coordinator)",
+          "Messages support text, file attachments (images, PDFs up to 10MB), and urgency level (routine, urgent)",
+          "Providers or care team members can respond from the provider portal",
+          "Messages are encrypted end-to-end and stored with AES-256 encryption at rest",
+          "Auto-reply is sent when a message is received outside of business hours with expected response time",
+          "Urgent messages trigger an alert notification to the provider's mobile device",
+          "Message threads are retained for the full medical record retention period (7+ years)"
         ]
       },
       "FR-06": {
         "title": "Lab Results Viewing",
         "requirements": [
-          "View lab test results with reference ranges",
-          "Results flagged if outside normal range",
-          "Historical trend charts for repeated tests",
-          "Share results with other providers"
+          "Lab results are imported from the lab system or EHR via FHIR APIs and appear on the patient's portal",
+          "Results display test name, value, reference range, units, and abnormal flag (high, low, critical)",
+          "Abnormal values are highlighted in red with a severity indicator",
+          "Providers can attach annotations or explanatory notes to lab results before patient release",
+          "A configurable hold period (default 3 days) allows providers to review results before patient access",
+          "Patients receive a notification when new lab results are available",
+          "Historical results for the same test type can be viewed as a trend chart over time"
         ]
       },
       "FR-07": {
         "title": "Billing and Payments",
         "requirements": [
-          "View outstanding invoices and payment history",
-          "Pay bills online via credit card or bank transfer",
-          "Download itemized billing statements",
-          "Set up payment plans for large bills"
+          "Patients can view itemized billing statements with procedure codes, charges, insurance adjustments, and patient responsibility",
+          "Outstanding balances are aggregated into a single 'Amount Due' with due date",
+          "Patients can pay online via credit card or bank account (ACH) through Stripe",
+          "Payment plans can be set up for balances over a configurable threshold (e.g., $500)",
+          "Payment receipts are generated and available for download as PDF",
+          "Patients can view payment history with date, amount, method, and receipt download",
+          "Insurance explanation of benefits (EOB) documents are viewable alongside billing statements"
         ]
       },
       "FR-08": {
-        "title": "Appointment Reminders",
+        "title": "Appointment Reminders and Notifications",
         "requirements": [
-          "Send reminder 24 hours before appointment",
-          "Send reminder 1 hour before appointment",
-          "Reminders via email and SMS",
-          "Include appointment details and location"
+          "Automated appointment reminders are sent 48 hours and 2 hours before the scheduled time",
+          "Reminders are delivered via email, SMS, and in-app notification based on patient preferences",
+          "Reminder includes date, time, provider name, location, and preparation instructions",
+          "Patients can confirm or cancel directly from the reminder notification",
+          "Notifications are also sent for: new messages, lab results available, prescription updates, and billing due dates",
+          "Notification preferences allow patients to enable or disable each channel and type independently"
         ]
       },
       "FR-09": {
-        "title": "Insurance Verification",
+        "title": "Insurance Eligibility Verification",
         "requirements": [
-          "Patients can add insurance provider details",
-          "System verifies insurance eligibility",
-          "Display coverage and copay information",
-          "Update insurance information as needed"
+          "Patients enter insurance information: payer name, member ID, group number, and upload card images",
+          "Real-time eligibility check is performed against the payer's API at booking time and at check-in",
+          "Verification returns: active/inactive status, coverage type, copay amounts, deductible remaining, and prior authorization requirements",
+          "Ineligible or expired insurance shows a clear alert with guidance on next steps",
+          "Insurance information is stored securely and linked to the patient's billing profile",
+          "Admin can configure payer API connections and mapping for each supported insurance provider"
         ]
       },
       "FR-10": {
-        "title": "Emergency Contact Management",
+        "title": "Emergency Contacts and Advance Directives",
         "requirements": [
-          "Add emergency contacts with name, phone, and relationship",
-          "Multiple emergency contacts allowed",
-          "Contacts accessible by medical staff in emergencies",
-          "Contacts can be updated or removed"
+          "Patients can manage a list of emergency contacts with name, relationship, phone, and priority order",
+          "At least one emergency contact is required to complete the patient profile",
+          "Patients can upload advance directive documents (living will, healthcare power of attorney) as PDF",
+          "Advance directives are flagged prominently on the patient's medical record for provider visibility",
+          "Patients can update or revoke advance directives with a date-stamped audit trail",
+          "Emergency contact information is accessible to providers during urgent care encounters"
         ]
       }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "HIPAA Compliance",
+        "requirements": [
+          "All PHI is encrypted at rest with AES-256 and in transit with TLS 1.2+",
+          "Comprehensive audit logs track every PHI access, modification, and disclosure",
+          "Session timeout after 15 minutes of inactivity with automatic logout",
+          "Annual security risk assessment documentation is supported by the system"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance",
+        "requirements": [
+          "Portal pages must load within 3 seconds including data fetch",
+          "Appointment availability calendar must return within 2 seconds",
+          "Insurance eligibility check must complete within 5 seconds"
+        ]
+      },
+      "NFR-03": {
+        "title": "Availability",
+        "requirements": [
+          "99.9% uptime SLA for the patient portal",
+          "Scheduled maintenance windows must be communicated 72 hours in advance",
+          "Automatic failover to a standby instance within 60 seconds"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Database replication with automatic failover. Transaction logging for all billing and clinical operations.",
+      "scalability": "Stateless Spring Boot instances behind a load balancer. Read replicas for medical record queries.",
+      "security": "HIPAA-compliant infrastructure with BAA. Column-level encryption for PHI. Role-based access control with audit logging. WAF protection against OWASP Top 10.",
+      "maintainability": "Spring Boot actuator for health monitoring. Flyway for database migrations. Centralized logging with ELK stack."
     }
   },
   "output": {
     "FR-01": [
       {
-        "title": "Design Patient Registration UI",
-        "description": "Design the user interface for patient registration. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "UI design for patient registration is complete and reviewable.",
-          "The patient registration design is responsive and accessible.",
-          "The design for patient registration aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Patient Registration",
-        "description": "Implement the frontend behavior for patient registration. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Register with personal details and insurance info; Verify identity via email and phone; Upload ID documents for verification.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Frontend implements the required patient registration user interactions.",
-          "Validation, loading, and error states for patient registration are handled in the UI.",
-          "Frontend behavior for patient registration is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Patient Registration",
-        "description": "Implement the backend logic for patient registration. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Register with personal details and insurance info; Verify identity via email and phone; Upload ID documents for verification.",
+        "title": "Build Patient Registration API with Identity Verification",
+        "description": "Create POST /api/patients/register accepting: fullName, dateOfBirth, email, phone, password, and governmentIdImage (file upload). Validate password strength (12+ chars, upper, lower, digit, special). Send OTP to both email and phone for dual verification. Store the patient with status 'pending_verification'. After OTP confirmation, change status to 'pending_identity_review'. Admin reviews uploaded ID and approves or rejects. Create POST /api/patients/register/consent for recording HIPAA consent and NPP digital signature with timestamp.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Backend logic for patient registration is implemented and testable.",
-          "APIs and business rules for patient registration enforce validation and security requirements.",
-          "Data handling for patient registration is reliable and supports the required workflow."
+          "Registration validates password meets all HIPAA requirements.",
+          "Both email and phone OTP must be verified before proceeding.",
+          "Government ID is stored in encrypted cloud storage, not in the database.",
+          "HIPAA consent records the signed timestamp and IP address.",
+          "Account remains restricted until admin approves identity verification.",
+          "Password hash uses bcrypt with cost factor 12 or higher."
         ]
       },
       {
-        "title": "Database Design for Patient Registration",
-        "description": "Design the data model and persistence strategy for patient registration. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "The data model for patient registration supports the required workflow.",
-          "Relationships, constraints, and indexes for patient registration are defined correctly.",
-          "Schema changes for patient registration can be applied safely in target environments."
-        ]
-      },
-      {
-        "title": "Security Hardening for Patient Registration",
-        "description": "Implement the security controls required for patient registration. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "title": "Implement Multi-Factor Authentication",
+        "description": "Build MFA enrollment during registration: patient chooses SMS OTP or TOTP authenticator app. For TOTP, generate a secret key and display a QR code for scanning with Google Authenticator or similar. On every login after password verification, require the second factor. Create Spring Security filter that intercepts login and enforces MFA before issuing the session token. Support backup codes (10 single-use codes) for account recovery.",
         "priority": "high",
         "type": "security",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Security controls for patient registration enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for patient registration are logged, validated, and protected against misuse.",
-          "The implementation of patient registration satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "MFA is required on every login — no bypass option.",
+          "TOTP QR code is generated and scannable by standard authenticator apps.",
+          "SMS OTP is sent via the configured SMS provider and expires in 5 minutes.",
+          "Backup codes are generated, hashed, and each can only be used once.",
+          "Failed MFA attempts are logged and trigger lockout after 5 failures."
         ]
       },
       {
-        "title": "Integrate Patient Registration with External Services",
-        "description": "Integrate patient registration with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
-        "priority": "medium",
-        "type": "integration",
+        "title": "Build Registration and Login UI",
+        "description": "Implement Angular pages: multi-step registration form (personal info → password → ID upload → OTP verification → HIPAA consent with full text and checkbox → MFA setup with QR code or SMS choice). Login page with email/password form, MFA prompt screen (TOTP input or SMS code), and backup code entry option. Session timeout warning dialog appearing at 13 minutes with 'Stay Logged In' button. Automatic logout at 15 minutes with redirect to login.",
+        "priority": "high",
+        "type": "frontend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "External or cross-system integrations required by patient registration exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for patient registration integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by patient registration are configured and secured correctly."
+          "Registration stepper validates each step before allowing progression.",
+          "ID upload accepts JPEG/PNG with preview and reupload option.",
+          "HIPAA consent displays full legal text with mandatory checkbox.",
+          "MFA setup shows QR code with copyable secret key as fallback.",
+          "Session timeout warning appears at 13 minutes with countdown."
         ]
       },
       {
-        "title": "Testing Patient Registration Functionality",
-        "description": "Create and execute tests for patient registration. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Authorized Representative Management",
+        "description": "Create CRUD endpoints for /api/patients/me/representatives: POST (add representative with name, relationship, email, phone, consent document upload), GET (list), DELETE (revoke). Representatives must accept an email invitation and complete their own registration with MFA. When active, representatives can access the patient's portal with a 'viewing as representative' banner. All representative access is logged separately in the audit trail.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Representative invitation requires consent document upload.",
+          "Representatives must register with MFA before getting access.",
+          "Representative access is clearly labeled in the UI and audit logs.",
+          "Revoking a representative immediately terminates their access.",
+          "Audit trail distinguishes patient access from representative access."
+        ]
+      },
+      {
+        "title": "Create Patients and Auth Schema",
+        "description": "Define JPA entities: Patient (id UUID, fullName (encrypted), dateOfBirth (encrypted), email (encrypted, unique), phone (encrypted, unique), passwordHash, status ENUM(pending_verification/pending_identity_review/active/suspended), mfaMethod ENUM(sms/totp), mfaSecret (encrypted), backupCodes (encrypted JSON), hipaaConsentSignedAt, consentIpAddress, governmentIdStorageKey, createdAt, updatedAt). AuthorizedRepresentative (id, patientId FK, name, relationship, email, status, consentDocKey, createdAt). Create Flyway migrations with column-level encryption for all PHI fields.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "All PHI columns use AES-256 encryption via JPA attribute converters.",
+          "Email and phone have unique constraints on their encrypted values.",
+          "MFA secret is encrypted at rest — never stored in plaintext.",
+          "Flyway migration applies encryption to existing data if migrating.",
+          "Indexes work with encrypted columns via hash-based lookup columns."
+        ]
+      },
+      {
+        "title": "Implement HIPAA Audit Logging",
+        "description": "Build a Spring AOP aspect that intercepts all API calls accessing PHI. Log to a dedicated audit_log table: userId, userRole, action (view/create/update/delete), resourceType (patient/record/message/lab), resourceId, ipAddress, userAgent, timestamp. Audit logs are append-only — no updates or deletes allowed. Create GET /api/admin/audit-logs with filtering by user, resource, action, and date range. Audit logs are retained indefinitely (minimum 7 years per policy).",
+        "priority": "high",
+        "type": "security",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Every PHI access generates an audit log entry automatically.",
+          "Audit logs cannot be modified or deleted (append-only table).",
+          "Admin can search and filter audit logs by user, resource, and date.",
+          "Audit log includes IP address and user agent for forensics.",
+          "Database user for audit table has INSERT-only permissions."
+        ]
+      },
+      {
+        "title": "Write Registration and Auth Tests",
+        "description": "Test registration with valid data, password strength validation (all rules), email and phone OTP verification, identity verification admin approval and rejection, MFA enrollment (TOTP and SMS), MFA login enforcement, backup code usage, session timeout at 15 minutes, representative invitation and access, HIPAA consent recording, and audit log generation for all auth events.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for patient registration.",
-          "Security, validation, and permission checks for patient registration are verified.",
-          "Regression coverage exists for the most important patient registration behaviors."
+          "Password tests cover all HIPAA requirements individually.",
+          "MFA tests verify both TOTP and SMS pathways.",
+          "Session timeout test confirms logout at exactly 15 minutes.",
+          "Audit tests verify log entries for registration, login, and MFA events."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Design Appointment Booking UI",
-        "description": "Design the user interface for appointment booking. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "UI design for appointment booking is complete and reviewable.",
-          "The appointment booking design is responsive and accessible.",
-          "The design for appointment booking aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Appointment Booking",
-        "description": "Implement the frontend behavior for appointment booking. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View available time slots for each doctor; Book appointments by selecting doctor, date, and time; Confirmation email and SMS sent after booking.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Frontend implements the required appointment booking user interactions.",
-          "Validation, loading, and error states for appointment booking are handled in the UI.",
-          "Frontend behavior for appointment booking is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Appointment Booking",
-        "description": "Implement the backend logic for appointment booking. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View available time slots for each doctor; Book appointments by selecting doctor, date, and time; Confirmation email and SMS sent after booking.",
+        "title": "Build Provider Search and Availability API",
+        "description": "Create GET /api/providers with filters: name (partial match), specialty, location (zip code with radius), acceptedInsurance, and availableDate. Each provider returns: name, credentials, specialties, bio, photo, accepted insurance list, and average patient rating. Create GET /api/providers/:id/availability?visitType=&startDate=&endDate= that returns available 15/30/60-minute slots based on the provider's schedule template minus booked appointments. Visit type durations: new patient (60min), follow-up (30min), annual physical (60min), urgent (30min), specialist (45min).",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Backend logic for appointment booking is implemented and testable.",
-          "APIs and business rules for appointment booking enforce validation and security requirements.",
-          "Data handling for appointment booking is reliable and supports the required workflow."
+          "Provider search returns results matching all applied filters.",
+          "Availability excludes already-booked slots and blocked time.",
+          "Slot duration varies by visit type (30, 45, or 60 minutes).",
+          "Availability spans provider's configured working hours only.",
+          "Search by zip code returns providers within a configurable radius."
         ]
       },
       {
-        "title": "Database Design for Appointment Booking",
-        "description": "Design the data model and persistence strategy for appointment booking. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Appointment Booking API",
+        "description": "Create POST /api/appointments accepting: providerId, slotDateTime, visitType, reasonForVisit. Validate slot is still available (prevent double-booking with optimistic locking). Create the appointment with status 'confirmed'. Send confirmation via email (with ICS attachment) and SMS. Create PATCH /api/appointments/:id for rescheduling (only if ≥24h before appointment). Create DELETE /api/appointments/:id for cancellation (only if ≥24h before). Track no-shows per patient and enforce booking restrictions after 3 no-shows in 12 months.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Double-booking the same slot returns 409 Conflict.",
+          "Confirmation email includes an ICS calendar attachment.",
+          "Rescheduling within 24 hours of appointment returns 400.",
+          "Cancellation within 24 hours of appointment returns 400.",
+          "Patient with 3+ no-shows sees a warning and has restricted booking.",
+          "All booking actions are logged in the audit trail."
+        ]
+      },
+      {
+        "title": "Build Appointment Booking UI",
+        "description": "Implement Angular pages: provider search with filters sidebar (specialty dropdown, insurance multiselect, location input), provider cards with photo, credentials, and rating. Provider detail page with bio and availability calendar. Calendar shows available slots color-coded by visit type. Booking flow: select slot → enter reason → confirm. My appointments page showing upcoming and past appointments with reschedule/cancel buttons (disabled within 24h). No-show warning banner for patients near the threshold.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Provider search filters update results dynamically.",
+          "Calendar shows only available slots for the selected visit type.",
+          "Booking confirmation shows a summary with edit option before submitting.",
+          "Reschedule/cancel buttons are disabled within 24 hours of appointment.",
+          "No-show warning banner is prominent for patients with 2+ no-shows."
+        ]
+      },
+      {
+        "title": "Create Appointments and Providers Schema",
+        "description": "Define JPA entities: Provider (id, userId FK, specialties JSON, credentials, bio, photoUrl, acceptedInsurancePlans JSON, locationZip, avgRating). ProviderSchedule (id, providerId FK, dayOfWeek, startTime, endTime, slotDurationMinutes). Appointment (id, patientId FK, providerId FK, slotDateTime, endDateTime, visitType ENUM, reasonForVisit, status ENUM(confirmed/rescheduled/cancelled/completed/no_show), createdAt). Create index on (providerId, slotDateTime) for availability queries. Create Flyway migrations.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The data model for appointment booking supports the required workflow.",
-          "Relationships, constraints, and indexes for appointment booking are defined correctly.",
-          "Schema changes for appointment booking can be applied safely in target environments."
+          "Compound index on (providerId, slotDateTime) prevents double-booking.",
+          "Provider schedule supports different hours per day of week.",
+          "Appointment status tracks the full lifecycle including no-shows.",
+          "reasonForVisit is encrypted as it may contain PHI."
         ]
       },
       {
-        "title": "Integrate Appointment Booking with External Services",
-        "description": "Integrate appointment booking with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
-        "priority": "medium",
-        "type": "integration",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "External or cross-system integrations required by appointment booking exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for appointment booking integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by appointment booking are configured and secured correctly."
-        ]
-      },
-      {
-        "title": "Testing Appointment Booking Functionality",
-        "description": "Create and execute tests for appointment booking. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Appointment Booking Tests",
+        "description": "Test provider search with all filter combinations, availability calculation (working hours minus booked), slot booking with optimistic locking (concurrent booking test), confirmation email with ICS, rescheduling within and outside 24-hour window, cancellation rules, no-show tracking and booking restriction enforcement, and audit logging for all booking actions.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for appointment booking.",
-          "Security, validation, and permission checks for appointment booking are verified.",
-          "Regression coverage exists for the most important appointment booking behaviors."
+          "Concurrent booking test confirms only one succeeds for the same slot.",
+          "Availability tests verify correct slots based on schedule and existing bookings.",
+          "24-hour restriction tests verify enforcement for both reschedule and cancel.",
+          "No-show restriction test confirms booking blocked after 3 incidents."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Design Medical Records Access UI",
-        "description": "Design the user interface for medical records access. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "UI design for medical records access is complete and reviewable.",
-          "The medical records access design is responsive and accessible.",
-          "The design for medical records access aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Medical Records Access",
-        "description": "Implement the frontend behavior for medical records access. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View complete medical history; Records include diagnoses, treatments, lab results; Records in reverse chronological order.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Frontend implements the required medical records access user interactions.",
-          "Validation, loading, and error states for medical records access are handled in the UI.",
-          "Frontend behavior for medical records access is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Medical Records Access",
-        "description": "Implement the backend logic for medical records access. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View complete medical history; Records include diagnoses, treatments, lab results; Records in reverse chronological order.",
+        "title": "Build Medical Records API with FHIR Integration",
+        "description": "Create GET /api/patients/me/medical-record returning a summary: activeDiagnoses (ICD-10 code, description, diagnosedDate), allergies (substance, reaction, severity), medications (name, dosage, frequency, prescriber), immunizations (vaccine, date, lot number), and surgicalHistory (procedure, date, provider). Data is aggregated from the local database and the EHR system via FHIR Patient/$summary operation. Create GET /api/patients/me/encounters (paginated list of past visits). Create GET /api/patients/me/medical-record/export?format=fhir|pdf for download.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Backend logic for medical records access is implemented and testable.",
-          "APIs and business rules for medical records access enforce validation and security requirements.",
-          "Data handling for medical records access is reliable and supports the required workflow."
+          "Medical summary aggregates data from local DB and EHR FHIR API.",
+          "Each record entry shows its data source (portal, EHR, lab).",
+          "FHIR export returns a valid FHIR R4 Bundle in JSON format.",
+          "PDF export generates a human-readable document with all sections.",
+          "Access is restricted to the authenticated patient and authorized representatives.",
+          "Every record access generates a HIPAA audit log entry."
         ]
       },
       {
-        "title": "Database Design for Medical Records Access",
-        "description": "Design the data model and persistence strategy for medical records access. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Medical Records UI",
+        "description": "Implement the Angular medical records page: tabbed view with sections for Diagnoses, Allergies, Medications, Immunizations, and Surgical History. Each section shows a table with sortable columns. Encounter history shows a timeline of past visits with expandable details (provider, reason, diagnoses, notes). Export buttons for FHIR JSON and PDF downloads. Provider name and data source badge on each entry. Last updated timestamp on each section.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The data model for medical records access supports the required workflow.",
-          "Relationships, constraints, and indexes for medical records access are defined correctly.",
-          "Schema changes for medical records access can be applied safely in target environments."
+          "All five record sections display with correct data and sorting.",
+          "Encounter timeline shows visits in reverse chronological order.",
+          "Export buttons generate downloads in the selected format.",
+          "Data source badges distinguish local, EHR, and lab origins.",
+          "Loading states show while fetching from EHR integration."
         ]
       },
       {
-        "title": "Security Hardening for Medical Records Access",
-        "description": "Implement the security controls required for medical records access. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "title": "Configure EHR FHIR Integration",
+        "description": "Implement a Spring Boot FHIR client using HAPI FHIR library to connect to the facility's EHR system. Configure OAuth2 client credentials flow for FHIR API authentication. Map FHIR resources (Patient, Condition, AllergyIntolerance, MedicationStatement, Immunization, Procedure, Encounter) to portal domain models. Implement caching (Redis, 15-minute TTL) to reduce EHR API call volume. Handle EHR downtime with graceful degradation (show local data with 'EHR unavailable' warning).",
         "priority": "high",
-        "type": "security",
+        "type": "integration",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Security controls for medical records access enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for medical records access are logged, validated, and protected against misuse.",
-          "The implementation of medical records access satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "FHIR client authenticates with OAuth2 and retrieves patient resources.",
+          "All required FHIR resource types are mapped to portal models.",
+          "Cached responses reduce EHR API calls for repeated requests.",
+          "EHR downtime shows local data with a degradation warning.",
+          "FHIR API errors are logged and do not crash the portal."
         ]
       },
       {
-        "title": "Testing Medical Records Access Functionality",
-        "description": "Create and execute tests for medical records access. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Medical Records Tests",
+        "description": "Test medical summary aggregation from local and FHIR sources, encounter history pagination, FHIR export bundle validity, PDF export content completeness, access control (own records only, representative access), audit log generation on every access, and EHR integration degradation when FHIR API is unavailable.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for medical records access.",
-          "Security, validation, and permission checks for medical records access are verified.",
-          "Regression coverage exists for the most important medical records access behaviors."
+          "Aggregation tests verify merged data from local DB and FHIR mock.",
+          "FHIR export test validates the output against FHIR R4 schema.",
+          "Access control tests verify patient isolation and representative access.",
+          "Degradation test confirms portal functions with local data when EHR is down."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Design Prescription Management UI",
-        "description": "Design the user interface for prescription management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "UI design for prescription management is complete and reviewable.",
-          "The prescription management design is responsive and accessible.",
-          "The design for prescription management aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Prescription Management",
-        "description": "Implement the frontend behavior for prescription management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View current active prescriptions; Request refills for eligible prescriptions; Doctor approves refill requests.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Frontend implements the required prescription management user interactions.",
-          "Validation, loading, and error states for prescription management are handled in the UI.",
-          "Frontend behavior for prescription management is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Prescription Management",
-        "description": "Implement the backend logic for prescription management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View current active prescriptions; Request refills for eligible prescriptions; Doctor approves refill requests.",
+        "title": "Build Prescription Management API",
+        "description": "Create GET /api/patients/me/prescriptions returning current and past prescriptions (medication name, dosage, frequency, prescriberId, pharmacyId, refillsRemaining, expirationDate, status, lastFilledDate). Create POST /api/prescriptions/:id/refill-request validating refills remaining > 0, not expired, and not a controlled substance (or flag for additional verification). Refill requests go to the provider's queue. Create PATCH /api/prescriptions/:id/refill-response (provider: approve or deny with reason). On approval, send e-prescribing message to the selected pharmacy.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Backend logic for prescription management is implemented and testable.",
-          "APIs and business rules for prescription management enforce validation and security requirements.",
-          "Data handling for prescription management is reliable and supports the required workflow."
+          "Prescription list includes both active and historical prescriptions.",
+          "Refill request validates eligibility (refills remaining, not expired).",
+          "Controlled substance refills are flagged for additional provider review.",
+          "Approved refills trigger e-prescribing to the patient's pharmacy.",
+          "Provider can deny with a reason that is visible to the patient.",
+          "All prescription access is audit-logged."
         ]
       },
       {
-        "title": "Testing Prescription Management Functionality",
-        "description": "Create and execute tests for prescription management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Pharmacy Selection API",
+        "description": "Create GET /api/pharmacies?zip=&name= that searches pharmacies by location or name. Create PATCH /api/patients/me/pharmacy to set or change the preferred pharmacy. Pharmacy data includes: name, address, phone, hours, and supported e-prescribing network. When a patient changes their pharmacy, all future refills route to the new pharmacy.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Pharmacy search returns results by zip code proximity or name match.",
+          "Setting a preferred pharmacy updates the patient's profile.",
+          "Pharmacy details include operating hours and network support.",
+          "Pharmacy change applies to all future refill approvals."
+        ]
+      },
+      {
+        "title": "Build Prescription Management UI",
+        "description": "Implement the Angular prescriptions page: current medications table with name, dosage, frequency, refills remaining, and actions column. 'Request Refill' button (disabled if no refills or expired). Refill request confirmation dialog showing medication details and pharmacy. Past prescriptions tab showing historical data. Pharmacy selector with search, current pharmacy display, and change button. Notification banners for approved/denied refills. Controlled substance badge on applicable medications.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Current medications table shows all active prescriptions with status.",
+          "Refill button is disabled with tooltip explaining why when ineligible.",
+          "Controlled substance badge is visually distinct with an info tooltip.",
+          "Pharmacy selector shows current pharmacy and allows search for alternatives.",
+          "Notification banner appears for refill status updates."
+        ]
+      },
+      {
+        "title": "Configure E-Prescribing Integration",
+        "description": "Set up integration with the Surescripts or equivalent e-prescribing network. Implement the NCPDP SCRIPT standard for sending prescription messages to pharmacies. Configure API credentials and endpoint routing. Handle pharmacy not-found and network errors with fallback to fax notification. Log all e-prescribing transactions for compliance auditing.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Approved refills are transmitted electronically to the pharmacy.",
+          "Transmission failures fall back to fax or provider notification.",
+          "All e-prescribing transactions are logged with timestamps and status.",
+          "Controlled substance transmissions include required DEA identifiers.",
+          "Network errors do not block the provider's workflow."
+        ]
+      },
+      {
+        "title": "Write Prescription Management Tests",
+        "description": "Test prescription listing (active and historical), refill request validation (eligible, no refills, expired, controlled substance), provider approval and denial, e-prescribing transmission on approval, pharmacy selection and change, controlled substance additional verification, and audit logging for all prescription access.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for prescription management.",
-          "Security, validation, and permission checks for prescription management are verified.",
-          "Regression coverage exists for the most important prescription management behaviors."
+          "Refill eligibility tests cover all validation rules.",
+          "Controlled substance tests verify additional verification flow.",
+          "E-prescribing tests verify transmission with mock pharmacy endpoint.",
+          "Audit tests verify log entries for view, request, and approval actions."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Design Secure Messaging UI",
-        "description": "Design the user interface for secure messaging. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "UI design for secure messaging is complete and reviewable.",
-          "The secure messaging design is responsive and accessible.",
-          "The design for secure messaging aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Secure Messaging",
-        "description": "Implement the frontend behavior for secure messaging. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Send messages to assigned doctors; Support text and file attachments up to 5MB; All messages encrypted in transit and at rest.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Frontend implements the required secure messaging user interactions.",
-          "Validation, loading, and error states for secure messaging are handled in the UI.",
-          "Frontend behavior for secure messaging is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Secure Messaging",
-        "description": "Implement the backend logic for secure messaging. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Send messages to assigned doctors; Support text and file attachments up to 5MB; All messages encrypted in transit and at rest.",
+        "title": "Build Secure Messaging API",
+        "description": "Create POST /api/messages with recipientId (provider or care team member), subject, body, urgencyLevel (routine/urgent), and optional file attachment (max 10MB, stored encrypted in S3). Messages are encrypted with AES-256 before database storage. Create GET /api/messages/threads (list conversations) and GET /api/messages/threads/:id (full thread). Implement auto-reply for messages received outside business hours. Urgent messages trigger a push notification to the provider. All message access is audit-logged.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Backend logic for secure messaging is implemented and testable.",
-          "APIs and business rules for secure messaging enforce validation and security requirements.",
-          "Data handling for secure messaging is reliable and supports the required workflow."
+          "Message body is encrypted at rest with AES-256.",
+          "File attachments are encrypted in S3 with signed download URLs.",
+          "Urgent messages trigger push notification to the provider.",
+          "Auto-reply is sent for messages outside business hours with expected response time.",
+          "Message access by either party is audit-logged.",
+          "Messages are retained for the full retention period (7+ years)."
         ]
       },
       {
-        "title": "Testing Secure Messaging Functionality",
-        "description": "Create and execute tests for secure messaging. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Secure Messaging UI",
+        "description": "Implement the Angular messaging interface: inbox view with threads sorted by most recent, showing recipient name, subject, last message preview, urgency badge, and unread indicator. Thread detail view with message bubbles, timestamps, and attachment download links. Compose form with recipient selector (care team members), subject, rich text body, urgency toggle, and file attachment upload. Auto-reply notice displayed when messaging outside business hours. Unread count badge in the navigation.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Inbox sorts threads by most recent message with unread indicators.",
+          "Urgent messages show a red urgency badge in the inbox.",
+          "File attachments show filename and size with download button.",
+          "Compose form validates recipient and subject before enabling send.",
+          "Auto-reply notice is informational and does not block sending."
+        ]
+      },
+      {
+        "title": "Write Secure Messaging Tests",
+        "description": "Test message sending and receiving, encryption at rest verification (verify stored data is not plaintext), file attachment upload and encrypted download, urgency-based notification triggering, auto-reply for out-of-hours messages, message retention, thread pagination, and audit logging for all message access.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for secure messaging.",
-          "Security, validation, and permission checks for secure messaging are verified.",
-          "Regression coverage exists for the most important secure messaging behaviors."
+          "Encryption test verifies database-stored message body is ciphertext.",
+          "Attachment test verifies encrypted storage and signed URL access.",
+          "Urgency test verifies push notification for urgent messages only.",
+          "Audit test verifies log entries for send, read, and attachment download."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Design Lab Results Viewing UI",
-        "description": "Design the user interface for lab results viewing. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "UI design for lab results viewing is complete and reviewable.",
-          "The lab results viewing design is responsive and accessible.",
-          "The design for lab results viewing aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Lab Results Viewing",
-        "description": "Implement the frontend behavior for lab results viewing. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View lab test results with reference ranges; Results flagged if outside normal range; Historical trend charts for repeated tests.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Frontend implements the required lab results viewing user interactions.",
-          "Validation, loading, and error states for lab results viewing are handled in the UI.",
-          "Frontend behavior for lab results viewing is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Lab Results Viewing",
-        "description": "Implement the backend logic for lab results viewing. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View lab test results with reference ranges; Results flagged if outside normal range; Historical trend charts for repeated tests.",
+        "title": "Build Lab Results API with Hold Period",
+        "description": "Create an internal endpoint POST /api/lab-results (used by lab system integration) to import results: patientId, testName, testCode (LOINC), value, units, referenceRange, abnormalFlag (normal/high/low/critical), collectedDate, reportedDate. Results are created with status 'pending_review' and a configurable hold period (default 3 days). Providers can add annotations via PATCH /api/lab-results/:id/annotate and release early via POST /api/lab-results/:id/release. After hold period or early release, status changes to 'available' and patient is notified. Create GET /api/patients/me/lab-results and GET /api/patients/me/lab-results/trend?testCode= for historical chart data.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Backend logic for lab results viewing is implemented and testable.",
-          "APIs and business rules for lab results viewing enforce validation and security requirements.",
-          "Data handling for lab results viewing is reliable and supports the required workflow."
+          "Lab results are held for the configured period before patient access.",
+          "Provider can annotate with explanatory notes before release.",
+          "Provider can release results early if reviewed.",
+          "Patient is notified when results become available.",
+          "Trend API returns historical values for the same LOINC code.",
+          "Abnormal values are flagged with severity level.",
+          "All lab result access is audit-logged."
         ]
       },
       {
-        "title": "Testing Lab Results Viewing Functionality",
-        "description": "Create and execute tests for lab results viewing. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Lab Results UI",
+        "description": "Implement the Angular lab results page: results table with test name, value, reference range, abnormal flag (color-coded: green normal, orange high/low, red critical), date, and provider annotation. Filter by date range and test category. Trend chart view for a selected test showing historical values with the reference range as shaded bands. Abnormal values have tooltip explanations. New results badge notification. Table supports sorting by date, test name, and abnormal status.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Abnormal values are color-coded: green normal, orange high/low, red critical.",
+          "Trend chart shows historical values with reference range bands.",
+          "Provider annotations appear as expandable notes below the result.",
+          "New (unread) results show a badge indicator.",
+          "Table sorting and date filtering work correctly."
+        ]
+      },
+      {
+        "title": "Configure Lab System FHIR Integration",
+        "description": "Implement a FHIR listener endpoint that receives DiagnosticReport and Observation resources from the lab system via FHIR subscription or batch import. Map LOINC codes to display-friendly test names. Handle result updates (amended results) by versioning. Configure the FHIR endpoint with OAuth2 authentication. Implement retry logic for failed imports.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "FHIR DiagnosticReport and Observation resources are correctly mapped.",
+          "LOINC codes resolve to human-readable test names.",
+          "Amended results update the existing record with version history.",
+          "FHIR endpoint authenticates incoming requests with OAuth2.",
+          "Failed imports are retried up to 3 times with exponential backoff."
+        ]
+      },
+      {
+        "title": "Write Lab Results Tests",
+        "description": "Test result import and hold period enforcement, provider annotation and early release, patient notification on availability, abnormal flag display, trend data calculation for historical values, FHIR resource mapping, amended result versioning, and audit logging for all result access.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for lab results viewing.",
-          "Security, validation, and permission checks for lab results viewing are verified.",
-          "Regression coverage exists for the most important lab results viewing behaviors."
+          "Hold period test confirms results are hidden from patient during hold.",
+          "Early release test confirms immediate patient access after provider action.",
+          "Trend test verifies correct data points for historical chart.",
+          "Amended result test verifies version history is maintained."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Design Billing and Payments UI",
-        "description": "Design the user interface for billing and payments. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "UI design for billing and payments is complete and reviewable.",
-          "The billing and payments design is responsive and accessible.",
-          "The design for billing and payments aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Billing and Payments",
-        "description": "Implement the frontend behavior for billing and payments. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View outstanding invoices and payment history; Pay bills online via credit card or bank transfer; Download itemized billing statements.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Frontend implements the required billing and payments user interactions.",
-          "Validation, loading, and error states for billing and payments are handled in the UI.",
-          "Frontend behavior for billing and payments is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Billing and Payments",
-        "description": "Implement the backend logic for billing and payments. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View outstanding invoices and payment history; Pay bills online via credit card or bank transfer; Download itemized billing statements.",
+        "title": "Build Billing and Payments API",
+        "description": "Create GET /api/patients/me/billing/statements (paginated list of billing statements with procedureCode, description, charges, insuranceAdjustments, patientResponsibility, status). Create GET /api/patients/me/billing/balance returning aggregated amount due with due date. Create POST /api/patients/me/billing/pay with Stripe PaymentIntent for card or ACH. Create POST /api/patients/me/billing/payment-plan for balances over threshold — configure installment amount and frequency. Generate PDF receipts on successful payment. Create GET /api/patients/me/billing/history for payment records with receipt downloads.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Backend logic for billing and payments is implemented and testable.",
-          "APIs and business rules for billing and payments enforce validation and security requirements.",
-          "Data handling for billing and payments is reliable and supports the required workflow."
+          "Statements show itemized charges with insurance adjustments.",
+          "Balance aggregates all outstanding patient responsibility amounts.",
+          "Payment creates a Stripe PaymentIntent with the correct amount.",
+          "Payment plans split the balance into scheduled installments.",
+          "PDF receipt is generated and stored for each successful payment.",
+          "All billing access is audit-logged."
         ]
       },
       {
-        "title": "Database Design for Billing and Payments",
-        "description": "Design the data model and persistence strategy for billing and payments. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Billing and Payments UI",
+        "description": "Implement Angular billing pages: billing summary showing amount due with pay button, itemized statements table with expandable rows showing charges/adjustments/EOB, payment form with saved cards and add-new-card option, payment plan setup wizard for large balances, payment history table with receipt PDF download links. EOB documents displayed alongside corresponding billing statements. Amount-due banner appears on dashboard when balance is overdue.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The data model for billing and payments supports the required workflow.",
-          "Relationships, constraints, and indexes for billing and payments are defined correctly.",
-          "Schema changes for billing and payments can be applied safely in target environments."
+          "Billing summary prominently shows amount due and due date.",
+          "Itemized view expands to show individual charges and adjustments.",
+          "Payment form with Stripe Elements validates card input.",
+          "Payment plan wizard shows installment schedule before confirmation.",
+          "Receipt PDFs download correctly from payment history."
         ]
       },
       {
-        "title": "Integrate Billing and Payments with External Services",
-        "description": "Integrate billing and payments with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
+        "title": "Write Billing and Payment Tests",
+        "description": "Test statement retrieval with itemized charges, balance calculation across multiple statements, payment with card and ACH, payment plan creation and installment scheduling, refund processing, PDF receipt generation, payment history pagination, and EOB document linking.",
         "priority": "medium",
-        "type": "integration",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "External or cross-system integrations required by billing and payments exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for billing and payments integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by billing and payments are configured and secured correctly."
-        ]
-      },
-      {
-        "title": "Testing Billing and Payments Functionality",
-        "description": "Create and execute tests for billing and payments. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for billing and payments.",
-          "Security, validation, and permission checks for billing and payments are verified.",
-          "Regression coverage exists for the most important billing and payments behaviors."
+          "Balance tests verify correct aggregation across statements.",
+          "Payment tests verify Stripe PaymentIntent with mock.",
+          "Payment plan tests verify installment schedule calculation.",
+          "Receipt tests verify PDF generation with correct transaction details."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Design Appointment Reminders UI",
-        "description": "Design the user interface for appointment reminders. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "UI design for appointment reminders is complete and reviewable.",
-          "The appointment reminders design is responsive and accessible.",
-          "The design for appointment reminders aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Appointment Reminders",
-        "description": "Implement the frontend behavior for appointment reminders. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Send reminder 24 hours before appointment; Send reminder 1 hour before appointment; Reminders via email and SMS.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Frontend implements the required appointment reminders user interactions.",
-          "Validation, loading, and error states for appointment reminders are handled in the UI.",
-          "Frontend behavior for appointment reminders is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Appointment Reminders",
-        "description": "Implement the backend logic for appointment reminders. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Send reminder 24 hours before appointment; Send reminder 1 hour before appointment; Reminders via email and SMS.",
-        "priority": "high",
+        "title": "Build Appointment Reminder System",
+        "description": "Implement a Spring Boot scheduled task that runs every 15 minutes checking for appointments due for 48-hour and 2-hour reminders. Send reminders via the patient's preferred channels (email, SMS, in-app push). Email includes date, time, provider, location, and preparation instructions specific to the visit type. Include confirm/cancel deep links in email and SMS. Track reminder delivery status. Create GET/PATCH /api/patients/me/notification-preferences for managing channel and type preferences.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Backend logic for appointment reminders is implemented and testable.",
-          "APIs and business rules for appointment reminders enforce validation and security requirements.",
-          "Data handling for appointment reminders is reliable and supports the required workflow."
+          "48-hour and 2-hour reminders are sent at the correct times.",
+          "Reminders respect patient channel preferences (email, SMS, push).",
+          "Confirm deep link updates appointment status to 'confirmed'.",
+          "Cancel deep link initiates cancellation if within the allowed window.",
+          "Reminders are not sent for already-cancelled appointments.",
+          "Visit-type-specific preparation instructions are included."
         ]
       },
       {
-        "title": "Integrate Appointment Reminders with External Services",
-        "description": "Integrate appointment reminders with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
+        "title": "Build Notifications Center UI",
+        "description": "Implement the Angular notification center accessible from the header bell icon with unread badge. Notification feed showing all notifications grouped by today, this week, and earlier. Each notification shows icon, title, body, timestamp, and action link. Notification preferences page with toggle matrix: rows for notification types (appointments, messages, lab results, prescriptions, billing) and columns for channels (email, SMS, in-app). Mark-as-read on click and mark-all-as-read button.",
         "priority": "medium",
-        "type": "integration",
+        "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "External or cross-system integrations required by appointment reminders exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for appointment reminders integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by appointment reminders are configured and secured correctly."
+          "Unread badge shows correct count and updates in real time.",
+          "Notification feed groups by time period with expandable sections.",
+          "Clicking a notification navigates to the relevant page.",
+          "Preferences toggle matrix persists changes immediately.",
+          "Mark-all-as-read clears the unread badge."
         ]
       },
       {
-        "title": "Testing Appointment Reminders Functionality",
-        "description": "Create and execute tests for appointment reminders. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Notification and Reminder Tests",
+        "description": "Test 48-hour and 2-hour reminder scheduling, channel preference enforcement (email only, SMS only, all channels), confirm/cancel deep link handling, cancelled appointment reminder suppression, notification preferences CRUD, notification feed pagination, and unread count accuracy.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for appointment reminders.",
-          "Security, validation, and permission checks for appointment reminders are verified.",
-          "Regression coverage exists for the most important appointment reminders behaviors."
+          "Reminder timing tests verify correct scheduling for both windows.",
+          "Channel tests verify delivery only to enabled channels.",
+          "Deep link tests verify confirm and cancel actions.",
+          "Preference tests verify channel/type matrix persistence."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Design Insurance Verification UI",
-        "description": "Design the user interface for insurance verification. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "UI design for insurance verification is complete and reviewable.",
-          "The insurance verification design is responsive and accessible.",
-          "The design for insurance verification aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Insurance Verification",
-        "description": "Implement the frontend behavior for insurance verification. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Patients can add insurance provider details; System verifies insurance eligibility; Display coverage and copay information.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Frontend implements the required insurance verification user interactions.",
-          "Validation, loading, and error states for insurance verification are handled in the UI.",
-          "Frontend behavior for insurance verification is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Insurance Verification",
-        "description": "Implement the backend logic for insurance verification. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Patients can add insurance provider details; System verifies insurance eligibility; Display coverage and copay information.",
+        "title": "Build Insurance Verification API",
+        "description": "Create POST /api/patients/me/insurance accepting payerName, memberId, groupNumber, and card images (front/back). Store insurance data encrypted. Create POST /api/insurance/verify-eligibility that calls the payer's eligibility API (X12 270/271 or REST) with patient demographics and member ID. Returns: eligibilityStatus, coverageType, copayAmounts (by service type), deductibleRemaining, priorAuthRequired flag. Cache eligibility results in Redis for 24 hours. Run automatic eligibility check 24 hours before scheduled appointments.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Backend logic for insurance verification is implemented and testable.",
-          "APIs and business rules for insurance verification enforce validation and security requirements.",
-          "Data handling for insurance verification is reliable and supports the required workflow."
+          "Insurance data is stored with AES-256 encryption.",
+          "Eligibility check returns structured coverage details.",
+          "Ineligible or expired insurance returns a clear status with guidance.",
+          "Results are cached for 24 hours to reduce payer API calls.",
+          "Pre-appointment eligibility check runs automatically.",
+          "Insurance card images are stored encrypted in cloud storage."
         ]
       },
       {
-        "title": "Database Design for Insurance Verification",
-        "description": "Design the data model and persistence strategy for insurance verification. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "The data model for insurance verification supports the required workflow.",
-          "Relationships, constraints, and indexes for insurance verification are defined correctly.",
-          "Schema changes for insurance verification can be applied safely in target environments."
-        ]
-      },
-      {
-        "title": "Security Hardening for Insurance Verification",
-        "description": "Implement the security controls required for insurance verification. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
-        "priority": "high",
-        "type": "security",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Security controls for insurance verification enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for insurance verification are logged, validated, and protected against misuse.",
-          "The implementation of insurance verification satisfies the relevant privacy, audit, or compliance expectations in the SRS."
-        ]
-      },
-      {
-        "title": "Integrate Insurance Verification with External Services",
-        "description": "Integrate insurance verification with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
+        "title": "Build Insurance Management UI",
+        "description": "Implement Angular insurance pages: insurance card upload (front/back with camera capture or file upload), insurance details form (payer dropdown, member ID, group number), eligibility status display showing coverage summary with copay, deductible, and authorization requirements. Alert banner for expired or ineligible insurance. Link to contact support for insurance issues. Admin page for configuring payer API connections.",
         "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Card upload supports camera and file with image preview.",
+          "Eligibility result shows a clear summary with copay and deductible.",
+          "Ineligible insurance shows an alert with next-step guidance.",
+          "Form validates required fields before allowing eligibility check."
+        ]
+      },
+      {
+        "title": "Configure Payer Eligibility API Integration",
+        "description": "Set up integration with payer eligibility APIs (X12 270/271 transactions or RESTful equivalents). Configure API credentials per payer. Map X12 270 request format from patient demographics. Parse X12 271 response into structured eligibility data. Handle payer-specific response variations and error codes. Implement connection health monitoring and alerting for payer API outages.",
+        "priority": "high",
         "type": "integration",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "External or cross-system integrations required by insurance verification exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for insurance verification integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by insurance verification are configured and secured correctly."
+          "X12 270 request is generated correctly from patient data.",
+          "X12 271 response is parsed into structured eligibility fields.",
+          "Payer-specific variations are handled via configurable mappings.",
+          "API outages trigger alerts and show graceful error to users.",
+          "Admin can configure and test payer connections."
         ]
       },
       {
-        "title": "Testing Insurance Verification Functionality",
-        "description": "Create and execute tests for insurance verification. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Insurance Verification Tests",
+        "description": "Test insurance data storage and encryption, eligibility check with active coverage, expired coverage, and payer API errors. Test pre-appointment automatic verification, eligibility caching, card image upload and storage, and admin payer configuration.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for insurance verification.",
-          "Security, validation, and permission checks for insurance verification are verified.",
-          "Regression coverage exists for the most important insurance verification behaviors."
+          "Eligibility tests cover active, expired, and error scenarios.",
+          "Encryption tests verify insurance data is stored as ciphertext.",
+          "Caching tests verify Redis storage and TTL enforcement.",
+          "Pre-appointment test confirms automatic check 24 hours before."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Design Emergency Contact Management UI",
-        "description": "Design the user interface for emergency contact management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "UI design for emergency contact management is complete and reviewable.",
-          "The emergency contact management design is responsive and accessible.",
-          "The design for emergency contact management aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Emergency Contact Management",
-        "description": "Implement the frontend behavior for emergency contact management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Add emergency contacts with name, phone, and relationship; Multiple emergency contacts allowed; Contacts accessible by medical staff in emergencies.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Frontend implements the required emergency contact management user interactions.",
-          "Validation, loading, and error states for emergency contact management are handled in the UI.",
-          "Frontend behavior for emergency contact management is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Emergency Contact Management",
-        "description": "Implement the backend logic for emergency contact management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Add emergency contacts with name, phone, and relationship; Multiple emergency contacts allowed; Contacts accessible by medical staff in emergencies.",
-        "priority": "high",
+        "title": "Build Emergency Contacts and Advance Directives API",
+        "description": "Create CRUD endpoints for /api/patients/me/emergency-contacts (name, relationship, phone, email, priority order). Validate at least one contact exists in the patient profile completeness check. Create POST /api/patients/me/advance-directives for uploading PDF documents with type (living_will, healthcare_poa, dnr) and effectiveDate. Create PATCH for updating and DELETE for revoking (soft delete with revocation timestamp). All changes are date-stamped in an audit trail. Create a provider-facing GET endpoint that flags patients with active advance directives.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Backend logic for emergency contact management is implemented and testable.",
-          "APIs and business rules for emergency contact management enforce validation and security requirements.",
-          "Data handling for emergency contact management is reliable and supports the required workflow."
+          "At least one emergency contact is required for profile completeness.",
+          "Contacts maintain priority ordering for emergency notification.",
+          "Advance directives are stored as encrypted PDFs in cloud storage.",
+          "Revocation creates a timestamped audit entry and soft-deletes the document.",
+          "Provider endpoint flags patients with active advance directives.",
+          "All changes are audit-logged with date, time, and user ID."
         ]
       },
       {
-        "title": "Testing Emergency Contact Management Functionality",
-        "description": "Create and execute tests for emergency contact management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Build Emergency Contacts and Directives UI",
+        "description": "Implement Angular pages: emergency contacts list with add/edit/delete and drag-to-reorder priority. Each contact card shows name, relationship, phone with click-to-call link. Required contact validation warning if none exist. Advance directives section with document type tabs (Living Will, Healthcare POA, DNR), upload with PDF preview, effective date picker, and revoke button with confirmation dialog. Document history showing all versions with upload and revocation dates.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Contact list allows drag-to-reorder for priority assignment.",
+          "Missing emergency contact shows a warning banner.",
+          "Advance directive upload shows PDF preview before saving.",
+          "Revoke button shows confirmation with irreversibility warning.",
+          "Document history shows full version timeline with dates."
+        ]
+      },
+      {
+        "title": "Write Emergency Contacts and Directives Tests",
+        "description": "Test emergency contact CRUD, priority ordering, minimum-one-contact validation, advance directive upload and storage encryption, revocation with audit trail, provider-facing directive flag, document version history, and access control (patient-only modification, provider read-only).",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for emergency contact management.",
-          "Security, validation, and permission checks for emergency contact management are verified.",
-          "Regression coverage exists for the most important emergency contact management behaviors."
+          "Minimum contact tests verify profile completeness enforcement.",
+          "Directive tests verify encrypted storage and signed URL access.",
+          "Revocation tests verify soft delete and audit trail entry.",
+          "Access control tests verify patient vs. provider permissions."
         ]
       }
     ]

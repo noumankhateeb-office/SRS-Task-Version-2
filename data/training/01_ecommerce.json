@@ -1,7 +1,7 @@
 {
   "input": {
     "title": "E-Commerce Platform",
-    "description": "This document describes the Software Requirements Specification (SRS) for an E-Commerce platform, a web-based shopping platform for buying and selling products online",
+    "description": "A full-featured online store that allows customers to browse products, manage their shopping cart, place orders with integrated payment processing, and track deliveries. Sellers can manage product listings, inventory, and view sales analytics through an admin dashboard.",
     "technologies": [
       "Next.js",
       "Prisma",
@@ -9,104 +9,167 @@
     ],
     "actors": [
       "Customer",
-      "Admin"
+      "Admin",
+      "Guest"
     ],
     "user_classes": {
-      "Customer": "End-users who interact with the product catalog, shopping cart, and checkout.",
-      "Admin": "Users with the ability to manage products, orders, and users."
+      "Customer": "Registered user who can browse products, manage a cart, place orders, and track their order history.",
+      "Admin": "Store administrator who manages product listings, inventory levels, order fulfillment, and platform settings.",
+      "Guest": "Unauthenticated visitor who can browse the catalog and add items to a session-based cart but must register to complete a purchase."
     },
     "definitions": {
-      "Customer": "A user who browses and purchases products.",
-      "Admin": "A user with administrative privileges for managing the platform.",
-      "System": "The E-Commerce platform being developed.",
-      "API": "Application Programming Interface."
+      "SKU": "Stock Keeping Unit — unique identifier for each product variant.",
+      "Cart": "Temporary collection of items a user intends to purchase.",
+      "Order": "Confirmed purchase with payment, shipping address, and fulfillment status.",
+      "Slug": "URL-friendly version of a product or category name used for SEO routing."
     },
     "modules": [
-      "User Authentication",
+      "Authentication",
       "Product Catalog",
       "Shopping Cart",
-      "Order Management"
+      "Checkout and Payments",
+      "Order Management",
+      "User Account",
+      "Admin Dashboard",
+      "Reviews and Ratings",
+      "Notifications",
+      "Inventory"
     ],
     "scope": [
-      "provide user registration",
-      "authentication",
-      "product browsing",
-      "shopping cart",
-      "checkout",
-      "order management",
-      "tracking features"
+      "Customer registration, login, and profile management",
+      "Product browsing with search, filters, and category navigation",
+      "Cart management with guest and authenticated flows",
+      "Checkout with Stripe payment integration",
+      "Order lifecycle from placement to delivery",
+      "Admin CRUD for products, categories, and inventory",
+      "Email notifications for order events"
     ],
     "out_of_scope": [
-      "Mobile application development",
-      "Third-party marketplace integration",
-      "Cryptocurrency payment support"
+      "Native mobile applications",
+      "Multi-vendor marketplace functionality",
+      "Subscription or recurring payment products",
+      "Internationalization and multi-language support in the first release"
     ],
     "constraints": [
-      "No mobile application development is included in the scope",
-      "Integration with third-party marketplaces and cryptocurrency payment support is out of scope"
+      "The platform must use Next.js with server-side rendering for SEO-critical pages",
+      "All payment processing must go through Stripe — no direct card handling",
+      "Product images must be stored in cloud object storage, not in the database",
+      "The initial release targets a single-currency, single-warehouse setup"
     ],
     "operating_environment": {
-      "frontend": "Web-based application accessible via modern browsers (Chrome, Firefox, Safari).",
-      "backend": "Node.js with Next.js framework, Prisma ORM for database interactions, and MongoDB for data storage."
-    },
-    "external_interfaces": {
-      "user_interface": [
-        "Web-based interface with responsive design for both desktop and mobile screen sizes"
-      ],
-      "hardware_interfaces": [
-        "No specific hardware requirements; the system will be deployed on cloud infrastructure"
-      ],
-      "software_interfaces": [
-        "The backend will interact with MongoDB via Prisma ORM for data storage"
-      ],
-      "communication_interfaces": [
-        "The system will communicate with email servers to send confirmation emails"
-      ]
+      "frontend": "Next.js application with server-side rendering, deployed to Vercel or equivalent edge platform.",
+      "backend": "Next.js API routes backed by Prisma ORM connected to MongoDB Atlas.",
+      "deployment": "CI/CD via GitHub Actions. Staging and production environments on Vercel with MongoDB Atlas clusters."
     },
     "functional_requirements": {
       "FR-01": {
-        "title": "User Login",
+        "title": "User Registration and Authentication",
         "requirements": [
-          "Two input fields for email and password",
-          "The email must be validated for the correct format",
-          "The password field should have a show/hide toggle"
+          "Users can register with name, email address, and password",
+          "Passwords must be at least 8 characters with one uppercase letter and one digit",
+          "Email verification link is sent after registration and must be confirmed before first login",
+          "Users can log in with email and password and receive a JWT session token",
+          "Password reset flow sends a time-limited reset link to the registered email",
+          "OAuth login via Google is supported as an alternative to email/password"
         ]
       },
       "FR-02": {
-        "title": "User Registration",
+        "title": "Product Catalog and Search",
         "requirements": [
-          "Registration form with name, email, and password fields",
-          "Password must be at least 8 characters with one uppercase and one number",
-          "System shall send verification email after registration",
-          "Duplicate email addresses shall not be allowed"
+          "All products are displayed in a paginated grid with name, image, price, and average rating",
+          "Products can be filtered by category, price range, availability, and rating",
+          "Full-text search matches against product name, description, and tags",
+          "Search results can be sorted by relevance, price ascending, price descending, newest, and best-selling",
+          "Category pages have SEO-friendly URLs using slugs",
+          "Out-of-stock products remain visible but are clearly marked and cannot be added to cart"
         ]
       },
       "FR-03": {
-        "title": "Product Catalog",
+        "title": "Product Detail Page",
         "requirements": [
-          "Display all products with name, image, price, and category",
-          "Users can filter products by category and price range",
-          "Users can sort products by price, name, and newest",
-          "Pagination with 20 products per page"
+          "Each product has a detail page showing title, description, images, price, stock status, and reviews",
+          "Products with variants (size, color) display a selector that updates price and stock dynamically",
+          "Image gallery supports multiple images with zoom and thumbnail navigation",
+          "Related products section shows similar items from the same category",
+          "Breadcrumb navigation shows the category path to the current product",
+          "Structured data (JSON-LD) is embedded for Google rich results"
         ]
       },
       "FR-04": {
         "title": "Shopping Cart",
         "requirements": [
-          "Users can add products to cart with quantity selection",
-          "Users can update item quantities in cart",
-          "Users can remove items from cart",
-          "Cart displays subtotal, tax, and grand total",
-          "Cart persists across sessions for logged-in users"
+          "Users can add products to cart with a selected quantity and variant",
+          "Cart displays each item with name, image, unit price, quantity, and line total",
+          "Users can update item quantities or remove items from the cart",
+          "Cart shows subtotal, estimated tax, and grand total that updates in real time",
+          "Guest carts are stored in local storage and merged into the user's server-side cart upon login",
+          "Cart validates stock availability and warns the user if an item's stock drops below the requested quantity"
         ]
       },
       "FR-05": {
-        "title": "Order Placement",
+        "title": "Checkout and Payment",
         "requirements": [
-          "Users can place orders from cart with delivery address",
-          "System validates stock availability before order confirmation",
-          "Order confirmation page shows order summary",
-          "System generates unique order ID"
+          "Checkout collects shipping address, selects shipping method, and processes payment",
+          "Returning customers can select a saved address or enter a new one",
+          "Shipping cost is calculated based on the selected method and destination",
+          "Payment is processed through Stripe using Payment Intents API with 3D Secure support",
+          "The system validates the entire cart against current stock before creating a payment intent",
+          "On successful payment, an order record is created and inventory is decremented atomically",
+          "On payment failure, the user sees a clear error and can retry without losing cart state"
+        ]
+      },
+      "FR-06": {
+        "title": "Order Management and Tracking",
+        "requirements": [
+          "Customers can view a list of their past and current orders with status and total",
+          "Each order has a detail page showing items, quantities, prices, shipping address, and status timeline",
+          "Order statuses include: pending, confirmed, processing, shipped, delivered, and cancelled",
+          "Admin can update order status and add a tracking number when shipping",
+          "Customers receive email notifications when their order status changes",
+          "Customers can request cancellation for orders that have not yet shipped"
+        ]
+      },
+      "FR-07": {
+        "title": "Product Reviews and Ratings",
+        "requirements": [
+          "Authenticated customers can submit a review with a 1-5 star rating and text comment",
+          "Only customers who have purchased and received the product can leave a review",
+          "Each product displays its average rating and total review count",
+          "Reviews are displayed in reverse chronological order with pagination",
+          "Admin can moderate reviews — approve, hide, or delete inappropriate content",
+          "Duplicate reviews from the same customer for the same product are prevented"
+        ]
+      },
+      "FR-08": {
+        "title": "Admin Product and Inventory Management",
+        "requirements": [
+          "Admin can create, edit, and deactivate product listings with all required fields",
+          "Products support multiple images uploaded via drag-and-drop to cloud storage",
+          "Admin can manage product categories with parent-child hierarchy",
+          "Each product variant (size, color) has its own SKU, price, and stock quantity",
+          "Admin receives low-stock alerts when any variant drops below a configurable threshold",
+          "Bulk CSV import allows adding or updating multiple products at once"
+        ]
+      },
+      "FR-09": {
+        "title": "User Account and Address Book",
+        "requirements": [
+          "Users can view and update their profile information including name and email",
+          "Users can change their password from the account settings page",
+          "Users can manage a list of saved shipping addresses with a default selection",
+          "Users can view their complete order history with filtering by date range and status",
+          "Account deletion removes personal data and anonymizes past order records"
+        ]
+      },
+      "FR-10": {
+        "title": "Email Notifications",
+        "requirements": [
+          "Verification email is sent after registration with a confirmation link",
+          "Order confirmation email includes order number, items, total, and estimated delivery",
+          "Shipping notification email includes the tracking number and carrier link",
+          "Password reset email contains a secure, time-limited reset link",
+          "Low-stock alert emails are sent to admin when inventory drops below threshold",
+          "All emails use branded HTML templates with the store logo and colors"
         ]
       }
     },
@@ -114,346 +177,688 @@
       "NFR-01": {
         "title": "Performance",
         "requirements": [
-          "The system shall load pages in under 2 seconds",
-          "API response time shall be under 500ms"
+          "Product listing pages must load within 2 seconds on a 4G connection",
+          "Search results must return within 500ms for catalogs up to 50,000 products",
+          "The checkout flow must complete payment processing within 5 seconds"
         ]
       },
       "NFR-02": {
         "title": "Security",
         "requirements": [
-          "All passwords must be hashed using bcrypt",
-          "SSL encryption for all client-server communication",
-          "JWT tokens for authentication with 24-hour expiry"
+          "All traffic must be served over HTTPS",
+          "Passwords must be hashed with bcrypt before storage",
+          "JWT tokens must expire after 24 hours and refresh tokens after 7 days",
+          "All API endpoints that modify data must validate authentication and authorization"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability",
+        "requirements": [
+          "Payment and inventory operations must be atomic to prevent overselling",
+          "The system must handle concurrent cart updates without data corruption",
+          "Automated daily database backups must be configured"
         ]
       }
     },
     "system_attributes": {
-      "reliability": "The system should be available 99.9% of the time",
-      "scalability": "The platform should be able to scale horizontally to support increased traffic during peak seasons",
-      "security": "All passwords should be hashed and stored securely; SSL encryption must be used for all communications between the client and server",
-      "maintainability": "The platform should have a modular architecture, making it easy to add new features or update existing ones"
+      "reliability": "Payment and order operations are atomic. Failed transactions do not corrupt inventory or order state.",
+      "scalability": "The catalog and search layers support horizontal scaling. Image assets are served from a CDN.",
+      "security": "No raw card data is handled. All payment flows use Stripe's client-side tokenization. Server secrets are stored in environment variables.",
+      "maintainability": "Prisma schema migrations are version-controlled. API routes follow RESTful conventions with shared validation middleware."
     }
   },
   "output": {
     "FR-01": [
       {
-        "title": "Design User Login UI",
-        "description": "Design the user interface for user login. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
+        "title": "Design Registration and Login Pages",
+        "description": "Create the UI designs for the registration form, login form, and password reset flow. The registration form needs fields for name, email, and password with inline validation feedback. The login form supports email/password and a Google OAuth button. Include the email verification pending screen and password reset request/confirmation screens.",
         "priority": "high",
         "type": "design",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "UI design for user login is complete and reviewable.",
-          "The user login design is responsive and accessible.",
-          "The design for user login aligns with the documented user flow and validation states."
+          "Registration form shows inline validation for email format and password strength requirements.",
+          "Login page includes both email/password fields and a Google sign-in button.",
+          "Password reset flow has two screens: request (email input) and confirmation (new password input).",
+          "Email verification pending screen clearly instructs the user to check their inbox."
         ]
       },
       {
-        "title": "Frontend Implementation of User Login",
-        "description": "Implement the frontend behavior for user login. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Two input fields for email and password; The email must be validated for the correct format; The password field should have a show/hide toggle.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Frontend implements the required user login user interactions.",
-          "Validation, loading, and error states for user login are handled in the UI.",
-          "Frontend behavior for user login is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of User Login",
-        "description": "Implement the backend logic for user login. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Two input fields for email and password; The email must be validated for the correct format; The password field should have a show/hide toggle.",
+        "title": "Implement User Registration API with Email Verification",
+        "description": "Build the POST /api/auth/register endpoint that accepts name, email, and password. Validate password strength (8+ chars, one uppercase, one digit). Hash the password with bcrypt. Store the user record with emailVerified=false. Generate a signed verification token and send a verification email with a confirmation link. The GET /api/auth/verify?token=xxx endpoint marks the email as verified.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Backend logic for user login is implemented and testable.",
-          "APIs and business rules for user login enforce validation and security requirements.",
-          "Data handling for user login is reliable and supports the required workflow."
+          "Registration with valid data creates a user with emailVerified=false and returns 201.",
+          "Registration with an existing email returns 409 Conflict.",
+          "Weak passwords (missing uppercase or digit, under 8 chars) return 400 with specific error messages.",
+          "Clicking the verification link sets emailVerified=true and redirects to login.",
+          "Expired or tampered verification tokens return 400."
         ]
       },
       {
-        "title": "Security Hardening for User Login",
-        "description": "Implement the security controls required for user login. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "title": "Implement JWT Login and Google OAuth",
+        "description": "Build POST /api/auth/login that validates credentials and returns a JWT access token (24h expiry) and a refresh token (7-day expiry). Unverified emails are rejected with a helpful message. Implement the Google OAuth callback that creates or links an account using the Google profile email. Build POST /api/auth/refresh to issue a new access token from a valid refresh token.",
         "priority": "high",
-        "type": "security",
+        "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Security controls for user login enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for user login are logged, validated, and protected against misuse.",
-          "The implementation of user login satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "Valid credentials return a JWT access token and a refresh token.",
+          "Login with an unverified email returns 403 with instruction to verify.",
+          "Invalid password returns 401 without revealing whether the email exists.",
+          "Google OAuth creates a new account if the email is not registered, or logs in if it exists.",
+          "Refresh token endpoint issues a new access token and rotates the refresh token."
         ]
       },
       {
-        "title": "Integrate User Login with External Services",
-        "description": "Integrate user login with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
+        "title": "Build Registration and Login Frontend Forms",
+        "description": "Implement the Next.js pages for /register, /login, and /forgot-password. Registration form validates email format and password rules client-side before submission. Login form supports email/password submission and the Google OAuth redirect. Handle loading states during API calls and display server-side error messages. Redirect authenticated users away from auth pages.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Registration form disables submit until all validations pass and shows inline errors.",
+          "Successful registration redirects to an email verification pending page.",
+          "Login form shows server-side errors (wrong password, unverified) without page reload.",
+          "Google OAuth button initiates the OAuth redirect flow correctly.",
+          "Authenticated users visiting /login are redirected to the homepage."
+        ]
+      },
+      {
+        "title": "Implement Password Reset Flow",
+        "description": "Build POST /api/auth/forgot-password that generates a time-limited reset token (valid for 1 hour) and emails a reset link. Build POST /api/auth/reset-password that accepts the token and a new password, validates the token, and updates the password hash. Build the frontend pages for requesting a reset and entering a new password.",
         "priority": "medium",
-        "type": "integration",
+        "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "External or cross-system integrations required by user login exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for user login integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by user login are configured and secured correctly."
+          "Reset request for a valid email sends an email and returns 200 (does not reveal if email exists).",
+          "Reset link with valid token allows setting a new password.",
+          "Expired tokens (older than 1 hour) return 400 with an expiry message.",
+          "After successful reset, all existing sessions for the user are invalidated."
         ]
       },
       {
-        "title": "Testing User Login Functionality",
-        "description": "Create and execute tests for user login. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Create Users Database Schema",
+        "description": "Define the Prisma schema for the User model with fields: id, name, email (unique index), passwordHash, emailVerified, googleId (optional, unique), refreshToken, createdAt, updatedAt. Create the PasswordResetToken model with userId, token (unique index), expiresAt. Write and test the migration.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "User model has a unique index on email and a sparse unique index on googleId.",
+          "PasswordResetToken has a TTL or expiry field for automatic cleanup.",
+          "Migration runs cleanly on a fresh database and is idempotent."
+        ]
+      },
+      {
+        "title": "Write Auth Module Tests",
+        "description": "Write integration tests for the complete authentication flow: registration with valid and invalid inputs, email verification (valid token, expired token, already verified), login with correct and incorrect credentials, login with unverified email, Google OAuth account creation and linking, password reset request and completion, and JWT refresh. Test rate limiting on login attempts.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for user login.",
-          "Security, validation, and permission checks for user login are verified.",
-          "Regression coverage exists for the most important user login behaviors."
+          "Tests cover registration validation for all password rules and duplicate email.",
+          "Tests verify the full email verification token lifecycle.",
+          "Tests confirm login rejects unverified accounts and wrong passwords.",
+          "Tests cover password reset with valid, expired, and reused tokens.",
+          "All tests run in under 10 seconds using an in-memory database."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Design User Registration UI",
-        "description": "Design the user interface for user registration. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
+        "title": "Design Product Listing and Category Pages",
+        "description": "Design the product grid layout with responsive card components showing product image, name, price, and star rating badge. Include the filter sidebar with collapsible sections for category tree, price range slider, availability toggle, and minimum rating selector. Design the search bar with autocomplete dropdown. Create the sort dropdown and pagination controls. Design category-specific landing pages with hero banner and description.",
+        "priority": "medium",
         "type": "design",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "UI design for user registration is complete and reviewable.",
-          "The user registration design is responsive and accessible.",
-          "The design for user registration aligns with the documented user flow and validation states."
+          "Product cards show image, name, price, and average rating stars at all breakpoints.",
+          "Filter sidebar collapses into a modal drawer on mobile viewports.",
+          "Search autocomplete dropdown shows matching product names and categories.",
+          "Category page URL structure uses SEO-friendly slugs."
         ]
       },
       {
-        "title": "Frontend Implementation of User Registration",
-        "description": "Implement the frontend behavior for user registration. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Registration form with name, email, and password fields; Password must be at least 8 characters with one uppercase and one number; System shall send verification email after registration.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Frontend implements the required user registration user interactions.",
-          "Validation, loading, and error states for user registration are handled in the UI.",
-          "Frontend behavior for user registration is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of User Registration",
-        "description": "Implement the backend logic for user registration. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Registration form with name, email, and password fields; Password must be at least 8 characters with one uppercase and one number; System shall send verification email after registration.",
+        "title": "Build Product Search and Listing API",
+        "description": "Create GET /api/products that returns paginated products with support for query parameters: q (full-text search against name, description, tags), category (slug), minPrice, maxPrice, inStock (boolean), minRating, sortBy (relevance, price_asc, price_desc, newest, bestselling), page, limit (default 20). Build a MongoDB text index on name, description, and tags fields. Implement aggregation for bestselling sort using order count.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Backend logic for user registration is implemented and testable.",
-          "APIs and business rules for user registration enforce validation and security requirements.",
-          "Data handling for user registration is reliable and supports the required workflow."
+          "Full-text search returns products matching name, description, or tags.",
+          "Multiple filters can be combined in a single request and all apply correctly.",
+          "Results are paginated with correct total count for building pagination UI.",
+          "Out-of-stock products appear in results but have inStock=false.",
+          "Sorting by price, newest, and bestselling returns correct order.",
+          "Requests without filters return all active products paginated."
         ]
       },
       {
-        "title": "Security Hardening for User Registration",
-        "description": "Implement the security controls required for user registration. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "title": "Build Product Listing Frontend with Filters",
+        "description": "Implement the Next.js product listing page with SSR for SEO. Render the product grid using the API response. Implement the filter sidebar that updates URL query parameters without full page reload (shallow routing). Build the search bar with debounced API calls for autocomplete suggestions. Implement sort dropdown and pagination controls. Handle empty states when no products match the filters.",
         "priority": "high",
-        "type": "security",
+        "type": "frontend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Security controls for user registration enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for user registration are logged, validated, and protected against misuse.",
-          "The implementation of user registration satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "Product listing page is server-side rendered with correct meta tags for SEO.",
+          "Applying filters updates the URL and re-fetches products without page reload.",
+          "Search autocomplete triggers after 300ms debounce and shows up to 5 suggestions.",
+          "Pagination updates the grid and scrolls to top.",
+          "Empty filter results show a clear message with a link to clear all filters."
         ]
       },
       {
-        "title": "Integrate User Registration with External Services",
-        "description": "Integrate user registration with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
+        "title": "Create Products and Categories Schema",
+        "description": "Define Prisma models for Product (id, name, slug (unique), description, tags, price, images, categoryId, isActive, createdAt, updatedAt) and Category (id, name, slug (unique), parentId (self-relation), description, image). Add a text index on Product for name, description, and tags. Define the Product-to-Category relation. Write the migration.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Product slug and Category slug have unique indexes.",
+          "Category supports parent-child hierarchy through parentId self-relation.",
+          "Text index on name, description, tags enables full-text search.",
+          "Migration runs cleanly and schema validates against sample seed data."
+        ]
+      },
+      {
+        "title": "Write Product Search and Listing Tests",
+        "description": "Write tests for the product listing API covering: basic pagination, full-text search matching, category filtering, price range filtering, combined filters, all sort options, out-of-stock product visibility, empty result sets, and invalid parameter handling. Include a performance test that verifies response time under 500ms with a 1000-product seed dataset.",
         "priority": "medium",
-        "type": "integration",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "External or cross-system integrations required by user registration exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for user registration integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by user registration are configured and secured correctly."
-        ]
-      },
-      {
-        "title": "Testing User Registration Functionality",
-        "description": "Create and execute tests for user registration. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for user registration.",
-          "Security, validation, and permission checks for user registration are verified.",
-          "Regression coverage exists for the most important user registration behaviors."
+          "Tests verify each filter type independently and in combination.",
+          "Tests confirm out-of-stock products appear in results but are flagged.",
+          "Tests verify all five sort options return correctly ordered results.",
+          "Performance test confirms <500ms response with 1000 seeded products."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Design Product Catalog UI",
-        "description": "Design the user interface for product catalog. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "UI design for product catalog is complete and reviewable.",
-          "The product catalog design is responsive and accessible.",
-          "The design for product catalog aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Product Catalog",
-        "description": "Implement the frontend behavior for product catalog. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Display all products with name, image, price, and category; Users can filter products by category and price range; Users can sort products by price, name, and newest.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Frontend implements the required product catalog user interactions.",
-          "Validation, loading, and error states for product catalog are handled in the UI.",
-          "Frontend behavior for product catalog is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Product Catalog",
-        "description": "Implement the backend logic for product catalog. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Display all products with name, image, price, and category; Users can filter products by category and price range; Users can sort products by price, name, and newest.",
+        "title": "Build Product Detail API Endpoint",
+        "description": "Create GET /api/products/[slug] that returns the full product record including all images, description, price, variants with individual stock levels, average rating, review count, category breadcrumb path, and related products (up to 4 from the same category). Embed JSON-LD structured data for Product schema in the response metadata for SSR. Return 404 for inactive or non-existent slugs.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Backend logic for product catalog is implemented and testable.",
-          "APIs and business rules for product catalog enforce validation and security requirements.",
-          "Data handling for product catalog is reliable and supports the required workflow."
+          "Endpoint returns full product details including variant stock levels.",
+          "Related products section returns up to 4 products from the same category, excluding the current one.",
+          "Category breadcrumb returns the full parent chain from root to current category.",
+          "Response includes JSON-LD metadata for Google rich results.",
+          "Inactive or missing products return 404."
         ]
       },
       {
-        "title": "Database Design for Product Catalog",
-        "description": "Design the data model and persistence strategy for product catalog. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Product Detail Page Frontend",
+        "description": "Implement the Next.js product detail page at /products/[slug] with SSR. Build the image gallery with thumbnails and zoom-on-hover. Implement the variant selector (size, color dropdowns) that dynamically updates the displayed price and stock status. Show the add-to-cart button (disabled when out of stock). Render the breadcrumb navigation from the category hierarchy. Include the related products carousel and the reviews section.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Page is server-side rendered with correct title, meta description, and JSON-LD.",
+          "Selecting a variant updates the price and stock badge without an API call.",
+          "Image gallery supports click-to-zoom and thumbnail navigation.",
+          "Add-to-cart button is disabled with a clear label when the selected variant is out of stock.",
+          "Breadcrumb links are clickable and navigate to the correct category pages."
+        ]
+      },
+      {
+        "title": "Define Product Variants Schema",
+        "description": "Add the ProductVariant Prisma model with fields: id, productId (relation), sku (unique), attributes (JSON for size/color/etc.), price (overrides product base price if set), stockQuantity, isActive. Add index on productId for efficient variant lookups. Update the Product model to reference variants.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The data model for product catalog supports the required workflow.",
-          "Relationships, constraints, and indexes for product catalog are defined correctly.",
-          "Schema changes for product catalog can be applied safely in target environments."
+          "Each variant has a unique SKU across the entire database.",
+          "Querying variants by productId is efficient with proper indexing.",
+          "Variant price overrides product base price when present.",
+          "Migration is backward-compatible with existing product data."
         ]
       },
       {
-        "title": "Security Hardening for Product Catalog",
-        "description": "Implement the security controls required for product catalog. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
-        "priority": "high",
-        "type": "security",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Security controls for product catalog enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for product catalog are logged, validated, and protected against misuse.",
-          "The implementation of product catalog satisfies the relevant privacy, audit, or compliance expectations in the SRS."
-        ]
-      },
-      {
-        "title": "Testing Product Catalog Functionality",
-        "description": "Create and execute tests for product catalog. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Product Detail Page Tests",
+        "description": "Write tests covering: product detail API returns correct data for valid slug, 404 for invalid slug, variant price and stock are correctly returned, related products exclude the current product, JSON-LD structured data is valid. Frontend tests verify variant selector updates price, out-of-stock disables the add-to-cart button, and breadcrumbs render correctly.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for product catalog.",
-          "Security, validation, and permission checks for product catalog are verified.",
-          "Regression coverage exists for the most important product catalog behaviors."
+          "API tests cover valid slug, invalid slug, and inactive product cases.",
+          "Variant data tests verify correct price override and stock values.",
+          "Frontend tests verify the interactive variant selector behavior.",
+          "JSON-LD output validates against Google's structured data testing tool schema."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Design Shopping Cart UI",
-        "description": "Design the user interface for shopping cart. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "UI design for shopping cart is complete and reviewable.",
-          "The shopping cart design is responsive and accessible.",
-          "The design for shopping cart aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Shopping Cart",
-        "description": "Implement the frontend behavior for shopping cart. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can add products to cart with quantity selection; Users can update item quantities in cart; Users can remove items from cart.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Frontend implements the required shopping cart user interactions.",
-          "Validation, loading, and error states for shopping cart are handled in the UI.",
-          "Frontend behavior for shopping cart is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Shopping Cart",
-        "description": "Implement the backend logic for shopping cart. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can add products to cart with quantity selection; Users can update item quantities in cart; Users can remove items from cart.",
+        "title": "Build Cart API Endpoints",
+        "description": "Create the cart REST API: POST /api/cart/items (add item with productId, variantId, quantity), PATCH /api/cart/items/[itemId] (update quantity), DELETE /api/cart/items/[itemId] (remove item), GET /api/cart (get current cart with computed totals). For authenticated users, the cart is stored server-side in the database. Each add/update validates that the requested quantity does not exceed available stock. Cart totals include subtotal, estimated tax (fixed rate), and grand total.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Backend logic for shopping cart is implemented and testable.",
-          "APIs and business rules for shopping cart enforce validation and security requirements.",
-          "Data handling for shopping cart is reliable and supports the required workflow."
+          "Adding an item that already exists in the cart increments the quantity.",
+          "Updating quantity to 0 removes the item from the cart.",
+          "Adding more items than available stock returns 400 with the current stock level.",
+          "GET /api/cart returns items with product details, line totals, subtotal, tax, and grand total.",
+          "Cart operations are scoped to the authenticated user and return 401 for unauthenticated requests."
         ]
       },
       {
-        "title": "Testing Shopping Cart Functionality",
-        "description": "Create and execute tests for shopping cart. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Cart UI with Guest-to-User Merge",
+        "description": "Build the cart page showing each item with product image, name, variant, unit price, quantity stepper, line total, and a remove button. Grand total section shows subtotal, estimated tax, and total. Implement guest cart storage in localStorage with the same data structure. On login, merge guest cart items into the server-side cart — if an item exists in both, take the higher quantity. Show a stock warning badge on items where quantity exceeds current availability.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Cart page renders all items with correct line totals and grand total.",
+          "Quantity stepper updates the total in real time and syncs with the API.",
+          "Guest cart in localStorage persists across page refreshes.",
+          "Upon login, guest cart items merge into the authenticated cart correctly.",
+          "Stock warning badge appears when an item quantity exceeds available stock."
+        ]
+      },
+      {
+        "title": "Create Cart Database Schema",
+        "description": "Define Prisma models for Cart (id, userId (unique relation), createdAt, updatedAt) and CartItem (id, cartId (relation), productId, variantId, quantity). Add compound unique constraint on (cartId, variantId) to prevent duplicate variant entries. Add index on userId for fast cart lookups.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Each user has at most one cart (unique constraint on userId).",
+          "Duplicate variant entries in the same cart are prevented by compound unique constraint.",
+          "Cart items reference valid products and variants via foreign keys.",
+          "Migration runs cleanly and handles the case where users have no cart yet."
+        ]
+      },
+      {
+        "title": "Write Cart Module Tests",
+        "description": "Write tests for: adding items to cart, adding duplicate items increments quantity, updating quantity, removing items, stock validation on add and update, cart total calculation with tax, guest cart merge on login (both carts have same item, only guest has item, only user has item), and concurrent cart updates handling.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for shopping cart.",
-          "Security, validation, and permission checks for shopping cart are verified.",
-          "Regression coverage exists for the most important shopping cart behaviors."
+          "Tests verify CRUD operations on cart items with correct total recalculation.",
+          "Stock validation tests confirm rejection when quantity exceeds stock.",
+          "Cart merge tests cover all three conflict scenarios.",
+          "Concurrent update tests verify no data corruption under simultaneous writes."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Backend Implementation of Order Placement",
-        "description": "Implement the backend logic for order placement. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can place orders from cart with delivery address; System validates stock availability before order confirmation; Order confirmation page shows order summary.",
+        "title": "Design Checkout Flow",
+        "description": "Design a multi-step checkout page with three sections: 1) Shipping address (saved addresses dropdown + new address form with validation), 2) Shipping method selection (radio buttons showing method name, estimated delivery, and cost), 3) Payment (Stripe card element). Include an order summary sidebar showing cart items, subtotal, shipping cost, tax, and total. Design the order confirmation page and payment error states.",
+        "priority": "high",
+        "type": "design",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Checkout has clear step indicators and each section validates before allowing progression.",
+          "Saved addresses show as selectable cards with a default highlighted.",
+          "Shipping method selection updates the total in the order summary sidebar.",
+          "Payment error state shows the specific error message from Stripe with a retry option."
+        ]
+      },
+      {
+        "title": "Build Checkout and Payment Processing API",
+        "description": "Create POST /api/checkout that: (1) validates all cart items against current stock, (2) locks inventory for the requested quantities using an atomic transaction, (3) calculates shipping cost based on method and destination, (4) creates a Stripe PaymentIntent with the total amount, (5) returns the client secret for frontend confirmation. Create POST /api/checkout/confirm webhook handler that listens for Stripe payment_intent.succeeded to create the Order record, decrement inventory permanently, and clear the cart. Handle payment_intent.payment_failed by releasing the inventory lock.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Backend logic for order placement is implemented and testable.",
-          "APIs and business rules for order placement enforce validation and security requirements.",
-          "Data handling for order placement is reliable and supports the required workflow."
+          "Checkout rejects with 400 if any cart item exceeds available stock.",
+          "Inventory is locked atomically during payment processing to prevent overselling.",
+          "Stripe PaymentIntent is created with the correct amount in cents.",
+          "Successful webhook creates an order with status 'confirmed' and clears the cart.",
+          "Failed payment webhook releases the inventory lock without creating an order.",
+          "Duplicate webhook deliveries are handled idempotently."
         ]
       },
       {
-        "title": "Database Design for Order Placement",
-        "description": "Design the data model and persistence strategy for order placement. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Checkout Frontend with Stripe Integration",
+        "description": "Implement the multi-step checkout page in Next.js. Step 1: render saved addresses from GET /api/user/addresses and a new address form. Step 2: fetch available shipping methods and display with costs. Step 3: mount the Stripe CardElement for payment input. On submit, call the checkout API to get the PaymentIntent client secret, then confirm payment with stripe.confirmCardPayment(). Handle 3D Secure redirects. On success, redirect to the order confirmation page. On failure, show the error and allow retry.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Checkout enforces step completion — address must be selected before shipping method.",
+          "Stripe CardElement renders correctly and validates card input.",
+          "3D Secure authentication flow completes and returns to the checkout page.",
+          "Successful payment redirects to /orders/[orderId]/confirmation.",
+          "Payment failure displays the Stripe error message and keeps the form populated for retry."
+        ]
+      },
+      {
+        "title": "Create Orders Database Schema",
+        "description": "Define Prisma models for Order (id, orderNumber (unique, auto-generated), userId, status (enum: pending/confirmed/processing/shipped/delivered/cancelled), shippingAddressSnapshot (JSON), shippingMethod, shippingCost, subtotal, tax, total, stripePaymentIntentId, trackingNumber, createdAt, updatedAt) and OrderItem (id, orderId, productId, variantId, productNameSnapshot, quantity, unitPrice, lineTotal). Add indexes on userId and orderNumber.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The data model for order placement supports the required workflow.",
-          "Relationships, constraints, and indexes for order placement are defined correctly.",
-          "Schema changes for order placement can be applied safely in target environments."
+          "Order stores a snapshot of the shipping address (not a reference) so address changes don't affect past orders.",
+          "OrderItem stores product name and price snapshots so price changes don't alter historical records.",
+          "orderNumber is unique and auto-generated in a sequential or readable format.",
+          "Indexes on userId enable fast order history queries."
         ]
       },
       {
-        "title": "DevOps Setup for Order Placement",
-        "description": "Set up the operational support for order placement. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
-        "priority": "medium",
-        "type": "devops",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Operational setup for order placement covers deployment, configuration, and environment readiness.",
-          "Monitoring, alerting, backup, or recovery controls relevant to order placement are in place and verifiable.",
-          "The runtime behavior of order placement can be observed, supported, and recovered in target environments."
-        ]
-      },
-      {
-        "title": "Testing Order Placement Functionality",
-        "description": "Create and execute tests for order placement. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Checkout and Payment Tests",
+        "description": "Write integration tests using Stripe's test mode: successful checkout end-to-end (cart → payment → order created → cart cleared), checkout with insufficient stock, checkout with empty cart, payment failure handling, 3D Secure flow simulation, webhook idempotency for duplicate events, concurrent checkout race condition (two users buying the last item). Mock Stripe in unit tests but use real Stripe test keys in integration tests.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for order placement.",
-          "Security, validation, and permission checks for order placement are verified.",
-          "Regression coverage exists for the most important order placement behaviors."
+          "End-to-end test confirms order is created with correct totals after successful payment.",
+          "Stock validation test confirms checkout rejects when item is out of stock.",
+          "Webhook idempotency test sends the same event twice and verifies only one order is created.",
+          "Race condition test verifies only one of two concurrent checkouts succeeds for the last item."
+        ]
+      },
+      {
+        "title": "Configure Stripe Integration and Webhook Security",
+        "description": "Set up the Stripe account with API keys stored in environment variables. Configure the webhook endpoint URL in Stripe dashboard for payment_intent.succeeded and payment_intent.payment_failed events. Implement webhook signature verification using Stripe's signing secret to reject tampered requests. Set up Stripe test mode for staging environment.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Stripe API keys are loaded from environment variables, not hardcoded.",
+          "Webhook endpoint verifies Stripe signature and rejects requests with invalid signatures.",
+          "Staging environment uses Stripe test keys and test webhook endpoint.",
+          "Webhook failures are logged with the event ID for debugging."
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Order History and Detail API",
+        "description": "Create GET /api/orders that returns the authenticated user's orders with status, total, item count, and createdAt, sorted by newest first with pagination. Create GET /api/orders/[orderId] that returns full order details including items, shipping address, status timeline (array of {status, timestamp} entries), and tracking info. Create POST /api/orders/[orderId]/cancel that allows cancellation if the order status is pending or confirmed.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Order list is scoped to the authenticated user and paginated.",
+          "Order detail returns items with product snapshots and a complete status timeline.",
+          "Cancellation succeeds for pending/confirmed orders and returns the updated order.",
+          "Cancellation is rejected for shipped/delivered orders with a 400 error.",
+          "Accessing another user's order returns 404 (not 403, to avoid information leakage)."
+        ]
+      },
+      {
+        "title": "Build Admin Order Management API",
+        "description": "Create GET /api/admin/orders with filtering by status, date range, and customer email, with pagination. Create PATCH /api/admin/orders/[orderId]/status that updates the order status and optionally adds a tracking number. Status transitions must follow the valid sequence: confirmed→processing→shipped→delivered. Each transition appends to the status timeline. Trigger an email notification to the customer on each status change.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Admin can filter orders by status, date range, and customer email.",
+          "Invalid status transitions (e.g., pending→delivered) are rejected with 400.",
+          "Adding a tracking number is required when transitioning to shipped status.",
+          "Status change appends a timestamped entry to the order's status timeline array.",
+          "Customer receives an email notification for each status change."
+        ]
+      },
+      {
+        "title": "Build Order History and Detail Pages",
+        "description": "Implement customer-facing order pages: /account/orders (paginated list with status badges and totals) and /account/orders/[orderId] (full detail with item list, address, status timeline visualization, tracking link, and cancel button). The status timeline renders as a vertical stepper showing completed, current, and upcoming steps. Cancel button only appears for cancellable orders and requires confirmation.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Order list shows status badges with color coding (green=delivered, blue=shipped, etc.).",
+          "Order detail page renders the status timeline as a visual stepper.",
+          "Tracking number is displayed as a clickable link to the carrier's tracking page.",
+          "Cancel button shows a confirmation dialog and updates the status on success.",
+          "Cancel button is hidden for orders in shipped or delivered status."
+        ]
+      },
+      {
+        "title": "Write Order Management Tests",
+        "description": "Write tests for: customer order list pagination and scoping, order detail access control (own orders vs. other users), cancellation of pending orders, cancellation rejection for shipped orders, admin status transitions through all valid states, invalid status transition rejection, tracking number requirement on ship, and email notification triggering on status change.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Customer can only access their own orders; accessing others returns 404.",
+          "All valid status transitions are tested: confirmed→processing→shipped→delivered.",
+          "Invalid transitions return appropriate error messages.",
+          "Email notification is triggered (mocked) on each status change."
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Build Product Reviews API",
+        "description": "Create POST /api/products/[slug]/reviews that accepts a rating (1-5) and comment text. Verify the user has a delivered order containing this product before allowing the review. Prevent duplicate reviews (one per customer per product). Create GET /api/products/[slug]/reviews that returns paginated reviews sorted by newest first. Recalculate the product's average rating and review count on each new review using an aggregation pipeline.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Only customers with a delivered order for the product can submit a review.",
+          "Duplicate review from the same customer for the same product returns 409.",
+          "Rating must be an integer between 1 and 5; invalid values return 400.",
+          "Product average rating and count update atomically after a new review.",
+          "Review list is paginated with correct total count."
+        ]
+      },
+      {
+        "title": "Build Reviews Frontend Component",
+        "description": "Build a reusable review section component for the product detail page. Display average rating as filled stars, total count, and a rating distribution bar chart. Render individual reviews with star rating, user name, date, and comment. Add a review form for eligible users with a star rating picker and text area. Show appropriate messages for users who are not eligible (not purchased) or have already reviewed.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Average rating displays as visual stars with the numeric value and count.",
+          "Review form only appears for authenticated users who purchased the product.",
+          "Star rating picker allows selecting 1-5 stars with hover preview.",
+          "After submission, the new review appears at the top of the list without page refresh.",
+          "Users who already reviewed see their review highlighted with an edit option."
+        ]
+      },
+      {
+        "title": "Build Admin Review Moderation",
+        "description": "Create GET /api/admin/reviews with filtering by status (pending/approved/hidden), product, and rating. Create PATCH /api/admin/reviews/[reviewId] to update review status (approve/hide/delete). Hidden reviews are excluded from the public review list and rating calculation. Deleted reviews are soft-deleted and excluded from all queries. Recalculate product rating when a review is hidden or deleted.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Admin can filter reviews by status, product, and rating.",
+          "Hiding a review recalculates the product's average rating without it.",
+          "Deleted reviews are soft-deleted and never appear in any public query.",
+          "Admin endpoints require admin role authentication."
+        ]
+      },
+      {
+        "title": "Write Reviews Module Tests",
+        "description": "Test review submission by eligible customer, rejection for non-purchaser, duplicate prevention, rating validation (1-5), average rating recalculation after new review, review pagination. Test admin moderation: approve, hide (verify rating recalculation), delete (verify exclusion from queries), and filter by status.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Purchase verification correctly checks for delivered orders only.",
+          "Average rating math is accurate after add, hide, and delete operations.",
+          "Admin moderation status changes are correctly reflected in public queries.",
+          "Pagination returns correct pages with accurate total counts."
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Build Admin Product CRUD API",
+        "description": "Create the admin product management endpoints: POST /api/admin/products (create with name, slug, description, tags, category, price, images, variants), GET /api/admin/products (list with search, category filter, stock status filter, pagination), GET /api/admin/products/[id] (detail), PATCH /api/admin/products/[id] (update), DELETE /api/admin/products/[id] (soft-deactivate). Implement image upload to cloud storage with signed upload URLs.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Create product validates all required fields and generates slug from name if not provided.",
+          "Product slug uniqueness is enforced — duplicates return 409.",
+          "Image upload returns a signed URL for direct browser-to-storage upload.",
+          "Deactivated products are excluded from the customer-facing catalog API.",
+          "All admin endpoints require admin role authentication and return 403 for non-admins."
+        ]
+      },
+      {
+        "title": "Build Category Management API",
+        "description": "Create CRUD endpoints for categories: POST /api/admin/categories, GET /api/admin/categories (tree structure), PATCH /api/admin/categories/[id], DELETE /api/admin/categories/[id]. Categories support parent-child hierarchy. Deleting a category with children is not allowed — children must be reassigned first. GET returns the full tree structure for navigation menus.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Categories are returned as a nested tree structure.",
+          "Deleting a category with children returns 400 with an error message.",
+          "Category slug is auto-generated and unique.",
+          "Updating a category's parent correctly restructures the tree."
+        ]
+      },
+      {
+        "title": "Build Admin Dashboard Product Pages",
+        "description": "Build the admin product management pages: product list with data table (sortable columns, search, filters), product create/edit form with image drag-and-drop upload, variant management (add/remove variants with SKU, price, stock), and category management tree. Include a low-stock alert banner on the product list showing variants below the configured threshold.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Product data table supports column sorting, search, and pagination.",
+          "Image upload shows drag-and-drop zone with preview thumbnails and reordering.",
+          "Variant editor allows adding and removing variants with inline SKU and stock fields.",
+          "Low-stock alert banner shows the count of variants below threshold with a link to filter them.",
+          "Category tree component supports drag-and-drop reordering and nested expansion."
+        ]
+      },
+      {
+        "title": "Implement CSV Bulk Product Import",
+        "description": "Create POST /api/admin/products/import that accepts a CSV file with columns: name, description, category, price, sku, stock, tags. Parse and validate each row. Create new products or update existing ones matched by SKU. Return a result summary with success count, error count, and per-row error details. Process the import asynchronously for large files and notify the admin via email when complete.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Valid CSV creates/updates products correctly matched by SKU.",
+          "Invalid rows are skipped and reported with row number and specific error.",
+          "Import of 1000+ rows processes asynchronously without blocking the API.",
+          "Admin receives an email summary with success/error counts when import completes."
+        ]
+      },
+      {
+        "title": "Implement Low-Stock Alert System",
+        "description": "Create a scheduled job (cron or queue-based) that runs daily to check all product variants against the configurable low-stock threshold (stored in admin settings). When variants are below threshold, send a consolidated email to admin with a list of affected products, variants, and current stock levels. Store the threshold setting in a SiteSettings collection.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Low-stock threshold is configurable by admin and stored in database.",
+          "Daily check correctly identifies all variants below threshold.",
+          "Alert email is consolidated (one email with all low-stock items, not one per item).",
+          "Items that were already alerted are not re-alerted until stock is replenished and drops again."
+        ]
+      },
+      {
+        "title": "Write Admin Product Management Tests",
+        "description": "Test product CRUD operations including validation, slug generation, image upload URL generation, soft-deactivation. Test category tree operations including hierarchy, deletion restrictions, and slug uniqueness. Test CSV import with valid file, file with errors, duplicate SKU handling, and large file async processing. Test low-stock alert job threshold detection and email trigger.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "CRUD tests cover create, read, update, and deactivate with validation.",
+          "Category tests verify tree structure and deletion restrictions.",
+          "CSV import tests verify row-level validation and error reporting.",
+          "Low-stock tests verify threshold detection with various stock levels."
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Build User Profile and Address Book API",
+        "description": "Create GET /api/user/profile and PATCH /api/user/profile for viewing and updating name and email (email change requires re-verification). Create POST /api/auth/change-password that validates the current password before accepting the new one. Create CRUD endpoints for /api/user/addresses: list, create, update, delete, and PATCH /api/user/addresses/[id]/default to set the default. Create DELETE /api/user/account that anonymizes the user record and deletes personal data while preserving order records with anonymized references.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Email change triggers a verification email and does not take effect until confirmed.",
+          "Password change validates the current password before accepting the new one.",
+          "Setting a default address un-defaults the previous default.",
+          "Account deletion anonymizes the user but preserves order records with hashed identifiers.",
+          "Deleted accounts cannot log in and their sessions are invalidated."
+        ]
+      },
+      {
+        "title": "Build Account Settings Pages",
+        "description": "Implement the /account pages: profile edit form, password change form, address book with add/edit/delete and set-default actions, order history with date/status filters, and account deletion with confirmation dialog requiring password entry. All pages are protected by authentication and redirect to login if not authenticated.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Profile edit saves changes and shows success feedback.",
+          "Password change validates current password and new password rules.",
+          "Address book shows all saved addresses with default badge and action buttons.",
+          "Account deletion requires password confirmation and shows a clear warning.",
+          "All pages redirect to /login for unauthenticated users."
+        ]
+      },
+      {
+        "title": "Write User Account Tests",
+        "description": "Test profile update with valid and invalid data, email change verification flow, password change with correct and incorrect current password, address CRUD and default selection, order history pagination and filtering, and account deletion with data anonymization verification.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Profile update tests cover name change and email change with re-verification.",
+          "Password change rejects when current password is wrong.",
+          "Address tests verify CRUD, default toggle, and constraint enforcement.",
+          "Account deletion test verifies personal data is removed but orders are preserved."
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Email Notification Service",
+        "description": "Create a reusable email service module that sends transactional emails using an SMTP provider or service like SendGrid. Implement email templates for: registration verification, order confirmation (with order items table), shipping notification (with tracking link), password reset, and low-stock admin alert. All templates use a shared HTML layout with store branding (logo, colors, footer). Emails are queued and sent asynchronously to avoid blocking API responses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "All five email types render correctly with dynamic data populated.",
+          "Emails use the branded HTML template with logo, colors, and footer links.",
+          "Emails are sent asynchronously — the calling API endpoint does not wait for delivery.",
+          "Failed email sends are logged with error details and retried up to 3 times.",
+          "Email service is configurable via environment variables (SMTP host, API key, from address)."
+        ]
+      },
+      {
+        "title": "Design Email Templates",
+        "description": "Create responsive HTML email templates that render correctly in Gmail, Outlook, and Apple Mail. Templates needed: welcome/verification email, order confirmation with items table and totals, shipping update with tracking link and estimated delivery, password reset with secure link and expiry notice, and admin low-stock alert with product/variant table. All templates follow the store's brand guidelines.",
+        "priority": "medium",
+        "type": "design",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Templates render correctly in Gmail (web and mobile), Outlook (desktop), and Apple Mail.",
+          "Order confirmation template displays item images, names, quantities, and totals in a table.",
+          "All templates include the store logo, consistent color scheme, and unsubscribe/contact footer.",
+          "Templates use inline CSS for maximum email client compatibility."
+        ]
+      },
+      {
+        "title": "Configure Email Provider Integration",
+        "description": "Set up the email delivery provider (SendGrid or equivalent). Configure API credentials as environment variables. Set up domain authentication (SPF, DKIM) to avoid spam filters. Configure a dedicated sending domain and from address. Set up webhook for bounce and complaint handling to maintain sender reputation.",
+        "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Emails are delivered via authenticated domain with SPF and DKIM records.",
+          "Provider API key is stored as an environment variable.",
+          "Bounce and complaint webhooks update the email service to suppress future sends to invalid addresses.",
+          "Staging environment uses sandbox mode to prevent accidental emails to real users."
+        ]
+      },
+      {
+        "title": "Write Email Notification Tests",
+        "description": "Test each email trigger: registration sends verification email, order creation sends confirmation, status change to shipped sends shipping notification with tracking, password reset sends reset link, low-stock job sends admin alert. Verify email content includes correct dynamic data. Test async queue processing and retry on failure. All tests use a mock email provider.",
+        "priority": "medium",
+        "type": "testing",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Each trigger event results in the correct email type being queued.",
+          "Email content tests verify dynamic data (order number, tracking URL, etc.) is populated.",
+          "Retry test confirms failed sends are retried up to 3 times.",
+          "Mock provider captures all sent emails for assertion without actual delivery."
         ]
       }
     ]

@@ -1,7 +1,7 @@
 {
   "input": {
     "title": "Food Delivery Application",
-    "description": "Food Delivery Application is a web-based enterprise platform that centralizes operational workflows, data visibility, and cross-functional reporting.",
+    "description": "A mobile-first food delivery platform connecting customers with local restaurants and delivery drivers. Customers browse nearby restaurants, order food, pay online, and track deliveries in real time. Restaurant owners manage menus, accept orders, and monitor sales. Delivery drivers receive assignments, navigate to pickups and drop-offs, and update delivery status in real time.",
     "technologies": [
       "Flutter",
       "Node.js",
@@ -9,930 +9,870 @@
       "Redis"
     ],
     "actors": [
-      "Admin",
-      "Manager",
-      "Employee",
-      "User"
+      "Customer",
+      "Restaurant Owner",
+      "Delivery Driver",
+      "Admin"
     ],
     "user_classes": {
-      "Admin": "Configures the system, manages users, and oversees permissions and settings.",
-      "Manager": "Oversees departmental workflows, approvals, KPIs, and operational reporting.",
-      "Employee": "Performs day-to-day operational tasks within assigned modules and permissions.",
-      "User": "Generic authenticated platform user with access limited by role and department."
+      "Customer": "End user who browses restaurants, places food orders, makes payments, tracks deliveries, and rates their experience.",
+      "Restaurant Owner": "Business operator who manages restaurant profile, menus, pricing, availability, and processes incoming orders.",
+      "Delivery Driver": "Independent contractor who receives delivery assignments, navigates to pickup and drop-off locations, and updates delivery status.",
+      "Admin": "Platform administrator who manages users, restaurants, commissions, disputes, and monitors platform-wide analytics."
     },
     "definitions": {
-      "Admin": "System user with full administrative privileges.",
-      "Manager": "Operational owner of a department, module, or workflow.",
-      "Employee": "End user performing role-specific business operations."
+      "Order": "A confirmed food purchase containing items from a single restaurant, with delivery address, payment, and status tracking.",
+      "ETA": "Estimated Time of Arrival — the predicted time for food to be delivered, updated in real time based on preparation and driver location.",
+      "Service Area": "A geographic zone defined by GPS coordinates within which a restaurant offers delivery.",
+      "Surge Pricing": "Dynamic delivery fee adjustment applied during peak demand periods based on order volume and driver availability."
     },
     "modules": [
-      "Customer Registration and Login",
-      "Restaurant Browsing",
-      "Menu and Item Selection",
-      "Shopping Cart and Checkout",
-      "Real-time Order Tracking",
+      "Authentication",
+      "Restaurant Discovery",
+      "Menu and Ordering",
+      "Cart and Checkout",
       "Payment Processing",
-      "Rating and Review",
-      "Restaurant Owner Dashboard",
-      "Delivery Driver App",
-      "Order History"
+      "Order Management",
+      "Real-time Tracking",
+      "Driver Management",
+      "Ratings and Reviews",
+      "Customer Support",
+      "Admin Dashboard",
+      "Notifications"
     ],
     "scope": [
-      "Customer Registration and Login workflows",
-      "Restaurant Browsing workflows",
-      "Menu and Item Selection workflows",
-      "Shopping Cart and Checkout workflows",
-      "Real-time Order Tracking workflows",
-      "Payment Processing workflows"
+      "Customer registration and login with phone number OTP verification",
+      "Location-based restaurant browsing with cuisine and rating filters",
+      "Menu display with categories, item customization, and availability status",
+      "Cart management with single-restaurant constraint and promo code support",
+      "Stripe payment processing with card, wallet, and cash-on-delivery options",
+      "Real-time order tracking with driver GPS location on a map",
+      "Restaurant dashboard for menu management and order acceptance",
+      "Driver app for delivery assignments, navigation, and status updates",
+      "Two-way rating system for customers, drivers, and restaurants",
+      "In-app customer support chat with automated FAQs",
+      "Push notifications for order status and promotions"
+    ],
+    "out_of_scope": [
+      "Grocery or non-food item delivery",
+      "Multi-restaurant orders in a single checkout",
+      "Driver fleet management and shift scheduling",
+      "In-house payment gateway — all payments through Stripe",
+      "Dine-in or table reservation features"
     ],
     "constraints": [
-      "Initial release will focus on the web platform only",
-      "Role-based access control is mandatory across all modules",
-      "Operational data must be auditable and retained according to policy"
+      "Flutter for cross-platform mobile (iOS and Android) for all three app variants",
+      "Node.js API server with Express handles business logic and order orchestration",
+      "PostgreSQL with PostGIS extension for geographic queries (nearby restaurants, driver location)",
+      "Redis for real-time driver location caching and order status pub/sub",
+      "WebSocket connections for live order tracking and driver location streaming",
+      "All prices are in a single currency (USD) for the initial release",
+      "Maximum delivery radius per restaurant is 15 km"
     ],
     "operating_environment": {
-      "frontend": "Web-based interface built with Flutter and accessible through modern browsers.",
-      "backend": "Service layer implemented with Flutter, Node.js, PostgreSQL, Redis for business operations.",
-      "deployment": "Cloud-hosted environment with centralized monitoring, backups, and automated deployments."
+      "frontend": "Three Flutter applications: Customer app, Restaurant Owner app, and Driver app. Deployed to iOS App Store and Google Play.",
+      "backend": "Node.js/Express REST API deployed on AWS ECS. WebSocket server for real-time features. Redis for caching and pub/sub.",
+      "database": "PostgreSQL with PostGIS on AWS RDS. Redis for driver location cache and session management.",
+      "infrastructure": "AWS S3 for media storage, CloudFront CDN, Firebase Cloud Messaging for push notifications."
     },
-    "non_functional_requirements": {
-      "NFR-01": {
-        "title": "Security and Access Control",
-        "requirements": [
-          "All sensitive data must be encrypted in transit and at rest",
-          "Role-based authorization must restrict access by module and action",
-          "All authentication events and privileged actions must be logged"
-        ]
-      },
-      "NFR-02": {
-        "title": "Performance and Scalability",
-        "requirements": [
-          "Core pages and dashboards should load within acceptable enterprise SLAs",
-          "The platform must support concurrent usage across multiple departments",
-          "Background jobs and reporting workloads should not block transactional workflows"
-        ]
-      },
-      "NFR-03": {
-        "title": "Reliability and Recoverability",
-        "requirements": [
-          "Automated backups must run on a defined schedule",
-          "Critical workflows should support retry-safe processing and audit logging",
-          "Operational alerts should be generated for failures and degraded services"
-        ]
-      }
-    },
-    "system_attributes": {
-      "reliability": "Platform should provide resilient transactional processing with backup and recovery capabilities.",
-      "scalability": "Architecture should support horizontal scaling for APIs, background workers, and reporting services.",
-      "security": "Authentication, authorization, encryption, and auditability must be built into every module.",
-      "maintainability": "Codebase should remain modular, observable, and safe to extend through clear service boundaries."
-    },
-    "out_of_scope": [
-      "Native mobile applications in the first release",
-      "Large third-party marketplace or legacy ERP migrations unless explicitly scoped",
-      "Non-core experimental modules outside the platform's operational workflows"
-    ],
     "functional_requirements": {
       "FR-01": {
         "title": "Customer Registration and Login",
         "requirements": [
-          "Register with phone number and OTP verification",
-          "Login via phone OTP or email/password",
-          "Social login with Google",
-          "Profile with name, email, and saved addresses"
+          "Customers register with phone number and receive a 6-digit OTP via SMS for verification",
+          "After phone verification, customers complete profile with name, email (optional), and delivery address",
+          "Delivery address is captured via GPS auto-detect or manual entry with Google Places autocomplete",
+          "Customers can log in with phone number and OTP (passwordless authentication)",
+          "JWT session tokens are issued on login with 30-day refresh tokens",
+          "Customers can manage multiple saved delivery addresses with a default selection"
         ]
       },
       "FR-02": {
-        "title": "Restaurant Browsing",
+        "title": "Restaurant Discovery",
         "requirements": [
-          "Display nearby restaurants based on user location",
-          "Filter by cuisine, rating, delivery time, and price range",
-          "Sort by distance, rating, or popularity",
-          "Show restaurant details: menu, rating, delivery time, minimum order"
+          "Home screen shows nearby restaurants within delivery range based on customer's current or saved address",
+          "Restaurants are sorted by distance, rating, estimated delivery time, or promoted status",
+          "Filters for cuisine type (Indian, Chinese, Italian, etc.), price range, dietary tags (vegan, halal, gluten-free), and minimum rating",
+          "Search by restaurant name or dish name with autocomplete suggestions",
+          "Each restaurant card shows name, cover image, cuisine tags, average rating, delivery fee, estimated delivery time, and an open/closed badge",
+          "Closed restaurants are visible but grayed out with next opening time displayed"
         ]
       },
       "FR-03": {
-        "title": "Menu and Item Selection",
+        "title": "Menu and Item Customization",
         "requirements": [
-          "Display restaurant menu with categories",
-          "Each item shows name, description, price, and image",
-          "Items can have customization options (size, toppings)",
-          "Add items to cart with quantity selection"
+          "Restaurant menu displays items grouped by category (Starters, Mains, Desserts, Drinks)",
+          "Each menu item shows name, description, price, image, dietary tags, and availability status",
+          "Items support customization options: size (small/medium/large), add-ons (extra cheese, toppings), and special instructions text field",
+          "Add-on prices are added to the base item price",
+          "Unavailable items are visible but cannot be added to cart",
+          "Menu items can be marked as 'bestseller' or 'new' by the restaurant owner"
         ]
       },
       "FR-04": {
-        "title": "Shopping Cart and Checkout",
+        "title": "Cart and Checkout",
         "requirements": [
-          "Cart shows selected items with quantities and prices",
-          "Users can modify quantities or remove items",
-          "Apply promo codes for discounts",
-          "Select delivery address and payment method"
+          "Cart is restricted to items from a single restaurant — adding from another prompts to clear the current cart",
+          "Cart displays each item with customizations, quantity, unit price, and line total",
+          "Users can apply a promo code for percentage or fixed-amount discounts with validation",
+          "Cart summary shows item subtotal, delivery fee, service fee, discount (if any), taxes, and grand total",
+          "Delivery fee is calculated based on distance and adjusted for surge pricing during peak hours",
+          "Minimum order amount is enforced per restaurant — orders below the minimum show a shortfall message"
         ]
       },
       "FR-05": {
-        "title": "Real-time Order Tracking",
+        "title": "Payment Processing",
         "requirements": [
-          "Live map showing delivery driver location",
-          "Order status updates: confirmed, preparing, picked up, delivered",
-          "Estimated delivery time with real-time updates",
-          "Push notifications for status changes"
+          "Customers can pay with saved credit/debit card via Stripe, digital wallets (Apple Pay, Google Pay), or cash on delivery",
+          "New cards are tokenized and saved for future use with Stripe Customer API",
+          "Stripe Payment Intents API handles the payment with 3D Secure support",
+          "On successful payment, the order is created and the restaurant receives a notification",
+          "On payment failure, the customer sees the error and can retry or choose a different method",
+          "Refunds are processed back to the original payment method through Stripe Refunds API"
         ]
       },
       "FR-06": {
-        "title": "Payment Processing",
+        "title": "Real-time Order Tracking",
         "requirements": [
-          "Support credit/debit card payments",
-          "Cash on delivery option",
-          "Digital wallet integration",
-          "Payment receipt generated for each order"
+          "After order placement, the customer sees a live status screen showing the order lifecycle",
+          "Order statuses: placed, accepted by restaurant, preparing, ready for pickup, driver assigned, picked up, on the way, delivered",
+          "Once a driver is assigned, a map view shows the driver's live GPS location updated every 5 seconds",
+          "ETA updates dynamically based on driver location and traffic conditions",
+          "Customer can contact the driver via in-app call or chat during active delivery",
+          "Delivery proof: driver takes a photo at drop-off, visible to the customer"
         ]
       },
       "FR-07": {
-        "title": "Rating and Review",
+        "title": "Restaurant Owner Dashboard",
         "requirements": [
-          "Rate restaurant with 1-5 stars after delivery",
-          "Rate delivery driver separately",
-          "Write optional text review",
-          "View restaurant ratings before ordering"
+          "Restaurant owners manage their profile: name, description, cover image, cuisine tags, operating hours, and delivery radius",
+          "Menu management: CRUD for categories and items, set availability, mark bestsellers, update prices, upload item images",
+          "Incoming orders panel: new orders appear with an alert sound, showing items, total, and customer notes",
+          "Owners accept or reject orders within 5 minutes — unresponded orders auto-cancel with customer notification",
+          "Owners update order status: accepted → preparing → ready for pickup",
+          "Sales analytics: daily/weekly/monthly revenue, order count, average order value, top-selling items"
         ]
       },
       "FR-08": {
-        "title": "Restaurant Owner Dashboard",
+        "title": "Delivery Driver App",
         "requirements": [
-          "Restaurant owners can manage menu items",
-          "View and accept/reject incoming orders",
-          "Update restaurant hours and availability",
-          "View sales analytics and revenue reports"
+          "Drivers toggle online/offline availability status",
+          "Online drivers receive delivery assignment offers showing restaurant name, pickup address, customer area, estimated distance, and earnings",
+          "Drivers accept or decline assignments within 30 seconds — declined assignments are offered to the next available driver",
+          "Active delivery screen shows pickup navigation (turn-by-turn), then switches to drop-off navigation after pickup confirmation",
+          "Drivers update status: heading to restaurant → arrived at restaurant → picked up → heading to customer → delivered",
+          "Driver location is streamed to the server every 5 seconds via WebSocket while on an active delivery",
+          "Delivery completion requires a drop-off photo uploaded from the driver's camera"
         ]
       },
       "FR-09": {
-        "title": "Delivery Driver App",
+        "title": "Ratings and Reviews",
         "requirements": [
-          "Driver receives order assignment notifications",
-          "Navigation to restaurant and customer address",
-          "Driver can mark order as picked up and delivered",
-          "Earnings tracking and daily summary"
+          "After delivery, customers rate the order (1-5 stars for food quality), the restaurant, and the driver separately",
+          "Customers can add an optional text review for the restaurant",
+          "Driver rating is based on delivery speed, professionalism, and food condition",
+          "Ratings below 3 stars prompt the customer to select a reason (cold food, missing items, late delivery, rude driver)",
+          "Restaurant and driver average ratings are displayed on their profiles",
+          "Drivers with an average rating below 4.0 over the last 50 deliveries receive a performance warning"
         ]
       },
       "FR-10": {
-        "title": "Order History",
+        "title": "Order History and Reorder",
         "requirements": [
-          "View past orders with details and status",
-          "Reorder from previous orders with one tap",
-          "Download invoice for each order",
-          "Filter orders by date range"
+          "Customers can view past orders sorted by date with status, restaurant name, total, and item summary",
+          "Each past order has a detail page showing items, customizations, prices, delivery address, and payment method",
+          "Customers can reorder from any past order — items are added to cart with the same customizations if still available",
+          "Unavailable items in a reorder are flagged and excluded from the cart",
+          "Order history supports filtering by date range and restaurant"
         ]
       },
       "FR-11": {
         "title": "Favorites and Saved Restaurants",
         "requirements": [
-          "Users can save favorite restaurants",
-          "Quick access to frequently ordered items",
-          "Favorites list accessible from profile",
-          "Suggested restaurants based on order history"
+          "Customers can save restaurants to a favorites list by tapping a heart icon",
+          "Favorites page displays saved restaurants with the same card format as the home screen",
+          "Customers can save individual menu items to a 'My Favorites' collection",
+          "Saved items can be added to cart directly from the favorites page",
+          "Favorites sync across devices via the user's account"
         ]
       },
       "FR-12": {
-        "title": "Customer Support Chat",
+        "title": "Customer Support",
         "requirements": [
-          "In-app chat for order issues",
-          "Chat with customer support agent",
-          "Attach images of incorrect orders",
-          "Chat history saved for reference"
+          "In-app support chat allows customers to report issues with active or recent orders",
+          "Common issues have pre-built quick-response options: missing item, wrong order, late delivery, payment issue",
+          "Support agents can issue partial or full refunds from the chat interface",
+          "Automated FAQ section provides answers for common questions before connecting to an agent",
+          "Support ticket history is visible to the customer from their account"
         ]
       }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Performance",
+        "requirements": [
+          "Nearby restaurant listing must return within 2 seconds for a 15km radius",
+          "Driver location updates must be received by the customer within 1 second",
+          "Order placement to restaurant notification must complete within 3 seconds"
+        ]
+      },
+      "NFR-02": {
+        "title": "Scalability",
+        "requirements": [
+          "The platform must support 50,000 concurrent active orders during peak hours",
+          "Driver location streaming must handle 10,000 concurrent WebSocket connections"
+        ]
+      },
+      "NFR-03": {
+        "title": "Reliability",
+        "requirements": [
+          "Payment and order operations must be atomic — no orphan charges or unconfirmed orders",
+          "Driver assignment continues functioning if individual drivers go offline mid-delivery",
+          "Order data must be backed up daily with point-in-time recovery"
+        ]
+      }
+    },
+    "system_attributes": {
+      "reliability": "Payment and order creation are wrapped in atomic transactions. Failed deliveries trigger automatic reassignment to another driver.",
+      "scalability": "Driver location uses Redis pub/sub for horizontal scaling. Restaurant queries use PostGIS spatial indexes for fast geo-filtering.",
+      "security": "Payment data is handled by Stripe only. Phone OTP verification prevents fake accounts. Driver identity is verified during onboarding.",
+      "maintainability": "Three separate Flutter codebases share common packages. API versioning ensures backward compatibility for app updates."
     }
   },
   "output": {
     "FR-01": [
       {
-        "title": "Design Customer Registration and Login UI",
-        "description": "Design the user interface for customer registration and login. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "UI design for customer registration and login is complete and reviewable.",
-          "The customer registration and login design is responsive and accessible.",
-          "The design for customer registration and login aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Customer Registration and Login",
-        "description": "Implement the frontend behavior for customer registration and login. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Register with phone number and OTP verification; Login via phone OTP or email/password; Social login with Google.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Frontend implements the required customer registration and login user interactions.",
-          "Validation, loading, and error states for customer registration and login are handled in the UI.",
-          "Frontend behavior for customer registration and login is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Customer Registration and Login",
-        "description": "Implement the backend logic for customer registration and login. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Register with phone number and OTP verification; Login via phone OTP or email/password; Social login with Google.",
+        "title": "Build Phone OTP Registration and Login API",
+        "description": "Create POST /api/auth/send-otp accepting a phone number, generating a 6-digit code, storing it in Redis with a 5-minute TTL, and sending via Twilio SMS API. Create POST /api/auth/verify-otp that validates the code, creates or retrieves the user, and returns JWT access (1-day) and refresh (30-day) tokens. First-time users get isProfileComplete=false. Create PATCH /api/auth/profile for completing the profile with name, email, and default address.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Backend logic for customer registration and login is implemented and testable.",
-          "APIs and business rules for customer registration and login enforce validation and security requirements.",
-          "Data handling for customer registration and login is reliable and supports the required workflow."
+          "OTP is sent via SMS and stored in Redis with 5-minute expiry.",
+          "Correct OTP returns JWT tokens; incorrect OTP returns 400.",
+          "Expired OTP returns 400 with option to resend.",
+          "First-time user is created with isProfileComplete=false.",
+          "Rate limiting: max 3 OTP requests per phone per 15 minutes."
         ]
       },
       {
-        "title": "Security Hardening for Customer Registration and Login",
-        "description": "Implement the security controls required for customer registration and login. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "title": "Build Address Management API with Geocoding",
+        "description": "Create CRUD endpoints for /api/addresses: POST (create with label, full address, lat/lng coordinates), GET (list user's addresses), PATCH (update), DELETE (remove), PATCH /:id/default (set as default). Create GET /api/addresses/autocomplete?q=query proxying Google Places Autocomplete for address suggestions. Create GET /api/addresses/reverse-geocode?lat=&lng= to resolve GPS coordinates to a formatted address.",
         "priority": "high",
-        "type": "security",
+        "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Security controls for customer registration and login enforce the required authentication, authorization, or data-protection rules.",
-          "Sensitive operations and failure scenarios for customer registration and login are logged, validated, and protected against misuse.",
-          "The implementation of customer registration and login satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+          "Addresses store lat/lng coordinates for distance calculations.",
+          "Setting a default address un-defaults the previous one.",
+          "Autocomplete returns formatted suggestions from Google Places.",
+          "Reverse geocode resolves GPS coordinates to a human-readable address.",
+          "Addresses are scoped to the authenticated user."
         ]
       },
       {
-        "title": "Integrate Customer Registration and Login with External Services",
-        "description": "Integrate customer registration and login with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
-        "priority": "medium",
+        "title": "Build Onboarding and Login Screens",
+        "description": "Implement Flutter screens: phone number input with country code picker, OTP input with 6-digit auto-advance fields and resend timer, profile completion form (name, email, address with GPS auto-detect button and Google Places search). Implement the address management screen with saved addresses list, add/edit form with map pin selector, and swipe-to-delete. Store tokens in Flutter secure storage.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Phone input validates format based on country code.",
+          "OTP screen auto-advances focus and shows countdown for resend.",
+          "GPS auto-detect button captures location and displays the resolved address.",
+          "Address search uses Google Places autocomplete with debounced input.",
+          "Tokens are stored securely and auto-refresh on 401 responses."
+        ]
+      },
+      {
+        "title": "Create Users and Addresses Schema",
+        "description": "Define PostgreSQL tables: users (id UUID, phone VARCHAR(20) UNIQUE, name, email, avatarUrl, isProfileComplete BOOLEAN, role ENUM(customer/driver/restaurant_owner/admin), createdAt, updatedAt). addresses (id UUID, userId FK, label VARCHAR, formattedAddress TEXT, location GEOGRAPHY(POINT, 4326) using PostGIS, isDefault BOOLEAN, createdAt). Create indexes on users.phone and spatial index on addresses.location.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Users table has unique constraint on phone number.",
+          "Addresses use PostGIS GEOGRAPHY type for accurate distance calculations.",
+          "Spatial index on addresses.location enables fast proximity queries.",
+          "Migration runs on fresh PostgreSQL with PostGIS extension enabled."
+        ]
+      },
+      {
+        "title": "Configure Twilio SMS Integration",
+        "description": "Set up Twilio account for OTP delivery. Configure a dedicated phone number for sending SMS. Store Twilio credentials (Account SID, Auth Token, phone number) in environment variables. Implement SMS delivery with error handling and fallback logging. Configure test credentials for development environment to avoid sending real SMS.",
+        "priority": "high",
         "type": "integration",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "External or cross-system integrations required by customer registration and login exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for customer registration and login integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by customer registration and login are configured and secured correctly."
+          "SMS is delivered via Twilio to valid phone numbers.",
+          "Twilio credentials are loaded from environment variables.",
+          "Failed SMS sends are logged with Twilio error details.",
+          "Development environment uses Twilio test credentials without real sends.",
+          "SMS delivery completes within 3 seconds."
         ]
       },
       {
-        "title": "Testing Customer Registration and Login Functionality",
-        "description": "Create and execute tests for customer registration and login. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Authentication and Address Tests",
+        "description": "Test OTP send and verify flow, expired OTP rejection, rate limiting enforcement, profile completion, JWT token refresh, address CRUD operations, GPS reverse geocoding, default address toggle, and Google Places autocomplete proxying. Use a mock Twilio provider in tests.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for customer registration and login.",
-          "Security, validation, and permission checks for customer registration and login are verified.",
-          "Regression coverage exists for the most important customer registration and login behaviors."
+          "OTP lifecycle tests cover send, verify, expiry, and resend.",
+          "Rate limiting test confirms blocking after 3 rapid OTP requests.",
+          "Address tests verify CRUD, default toggle, and PostGIS storage.",
+          "Twilio mock captures sent SMS for assertion without real delivery."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Design Restaurant Browsing UI",
-        "description": "Design the user interface for restaurant browsing. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "UI design for restaurant browsing is complete and reviewable.",
-          "The restaurant browsing design is responsive and accessible.",
-          "The design for restaurant browsing aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Restaurant Browsing",
-        "description": "Implement the frontend behavior for restaurant browsing. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Display nearby restaurants based on user location; Filter by cuisine, rating, delivery time, and price range; Sort by distance, rating, or popularity.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Frontend implements the required restaurant browsing user interactions.",
-          "Validation, loading, and error states for restaurant browsing are handled in the UI.",
-          "Frontend behavior for restaurant browsing is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Restaurant Browsing",
-        "description": "Implement the backend logic for restaurant browsing. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Display nearby restaurants based on user location; Filter by cuisine, rating, delivery time, and price range; Sort by distance, rating, or popularity.",
+        "title": "Build Nearby Restaurants API with PostGIS",
+        "description": "Create GET /api/restaurants?lat=&lng=&radius=15&cuisine=&priceRange=&minRating=&dietary=&sort=distance|rating|delivery_time|promoted&page=&limit=20. Use PostGIS ST_DWithin to find restaurants within delivery radius of the customer's location. Join with restaurant operating hours to compute isOpen flag and nextOpeningTime. Calculate delivery ETA using distance/average speed. Support full-text search on restaurant name and menu item names via PostgreSQL tsvector.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Backend logic for restaurant browsing is implemented and testable.",
-          "APIs and business rules for restaurant browsing enforce validation and security requirements.",
-          "Data handling for restaurant browsing is reliable and supports the required workflow."
+          "Only restaurants with delivery range covering the customer's location are returned.",
+          "Closed restaurants appear with isOpen=false and nextOpeningTime.",
+          "All filters (cuisine, price, rating, dietary) can be combined.",
+          "Search matches both restaurant names and dish names within menus.",
+          "Delivery ETA is calculated based on distance from restaurant to customer.",
+          "Query with PostGIS returns within 500ms for 5000 restaurants in the area."
         ]
       },
       {
-        "title": "Testing Restaurant Browsing Functionality",
-        "description": "Create and execute tests for restaurant browsing. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Restaurant Discovery UI",
+        "description": "Implement the Flutter home screen: location bar at top showing current address (tappable to change), horizontal cuisine filter chips (scrollable), restaurant cards in a vertical list with lazy loading. Each card shows cover image, name, cuisine tags, star rating, delivery fee, ETA badge, and promoted/closed overlay. Pull-to-refresh and infinite scroll pagination. Search bar with autocomplete for restaurant and dish names. Filter bottom sheet with cuisine checkboxes, price range slider, dietary tag chips, and minimum rating slider.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Location bar shows current address and opens address picker on tap.",
+          "Restaurant cards display all required info with proper layout.",
+          "Closed restaurants show a gray overlay with next opening time.",
+          "Search autocomplete triggers after 300ms debounce.",
+          "Filter bottom sheet applies all selections and refreshes the restaurant list.",
+          "Infinite scroll loads next page when nearing the bottom."
+        ]
+      },
+      {
+        "title": "Create Restaurants Schema with PostGIS",
+        "description": "Define PostgreSQL tables: restaurants (id UUID, ownerId FK, name, slug UNIQUE, description, coverImageUrl, cuisineTypes TEXT[], priceRange ENUM(1-4), location GEOGRAPHY(POINT), deliveryRadiusKm INT, avgRating DECIMAL, totalReviews INT, deliveryFeeBase DECIMAL, minOrderAmount DECIMAL, isActive BOOLEAN, createdAt). operating_hours (id, restaurantId FK, dayOfWeek INT(0-6), openTime TIME, closeTime TIME). Create spatial index on restaurants.location and GIN index on cuisineTypes. Run PostGIS extension creation in migration.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Spatial index on restaurant.location enables fast ST_DWithin queries.",
+          "GIN index on cuisineTypes enables array-contains filtering.",
+          "Operating hours support multiple time slots per day (e.g., lunch and dinner).",
+          "Delivery radius is stored per restaurant (max 15km enforced at API level)."
+        ]
+      },
+      {
+        "title": "Write Restaurant Discovery Tests",
+        "description": "Test nearby restaurant query with PostGIS (within radius, outside radius), cuisine filtering, price range filtering, dietary tag filtering, combined filters, sort by distance accuracy, open/closed status based on operating hours and current time, search by restaurant name, search by dish name, pagination consistency, and query performance with 5000 seeded restaurants.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for restaurant browsing.",
-          "Security, validation, and permission checks for restaurant browsing are verified.",
-          "Regression coverage exists for the most important restaurant browsing behaviors."
+          "Geo-filtering tests verify correct inclusion/exclusion at radius boundary.",
+          "Operating hours tests cover timezone-aware open/closed determination.",
+          "Combined filter tests verify all filters work together correctly.",
+          "Performance test confirms sub-500ms response with 5000 restaurants."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Design Menu and Item Selection UI",
-        "description": "Design the user interface for menu and item selection. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "UI design for menu and item selection is complete and reviewable.",
-          "The menu and item selection design is responsive and accessible.",
-          "The design for menu and item selection aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Menu and Item Selection",
-        "description": "Implement the frontend behavior for menu and item selection. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Display restaurant menu with categories; Each item shows name, description, price, and image; Items can have customization options (size, toppings).",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Frontend implements the required menu and item selection user interactions.",
-          "Validation, loading, and error states for menu and item selection are handled in the UI.",
-          "Frontend behavior for menu and item selection is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Menu and Item Selection",
-        "description": "Implement the backend logic for menu and item selection. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Display restaurant menu with categories; Each item shows name, description, price, and image; Items can have customization options (size, toppings).",
+        "title": "Build Menu API with Customization Options",
+        "description": "Create GET /api/restaurants/:id/menu returning menu items grouped by category (ordered). Each item includes: name, description, price, imageUrl, dietaryTags, isAvailable, isBestseller, isNew, and customizationGroups (array of {name, type: single_select|multi_select, required: boolean, options: [{name, additionalPrice}]}). Unavailable items are included but flagged. Restaurant owner endpoints: POST/PATCH/DELETE for categories and items, PATCH /:itemId/availability toggle.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Backend logic for menu and item selection is implemented and testable.",
-          "APIs and business rules for menu and item selection enforce validation and security requirements.",
-          "Data handling for menu and item selection is reliable and supports the required workflow."
+          "Menu groups items by category with correct ordering.",
+          "Customization groups support single-select (size) and multi-select (toppings).",
+          "Add-on prices are returned per option for client-side total calculation.",
+          "Unavailable items appear in the menu but with isAvailable=false.",
+          "Availability toggle updates in real time for the customer app."
         ]
       },
       {
-        "title": "Testing Menu and Item Selection Functionality",
-        "description": "Create and execute tests for menu and item selection. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Menu Browsing UI",
+        "description": "Implement the Flutter restaurant detail and menu screen: restaurant header with cover image, name, rating, delivery info, and operating hours. Scrollable category tabs that stick to the top when scrolled. Menu items per category with image, name, description, price, dietary badges, and availability overlay. Tapping an item opens a customization bottom sheet with size selector, add-on checkboxes with prices, special instructions text field, quantity stepper, and 'Add to Cart' button showing the computed total.",
         "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Category tabs scroll horizontally and highlight the current section.",
+          "Unavailable items show a 'Currently Unavailable' overlay and disabled add button.",
+          "Customization sheet computes and displays the total price dynamically.",
+          "Required customization groups prevent adding to cart until selected.",
+          "Special instructions text field is optional with character limit."
+        ]
+      },
+      {
+        "title": "Create Menu Schema",
+        "description": "Define PostgreSQL tables: menu_categories (id, restaurantId FK, name, displayOrder INT). menu_items (id, categoryId FK, name, description, price DECIMAL, imageUrl, dietaryTags TEXT[], isAvailable BOOLEAN, isBestseller BOOLEAN, isNew BOOLEAN, displayOrder INT). customization_groups (id, menuItemId FK, name, type ENUM(single_select/multi_select), isRequired BOOLEAN, displayOrder). customization_options (id, groupId FK, name, additionalPrice DECIMAL, displayOrder). Add indexes for category lookups and item ordering.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Items are ordered by displayOrder within their category.",
+          "Customization groups and options maintain correct ordering.",
+          "Cascade delete removes options when a group is deleted.",
+          "Dietary tags array supports GIN index for tag-based queries."
+        ]
+      },
+      {
+        "title": "Write Menu and Customization Tests",
+        "description": "Test menu retrieval with correct category grouping and ordering, item availability filtering, customization group and option structure, price calculation with add-ons, restaurant owner CRUD for categories and items, availability toggle, bestseller and new badges, and dietary tag filtering.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for menu and item selection.",
-          "Security, validation, and permission checks for menu and item selection are verified.",
-          "Regression coverage exists for the most important menu and item selection behaviors."
+          "Menu structure tests verify correct category grouping and item order.",
+          "Customization tests verify required/optional enforcement.",
+          "Price calculation tests verify base + add-on totals.",
+          "Owner CRUD tests verify create, update, delete, and reorder."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Design Shopping Cart and Checkout UI",
-        "description": "Design the user interface for shopping cart and checkout. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "UI design for shopping cart and checkout is complete and reviewable.",
-          "The shopping cart and checkout design is responsive and accessible.",
-          "The design for shopping cart and checkout aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Shopping Cart and Checkout",
-        "description": "Implement the frontend behavior for shopping cart and checkout. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Cart shows selected items with quantities and prices; Users can modify quantities or remove items; Apply promo codes for discounts.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Frontend implements the required shopping cart and checkout user interactions.",
-          "Validation, loading, and error states for shopping cart and checkout are handled in the UI.",
-          "Frontend behavior for shopping cart and checkout is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Shopping Cart and Checkout",
-        "description": "Implement the backend logic for shopping cart and checkout. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Cart shows selected items with quantities and prices; Users can modify quantities or remove items; Apply promo codes for discounts.",
+        "title": "Build Cart API with Promo Codes",
+        "description": "Create cart endpoints: POST /api/cart/items (add with menuItemId, customizations JSON, quantity — validate restaurant matches current cart or prompt clear), PATCH /api/cart/items/:id (update quantity), DELETE /api/cart/items/:id, GET /api/cart (return items with computed totals). Create POST /api/cart/apply-promo (validate code, compute discount). Cart totals: subtotal, deliveryFee (distance-based with surge multiplier from Redis), serviceFee (percentage), discount, tax, grandTotal. Enforce restaurant minimum order amount.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Backend logic for shopping cart and checkout is implemented and testable.",
-          "APIs and business rules for shopping cart and checkout enforce validation and security requirements.",
-          "Data handling for shopping cart and checkout is reliable and supports the required workflow."
+          "Adding items from a different restaurant returns 409 with a clear/switch prompt.",
+          "Cart total calculates subtotal including all customization add-ons.",
+          "Delivery fee computes based on distance using PostGIS and applies surge if active.",
+          "Valid promo code applies discount (percentage or fixed) capped at subtotal.",
+          "Invalid or expired promo codes return 400 with specific error.",
+          "Orders below minimum amount return 400 with the shortfall amount."
         ]
       },
       {
-        "title": "Testing Shopping Cart and Checkout Functionality",
-        "description": "Create and execute tests for shopping cart and checkout. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Cart and Checkout UI",
+        "description": "Implement the Flutter cart screen: item list with customization summary, quantity stepper, line totals, and swipe-to-delete. Promo code input field with 'Apply' button and success/error feedback. Price breakdown section: subtotal, delivery fee (with surge badge if active), service fee, discount, tax, and grand total. 'Proceed to Checkout' button disabled if below minimum order with shortfall message. Checkout screen: delivery address selector, estimated delivery time, payment method picker, order notes text field, and 'Place Order' button.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Cart items show customization details and correct per-item totals.",
+          "Quantity changes update the total in real time.",
+          "Promo code shows green success badge or red error message.",
+          "Surge pricing badge appears on delivery fee when active.",
+          "Checkout validates address selection and payment method before enabling 'Place Order'."
+        ]
+      },
+      {
+        "title": "Implement Surge Pricing Engine",
+        "description": "Build a background service that calculates surge multipliers per service area based on: active order count, available driver count, and time of day. Update surge multipliers in Redis every 60 seconds. Expose GET /api/delivery/surge?lat=&lng= returning the current multiplier and delivery fee estimate for the customer's location. Surge multipliers range from 1.0x (no surge) to 2.5x. Display the surge level and estimated fee before checkout.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Surge multiplier updates in Redis every 60 seconds.",
+          "High demand areas (many orders, few drivers) get higher multipliers.",
+          "Multiplier is capped at 2.5x maximum.",
+          "API returns current surge level and estimated delivery fee.",
+          "Customer sees surge notification before placing the order."
+        ]
+      },
+      {
+        "title": "Write Cart and Pricing Tests",
+        "description": "Test cart operations (add, update, remove, clear), single-restaurant constraint enforcement, promo code validation (valid, expired, usage limit, minimum order), delivery fee calculation with distance, surge pricing application, service fee and tax calculation, minimum order enforcement, and total computation accuracy across all fee components.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for shopping cart and checkout.",
-          "Security, validation, and permission checks for shopping cart and checkout are verified.",
-          "Regression coverage exists for the most important shopping cart and checkout behaviors."
+          "Single-restaurant constraint tests verify rejection and clear prompt.",
+          "Promo code tests cover all validation rules.",
+          "Pricing tests verify correct total computation with all components.",
+          "Surge tests verify multiplier application on delivery fee."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Design Real-time Order Tracking UI",
-        "description": "Design the user interface for real-time order tracking. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "UI design for real-time order tracking is complete and reviewable.",
-          "The real-time order tracking design is responsive and accessible.",
-          "The design for real-time order tracking aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Real-time Order Tracking",
-        "description": "Implement the frontend behavior for real-time order tracking. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Live map showing delivery driver location; Order status updates: confirmed, preparing, picked up, delivered; Estimated delivery time with real-time updates.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Frontend implements the required real-time order tracking user interactions.",
-          "Validation, loading, and error states for real-time order tracking are handled in the UI.",
-          "Frontend behavior for real-time order tracking is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Real-time Order Tracking",
-        "description": "Implement the backend logic for real-time order tracking. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Live map showing delivery driver location; Order status updates: confirmed, preparing, picked up, delivered; Estimated delivery time with real-time updates.",
+        "title": "Build Payment Processing API",
+        "description": "Create POST /api/orders/place that: validates cart, locks item prices, creates a Stripe PaymentIntent (for card/wallet) or marks as COD, creates the order record with status 'placed'. For card payments, return the client secret for Flutter Stripe SDK confirmation. Handle Stripe webhook payment_intent.succeeded to confirm the order and notify the restaurant. Handle payment_intent.payment_failed to cancel the order and release the items. Create POST /api/payments/saved-cards to list saved cards and DELETE to remove.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Backend logic for real-time order tracking is implemented and testable.",
-          "APIs and business rules for real-time order tracking enforce validation and security requirements.",
-          "Data handling for real-time order tracking is reliable and supports the required workflow."
+          "Order is created with itemized snapshot and total breakdown.",
+          "Card payment creates a Stripe PaymentIntent with accurate amount.",
+          "COD orders are created without a PaymentIntent and go directly to restaurant.",
+          "Successful webhook confirms order and notifies restaurant via push.",
+          "Failed payment cancels the order with a clear error to the customer.",
+          "Saved cards are tokenized via Stripe — no raw card data stored."
         ]
       },
       {
-        "title": "Database Design for Real-time Order Tracking",
-        "description": "Design the data model and persistence strategy for real-time order tracking. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Payment UI with Stripe Flutter SDK",
+        "description": "Implement the Flutter payment screens: saved cards list with card brand icon, last 4 digits, and default badge. Add new card form using Stripe's CardField widget. Apple Pay and Google Pay buttons using Stripe's native support. COD option with a cash icon. On 'Place Order': show loading overlay, call the order API, confirm payment with Stripe if card/wallet, handle 3D Secure redirects, and navigate to order tracking on success.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The data model for real-time order tracking supports the required workflow.",
-          "Relationships, constraints, and indexes for real-time order tracking are defined correctly.",
-          "Schema changes for real-time order tracking can be applied safely in target environments."
+          "Saved cards show brand, last 4, and expiry with default selection.",
+          "Stripe CardField validates input before enabling the pay button.",
+          "Apple Pay is available on iOS and Google Pay on Android.",
+          "3D Secure authentication flow completes within the app.",
+          "Payment failure shows specific error with retry and method-change options."
         ]
       },
       {
-        "title": "Testing Real-time Order Tracking Functionality",
-        "description": "Create and execute tests for real-time order tracking. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Configure Stripe Payment Integration",
+        "description": "Set up Stripe account with API keys for server-side and publishable key for Flutter. Configure Stripe Customer objects created on user registration for saved cards. Set up webhook endpoint with signature verification for payment events. Configure Apple Pay merchant ID and Google Pay merchant configuration. Store all secrets in environment variables. Use Stripe test mode in development.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Stripe Customer is created for each user on registration.",
+          "Webhook signature verification rejects tampered payloads.",
+          "Apple Pay and Google Pay are configured with correct merchant IDs.",
+          "Test mode is enforced in development and staging environments."
+        ]
+      },
+      {
+        "title": "Write Payment Tests",
+        "description": "Test order placement with card payment (success, failure, 3D Secure), COD order flow, saved card management (add, list, remove, set default), refund processing, webhook handling for success and failure events, webhook idempotency, and concurrent order placement race conditions.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for real-time order tracking.",
-          "Security, validation, and permission checks for real-time order tracking are verified.",
-          "Regression coverage exists for the most important real-time order tracking behaviors."
+          "Card payment tests cover success, failure, and 3DS flows.",
+          "COD tests verify order creation without Stripe involvement.",
+          "Refund tests verify amount returned to original payment method.",
+          "Webhook idempotency tests confirm no duplicate order creation."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Design Payment Processing UI",
-        "description": "Design the user interface for payment processing. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "UI design for payment processing is complete and reviewable.",
-          "The payment processing design is responsive and accessible.",
-          "The design for payment processing aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Payment Processing",
-        "description": "Implement the frontend behavior for payment processing. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Support credit/debit card payments; Cash on delivery option; Digital wallet integration.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Frontend implements the required payment processing user interactions.",
-          "Validation, loading, and error states for payment processing are handled in the UI.",
-          "Frontend behavior for payment processing is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Payment Processing",
-        "description": "Implement the backend logic for payment processing. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Support credit/debit card payments; Cash on delivery option; Digital wallet integration.",
+        "title": "Build Real-time Order Status and Driver Tracking API",
+        "description": "Create a WebSocket endpoint /ws/orders/:orderId that streams order status changes and driver location updates to the customer. Backend publishes status changes to Redis pub/sub channel per order. Driver location updates (lat/lng) are received every 5 seconds via WebSocket from the driver app and published to the order channel. Create GET /api/orders/:orderId/status as a REST fallback returning current status, driver info, and ETA. ETA is recalculated based on driver-to-customer distance and average speed.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Backend logic for payment processing is implemented and testable.",
-          "APIs and business rules for payment processing enforce validation and security requirements.",
-          "Data handling for payment processing is reliable and supports the required workflow."
+          "WebSocket sends real-time status updates to connected customers.",
+          "Driver location is updated every 5 seconds and forwarded to customer.",
+          "ETA recalculates on each location update using distance and speed.",
+          "REST fallback returns current status if WebSocket is unavailable.",
+          "Connection handles driver disconnection gracefully (show last known location)."
         ]
       },
       {
-        "title": "Database Design for Payment Processing",
-        "description": "Design the data model and persistence strategy for payment processing. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Order Tracking UI with Live Map",
+        "description": "Implement the Flutter order tracking screen: status timeline at the top (placed → accepted → preparing → picked up → on the way → delivered) with animated progress. Below the timeline, render a Google Maps view showing restaurant pin, customer address pin, and driver icon moving in real time. ETA display updates dynamically. Contact driver buttons (call and chat) appear after driver assignment. Delivery proof photo section appears after delivery with the driver's drop-off photo.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The data model for payment processing supports the required workflow.",
-          "Relationships, constraints, and indexes for payment processing are defined correctly.",
-          "Schema changes for payment processing can be applied safely in target environments."
+          "Status timeline animates through stages as updates arrive.",
+          "Map shows driver icon moving smoothly between location updates.",
+          "ETA display updates in real time with each driver location update.",
+          "Call and chat buttons appear only when a driver is assigned.",
+          "Delivery photo is displayed after the order is marked delivered."
         ]
       },
       {
-        "title": "Integrate Payment Processing with External Services",
-        "description": "Integrate payment processing with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
+        "title": "Implement Driver-to-Customer Communication",
+        "description": "Create a simple in-app messaging channel between driver and customer for active orders. Messages are stored in Redis with a TTL matching the order lifecycle. Create POST /api/orders/:orderId/messages for sending and GET for retrieving messages. Implement call masking: route calls through Twilio to connect driver and customer without revealing personal phone numbers.",
         "priority": "medium",
-        "type": "integration",
+        "type": "backend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "External or cross-system integrations required by payment processing exchange the expected payloads successfully.",
-          "Retry, timeout, and failure handling for payment processing integrations are implemented and observable.",
-          "Credentials, tokens, and outbound calls used by payment processing are configured and secured correctly."
+          "Messages are scoped to the active order and expire after delivery.",
+          "Both driver and customer can send and receive messages.",
+          "Call masking connects both parties through a Twilio proxy number.",
+          "Personal phone numbers are never exposed to either party."
         ]
       },
       {
-        "title": "Testing Payment Processing Functionality",
-        "description": "Create and execute tests for payment processing. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Order Tracking Tests",
+        "description": "Test WebSocket connection and status streaming, driver location update forwarding, ETA calculation accuracy, status transition sequence validation, REST fallback accuracy, driver disconnection handling, delivery proof photo upload, and in-app messaging between driver and customer.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for payment processing.",
-          "Security, validation, and permission checks for payment processing are verified.",
-          "Regression coverage exists for the most important payment processing behaviors."
+          "WebSocket tests verify real-time status and location delivery.",
+          "ETA tests verify calculation based on distance and speed.",
+          "Disconnection tests verify graceful handling with last known location.",
+          "Messaging tests verify scoping to active orders only."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Design Rating and Review UI",
-        "description": "Design the user interface for rating and review. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "UI design for rating and review is complete and reviewable.",
-          "The rating and review design is responsive and accessible.",
-          "The design for rating and review aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Rating and Review",
-        "description": "Implement the frontend behavior for rating and review. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Rate restaurant with 1-5 stars after delivery; Rate delivery driver separately; Write optional text review.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Frontend implements the required rating and review user interactions.",
-          "Validation, loading, and error states for rating and review are handled in the UI.",
-          "Frontend behavior for rating and review is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Rating and Review",
-        "description": "Implement the backend logic for rating and review. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Rate restaurant with 1-5 stars after delivery; Rate delivery driver separately; Write optional text review.",
+        "title": "Build Restaurant Owner Dashboard API",
+        "description": "Create restaurant owner endpoints: PATCH /api/owner/restaurant (update profile, hours, delivery radius), CRUD for /api/owner/menu/categories and /api/owner/menu/items (full menu management). Create GET /api/owner/orders?status=new|active|completed (list orders with filters), PATCH /api/owner/orders/:id/accept and /reject (must respond within 5 minutes), PATCH /api/owner/orders/:id/status for preparing→ready. Create GET /api/owner/analytics?period=daily|weekly|monthly (revenue, order count, avg value, top items).",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Backend logic for rating and review is implemented and testable.",
-          "APIs and business rules for rating and review enforce validation and security requirements.",
-          "Data handling for rating and review is reliable and supports the required workflow."
+          "Restaurant profile updates are reflected immediately in the customer app.",
+          "New orders auto-cancel if not accepted within 5 minutes.",
+          "Order acceptance triggers driver assignment via the dispatch system.",
+          "Analytics calculate revenue, order count, and top items for the selected period.",
+          "All endpoints are scoped to the authenticated restaurant owner."
         ]
       },
       {
-        "title": "Testing Rating and Review Functionality",
-        "description": "Create and execute tests for rating and review. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Build Restaurant Owner Dashboard UI",
+        "description": "Implement the Flutter restaurant owner app: profile management screen with operating hours editor and delivery radius adjuster. Menu management with category and item CRUD, drag-and-drop reordering, image upload, and availability toggles. Orders screen with tabs for New (incoming with accept/reject and 5-minute timer), Active (preparing with mark-as-ready button), and Completed. Analytics screen with revenue chart, order count, average value, and top-selling items table.",
         "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "New orders trigger a sound alert and show a countdown timer.",
+          "Accept/reject buttons are prominent and disable after action.",
+          "Menu items can be toggled on/off with a switch control.",
+          "Analytics charts support period switching (daily/weekly/monthly).",
+          "Drag-and-drop saves the new order immediately on drop."
+        ]
+      },
+      {
+        "title": "Build Order Auto-Cancel Background Job",
+        "description": "Implement a background worker (using Bull queue with Redis) that monitors new orders. If a restaurant owner does not accept or reject within 5 minutes, the job automatically cancels the order, initiates a refund if already paid, notifies the customer with an apology message, and logs the auto-cancellation for admin analytics.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Orders not responded to within 5 minutes are auto-cancelled.",
+          "Auto-cancelled paid orders trigger a full Stripe refund.",
+          "Customer receives a push notification about the cancellation.",
+          "Auto-cancellation events are logged for restaurant performance tracking."
+        ]
+      },
+      {
+        "title": "Write Restaurant Dashboard Tests",
+        "description": "Test restaurant profile updates, menu CRUD with ordering, order acceptance and rejection, 5-minute auto-cancel timer, status transitions (accepted→preparing→ready), analytics accuracy for revenue and top items, and access control (owner can only manage own restaurant).",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for rating and review.",
-          "Security, validation, and permission checks for rating and review are verified.",
-          "Regression coverage exists for the most important rating and review behaviors."
+          "Auto-cancel tests verify 5-minute timeout and refund trigger.",
+          "Status transition tests verify correct sequence enforcement.",
+          "Analytics tests use seeded orders with known expected values.",
+          "Access control tests verify owner isolation."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Design Restaurant Owner Dashboard UI",
-        "description": "Design the user interface for restaurant owner dashboard. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "UI design for restaurant owner dashboard is complete and reviewable.",
-          "The restaurant owner dashboard design is responsive and accessible.",
-          "The design for restaurant owner dashboard aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Restaurant Owner Dashboard",
-        "description": "Implement the frontend behavior for restaurant owner dashboard. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Restaurant owners can manage menu items; View and accept/reject incoming orders; Update restaurant hours and availability.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Frontend implements the required restaurant owner dashboard user interactions.",
-          "Validation, loading, and error states for restaurant owner dashboard are handled in the UI.",
-          "Frontend behavior for restaurant owner dashboard is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Restaurant Owner Dashboard",
-        "description": "Implement the backend logic for restaurant owner dashboard. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Restaurant owners can manage menu items; View and accept/reject incoming orders; Update restaurant hours and availability.",
+        "title": "Build Driver Assignment and Dispatch Engine",
+        "description": "Implement the driver dispatch system: when a restaurant accepts an order and marks it preparing, find the nearest available online driver using Redis geo-sorted set of driver locations. Send a delivery offer via push notification with restaurant, customer area, distance, and estimated earnings. Create POST /api/driver/offers/:id/accept and /decline. Declined offers cascade to the next nearest driver. Accepted offers create an active delivery record. If no driver accepts within 3 rounds, notify the customer of a delay.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Backend logic for restaurant owner dashboard is implemented and testable.",
-          "APIs and business rules for restaurant owner dashboard enforce validation and security requirements.",
-          "Data handling for restaurant owner dashboard is reliable and supports the required workflow."
+          "Dispatch finds the nearest online driver using Redis geo commands.",
+          "Offer is sent via push notification with delivery details and earnings.",
+          "30-second acceptance window per driver before cascading.",
+          "Declined offers move to the next nearest available driver.",
+          "Accepted offer creates a delivery record and notifies the customer.",
+          "No-driver-available scenario notifies the customer of a delay."
         ]
       },
       {
-        "title": "Database Design for Restaurant Owner Dashboard",
-        "description": "Design the data model and persistence strategy for restaurant owner dashboard. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "title": "Build Driver App with Navigation",
+        "description": "Implement the Flutter driver app: online/offline toggle on the home screen, delivery offer popup with accept/decline and countdown timer, active delivery screen with two phases — Phase 1: navigate to restaurant (show map with route, 'Arrived' button, 'Picked Up' button after confirming items) and Phase 2: navigate to customer ('Arrived' button, delivery photo capture via camera, 'Delivered' button). Driver location is streamed via WebSocket every 5 seconds when on an active delivery.",
         "priority": "high",
-        "type": "database",
+        "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The data model for restaurant owner dashboard supports the required workflow.",
-          "Relationships, constraints, and indexes for restaurant owner dashboard are defined correctly.",
-          "Schema changes for restaurant owner dashboard can be applied safely in target environments."
+          "Online toggle updates availability in Redis immediately.",
+          "Delivery offer popup shows with accept/decline and 30-second timer.",
+          "Navigation integrates with Google Maps for turn-by-turn directions.",
+          "Status buttons appear sequentially: Arrived → Picked Up → Arrived → Photo → Delivered.",
+          "Camera capture is required before marking delivery as complete.",
+          "Location streaming stops when driver goes offline or completes delivery."
         ]
       },
       {
-        "title": "DevOps Setup for Restaurant Owner Dashboard",
-        "description": "Set up the operational support for restaurant owner dashboard. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
-        "priority": "medium",
-        "type": "devops",
+        "title": "Build Driver Location Streaming Service",
+        "description": "Implement WebSocket endpoint /ws/driver/location that receives driver GPS coordinates every 5 seconds. Store the latest location in Redis geo-sorted set for dispatch queries. When the driver is on an active delivery, publish location to the order-specific Redis pub/sub channel for customer tracking. Implement connection heartbeat to detect driver disconnection and mark as offline after 60 seconds of no signal.",
+        "priority": "high",
+        "type": "backend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Operational setup for restaurant owner dashboard covers deployment, configuration, and environment readiness.",
-          "Monitoring, alerting, backup, or recovery controls relevant to restaurant owner dashboard are in place and verifiable.",
-          "The runtime behavior of restaurant owner dashboard can be observed, supported, and recovered in target environments."
+          "Driver location updates are stored in Redis geo set for dispatch queries.",
+          "Active delivery locations are published to the order's tracking channel.",
+          "Heartbeat timeout marks driver as offline after 60 seconds.",
+          "WebSocket handles reconnection gracefully without losing driver state.",
+          "Location updates are batched and debounced to reduce Redis write load."
         ]
       },
       {
-        "title": "Testing Restaurant Owner Dashboard Functionality",
-        "description": "Create and execute tests for restaurant owner dashboard. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "title": "Write Driver and Dispatch Tests",
+        "description": "Test driver online/offline toggle, dispatch to nearest driver, offer acceptance and decline with cascade, 30-second offer timeout, location streaming and storage in Redis, WebSocket connection and disconnection handling, delivery status transitions (heading→arrived→picked up→heading→delivered), delivery photo requirement, and concurrent dispatch for multiple orders.",
         "priority": "high",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for restaurant owner dashboard.",
-          "Security, validation, and permission checks for restaurant owner dashboard are verified.",
-          "Regression coverage exists for the most important restaurant owner dashboard behaviors."
+          "Dispatch tests verify nearest-driver selection with geo queries.",
+          "Cascade tests verify decline routes to next nearest driver.",
+          "Location tests verify Redis geo set updates and pub/sub forwarding.",
+          "Concurrent dispatch tests verify no double-assignment of drivers."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Design Delivery Driver App UI",
-        "description": "Design the user interface for delivery driver app. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "UI design for delivery driver app is complete and reviewable.",
-          "The delivery driver app design is responsive and accessible.",
-          "The design for delivery driver app aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Delivery Driver App",
-        "description": "Implement the frontend behavior for delivery driver app. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Driver receives order assignment notifications; Navigation to restaurant and customer address; Driver can mark order as picked up and delivered.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Frontend implements the required delivery driver app user interactions.",
-          "Validation, loading, and error states for delivery driver app are handled in the UI.",
-          "Frontend behavior for delivery driver app is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Delivery Driver App",
-        "description": "Implement the backend logic for delivery driver app. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Driver receives order assignment notifications; Navigation to restaurant and customer address; Driver can mark order as picked up and delivered.",
-        "priority": "high",
+        "title": "Build Ratings and Reviews API",
+        "description": "Create POST /api/orders/:orderId/rate accepting: foodRating (1-5), restaurantRating (1-5), driverRating (1-5), optional reviewText, and optional lowRatingReason (required if any rating <3). Validate the order is delivered and belongs to the customer. Update restaurant avgRating and driver avgRating atomically. Create GET /api/restaurants/:id/reviews (paginated). Implement driver performance check: if avgRating of last 50 deliveries drops below 4.0, create a performance warning record.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Backend logic for delivery driver app is implemented and testable.",
-          "APIs and business rules for delivery driver app enforce validation and security requirements.",
-          "Data handling for delivery driver app is reliable and supports the required workflow."
+          "Rating is only allowed for delivered orders owned by the customer.",
+          "Duplicate ratings for the same order return 409.",
+          "Low rating (below 3) requires a reason selection.",
+          "Restaurant and driver average ratings update atomically.",
+          "Driver performance warning triggers at <4.0 average over last 50 deliveries."
         ]
       },
       {
-        "title": "Database Design for Delivery Driver App",
-        "description": "Design the data model and persistence strategy for delivery driver app. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
+        "title": "Build Post-Delivery Rating UI",
+        "description": "Implement the Flutter rating screen that appears after delivery confirmation: three rating sections with star pickers for food quality, restaurant, and driver. Below-3-star selection reveals a reason picker (cold food, missing items, late, rude driver, etc.). Optional text review field. Thank-you animation on submission. Rating prompt also appears as a push notification 30 minutes after delivery if not yet rated.",
+        "priority": "medium",
+        "type": "frontend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The data model for delivery driver app supports the required workflow.",
-          "Relationships, constraints, and indexes for delivery driver app are defined correctly.",
-          "Schema changes for delivery driver app can be applied safely in target environments."
+          "Three separate star ratings are required before submission.",
+          "Low rating reveals reason picker with predefined options.",
+          "Submission shows a thank-you animation and returns to home.",
+          "Rating reminder notification appears 30 minutes after delivery."
         ]
       },
       {
-        "title": "Testing Delivery Driver App Functionality",
-        "description": "Create and execute tests for delivery driver app. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Ratings Tests",
+        "description": "Test rating submission for delivered orders, rejection for non-delivered orders, duplicate prevention, low-rating reason requirement, average rating recalculation for restaurant and driver, driver performance warning trigger at <4.0 average, review pagination, and rating reminder notification scheduling.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for delivery driver app.",
-          "Security, validation, and permission checks for delivery driver app are verified.",
-          "Regression coverage exists for the most important delivery driver app behaviors."
+          "Rating math tests verify accurate average calculation.",
+          "Performance warning tests verify threshold detection over last 50 deliveries.",
+          "Duplicate prevention tests verify 409 on re-rating same order."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Design Order History UI",
-        "description": "Design the user interface for order history. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "UI design for order history is complete and reviewable.",
-          "The order history design is responsive and accessible.",
-          "The design for order history aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Order History",
-        "description": "Implement the frontend behavior for order history. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View past orders with details and status; Reorder from previous orders with one tap; Download invoice for each order.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Frontend implements the required order history user interactions.",
-          "Validation, loading, and error states for order history are handled in the UI.",
-          "Frontend behavior for order history is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Order History",
-        "description": "Implement the backend logic for order history. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View past orders with details and status; Reorder from previous orders with one tap; Download invoice for each order.",
-        "priority": "high",
+        "title": "Build Order History and Reorder API",
+        "description": "Create GET /api/orders/history (paginated, newest first) with filters for dateRange and restaurantId. Each order returns: orderNumber, restaurantName, restaurantImage, itemSummary (first 2 items + 'and X more'), total, status, deliveredAt. Create GET /api/orders/:id for full detail. Create POST /api/orders/:id/reorder that validates item availability, copies items with customizations to a new cart, and flags unavailable items for the UI to handle.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Backend logic for order history is implemented and testable.",
-          "APIs and business rules for order history enforce validation and security requirements.",
-          "Data handling for order history is reliable and supports the required workflow."
+          "Order history is scoped to the customer and paginated.",
+          "Reorder copies items and customizations to a new cart.",
+          "Unavailable items in reorder are flagged but don't block cart creation.",
+          "Price changes since the original order use current prices.",
+          "Order detail returns full item breakdown with customizations."
         ]
       },
       {
-        "title": "Database Design for Order History",
-        "description": "Design the data model and persistence strategy for order history. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
+        "title": "Build Order History and Reorder UI",
+        "description": "Implement the Flutter order history screen: list of past orders with restaurant image, name, item summary, total, date, and status badge. Tappable for full detail view. 'Reorder' button on each past order. If reorder finds unavailable items, show a dialog listing removed items before proceeding to cart. Filter chips for date range and a restaurant search field.",
+        "priority": "medium",
+        "type": "frontend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The data model for order history supports the required workflow.",
-          "Relationships, constraints, and indexes for order history are defined correctly.",
-          "Schema changes for order history can be applied safely in target environments."
+          "Order list shows restaurant branding and item summary.",
+          "Reorder button adds items to cart and navigates to cart screen.",
+          "Unavailable item dialog clearly lists what was removed.",
+          "Date and restaurant filters update the list without page reload."
         ]
       },
       {
-        "title": "Testing Order History Functionality",
-        "description": "Create and execute tests for order history. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Order History Tests",
+        "description": "Test order history pagination, date and restaurant filtering, reorder with all items available, reorder with some unavailable items, reorder with price changes, and order detail retrieval accuracy.",
+        "priority": "low",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for order history.",
-          "Security, validation, and permission checks for order history are verified.",
-          "Regression coverage exists for the most important order history behaviors."
+          "Pagination tests verify correct page sizes and ordering.",
+          "Reorder tests verify item copying, availability checking, and price updates.",
+          "Filter tests verify correct results for date ranges and restaurant."
         ]
       }
     ],
     "FR-11": [
       {
-        "title": "Design Favorites and Saved Restaurants UI",
-        "description": "Design the user interface for favorites and saved restaurants. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "UI design for favorites and saved restaurants is complete and reviewable.",
-          "The favorites and saved restaurants design is responsive and accessible.",
-          "The design for favorites and saved restaurants aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Favorites and Saved Restaurants",
-        "description": "Implement the frontend behavior for favorites and saved restaurants. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can save favorite restaurants; Quick access to frequently ordered items; Favorites list accessible from profile.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "Frontend implements the required favorites and saved restaurants user interactions.",
-          "Validation, loading, and error states for favorites and saved restaurants are handled in the UI.",
-          "Frontend behavior for favorites and saved restaurants is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Favorites and Saved Restaurants",
-        "description": "Implement the backend logic for favorites and saved restaurants. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can save favorite restaurants; Quick access to frequently ordered items; Favorites list accessible from profile.",
-        "priority": "high",
+        "title": "Build Favorites API",
+        "description": "Create POST /api/favorites/restaurants/:id and DELETE to add/remove restaurant favorites. Create POST /api/favorites/items/:id and DELETE for menu item favorites. Create GET /api/favorites/restaurants and /api/favorites/items returning paginated lists with full card data. Favorites are synced server-side to the user account for cross-device access.",
+        "priority": "low",
         "type": "backend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "Backend logic for favorites and saved restaurants is implemented and testable.",
-          "APIs and business rules for favorites and saved restaurants enforce validation and security requirements.",
-          "Data handling for favorites and saved restaurants is reliable and supports the required workflow."
+          "Adding a favorite is idempotent — re-adding returns 200.",
+          "Restaurant favorites return the same card data as the discovery screen.",
+          "Item favorites include restaurant context for in-cart ordering.",
+          "Favorites sync across devices via the authenticated API."
         ]
       },
       {
-        "title": "Database Design for Favorites and Saved Restaurants",
-        "description": "Design the data model and persistence strategy for favorites and saved restaurants. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
+        "title": "Build Favorites UI",
+        "description": "Implement the Flutter favorites screens: two tabs for Restaurants and Items. Restaurant tab shows saved restaurants with the same card layout as the home screen. Items tab shows saved items with restaurant name, item image, name, price, and 'Add to Cart' button. Heart icon toggle on restaurant cards and menu items throughout the app. Empty state for each tab with prompt to explore.",
+        "priority": "low",
+        "type": "frontend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The data model for favorites and saved restaurants supports the required workflow.",
-          "Relationships, constraints, and indexes for favorites and saved restaurants are defined correctly.",
-          "Schema changes for favorites and saved restaurants can be applied safely in target environments."
-        ]
-      },
-      {
-        "title": "Testing Favorites and Saved Restaurants Functionality",
-        "description": "Create and execute tests for favorites and saved restaurants. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
-        "type": "testing",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for favorites and saved restaurants.",
-          "Security, validation, and permission checks for favorites and saved restaurants are verified.",
-          "Regression coverage exists for the most important favorites and saved restaurants behaviors."
+          "Heart icon toggles favorite status with animation.",
+          "Favorite state is consistent across all screens (home, menu, favorites).",
+          "Add to cart from favorites validates restaurant single-cart constraint.",
+          "Empty state shows an illustration with 'Start exploring' CTA."
         ]
       }
     ],
     "FR-12": [
       {
-        "title": "Design Customer Support Chat UI",
-        "description": "Design the user interface for customer support chat. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
-        "priority": "high",
-        "type": "design",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "UI design for customer support chat is complete and reviewable.",
-          "The customer support chat design is responsive and accessible.",
-          "The design for customer support chat aligns with the documented user flow and validation states."
-        ]
-      },
-      {
-        "title": "Frontend Implementation of Customer Support Chat",
-        "description": "Implement the frontend behavior for customer support chat. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: In-app chat for order issues; Chat with customer support agent; Attach images of incorrect orders.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "Frontend implements the required customer support chat user interactions.",
-          "Validation, loading, and error states for customer support chat are handled in the UI.",
-          "Frontend behavior for customer support chat is integrated correctly with backend APIs."
-        ]
-      },
-      {
-        "title": "Backend Implementation of Customer Support Chat",
-        "description": "Implement the backend logic for customer support chat. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: In-app chat for order issues; Chat with customer support agent; Attach images of incorrect orders.",
-        "priority": "high",
+        "title": "Build Customer Support Chat API",
+        "description": "Create POST /api/support/tickets (orderId, issueType enum: missing_item|wrong_order|late_delivery|payment_issue|other, description). Create GET /api/support/tickets (list customer's tickets with status). Create the messaging endpoints: POST /api/support/tickets/:id/messages and GET for chat history. Support agents use a separate admin panel to respond. Agent actions include issuing partial or full refunds via Stripe from the ticket context. Create GET /api/support/faq returning categorized FAQ entries.",
+        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Backend logic for customer support chat is implemented and testable.",
-          "APIs and business rules for customer support chat enforce validation and security requirements.",
-          "Data handling for customer support chat is reliable and supports the required workflow."
+          "Ticket creation links to a specific order with an issue type.",
+          "Chat messages support both customer and agent participants.",
+          "Agent refund action processes through Stripe and updates the ticket.",
+          "FAQ returns categorized entries searchable by keyword.",
+          "Ticket history is scoped to the authenticated customer."
         ]
       },
       {
-        "title": "Database Design for Customer Support Chat",
-        "description": "Design the data model and persistence strategy for customer support chat. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
-        "priority": "high",
-        "type": "database",
+        "title": "Build Support Chat UI",
+        "description": "Implement the Flutter support flow: issue selector screen with predefined categories and recent order selection, chat screen with message bubbles (customer right, agent left), FAQ screen with expandable accordion sections and search. Quick-action buttons at the top of the chat for common resolutions (cancel order, request refund). Notification badge on support tab when agent replies.",
+        "priority": "medium",
+        "type": "frontend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The data model for customer support chat supports the required workflow.",
-          "Relationships, constraints, and indexes for customer support chat are defined correctly.",
-          "Schema changes for customer support chat can be applied safely in target environments."
+          "Issue selector shows recent orders and predefined issue types.",
+          "Chat loads previous messages and shows new ones in real time.",
+          "FAQ search filters entries by keyword with instant results.",
+          "Agent reply triggers a push notification with badge update."
         ]
       },
       {
-        "title": "Testing Customer Support Chat Functionality",
-        "description": "Create and execute tests for customer support chat. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
-        "priority": "high",
+        "title": "Write Customer Support Tests",
+        "description": "Test ticket creation with valid order, ticket without order (rejected for order-specific issues), chat message exchange, agent refund processing, FAQ retrieval and search, ticket status transitions (open→in_progress→resolved), and customer ticket history scope.",
+        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Tests cover the main success and failure scenarios for customer support chat.",
-          "Security, validation, and permission checks for customer support chat are verified.",
-          "Regression coverage exists for the most important customer support chat behaviors."
+          "Ticket tests verify order linking and issue type validation.",
+          "Refund tests verify Stripe refund processing from ticket context.",
+          "FAQ tests verify categorized retrieval and keyword search.",
+          "Status transition tests verify correct lifecycle."
         ]
       }
     ]
