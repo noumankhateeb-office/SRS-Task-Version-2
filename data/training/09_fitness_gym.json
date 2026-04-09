@@ -1,0 +1,534 @@
+{
+  "input": {
+    "title": "Comprehensive Fitness & Gym Management System",
+    "description": "An all-in-one software platform for modern gyms and fitness clubs. It serves members via a mobile application for booking classes, tracking progress, and communicating with trainers, while providing gym staff and administration a robust web portal. The system handles recurring billing, facility access control, shift scheduling, POS (Point of Sale) for supplements, and integrated IoT data from wearables.",
+    "technologies": [
+      "React Native",
+      "Vue.js",
+      "NestJS",
+      "GraphQL",
+      "PostgreSQL",
+      "Redis",
+      "Stripe",
+      "AWS IoT Core"
+    ],
+    "actors": [
+      "Gym Member",
+      "Personal Trainer",
+      "Front Desk Staff",
+      "Gym Admin / Owner"
+    ],
+    "user_classes": {
+      "Gym Member": "A paying customer who uses the mobile app to book classes, log workouts, and enter the facility.",
+      "Personal Trainer": "A staff member who manages their schedule, assigns workout/nutrition plans to clients, and monitors their progress.",
+      "Front Desk Staff": "An employee handling access control, walk-ins, lead tracking, and point-of-sale transactions.",
+      "Gym Admin / Owner": "The high-level manager who defines membership tiers, reviews financial analytics, and oversees all club operations."
+    },
+    "definitions": {
+      "Class": "A group fitness session (e.g., Yoga, HIIT) with a set capacity, time, and instructor.",
+      "PT Session": "A 1-on-1 Personal Training session.",
+      "Dunning": "The process of communicating with customers to ensure the collection of accounts receivable (failed recurring payments).",
+      "Access QR": "A dynamic QR code generated in the member app that rotates every 30 seconds to prevent sharing."
+    },
+    "modules": [
+      "Identity & Role Management",
+      "Membership & Subscription",
+      "Facility Access Control",
+      "Class & Booking Engine",
+      "Personal Training CRM",
+      "Workout & Diet Tracking",
+      "Wearable Device Sync",
+      "Billing & Invoicing",
+      "Staff Scheduling",
+      "Pro-Shop POS"
+    ],
+    "scope": [
+      "Cross-platform mobile app (iOS/Android) for Gym Members and Trainers",
+      "Web-based Management Dashboard for Admins and Front Desk",
+      "Dynamic QR-based facility entry integration",
+      "Automated recurring payment collection via Stripe Billing",
+      "Waitlist mechanics that auto-enroll members if a spot opens up",
+      "Custom workout and diet plan builders for trainers to assign clients",
+      "Real-time chat functionality between members and trainers"
+    ],
+    "out_of_scope": [
+      "Proprietary hardware manufacturing (turnstiles/RFID scanners) - we only provide the software API to integrate with existing locks",
+      "Live video streaming of classes - the MVP will focus only on in-person scheduling",
+      "Detailed medical diagnosis or physical therapy logs - this is limited to baseline fitness tracking"
+    ],
+    "constraints": [
+      "The mobile app must utilize React Native to maintain a single codebase for iOS and Android",
+      "Payment processing must handle automated prorating during tier upgrades/downgrades",
+      "GraphQL must be used for the mobile API to minimize payload sizes on cellular connections",
+      "QR codes for access must fallback safely to local cache generation if offline"
+    ],
+    "operating_environment": {
+      "frontend": "React Native (Mobile), Vue 3 + TailwindCSS (Admin Web Console).",
+      "backend": "NestJS with Apollo Server serving GraphQL, containerized via Docker on AWS ECS.",
+      "database": "PostgreSQL managed via AWS RDS, Redis for caching and waitlist queue management."
+    },
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Authentication & Multi-Role Architecture",
+        "requirements": [
+          "Users authenticate securely via Email/Password or Apple/Google Sign-In",
+          "The backend resolves roles dynamically (Admin, Trainer, Staff, Member) yielding different UI views",
+          "Passwords must comply with minimum strength validations and store as bcrypt hashes"
+        ]
+      },
+      "FR-02": {
+        "title": "Member Profile & Registration",
+        "requirements": [
+          "Members capture physical demographics (height, target weight, age) during onboarding",
+          "Members must digitally sign a liability waiver before their account achieves 'Active' status",
+          "Profile allows members to attach emergency contact information"
+        ]
+      },
+      "FR-03": {
+        "title": "Membership Tiers & Subscriptions",
+        "requirements": [
+          "Admins can create distinct tiers (e.g., 'Basic', 'Premium', 'VIP') with predefined access rights",
+          "Members can upgrade/downgrade tiers in-app, triggering a prorated Stripe event natively",
+          "Subscriptions are billed cyclically (monthly/annually) via scheduled cron-jobs"
+        ]
+      },
+      "FR-04": {
+        "title": "Digital Facility Access (QR Code Entry)",
+        "requirements": [
+          "The mobile app generates an encrypted, time-based QR code for entry turnstiles",
+          "QR code generation rotates the payload every 30 seconds to prevent screenshot sharing",
+          "If a member's billing is in 'Past Due' state, the app renders a red 'Access Denied' state and hides the QR code"
+        ]
+      },
+      "FR-05": {
+        "title": "Class Scheduling & Booking Engine",
+        "requirements": [
+          "Admins configure repetitive weekly class schedules with capacity limitations",
+          "Members browse the upcoming 14 days and reserve spots with a single tap",
+          "Booking prevents multi-booking overlapping timeslots"
+        ]
+      },
+      "FR-06": {
+        "title": "Automated Waitlist Management",
+        "requirements": [
+          "If a class is full, members can opt into a priority-ranked Waitlist",
+          "If a booked member cancels, the system automatically pulls the #1 waitlist individual, books them, and dispatches a push notification",
+          "Waitlist auto-promotion freezes 1 hour before class start to prevent late-notice enrollments"
+        ]
+      },
+      "FR-07": {
+        "title": "Personal Training Session CRM",
+        "requirements": [
+          "Trainers explicitly block out their available 1-on-1 hours on an interactive calendar",
+          "Members can purchase 'PT Credits' and spend them to reserve slots instantly on the Trainer's calendar",
+          "Trainers can log session notes hidden from the member (e.g., 'struggles with form on deadlifts')"
+        ]
+      },
+      "FR-08": {
+        "title": "Custom Workout Plan Builder",
+        "requirements": [
+          "Trainers drag-and-drop exercises from a global master library to create weekly routines",
+          "Routines define explicit sets, reps, rest times, and target RPE (Rate of Perceived Exertion)",
+          "Members open their app, enter 'Workout Mode', and check off sets interactively as they train"
+        ]
+      },
+      "FR-09": {
+        "title": "Diet & Macronutrient Logging",
+        "requirements": [
+          "Trainers can set daily macro targets (Proteins, Carbs, Fats) for assigned clients",
+          "Members can quickly input caloric values or integrate barcode scanning for food input",
+          "Dashboard visually renders a progress bar toward daily intake goals"
+        ]
+      },
+      "FR-10": {
+        "title": "Progress & Biometric Tracking",
+        "requirements": [
+          "Members regularly log their body weight and tape measurements",
+          "System plots historical inputs on an interactive line-graph summarizing net changes",
+          "Members can upload secure 'Progress Pictures' locally encrypted into an app gallery"
+        ]
+      },
+      "FR-11": {
+        "title": "Wearable Device Integration (HealthKit/Google Fit)",
+        "requirements": [
+          "Mobile app connects natively to Apple HealthKit and Google Fit APIs",
+          "App selectively pulls daily step count and active calorie burn to complement app dashboard metrics",
+          "Pulled data executes read-only and respects OS-level privacy consents strictly"
+        ]
+      },
+      "FR-12": {
+        "title": "Automated Dunning & Billing Retries",
+        "requirements": [
+          "If a recurring card charge fails, system locks the access QR code instantly",
+          "A staggered dunning flow attempts re-capture on days 1, 3, and 7, sending customized emails",
+          "App prominently features an 'Update Payment Method' banner blocking normal interactions until resolved"
+        ]
+      },
+      "FR-13": {
+        "title": "In-App Chat Messaging",
+        "requirements": [
+          "Secure direct messaging channel specifically scoped between Members and assigned Trainers",
+          "Supports text and basic image attachments",
+          "Leverages WebSockets for real-time delivery and unread message indicators"
+        ]
+      },
+      "FR-14": {
+        "title": "Push Notifications & Automated Reminders",
+        "requirements": [
+          "Dispatch 2-hour preemptive push notifications prior to a booked Class or PT session",
+          "Send 'Missed Workout' push alerts if a member hasn't swiped into the gym for 14 consecutive days",
+          "User profile allows toggling specific notification channels (Marketing vs Transactional)"
+        ]
+      },
+      "FR-15": {
+        "title": "Pro-Shop E-Commerce POS",
+        "requirements": [
+          "Front Desk staff access a dedicated iPad view to ring up protein shakes, merch, or water bottles",
+          "Purchases can immediately charge to a member's 'Card on File' without needing physical swiping",
+          "Maintains inventory count limits, triggering low-stock admin warnings"
+        ]
+      },
+      "FR-16": {
+        "title": "Lead Management & CRM (Prospects)",
+        "requirements": [
+          "Unregistered walk-ins are captured into a Lead Table by the Front Desk",
+          "Leads are assigned designated follow-up dates",
+          "Leads automatically convert to 'Active' upon signing an electronic membership contract"
+        ]
+      },
+      "FR-17": {
+        "title": "Staff Scheduling & Timesheets",
+        "requirements": [
+          "Admins build weekly shift rosters ensuring proper Front Desk coverage",
+          "Staff members 'Clock In' and 'Clock Out' via the web portal using location-bounded IP verification",
+          "System exports timesheet data directly to standard payroll CSV format"
+        ]
+      },
+      "FR-18": {
+        "title": "Customer Feedback & Ratings",
+        "requirements": [
+          "Upon completing a class, the app prompts the member to rate the session (1-5 stars)",
+          "Ratings are averaged per instructor and aggregated in the Admin Analytics view",
+          "Low ratings (< 3 stars) prompt an optional text field for specific complaint logging"
+        ]
+      },
+      "FR-19": {
+        "title": "Guest Pass & Referral Engine",
+        "requirements": [
+          "Active members globally generate a unique Referral Link",
+          "Referral yields a 1-day Guest Pass automatically provisioned to the invitee's app",
+          "Successful conversion of a guest automatically credits the referrer's account with $20 account balance"
+        ]
+      },
+      "FR-20": {
+        "title": "Admin Analytics & Reporting Dashboard",
+        "requirements": [
+          "Admins view highly visual real-time charts depicting Monthly Recurring Revenue (MRR)",
+          "System identifies 'At-Risk' members using an algorithm correlating declining attendance with high churn risk",
+          "Provides dense CSV exports for gross attendance per individual class type"
+        ]
+      }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "System Performance",
+        "requirements": [
+          "Mobile queries (GraphQL) must resolve in <300ms typical conditions",
+          "QR Code view inside the application must boot instantly, even under poor network coverage (employing local cache hashing)"
+        ]
+      },
+      "NFR-02": {
+        "title": "Security & Regulatory",
+        "requirements": [
+          "Platform complies fully with GDPR concerning the 'Right to be Forgotten' by executing hard-delete cascading upon request",
+          "Payment processing securely outsources full raw card numbers to Stripe ensuring strict PCI compliance"
+        ]
+      }
+    },
+    "system_attributes": {
+      "availability": "Waitlist and recurring billing cron-jobs utilize distributed locking over Redis to guarantee that they only execute exactly once across multiple redundant worker instances.",
+      "security": "TOTP logic natively protects internal QR Access Code synchronization ensuring time-drift on user devices does not compromise entrance security."
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Implement Central GraphQL Auth Middleware",
+        "description": "Establish the Apollo Auth context in the NestJS application. Verify incoming JWTs on headers, extract the user's encoded generic 'Role', and map the entity across globally protected resolvers.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Unauthorized requests yield standard ApolloError codes.",
+          "Role mapping integrates perfectly into `@UseGuards()` logic."
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Build Member Profile & Digital Waiver UI",
+        "description": "Develop the React Native mobile screens for the introductory questionnaire and liability waiver. Use a react-native-signature-canvas to capture the digital signature explicitly.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Signature captures and saves as a Base64 string submitted to backend.",
+          "State strictly tracks completion progression, gating dashboard access."
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Integrate Stripe Subscriptions and Webhooks",
+        "description": "Create the heavy integration securely mapping local Subscription Tiers to Stripe Products/Prices. Implement webhook listeners for `customer.subscription.updated` to sync tier changes.",
+        "priority": "critical",
+        "type": "integration",
+        "related_requirement": "FR-03",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Webhook signatures are validated against the Stripe shared secret.",
+          "Local PostgreSQL tier IDs stay in hard synchronization with external Stripe status."
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Develop Time-Based QR Code Generator Algorithm",
+        "description": "Write a secure TOTP-like algorithm generating encrypted payload strings combining `{userId}:{timestamp}{hash}`. Implement logic that forces the frontend React component to tick and redraw the code visually every 30 seconds.",
+        "priority": "high",
+        "type": "fullstack",
+        "related_requirement": "FR-04",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Backend validation successfully decrypts and tolerates a precise 30-second time-drift latency window.",
+          "React Native code leverages `setInterval` triggering localized re-renders cleanly without memory leaks."
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Design Interactive Mobile Class Calendar",
+        "description": "Create an intuitive horizontal scroll interface detailing daily class lists with clear visual indicators if a class is 'Booking Open', 'Waitlist', or 'Full'.",
+        "priority": "high",
+        "type": "design",
+        "related_requirement": "FR-05",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Clean visual contrast emphasizes immediate action buttons.",
+          "Filter controls allow users to isolate specific class styles (e.g., 'Spinning only')."
+        ]
+      },
+      {
+        "title": "Develop Concurrent Class Booking Resolver",
+        "description": "Write the GraphQL mutation securely reserving a space. Implement a serialized Redis transaction block testing capacity boundaries dynamically to negate race condition over-bookings.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "If completely full, mutation yields specific error code routing user organically to Waitlist prompt."
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Automated Waitlist Promotion Worker",
+        "description": "Create a background worker scanning Redis queues upon member cancellation events. Auto-enroll top queued index, charge class credit if necessary, and dispatch push.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Queue logic observes exactly 1-hour freeze period prior to runtime.",
+          "If waitlist member lacks requisite billing/credits during promotion, skip and advance to next index."
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Develop Trainer Availability Matrix API",
+        "description": "Design endpoints allowing trainers to apply recurring Boolean rules matching 30 minute cells ('Available', 'Blocked').",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Matrix merges logically cleanly overlapping universal gym operational hours."
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Design Workout Execution Mode UI",
+        "description": "Wireframe the immersive workout state inside the mobile app ensuring large, easily-tap-able buttons intended for sweaty conditions and rapid transition flows between supersets.",
+        "priority": "high",
+        "type": "design",
+        "related_requirement": "FR-08",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Implements native circular timer counting down rest periods vividly.",
+          "Provides embedded small GIF container demonstrating exercise form."
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Integrate Native Barcode Scanning Engine",
+        "description": "Deploy React Native Vision Camera bridging into a generic Food-DB API mapping barcode scans effortlessly into macronutrient aggregates.",
+        "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-09",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Camera invokes seamlessly without aggressive orientation glitches.",
+          "Unmapped barcodes provide clean fallback UI prompting manual text search."
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Implement Biometric Line Chart Components",
+        "description": "Utilize D3 or comparable low-level rendering tool adapting dynamic domains to gracefully interpret minor variable fluctuations in body weight clearly.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-10",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Graphs support varying pinch-to-zoom intervals (7 Day, 30 Day, Year) seamlessly."
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Create Native Ecosystem Health Bridges",
+        "description": "Connect `react-native-health` specifically filtering queries strictly for basic steps/calorie outputs respecting iOS/Android security prompts.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "If consent denied conditionally hide specific target dashboard widget gracefully natively."
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Setup Dunning Workflow Automation",
+        "description": "Synchronize Stripe's internal Smart Retries configuration aligning securely alongside local Webhooks marking local Profile objects as 'PAST_DUE' toggling UI locking mechanism automatically.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Successful generic payment hook restores Active profile seamlessly triggering unlocking push ping."
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Develop WebSockets Communication Broker",
+        "description": "Build nested socket rooms specifically binding `{Member_ID}-{Trainer_ID}` to prevent message bleeding, mapping chat persistence against PostgreSQL tables.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Messages buffer securely guaranteeing delivery regardless of momentary mobile disconnection."
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Bind Generic Push Notification Microservice",
+        "description": "Execute Firebase Cloud Messaging (FCM) wrappers binding native generic event strings capturing APNS/FCM device tokens upon native login sequence.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-14",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Tokens rotate and invalidate flawlessly if Member effectively logs out or deletes local OS instance."
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Build POS Interface for Front Desk iPad",
+        "description": "Construct generic lightweight Vue web app scaling beautifully explicitly constrained across common Tablet horizontal orientations generating instant cart executions.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-15",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Appends 'Charge to Account' option isolating member mapping queries reliably."
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Implement Simple Leads Pipeline Columns",
+        "description": "Design standard generic CRM Trello-esque pipeline in Admin console explicitly organizing 'Cold', 'Tour Scheduled', 'Completed Tour', 'Won' lists.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Provides quick generic modal attaching notes uniformly tracking interaction logs."
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Engineer IP-Bounded Clock-In Endpoints",
+        "description": "Force staff timesheet mutation validations resolving explicitly against the strictly configured facility Static IP blocking generic geolocation spoofing externally.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-17",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Fails reliably delivering clear 'Must be physically connected to gym Wi-Fi' messaging."
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Class Completion Review Prompter UI",
+        "description": "Inject an organic native prompt interrupting generic dashboard focus explicitly appearing sequentially exactly 10 minutes post class termination tracking.",
+        "priority": "low",
+        "type": "frontend",
+        "related_requirement": "FR-18",
+        "assignee_role": "Mobile Developer",
+        "acceptance_criteria": [
+          "Modal limits generic dismissals securely prompting 'Remind Later' fallback optionally."
+        ]
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Build Dynamic Guest Referral Engine",
+        "description": "Create nested unique Referral UUIDs binding to exact profile generation mutating standard generic guest limitations automatically tracking downline revenue splits.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-19",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Auto-injects fixed $20 Stripe customer balance uniformly upon guest conversion payload trigger."
+        ]
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Establish Real-Time Churn Analysis Matrix",
+        "description": "Write intensive nested generic aggregate SQL functions isolating generic check-in latency correlating strongly natively determining strict risk parameters pushing output vectors heavily.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-20",
+        "assignee_role": "Data Engineer",
+        "acceptance_criteria": [
+          "Dashboard visually color codes 'At-Risk' members securely explicitly guiding trainer interventions."
+        ]
+      }
+    ]
+  }
+}

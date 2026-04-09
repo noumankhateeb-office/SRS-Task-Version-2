@@ -1,0 +1,575 @@
+{
+  "input": {
+    "title": "Digital Core Banking System",
+    "description": "A comprehensive digital banking application designed for retail and corporate customers. It allows users to manage multiple accounts, initiate domestic and international transfers, manage physical and virtual cards, apply for loans, and interact with customer support. The system incorporates robust KYC (Know Your Customer) workflows, Multi-Factor Authentication (MFA), and real-time Anti-Money Laundering (AML) monitoring via an Admin Dashboard.",
+    "technologies": [
+      "Next.js",
+      "Spring Boot",
+      "Java 21",
+      "PostgreSQL",
+      "Apache Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "actors": [
+      "Retail Customer",
+      "Corporate Customer",
+      "Bank Admin",
+      "Compliance Officer"
+    ],
+    "user_classes": {
+      "Retail Customer": "An individual user accessing personal checking, savings, and loan accounts.",
+      "Corporate Customer": "A business user requiring batch payments, payroll execution, and multi-user delegation.",
+      "Bank Admin": "A technical or operational administrator handling overarching platform settings, user limits, and support escalations.",
+      "Compliance Officer": "A specialized admin role responsible for verifying KYC documents, analyzing flagged AML transactions, and locking high-risk accounts."
+    },
+    "definitions": {
+      "KYC": "Know Your Customer — the mandatory process of identifying and verifying the client's identity.",
+      "AML": "Anti-Money Laundering — regulations and systems deployed to prevent illicit fund movement.",
+      "ACH": "Automated Clearing House — network used for electronic transfers.",
+      "SWIFT": "Society for Worldwide Interbank Financial Telecommunication — network for international wires."
+    },
+    "modules": [
+      "Authentication & Security",
+      "Identity & Onboarding (KYC)",
+      "Account & Ledger Core",
+      "Payments & Transfers",
+      "Card Services",
+      "Loan Origination",
+      "Customer Support & Disputes",
+      "Admin & Compliance"
+    ],
+    "scope": [
+      "User onboarding with automated biometric and document verification via third-party API",
+      "Multi-factor authentication (SMS, Email OTP, Authenticator app)",
+      "Internal, domestic, and international fund transfers",
+      "Comprehensive card management (freeze, unfreeze, block, set limits, request virtual card)",
+      "Full transaction history with advanced filtering and PDF/CSV statement generation",
+      "Compliance dashboard for officers to view and intervene in flagged transactions"
+    ],
+    "out_of_scope": [
+      "Crypto-currency wallets or trading",
+      "Stock market trading and brokerage accounts",
+      "Physical ATM deployment integrations (only ISO 8583 interfaces are assumed existing)"
+    ],
+    "constraints": [
+      "All backend services must be written in Java (Spring Boot) and adhere to microservice architecture",
+      "Core ledger transactions must be strictly ACID compliant using PostgreSQL",
+      "Message brokering for transactional alerts and AML checks must use Apache Kafka",
+      "System must comply with PCI-DSS regarding any card data storage"
+    ],
+    "operating_environment": {
+      "frontend": "Next.js applications for both Customer portal and Admin dashboard, securely served via HTTPS.",
+      "backend": "Spring Boot microservices containerized via Docker and orchestrated in Kubernetes.",
+      "database": "High-availability PostgreSQL cluster."
+    },
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Authentication & Multi-Factor Security",
+        "requirements": [
+          "Users must log in with a username/email and a strong password",
+          "MFA is mandatory for login; configurable via SMS, Email, or TOTP (Google Authenticator)",
+          "An automatic session timeout triggers after 10 minutes of inactivity",
+          "After 5 failed login attempts, the account is temporarily locked for 30 minutes"
+        ]
+      },
+      "FR-02": {
+        "title": "KYC & Identity Verification",
+        "requirements": [
+          "New registrants must upload a government-issued ID and a live selfie video",
+          "System must integrate with a third-party API (e.g., Onfido) to calculate a confidence score",
+          "Compliance Officers are alerted for manual review if the automated confidence score falls below 85%",
+          "Accounts remain in a 'restricted' state (no outbound transfers) until KYC is verified"
+        ]
+      },
+      "FR-03": {
+        "title": "Account Creation & Ledger Management",
+        "requirements": [
+          "Customers can open Checking and Savings accounts natively in the app",
+          "Each account is assigned a unique system-generated Account Number and Routing Number",
+          "The core ledger must support double-entry accounting where every debit is paired with a credit",
+          "Accounts must display real-time 'Available Balance' distinct from 'Current Balance'"
+        ]
+      },
+      "FR-04": {
+        "title": "Dashboard & Financial Overview",
+        "requirements": [
+          "The main screen aggregates total net worth based on all active accounts",
+          "Displays rapid-action buttons: 'Transfer', 'Pay Bill', 'Send Money'",
+          "Provides a visual chart (bar/pie) of monthly expenses vs. income",
+          "Shows the top 5 most recent transactions globally"
+        ]
+      },
+      "FR-05": {
+        "title": "Internal Fund Transfers",
+        "requirements": [
+          "Customers can instantly transfer funds between their own accounts (Checking to Savings, etc.)",
+          "Transfers must execute immediately with zero fees",
+          "Transaction records are written to both accounts synchronously"
+        ]
+      },
+      "FR-06": {
+        "title": "Domestic Fund Transfers (ACH/RTGS)",
+        "requirements": [
+          "Users can send funds to any domestic bank using an Account Number and Routing Number",
+          "Users choose speed: 'Standard' (1-2 days) or 'Instant' (utilizing instant payment networks)",
+          "System validates daily transfer limits based on the user's KYC tier",
+          "MFA challenge is required before executing any domestic transfer exceeding $1,000"
+        ]
+      },
+      "FR-07": {
+        "title": "International Wire Transfers (SWIFT)",
+        "requirements": [
+          "Users can execute cross-border transfers specifying a SWIFT/BIC code and IBAN",
+          "System must fetch and display real-time foreign exchange (FX) rates before confirmation",
+          "Clear breakdown of intermediary bank fees must be shown",
+          "International transfers are routed to the AML validation queue via Kafka before execution"
+        ]
+      },
+      "FR-08": {
+        "title": "Transaction History & Statements",
+        "requirements": [
+          "Infinite-scroll list of all historical transactions grouped by month",
+          "Search functionality allowing text-match on merchant name or reference note",
+          "Filters available for date range, transaction type, and minimum/maximum amounts",
+          "Users can export specific date-range statements as digitally signed PDF or CSV files"
+        ]
+      },
+      "FR-09": {
+        "title": "Beneficiary Management & Payees",
+        "requirements": [
+          "Users can permanently save recipient details as 'Saved Beneficiaries'",
+          "Beneficiary records mandate a name, routing/SWIFT code, and account number",
+          "Adding a new beneficiary requires an OTP verification flow to prevent account takeover fraud"
+        ]
+      },
+      "FR-10": {
+        "title": "Bill Payments & Recurring Schedules",
+        "requirements": [
+          "Integration with regional biller networks allowing users to lookup providers (Utility, Telecom)",
+          "Users can execute one-time bill payments or set a recurring schedule (e.g., '15th of every month')",
+          "If the configured account lacks sufficient funds 2 days before a recurring payment, an alert is sent"
+        ]
+      },
+      "FR-11": {
+        "title": "Physical & Virtual Card Management",
+        "requirements": [
+          "Users can view their issued physical debit/credit cards linked to their accounts",
+          "Users can instantly freeze/unfreeze a card or report it lost/stolen",
+          "Users can generate single-use virtual cards for secure online shopping",
+          "Card details (CVV, full PAN) are masked by default and require biometric/password interaction to view"
+        ]
+      },
+      "FR-12": {
+        "title": "Fixed Deposits (Term Deposits)",
+        "requirements": [
+          "Users can open a fixed deposit by moving funds out of checking",
+          "A calculator dynamically shows the projected maturity amount based on term length (3, 6, 12 months) and APR",
+          "Early withdrawal incurs an automated penalty fee calculated against accrued interest"
+        ]
+      },
+      "FR-13": {
+        "title": "Loan Application & Origination",
+        "requirements": [
+          "Users can apply for personal loans specifying amount and term length",
+          "System triggers an external API call to pull a credit score",
+          "Automated decision engine calculates maximum eligibility based on internal history and credit score",
+          "Accepted loans automatically disburse funds to the user's primary checking account"
+        ]
+      },
+      "FR-14": {
+        "title": "Notifications & Alerts Engine",
+        "requirements": [
+          "Users configure their alert preferences (Push, SMS, Email)",
+          "Real-time alerts triggered upon profile changes, large transactions, or failed login attempts",
+          "Kafka topics are used asynchronously to dispatch alerts without blocking the main thread"
+        ]
+      },
+      "FR-15": {
+        "title": "Customer Service Messaging & Disputes",
+        "requirements": [
+          "Users can initiate a secure chat session with a bank representative",
+          "Users can flag a specific transaction from their history and formally open a 'Dispute'",
+          "Disputes require an uploaded attachment (e.g., receipt screenshot) and description"
+        ]
+      },
+      "FR-16": {
+        "title": "Admin Dashboard & AML/Fraud Monitoring",
+        "requirements": [
+          "Compliance officers view an inbox of transactions flagged by the automated risk engine",
+          "Officers can accept or reject transactions, releasing or returning funds respectively",
+          "Admins can force-lock customer accounts and require branch visits for high-severity violations",
+          "All admin actions write directly to a secure Audit Log table"
+        ]
+      }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Security and Data Integrity",
+        "requirements": [
+          "All PII and passwords must be encrypted using AES-256 at rest",
+          "MFA tokens and OTPs expire exactly 5 minutes after generation",
+          "API payloads must implement symmetric encryption for all fund transfer operations"
+        ]
+      },
+      "NFR-02": {
+        "title": "Performance and Availability",
+        "requirements": [
+          "Core ledger transactions must complete execution in under 200ms",
+          "System architecture must guarantee 99.99% uptime via multi-zone deployment models"
+        ]
+      }
+    },
+    "system_attributes": {
+      "consistency": "Double-entry accounting ensures total debits always equal total credits. No race condition can bypass the transaction locks.",
+      "security": "PCI-DSS compliance strictly achieved; full card numbers are never returned in flat API responses without tokenization."
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Implement Spring Security & JWT Service",
+        "description": "Configure Spring Security to handle username/password authentication. Build the JWT provider that generates access and refresh tokens. Add security filters to intercept all API routes.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Tokens are signed with RS256 algorithm.",
+          "Endpoints returning 401 Unauthorized correctly state standard error messages.",
+          "Refresh token endpoint safely validates token age and user status."
+        ]
+      },
+      {
+        "title": "Build Multi-Factor Authentication (OTP/TOTP) Verification",
+        "description": "Develop the MFA service. If SMS is selected, integrate Twilio/AWS SNS to send 6-digit OTPs. If Authenticator is selected, generate a secret and verifiable QR code payload.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "OTP strings expire absolutely after 5 minutes.",
+          "A successful primary password login yields a temporary 'pre-auth' token required to submit the MFA code."
+        ]
+      },
+      {
+        "title": "Design and Build Login Frontend Flows",
+        "description": "Design the Next.js login screens including state transitions for standard credential input, MFA challenge overlay, and lockout warnings.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Login page has no layout shift upon error rendering.",
+          "MFA input auto-focuses the first digit box and auto-advances on keystroke."
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Integrate Third-Party KYC Verification API",
+        "description": "Implement a connector service in Java to communicate with Onfido/Jumio. Parse webhook payload callbacks describing the verification success confidence and state.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-02",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Callback webhook validates HMAC signatures to ensure origin authenticity.",
+          "If confidence is <85%, UserKYC entity status changes to 'PENDING_MANUAL_REVIEW'."
+        ]
+      },
+      {
+        "title": "Build Onboarding Next.js Screens",
+        "description": "Create the onboarding pipeline connecting the user's demographic inputs with the KYC API's frontend SDK to capture camera images securely.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Onboarding enforces sequential progression.",
+          "Camera permissions are requested gracefully with UX fallback if denied."
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Design Core Ledger Database Schema",
+        "description": "Design the PostgreSQL schema modeling Users, Accounts, and LedgerEntries. Ensure LedgerEntries have strong foreign keys, precision decimal columns, and an unmodifiable structure.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-03",
+        "assignee_role": "Database Administrator",
+        "acceptance_criteria": [
+          "Balances are derived from sum queries of LedgerEntries, not stored uniquely as a mutable float.",
+          "Table prevents updates/deletes using database-level triggers to guarantee immutability."
+        ]
+      },
+      {
+        "title": "Develop Account Creation Services",
+        "description": "Create backend endpoints allowing a fully KYC'd user to instantiate Checking or Savings accounts. Implement logic to generate universally unique 12-digit Account Numbers.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "A Luhn algorithm or similar checksum validates the generated Account Numbers internally.",
+          "Accounts default to $0 balance."
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Develop Aggregation Dashboard API",
+        "description": "Write a highly optimized GET /api/user/dashboard endpoint that queries all accounts owned by the user, summing available balances and grabbing the top 5 transactions without blocking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Response heavily caches non-real-time metrics via Redis.",
+          "Total net worth correctly parses cross-currency conversions if applicable."
+        ]
+      },
+      {
+        "title": "Design Web and Dashboard UI Elements",
+        "description": "In Next.js, use Chart.js or Recharts to visualize income vs expenses. Design the high-fidelity 'Quick Actions' horizontal banner.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-04",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Charts are fully accessible and load dynamically avoiding SSR mismatches.",
+          "Loading skeleton states explicitly cover all independent fetching dashboard zones."
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Implement Internal Transfer Executer",
+        "description": "Build the core transactional method `executeInternalTransfer()`. It must perform a double-entry database transaction, debiting Account A and crediting Account B atomically.",
+        "priority": "critical",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Database connection isolation level prevents dirty reads entirely (`ISOLATION_SERIALIZABLE`).",
+          "Attempting to transfer more than Available Balance throws `InsufficientFundsException` immediately rolling back.",
+          "Self-transfers to the identical account are gracefully rejected."
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Build Domestic ACH Integration Gateway",
+        "description": "Create a service layer communicating with a mock ACH/FedWire clearing house. Generate NACHA-formatted files (or API calls) for batch process domestic sends.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-06",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Routing numbers validate explicitly against a cached geographic/bank identifier database.",
+          "Transaction initially creates a 'PENDING' LedgerEntry until clearing confirmation."
+        ]
+      },
+      {
+        "title": "MFA Challenge Interceptor for Expensive Transfers",
+        "description": "Write a backend interceptor logic where if a transaction > $1000 requires processing, the backend initially suspends the transaction and issues an MFA token challenge response back to the client.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "User receives request to input OTP. Endpoint accepts OTP and unfreezes the transaction.",
+          "State of the pending transaction is stored temporarily in Redis."
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Implement External FX Rate Service",
+        "description": "Use an external API provider (e.g., Fixer.io or Bloomberg) to pull real-time exchange rates caching them in Redis every 5 minutes to fuel the SWIFT interface.",
+        "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-07",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Rate calculations apply the Bank's predefined profit margin spread.",
+          "Rate is valid for exactly 60 seconds on the frontend."
+        ]
+      },
+      {
+        "title": "Kafka Producer for AML Processing Validation",
+        "description": "Modify the international transfer handler. Instead of immediate database insertion, it must parse an event and push it to an `aml_validation_queue` Kafka topic.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "assignee_role": "Data Engineer",
+        "acceptance_criteria": [
+          "Kafka events are structured robustly with schemas (Avro/Protobuf).",
+          "Application seamlessly pauses customer feedback to 'Processing Review'."
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Optimize Transaction Search and Filtering Queries",
+        "description": "Write optimized indexes and pagination logic in PostgreSQL. Allow combining ranges, specific string queries, and amount filters seamlessly on large multi-thousand row scopes.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-08",
+        "assignee_role": "Database Administrator",
+        "acceptance_criteria": [
+          "Queries use Keyset/Cursor pagination instead of OFFSET for high performance.",
+          "Text searching against merchant name is indexed properly."
+        ]
+      },
+      {
+        "title": "Generate PDF Account Statements",
+        "description": "Implement a reporting library (like JasperReports or iText) taking the result set of transactions and converting it into a branded PDF with the bank's letterhead and user details.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "PDF includes summary block (Starting bal, Total In, Total Out, Ending bal).",
+          "PDF enforces explicit Read-Only permissions directly at the metadata level."
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Implement Beneficiary Management Core Structure",
+        "description": "Create the REST endpoints for adding, fetching, and removing Beneficiaries. Attach the MFA challenge flow for the creation endpoint to mitigate takeover attacks.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Beneficiary deletion simply soft-deletes leaving foreign keys intact globally for history.",
+          "Added beneficiaries appear as instant targets in the Transfers UI dropdown."
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Build Scheduler and Cron Processes for Payments",
+        "description": "Implement a reliable Quartz scheduler or Spring `@Scheduled` task to wake up daily, evaluate pending recurring utility and bill payments, and execute them safely.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "System properly isolates processed vs unprocessed to prevent duplicate firing.",
+          "Low balance scenarios emit distinct 'Warning' notifications immediately."
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Integrate Physical and Virtual Card Issuer APIs",
+        "description": "Interact with a card-issuing processor webhook (like Marqeta/Stripe). Handle logic issuing virtual PANs securely mapping directly back to the customer's checking ledger balance.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-11",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Virtual cards are generated and immediately active with 0 deployment lag.",
+          "Freezing a card cascades an API call blocking external processor authorizations instantly."
+        ]
+      },
+      {
+        "title": "Develop Secure Card View UI Component",
+        "description": "Build the React component modeling a physical card. Require user to enter password before the UI fetches the CVV and complete PAN string.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-11",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "PAN input is completely masked on idle states.",
+          "React state clears card data dynamically after 30 seconds of display."
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Create Fixed Deposit Calculators and Executers",
+        "description": "Implement term length logic mapping specific Annual Percentage Yields (APY). Execute transfer to a locked savings vault on confirmation, generating the maturity date map.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Principal amounts are safely segregated outside the 'available' checking pool.",
+          "Database correctly manages logic if the maturity date lands on a bank holiday."
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Build Credit Scoring Interface",
+        "description": "Design an automated underwriting criteria processor requesting score from Experian/Equifax APIs, factoring their internal deposit history heavily.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "External hits perform synchronous fallback handling in case Experian is down.",
+          "Decisions format dynamically returning reasoning mapping (e.g. 'Debt to income ratio exceeded')."
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Implement Notification Dispatcher via Kafka",
+        "description": "Setup a microservice that listens to 'transaction_events' on Kafka. Resolves customer notification preferences, routing logic outbound via AWS SES for Email or Twilio for SMS.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-14",
+        "assignee_role": "Data Engineer",
+        "acceptance_criteria": [
+          "SMS deliveries are correctly batched where required to maintain low throughput cost.",
+          "Consumers scale out automatically depending on the kafka partition lag."
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Develop Dispute Processing Module",
+        "description": "Enhance transaction history interface enabling users to flag an item. Develop the schema and API to persist case narratives and ingest supporting file blobs.",
+        "priority": "medium",
+        "type": "fullstack",
+        "related_requirement": "FR-15",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Flagged transactions explicitly reflect 'Disputed' visual statuses natively.",
+          "Case opens dynamically in the Customer Support administrative board."
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Design Compliance Dashboard and Audit Trail UX",
+        "description": "Create the Admin Portal targeting Compliance Officers. Develop data-tables to review flagged AML transactions and explicitly define accept/reject controls.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-16",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Suspicious metrics surface strictly prioritizing urgency variables.",
+          "Audit logs clearly show exactly which Compliance Officer approved a specific payload."
+        ]
+      },
+      {
+        "title": "Write Compliance Rules Engine logic",
+        "description": "Implement threshold detection configurations checking volume, source/destination match-ups against global OFAC sanctions lists natively blocking matches from resolving.",
+        "priority": "critical",
+        "type": "backend",
+        "related_requirement": "FR-16",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Rules engine analyzes incoming SWIFT transfers natively resolving exact text matching and string distance measurements."
+        ]
+      }
+    ]
+  }
+}
