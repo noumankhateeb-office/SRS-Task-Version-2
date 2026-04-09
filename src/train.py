@@ -169,8 +169,6 @@ def get_training_args(
         eval_strategy="epoch",
         save_strategy="epoch",
         save_total_limit=2,
-        load_best_model_at_end=True,
-        metric_for_best_model="eval_loss",
         greater_is_better=False,
         bf16=use_bf16,
         fp16=use_fp16,
@@ -204,6 +202,7 @@ def train(
         batch_size: Per-device batch size.
         learning_rate: Learning rate.
         gradient_accumulation_steps: Number of mini-batches to accumulate before an optimizer step.
+        no_eval: Whether to disable evaluation and validation data generation.
     """
     logger.info("=" * 60)
     logger.info("SRS TO TASKS MODEL TRAINING")
@@ -233,6 +232,11 @@ def train(
         gradient_accumulation_steps=gradient_accumulation_steps,
     )
 
+    if eval_data_path is None:
+        training_args.eval_strategy = "no"
+        training_args.save_strategy = "epoch"
+        val_dataset = None
+
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -248,7 +252,10 @@ def train(
     logger.info("  Gradient accumulation: %d", gradient_accumulation_steps)
     logger.info("  Learning rate: %s", learning_rate)
     logger.info("  Train examples: %d", len(train_dataset))
-    logger.info("  Eval examples: %d", len(val_dataset))
+    if val_dataset is not None:
+        logger.info("  Eval examples: %d", len(val_dataset))
+    else:
+        logger.info("  Eval examples: 0 (disabled)")
 
     train_result = trainer.train()
 
@@ -320,6 +327,11 @@ def parse_args() -> argparse.Namespace:
         default=1,
         help="Gradient accumulation steps (default: 1 for 8GB-class GPUs).",
     )
+    parser.add_argument(
+        "--no-eval",
+        action="store_true",
+        help="Disable evaluation logic during training.",
+    )
 
     return parser.parse_args()
 
@@ -335,7 +347,7 @@ if __name__ == "__main__":
 
     train(
         data_path=args.data,
-        eval_data_path=args.eval_data,
+        eval_data_path=None if args.no_eval else args.eval_data,
         output_dir=args.output,
         epochs=args.epochs,
         batch_size=args.batch_size,

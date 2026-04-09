@@ -486,7 +486,7 @@ def prepare_datasets(
     logger.info("=" * 60)
 
     train_raw = load_training_data(train_data_path)
-    eval_raw = load_training_data(eval_data_path)
+    eval_raw = load_training_data(eval_data_path) if eval_data_path else []
 
     if not train_raw:
         raise ValueError(
@@ -494,16 +494,10 @@ def prepare_datasets(
             "Add more training data to your data/training/ directory."
         )
 
-    if not eval_raw:
-        raise ValueError(
-            "Evaluation dataset is empty. "
-            "Add holdout data to your data/evaluation/ directory."
-        )
-
     logger.info("Loaded separate datasets: %d train / %d evaluation examples", len(train_raw), len(eval_raw))
 
     train_dataset_raw = Dataset.from_dict(format_examples(train_raw))
-    val_dataset_raw = Dataset.from_dict(format_examples(eval_raw))
+    val_dataset_raw = Dataset.from_dict(format_examples(eval_raw)) if eval_raw else None
 
     # Load tokenizer
     logger.info("Loading tokenizer: %s", model_name)
@@ -514,7 +508,7 @@ def prepare_datasets(
 
     # Tokenize both splits
     train_dataset = tokenize_dataset(train_dataset_raw, tokenizer)
-    val_dataset = tokenize_dataset(val_dataset_raw, tokenizer)
+    val_dataset = tokenize_dataset(val_dataset_raw, tokenizer) if val_dataset_raw else None
 
     logger.info("Data preparation complete!")
 
