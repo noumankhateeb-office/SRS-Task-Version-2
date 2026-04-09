@@ -1,0 +1,350 @@
+{
+  "input": {
+    "title": "Enterprise Project Management Platform",
+    "description": "A comprehensive, real-time collaboration and project management platform designed for agile teams. It enables organizations to create workspaces, manage projects via Kanban boards and Gantt charts, assign tasks, track time, and collaborate seamlessly. The platform supports advanced task dependencies, rich text comments with file attachments, and real-time push notifications.",
+    "technologies": [
+      "Vue.js",
+      "Nuxt 3",
+      "NestJS",
+      "PostgreSQL",
+      "Socket.io",
+      "Redis"
+    ],
+    "actors": [
+      "Workspace Owner",
+      "Project Manager",
+      "Team Member",
+      "Guest Viewer"
+    ],
+    "user_classes": {
+      "Workspace Owner": "A user who registered the organization, controls billing, and has ultimate admin access to all projects and workspace settings.",
+      "Project Manager": "A user responsible for planning sprints, creating and deleting projects, assigning tasks, and generating reports within their assigned projects.",
+      "Team Member": "A standard user who can view assigned projects, update task statuses, log time, and add comments or attachments.",
+      "Guest Viewer": "An external stakeholder (e.g., a client) with read-only access to specific projects or boards."
+    },
+    "definitions": {
+      "Workspace": "Top-level organizational container representing a company or a large department.",
+      "Project": "A collection of tasks, milestones, and boards grouped to achieve a specific goal.",
+      "Kanban Board": "Visual representation of work in progress, divided by columns representing stages (e.g., Backlog, In Progress, Review).",
+      "Sprint": "A timeboxed period in which a specific amount of work must be completed."
+    },
+    "modules": [
+      "Authentication & RBAC",
+      "Workspace & User Management",
+      "Project & Board Management",
+      "Task Engine",
+      "Real-time Collaboration",
+      "Timeline & Gantt Charts",
+      "Time Tracking",
+      "Reporting & Analytics",
+      "Notifications"
+    ],
+    "scope": [
+      "Secure authentication including 2FA and enterprise SSO (SAML)",
+      "Dynamic Kanban boards with drag-and-drop task management",
+      "Detailed task views with subtasks, markdown descriptions, attachments, and activity logs",
+      "Real-time updates via WebSockets so multiple users editing a board see changes instantly",
+      "Gantt chart generation with parent-child task dependencies",
+      "Built-in time tracker native to task cards",
+      "Customizable notification preferences (Email, In-App, Slack integration)"
+    ],
+    "out_of_scope": [
+      "Built-in video/audio conferencing",
+      "In-depth generic document/wiki management (pure document creation outside tasks)",
+      "Native mobile applications for the initial MVP (Progressive Web App will be utilized)"
+    ],
+    "constraints": [
+      "WebSockets must gracefully fall back to long-polling for restrictive corporate networks",
+      "The application must maintain sub-100ms response times for all drag-and-drop board state updates",
+      "File uploads per task are capped at 50MB per file and must be stored in AWS S3"
+    ],
+    "operating_environment": {
+      "frontend": "Nuxt 3 single-page application (SPA) deployed to Vercel/Netlify for fast edge delivery.",
+      "backend": "NestJS (Node.js) microservices deployed to AWS ECS.",
+      "database": "PostgreSQL for relational schemas, Redis for caching, rate limiting, and pub/sub message brokering."
+    },
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Workspace Initialization and Authentication",
+        "requirements": [
+          "Users can sign up and implicitly create a new Workspace",
+          "Workspace Owners can invite Team Members via email link",
+          "Authentication must issue short-lived JWTs and secure refresh tokens",
+          "Role-Based Access Control (RBAC) securely limits API access based on the user's role in a specific Workspace"
+        ]
+      },
+      "FR-02": {
+        "title": "Project and Kanban Board Management",
+        "requirements": [
+          "Managers can create new Projects and define custom column statuses (e.g., Todo, Doing, Done, Blocked)",
+          "Boards must support drag-and-drop to update a task's status",
+          "Column metrics must summarize the number of tasks and total story points per column",
+          "State updates must be broadcast over WebSockets to all active viewers of the board"
+        ]
+      },
+      "FR-03": {
+        "title": "Task Engine",
+        "requirements": [
+          "Tasks have a title, markdown description, priority level, due date, story points, and assignees",
+          "Tasks can contain hierarchical subtasks",
+          "Users can upload attachments (images, PDFs) directly to a task",
+          "Task changes automatically generate an immutable Activity Log entry (e.g., 'User A changed status from Todo to Doing')"
+        ]
+      },
+      "FR-04": {
+        "title": "Real-time Comments and Mentions",
+        "requirements": [
+          "Users can post comments on tasks iteratively",
+          "Comments must support @mentions, triggering a targeted notification to the mentioned user",
+          "New comments push instantly to other currently connected clients viewing the same task via Socket.io"
+        ]
+      },
+      "FR-05": {
+        "title": "Timeline and Gantt View",
+        "requirements": [
+          "Projects feature a Gantt chart view rendering tasks across a calendar timeline",
+          "Managers can plot Finish-to-Start dependencies between two tasks",
+          "Shifting a parent task's date must automatically prompt to optionally cascade the shift to dependent downstream tasks"
+        ]
+      },
+      "FR-06": {
+        "title": "Time Tracking",
+        "requirements": [
+          "Team members can start/stop a timer embedded on an assigned task card",
+          "Users can manually log retroactive time entries",
+          "Project Managers can view an aggregated report of estimated vs. actual time logged per task"
+        ]
+      },
+      "FR-07": {
+        "title": "Search and Dashboard Summaries",
+        "requirements": [
+          "Global text search must index task titles, descriptions, and comments",
+          "Each user connects to a personalized 'My Tasks' dashboard aggregating due dates across all projects",
+          "The 'My Tasks' view organizes deliverables by 'Overdue', 'Due Today', and 'Upcoming'"
+        ]
+      }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Usability",
+        "requirements": [
+          "The interface must support Dark and Light themes",
+          "Keyboard shortcuts (e.g., 'C' for create task, 'F' for search) must be supported for power users"
+        ]
+      },
+      "NFR-02": {
+        "title": "Scalability and Concurrency",
+        "requirements": [
+          "Socket servers must utilize Redis Pub/Sub to scale horizontally across multiple NodeJS instances",
+          "Database queries for board retrieval must utilize eager loading to prevent N+1 query problems"
+        ]
+      }
+    },
+    "system_attributes": {
+      "resiliency": "Dropped WebSocket connections will queue outbound events in local storage and batch sync upon reconnection.",
+      "security": "Tenant isolation at the API level ensures one Workspace cannot query tasks originating from another Workspace's UUID."
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Build Authentication and Workspace Registration",
+        "description": "Develop the backend NestJS endpoints for User Signup, Login, and Workspace creation. Implement JWT generation and securely handle refresh tokens using HttpOnly cookies.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Signup creates both a User entity and a linked Workspace entity.",
+          "Login issues a valid JWT and an HttpOnly refresh token.",
+          "Endpoints are protected against brute-force attacks via rate limiters."
+        ]
+      },
+      {
+        "title": "Design Onboarding and Invitation UI",
+        "description": "Create the UX/UI designs for the initial Workspace creation flow and the Team Member invitation email templates.",
+        "priority": "medium",
+        "type": "design",
+        "related_requirement": "FR-01",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Clear visual steps for Workspace naming and initial project setup.",
+          "Responsive HTML Email template designed for invitations."
+        ]
+      },
+      {
+        "title": "Implement RBAC Guard Middleware",
+        "description": "Write a NestJS AuthGuard that validates the incoming JWT and ensures the user has the required Role (Owner, Manager, Member, Guest) to execute the specific Controller method.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "The Guard correctly rejects unauthorized interactions with a 403 Forbidden.",
+          "Roles are validated against the specific Workspace ID provided in the route parameters."
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Develop Interactive Kanban Board UI",
+        "description": "Implement the frontend Vue/Nuxt component for the Kanban board using a robust drag-and-drop library (e.g., VueDraggable). The board must render columns and task cards correctly.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-02",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Users can drag a task between columns horizontally.",
+          "Users can reorder tasks vertically within the same column.",
+          "Dropping a task visually snaps it into place and fires an async API update."
+        ]
+      },
+      {
+        "title": "Build Board State API and WebSocket Broadcaster",
+        "description": "Create the PATCH endpoint to update task statuses. Upon a successful database update, emit a WebSocket event to the specific `ProjectRoom` so that other users' screens update automatically.",
+        "priority": "high",
+        "type": "fullstack",
+        "related_requirement": "FR-02",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Optimistic UI updates run locally while the API call is in flight.",
+          "Backend transaction completes in under 100ms.",
+          "Connected WebSocket clients receive the 'TASK_UPDATED' event payload."
+        ]
+      },
+      {
+        "title": "Create Database Schema for Projects and Boards",
+        "description": "Design and migrate the relational SQL tables: Workspaces, Projects, BoardColumns, and Tasks. Include an 'order_index' float field for efficient drag-and-drop vertical sorting.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "assignee_role": "Database Administrator",
+        "acceptance_criteria": [
+          "Foreign keys properly strictly enforce cascade deletes if a Project is removed.",
+          "Index applied to (projectId, statusId) for fast board matrix queries."
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Design Task Detail Modal",
+        "description": "Mockup the layout of the expanded Task View modal featuring a rich text description, assignee dropdowns, deadline selectors, subtask checklists, and a right-sidebar for activity history.",
+        "priority": "medium",
+        "type": "design",
+        "related_requirement": "FR-03",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Information hierarchy prioritizes title, state, and description.",
+          "Activity log is distinctly styled separately from comments."
+        ]
+      },
+      {
+        "title": "Build Task CRUD and Activity Log Service",
+        "description": "Implement NestJS APIs to Create, Read, Update, and Delete tasks. Configure a subscriber/interceptor that listens to task updates and automatically inserts an immutable record into the ActivityLogs table.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "ActivityLog correctly attributes the modifier's user ID and a generated string (e.g., 'updated due date to 2026-05-12').",
+          "Task retrieval endpoint paginates activity logs heavily to avoid bloating payload sizes."
+        ]
+      },
+      {
+        "title": "Implement File Attachment Handling",
+        "description": "Integrate AWS S3 SDK for file uploads. Users attach files to tasks, the backend generates a presigned POST URL, the frontend uploads directly to S3, and standardizes the asset link in the database.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Presigned URL generation executes strictly for authenticated users.",
+          "File size limits (50MB) are enforced by the presigned configuration."
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Develop Task Comments with @Mentions",
+        "description": "Create the rich-text comment input on the frontend and the corresponding POST API. Implement a regex parser to detect '@username' markers, resolve them against project members, and generate internal Notification records.",
+        "priority": "high",
+        "type": "fullstack",
+        "related_requirement": "FR-04",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Comment input features a mention-autocomplete dropdown.",
+          "A successful comment POST yields an immediate WebSocket broadcast to task viewers.",
+          "Mentioned users receive a new entry in their Notifications table."
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Implement Gantt Chart Component",
+        "description": "Integrate a robust timeline visualization library (e.g., Frappe Gantt or Dhtmlx) into the Vue frontend. Map the project's task data (start date, duration/end date, progress) into the chart's expected prop shapes.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Tasks display as bars spanning the correct dates on the visual calendar.",
+          "Users can drag the edges of a bar to modify dates, which triggers an API update.",
+          "Dependency lines connect parent and child tasks visually."
+        ]
+      },
+      {
+        "title": "Build Task Dependency API Logic",
+        "description": "Create endpoints allowing users to link tasks (e.g., Task A blocks Task B). Implement recursive date-shifting validation so if Task B depends on Task A, moving A past B's start date prompts an option to automatically adjust B's start date.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Cyclical dependencies (A blocks B, B blocks A) are rejected.",
+          "Cascade shifts execute transactionally across all downstream children."
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Develop Time Tracking Micro-Service",
+        "description": "Implement a start/stop timer widget on the Task frontend. Integrate with a backend API capturing `TimeEntries` containing userId, taskId, duration in seconds, and timestamps.",
+        "priority": "medium",
+        "type": "fullstack",
+        "related_requirement": "FR-06",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Timer continues to run server-side if the user closes their browser.",
+          "Manual entry UI allows explicitly inputting '2h 15m' directly.",
+          "Task aggregate sums the total logged time against initial story estimates."
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Implement Global Search Infrastructure",
+        "description": "Configure PostgreSQL full-text search capabilities across Workspace data. Build a GET /search endpoint resolving queries natively using `tsvector` and `tsquery`.",
+        "priority": "medium",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "assignee_role": "Database Administrator",
+        "acceptance_criteria": [
+          "Search covers task keys, titles, and descriptions concurrently.",
+          "Results check permissions ensuring users only see matched tasks from their authorized projects."
+        ]
+      },
+      {
+        "title": "Build 'My Tasks' Aggregation Dashboard",
+        "description": "Implement a personalized frontend view. Create a backend query that pulls all tasks assigned to `req.user.id` across all valid projects, sorting them sequentially by due dates.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-07",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Dashboard visually separates tasks that are Overdue in red.",
+          "Allows quick-complete toggling directly from the dashboard view."
+        ]
+      }
+    ]
+  }
+}
