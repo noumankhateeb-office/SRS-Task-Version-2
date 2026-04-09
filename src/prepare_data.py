@@ -486,7 +486,14 @@ def prepare_datasets(
     logger.info("=" * 60)
 
     train_raw = load_training_data(train_data_path)
-    eval_raw = load_training_data(eval_data_path) if eval_data_path else []
+
+    eval_raw: list[dict] = []
+    if eval_data_path:
+        try:
+            eval_raw = load_training_data(eval_data_path)
+        except (FileNotFoundError, ValueError) as e:
+            logger.warning("Could not load evaluation data: %s — continuing without eval.", e)
+            eval_raw = []
 
     if not train_raw:
         raise ValueError(
@@ -537,10 +544,9 @@ if __name__ == "__main__":
         logger.error("Training data path not found: %s", train_data_path)
         logger.info("Add training JSON files to: data/training/")
         sys.exit(1)
-    if not eval_data_path.exists():
-        logger.error("Evaluation data path not found: %s", eval_data_path)
-        logger.info("Add evaluation JSON files to: data/evaluation/")
-        sys.exit(1)
+    if eval_data_path and not Path(eval_data_path).exists():
+        logger.warning("Evaluation data path not found: %s", eval_data_path)
+        eval_data_path = None
 
     train_ds, val_ds, tok = prepare_datasets(train_data_path, eval_data_path)
 

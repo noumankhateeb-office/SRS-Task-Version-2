@@ -232,7 +232,7 @@ def train(
         gradient_accumulation_steps=gradient_accumulation_steps,
     )
 
-    if eval_data_path is None:
+    if eval_data_path is None or val_dataset is None:
         training_args.eval_strategy = "no"
         training_args.save_strategy = "epoch"
         val_dataset = None
@@ -294,7 +294,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--eval-data",
         type=Path,
-        default=DEFAULT_EVAL_DATA_PATH,
+        default=None,
         help="Path to holdout evaluation data directory or JSONL file.",
     )
     parser.add_argument(
@@ -345,9 +345,20 @@ if __name__ == "__main__":
 
     args = parse_args()
 
+    # Resolve evaluation data path
+    if args.no_eval:
+        eval_path = None
+    elif args.eval_data is not None:
+        eval_path = args.eval_data
+    elif DEFAULT_EVAL_DATA_PATH.exists():
+        eval_path = DEFAULT_EVAL_DATA_PATH
+    else:
+        logger.info("No evaluation data found at %s — training without eval.", DEFAULT_EVAL_DATA_PATH)
+        eval_path = None
+
     train(
         data_path=args.data,
-        eval_data_path=None if args.no_eval else args.eval_data,
+        eval_data_path=eval_path,
         output_dir=args.output,
         epochs=args.epochs,
         batch_size=args.batch_size,
