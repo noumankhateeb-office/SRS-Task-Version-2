@@ -205,853 +205,745 @@
   "output": {
     "FR-01": [
       {
-        "title": "Plan Student Enrollment Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for student enrollment and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Online admission form with personal and academic details; Document upload for transcripts and ID; Enrollment fee payment.",
+        "title": "Design Student Enrollment UI",
+        "description": "Design the user interface for student enrollment. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The end-to-end workflow for student enrollment is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for student enrollment are explicitly defined",
-          "Implementation subtasks for student enrollment can be picked up independently by engineering"
+          "UI design for student enrollment is complete and reviewable.",
+          "The student enrollment design is responsive and accessible.",
+          "The design for student enrollment aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Student Enrollment Backend Services",
-        "description": "Build the backend services for student enrollment on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Online admission form with personal and academic details; Document upload for transcripts and ID; Enrollment fee payment.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Core student enrollment business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for student enrollment",
-          "API/service behavior for student enrollment is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Student Enrollment Frontend Flow",
-        "description": "Build the frontend flow for student enrollment with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Student Enrollment",
+        "description": "Implement the frontend behavior for student enrollment. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Online admission form with personal and academic details; Document upload for transcripts and ID; Enrollment fee payment.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The student enrollment user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for student enrollment behave correctly",
-          "The student enrollment UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required student enrollment user interactions.",
+          "Validation, loading, and error states for student enrollment are handled in the UI.",
+          "Frontend behavior for student enrollment is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Student Enrollment Persistence Model",
-        "description": "Design the persistence layer for student enrollment. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Student Enrollment",
+        "description": "Implement the backend logic for student enrollment. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Online admission form with personal and academic details; Document upload for transcripts and ID; Enrollment fee payment.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Backend logic for student enrollment is implemented and testable.",
+          "APIs and business rules for student enrollment enforce validation and security requirements.",
+          "Data handling for student enrollment is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Student Enrollment",
+        "description": "Design the data model and persistence strategy for student enrollment. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The persistence model for student enrollment supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for student enrollment are defined correctly",
-          "Migrations for student enrollment can be applied safely in target environments"
+          "The data model for student enrollment supports the required workflow.",
+          "Relationships, constraints, and indexes for student enrollment are defined correctly.",
+          "Schema changes for student enrollment can be applied safely in target environments."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Student Enrollment",
-        "description": "Implement the external integration points used by student enrollment, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "External dependencies used by student enrollment are connected through stable integration layers",
-          "Timeout, retry, and failure handling for student enrollment integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for student enrollment are handled securely"
-        ]
-      },
-      {
-        "title": "Harden Student Enrollment Security and Access Rules",
-        "description": "Apply security controls to student enrollment. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Access control rules for student enrollment are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in student enrollment are audited and protected against misuse",
-          "Security validation for student enrollment passes review and automated checks"
-        ]
-      },
-      {
-        "title": "Write Student Enrollment Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for student enrollment. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Student Enrollment with External Services",
+        "description": "Integrate student enrollment with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by student enrollment exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for student enrollment integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by student enrollment are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Student Enrollment Functionality",
+        "description": "Create and execute tests for student enrollment. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Happy path and failure cases for student enrollment are covered by automated tests",
-          "Permission checks and validation rules for student enrollment are verified",
-          "Regression coverage exists for the most critical student enrollment scenarios"
+          "Tests cover the main success and failure scenarios for student enrollment.",
+          "Security, validation, and permission checks for student enrollment are verified.",
+          "Regression coverage exists for the most important student enrollment behaviors."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Plan Class and Section Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for class and section management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Create classes with grade levels; Assign sections within each class; Set class capacity limits.",
+        "title": "Design Class and Section Management UI",
+        "description": "Design the user interface for class and section management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The end-to-end workflow for class and section management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for class and section management are explicitly defined",
-          "Implementation subtasks for class and section management can be picked up independently by engineering"
+          "UI design for class and section management is complete and reviewable.",
+          "The class and section management design is responsive and accessible.",
+          "The design for class and section management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Class and Section Management Backend Services",
-        "description": "Build the backend services for class and section management on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Create classes with grade levels; Assign sections within each class; Set class capacity limits.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Core class and section management business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for class and section management",
-          "API/service behavior for class and section management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Class and Section Management Frontend Flow",
-        "description": "Build the frontend flow for class and section management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Class and Section Management",
+        "description": "Implement the frontend behavior for class and section management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Create classes with grade levels; Assign sections within each class; Set class capacity limits.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The class and section management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for class and section management behave correctly",
-          "The class and section management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required class and section management user interactions.",
+          "Validation, loading, and error states for class and section management are handled in the UI.",
+          "Frontend behavior for class and section management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Class and Section Management Persistence Model",
-        "description": "Design the persistence layer for class and section management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Class and Section Management",
+        "description": "Implement the backend logic for class and section management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Create classes with grade levels; Assign sections within each class; Set class capacity limits.",
         "priority": "high",
-        "type": "database",
+        "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The persistence model for class and section management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for class and section management are defined correctly",
-          "Migrations for class and section management can be applied safely in target environments"
+          "Backend logic for class and section management is implemented and testable.",
+          "APIs and business rules for class and section management enforce validation and security requirements.",
+          "Data handling for class and section management is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Class and Section Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for class and section management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Class and Section Management Functionality",
+        "description": "Create and execute tests for class and section management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Happy path and failure cases for class and section management are covered by automated tests",
-          "Permission checks and validation rules for class and section management are verified",
-          "Regression coverage exists for the most critical class and section management scenarios"
+          "Tests cover the main success and failure scenarios for class and section management.",
+          "Security, validation, and permission checks for class and section management are verified.",
+          "Regression coverage exists for the most important class and section management behaviors."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Plan Attendance Tracking Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for attendance tracking and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Daily attendance marking by teachers; Absent/present/late status options; Attendance reports by student and class.",
+        "title": "Design Attendance Tracking UI",
+        "description": "Design the user interface for attendance tracking. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The end-to-end workflow for attendance tracking is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for attendance tracking are explicitly defined",
-          "Implementation subtasks for attendance tracking can be picked up independently by engineering"
+          "UI design for attendance tracking is complete and reviewable.",
+          "The attendance tracking design is responsive and accessible.",
+          "The design for attendance tracking aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Attendance Tracking Backend Services",
-        "description": "Build the backend services for attendance tracking on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Daily attendance marking by teachers; Absent/present/late status options; Attendance reports by student and class.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Core attendance tracking business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for attendance tracking",
-          "API/service behavior for attendance tracking is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Attendance Tracking Frontend Flow",
-        "description": "Build the frontend flow for attendance tracking with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Attendance Tracking",
+        "description": "Implement the frontend behavior for attendance tracking. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Daily attendance marking by teachers; Absent/present/late status options; Attendance reports by student and class.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The attendance tracking user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for attendance tracking behave correctly",
-          "The attendance tracking UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required attendance tracking user interactions.",
+          "Validation, loading, and error states for attendance tracking are handled in the UI.",
+          "Frontend behavior for attendance tracking is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Attendance Tracking Persistence Model",
-        "description": "Design the persistence layer for attendance tracking. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Attendance Tracking",
+        "description": "Implement the backend logic for attendance tracking. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Daily attendance marking by teachers; Absent/present/late status options; Attendance reports by student and class.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Backend logic for attendance tracking is implemented and testable.",
+          "APIs and business rules for attendance tracking enforce validation and security requirements.",
+          "Data handling for attendance tracking is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Attendance Tracking",
+        "description": "Design the data model and persistence strategy for attendance tracking. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The persistence model for attendance tracking supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for attendance tracking are defined correctly",
-          "Migrations for attendance tracking can be applied safely in target environments"
+          "The data model for attendance tracking supports the required workflow.",
+          "Relationships, constraints, and indexes for attendance tracking are defined correctly.",
+          "Schema changes for attendance tracking can be applied safely in target environments."
         ]
       },
       {
-        "title": "Build Attendance Tracking Reporting and KPI Logic",
-        "description": "Implement the reporting layer for attendance tracking, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "KPI and reporting calculations for attendance tracking return accurate results",
-          "Filters, grouping, and export-ready structures for attendance tracking work correctly",
-          "Reporting queries for attendance tracking perform within acceptable limits"
-        ]
-      },
-      {
-        "title": "Write Attendance Tracking Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for attendance tracking. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Attendance Tracking Functionality",
+        "description": "Create and execute tests for attendance tracking. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Happy path and failure cases for attendance tracking are covered by automated tests",
-          "Permission checks and validation rules for attendance tracking are verified",
-          "Regression coverage exists for the most critical attendance tracking scenarios"
+          "Tests cover the main success and failure scenarios for attendance tracking.",
+          "Security, validation, and permission checks for attendance tracking are verified.",
+          "Regression coverage exists for the most important attendance tracking behaviors."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Plan Timetable Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for timetable management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Create weekly timetable for each class; Assign subjects and teachers to time slots; Handle teacher schedule conflicts.",
+        "title": "Design Timetable Management UI",
+        "description": "Design the user interface for timetable management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The end-to-end workflow for timetable management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for timetable management are explicitly defined",
-          "Implementation subtasks for timetable management can be picked up independently by engineering"
+          "UI design for timetable management is complete and reviewable.",
+          "The timetable management design is responsive and accessible.",
+          "The design for timetable management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Timetable Management Backend Services",
-        "description": "Build the backend services for timetable management on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Create weekly timetable for each class; Assign subjects and teachers to time slots; Handle teacher schedule conflicts.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Core timetable management business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for timetable management",
-          "API/service behavior for timetable management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Timetable Management Frontend Flow",
-        "description": "Build the frontend flow for timetable management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Timetable Management",
+        "description": "Implement the frontend behavior for timetable management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Create weekly timetable for each class; Assign subjects and teachers to time slots; Handle teacher schedule conflicts.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The timetable management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for timetable management behave correctly",
-          "The timetable management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required timetable management user interactions.",
+          "Validation, loading, and error states for timetable management are handled in the UI.",
+          "Frontend behavior for timetable management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Timetable Management Persistence Model",
-        "description": "Design the persistence layer for timetable management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Timetable Management",
+        "description": "Implement the backend logic for timetable management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Create weekly timetable for each class; Assign subjects and teachers to time slots; Handle teacher schedule conflicts.",
         "priority": "high",
-        "type": "database",
+        "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The persistence model for timetable management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for timetable management are defined correctly",
-          "Migrations for timetable management can be applied safely in target environments"
+          "Backend logic for timetable management is implemented and testable.",
+          "APIs and business rules for timetable management enforce validation and security requirements.",
+          "Data handling for timetable management is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Timetable Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for timetable management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Timetable Management Functionality",
+        "description": "Create and execute tests for timetable management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Happy path and failure cases for timetable management are covered by automated tests",
-          "Permission checks and validation rules for timetable management are verified",
-          "Regression coverage exists for the most critical timetable management scenarios"
+          "Tests cover the main success and failure scenarios for timetable management.",
+          "Security, validation, and permission checks for timetable management are verified.",
+          "Regression coverage exists for the most important timetable management behaviors."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Plan Exam and Grade Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for exam and grade management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Create exams with subjects, dates, and marks; Teachers enter student grades; Grade calculation with weightage.",
+        "title": "Design Exam and Grade Management UI",
+        "description": "Design the user interface for exam and grade management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The end-to-end workflow for exam and grade management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for exam and grade management are explicitly defined",
-          "Implementation subtasks for exam and grade management can be picked up independently by engineering"
+          "UI design for exam and grade management is complete and reviewable.",
+          "The exam and grade management design is responsive and accessible.",
+          "The design for exam and grade management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Exam and Grade Management Backend Services",
-        "description": "Build the backend services for exam and grade management on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Create exams with subjects, dates, and marks; Teachers enter student grades; Grade calculation with weightage.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Core exam and grade management business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for exam and grade management",
-          "API/service behavior for exam and grade management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Exam and Grade Management Frontend Flow",
-        "description": "Build the frontend flow for exam and grade management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Exam and Grade Management",
+        "description": "Implement the frontend behavior for exam and grade management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Create exams with subjects, dates, and marks; Teachers enter student grades; Grade calculation with weightage.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The exam and grade management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for exam and grade management behave correctly",
-          "The exam and grade management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required exam and grade management user interactions.",
+          "Validation, loading, and error states for exam and grade management are handled in the UI.",
+          "Frontend behavior for exam and grade management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Exam and Grade Management Persistence Model",
-        "description": "Design the persistence layer for exam and grade management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Exam and Grade Management",
+        "description": "Implement the backend logic for exam and grade management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Create exams with subjects, dates, and marks; Teachers enter student grades; Grade calculation with weightage.",
         "priority": "high",
-        "type": "database",
+        "type": "backend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The persistence model for exam and grade management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for exam and grade management are defined correctly",
-          "Migrations for exam and grade management can be applied safely in target environments"
+          "Backend logic for exam and grade management is implemented and testable.",
+          "APIs and business rules for exam and grade management enforce validation and security requirements.",
+          "Data handling for exam and grade management is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Exam and Grade Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for exam and grade management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Exam and Grade Management Functionality",
+        "description": "Create and execute tests for exam and grade management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Happy path and failure cases for exam and grade management are covered by automated tests",
-          "Permission checks and validation rules for exam and grade management are verified",
-          "Regression coverage exists for the most critical exam and grade management scenarios"
+          "Tests cover the main success and failure scenarios for exam and grade management.",
+          "Security, validation, and permission checks for exam and grade management are verified.",
+          "Regression coverage exists for the most important exam and grade management behaviors."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Plan Fee Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for fee management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Define fee structure per class; Generate fee invoices for students; Online fee payment.",
+        "title": "Design Fee Management UI",
+        "description": "Design the user interface for fee management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The end-to-end workflow for fee management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for fee management are explicitly defined",
-          "Implementation subtasks for fee management can be picked up independently by engineering"
+          "UI design for fee management is complete and reviewable.",
+          "The fee management design is responsive and accessible.",
+          "The design for fee management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Fee Management Backend Services",
-        "description": "Build the backend services for fee management on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Define fee structure per class; Generate fee invoices for students; Online fee payment.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Core fee management business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for fee management",
-          "API/service behavior for fee management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Fee Management Frontend Flow",
-        "description": "Build the frontend flow for fee management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Fee Management",
+        "description": "Implement the frontend behavior for fee management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Define fee structure per class; Generate fee invoices for students; Online fee payment.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The fee management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for fee management behave correctly",
-          "The fee management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required fee management user interactions.",
+          "Validation, loading, and error states for fee management are handled in the UI.",
+          "Frontend behavior for fee management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Fee Management Persistence Model",
-        "description": "Design the persistence layer for fee management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Fee Management",
+        "description": "Implement the backend logic for fee management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Define fee structure per class; Generate fee invoices for students; Online fee payment.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Backend logic for fee management is implemented and testable.",
+          "APIs and business rules for fee management enforce validation and security requirements.",
+          "Data handling for fee management is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Fee Management",
+        "description": "Design the data model and persistence strategy for fee management. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The persistence model for fee management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for fee management are defined correctly",
-          "Migrations for fee management can be applied safely in target environments"
+          "The data model for fee management supports the required workflow.",
+          "Relationships, constraints, and indexes for fee management are defined correctly.",
+          "Schema changes for fee management can be applied safely in target environments."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Fee Management",
-        "description": "Implement the external integration points used by fee management, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "External dependencies used by fee management are connected through stable integration layers",
-          "Timeout, retry, and failure handling for fee management integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for fee management are handled securely"
-        ]
-      },
-      {
-        "title": "Harden Fee Management Security and Access Rules",
-        "description": "Apply security controls to fee management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Access control rules for fee management are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in fee management are audited and protected against misuse",
-          "Security validation for fee management passes review and automated checks"
-        ]
-      },
-      {
-        "title": "Write Fee Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for fee management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Fee Management with External Services",
+        "description": "Integrate fee management with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by fee management exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for fee management integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by fee management are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Fee Management Functionality",
+        "description": "Create and execute tests for fee management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Happy path and failure cases for fee management are covered by automated tests",
-          "Permission checks and validation rules for fee management are verified",
-          "Regression coverage exists for the most critical fee management scenarios"
+          "Tests cover the main success and failure scenarios for fee management.",
+          "Security, validation, and permission checks for fee management are verified.",
+          "Regression coverage exists for the most important fee management behaviors."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Plan Parent Portal Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for parent portal and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Parents view child's attendance and grades; Communication with teachers via messages; Fee payment and receipt download.",
+        "title": "Design Parent Portal UI",
+        "description": "Design the user interface for parent portal. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The end-to-end workflow for parent portal is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for parent portal are explicitly defined",
-          "Implementation subtasks for parent portal can be picked up independently by engineering"
+          "UI design for parent portal is complete and reviewable.",
+          "The parent portal design is responsive and accessible.",
+          "The design for parent portal aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Parent Portal Backend Services",
-        "description": "Build the backend services for parent portal on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Parents view child's attendance and grades; Communication with teachers via messages; Fee payment and receipt download.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Core parent portal business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for parent portal",
-          "API/service behavior for parent portal is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Parent Portal Frontend Flow",
-        "description": "Build the frontend flow for parent portal with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Parent Portal",
+        "description": "Implement the frontend behavior for parent portal. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Parents view child's attendance and grades; Communication with teachers via messages; Fee payment and receipt download.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The parent portal user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for parent portal behave correctly",
-          "The parent portal UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required parent portal user interactions.",
+          "Validation, loading, and error states for parent portal are handled in the UI.",
+          "Frontend behavior for parent portal is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Parent Portal Persistence Model",
-        "description": "Design the persistence layer for parent portal. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Parent Portal",
+        "description": "Implement the backend logic for parent portal. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Parents view child's attendance and grades; Communication with teachers via messages; Fee payment and receipt download.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Backend logic for parent portal is implemented and testable.",
+          "APIs and business rules for parent portal enforce validation and security requirements.",
+          "Data handling for parent portal is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Parent Portal",
+        "description": "Design the data model and persistence strategy for parent portal. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The persistence model for parent portal supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for parent portal are defined correctly",
-          "Migrations for parent portal can be applied safely in target environments"
+          "The data model for parent portal supports the required workflow.",
+          "Relationships, constraints, and indexes for parent portal are defined correctly.",
+          "Schema changes for parent portal can be applied safely in target environments."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Parent Portal",
-        "description": "Implement the external integration points used by parent portal, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "External dependencies used by parent portal are connected through stable integration layers",
-          "Timeout, retry, and failure handling for parent portal integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for parent portal are handled securely"
-        ]
-      },
-      {
-        "title": "Harden Parent Portal Security and Access Rules",
-        "description": "Apply security controls to parent portal. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Access control rules for parent portal are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in parent portal are audited and protected against misuse",
-          "Security validation for parent portal passes review and automated checks"
-        ]
-      },
-      {
-        "title": "Write Parent Portal Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for parent portal. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Parent Portal with External Services",
+        "description": "Integrate parent portal with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by parent portal exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for parent portal integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by parent portal are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Parent Portal Functionality",
+        "description": "Create and execute tests for parent portal. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Happy path and failure cases for parent portal are covered by automated tests",
-          "Permission checks and validation rules for parent portal are verified",
-          "Regression coverage exists for the most critical parent portal scenarios"
+          "Tests cover the main success and failure scenarios for parent portal.",
+          "Security, validation, and permission checks for parent portal are verified.",
+          "Regression coverage exists for the most important parent portal behaviors."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Plan Teacher Portal Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for teacher portal and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View assigned classes and timetable; Mark attendance and enter grades; Upload study materials.",
+        "title": "Design Teacher Portal UI",
+        "description": "Design the user interface for teacher portal. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The end-to-end workflow for teacher portal is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for teacher portal are explicitly defined",
-          "Implementation subtasks for teacher portal can be picked up independently by engineering"
+          "UI design for teacher portal is complete and reviewable.",
+          "The teacher portal design is responsive and accessible.",
+          "The design for teacher portal aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Teacher Portal Backend Services",
-        "description": "Build the backend services for teacher portal on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View assigned classes and timetable; Mark attendance and enter grades; Upload study materials.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Core teacher portal business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for teacher portal",
-          "API/service behavior for teacher portal is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Teacher Portal Frontend Flow",
-        "description": "Build the frontend flow for teacher portal with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Teacher Portal",
+        "description": "Implement the frontend behavior for teacher portal. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View assigned classes and timetable; Mark attendance and enter grades; Upload study materials.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The teacher portal user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for teacher portal behave correctly",
-          "The teacher portal UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required teacher portal user interactions.",
+          "Validation, loading, and error states for teacher portal are handled in the UI.",
+          "Frontend behavior for teacher portal is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Teacher Portal Persistence Model",
-        "description": "Design the persistence layer for teacher portal. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Teacher Portal",
+        "description": "Implement the backend logic for teacher portal. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View assigned classes and timetable; Mark attendance and enter grades; Upload study materials.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Backend logic for teacher portal is implemented and testable.",
+          "APIs and business rules for teacher portal enforce validation and security requirements.",
+          "Data handling for teacher portal is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Teacher Portal",
+        "description": "Design the data model and persistence strategy for teacher portal. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The persistence model for teacher portal supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for teacher portal are defined correctly",
-          "Migrations for teacher portal can be applied safely in target environments"
+          "The data model for teacher portal supports the required workflow.",
+          "Relationships, constraints, and indexes for teacher portal are defined correctly.",
+          "Schema changes for teacher portal can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Teacher Portal Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for teacher portal. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Teacher Portal Functionality",
+        "description": "Create and execute tests for teacher portal. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Happy path and failure cases for teacher portal are covered by automated tests",
-          "Permission checks and validation rules for teacher portal are verified",
-          "Regression coverage exists for the most critical teacher portal scenarios"
+          "Tests cover the main success and failure scenarios for teacher portal.",
+          "Security, validation, and permission checks for teacher portal are verified.",
+          "Regression coverage exists for the most important teacher portal behaviors."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Plan Library Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for library management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Catalog books with ISBN, title, author; Student book borrowing and return tracking; Overdue notifications.",
+        "title": "Design Library Management UI",
+        "description": "Design the user interface for library management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The end-to-end workflow for library management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for library management are explicitly defined",
-          "Implementation subtasks for library management can be picked up independently by engineering"
+          "UI design for library management is complete and reviewable.",
+          "The library management design is responsive and accessible.",
+          "The design for library management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Library Management Backend Services",
-        "description": "Build the backend services for library management on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Catalog books with ISBN, title, author; Student book borrowing and return tracking; Overdue notifications.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Core library management business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for library management",
-          "API/service behavior for library management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Library Management Frontend Flow",
-        "description": "Build the frontend flow for library management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Library Management",
+        "description": "Implement the frontend behavior for library management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Catalog books with ISBN, title, author; Student book borrowing and return tracking; Overdue notifications.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The library management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for library management behave correctly",
-          "The library management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required library management user interactions.",
+          "Validation, loading, and error states for library management are handled in the UI.",
+          "Frontend behavior for library management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Library Management Persistence Model",
-        "description": "Design the persistence layer for library management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Library Management",
+        "description": "Implement the backend logic for library management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Catalog books with ISBN, title, author; Student book borrowing and return tracking; Overdue notifications.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Backend logic for library management is implemented and testable.",
+          "APIs and business rules for library management enforce validation and security requirements.",
+          "Data handling for library management is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Library Management",
+        "description": "Design the data model and persistence strategy for library management. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The persistence model for library management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for library management are defined correctly",
-          "Migrations for library management can be applied safely in target environments"
+          "The data model for library management supports the required workflow.",
+          "Relationships, constraints, and indexes for library management are defined correctly.",
+          "Schema changes for library management can be applied safely in target environments."
         ]
       },
       {
-        "title": "Harden Library Management Security and Access Rules",
-        "description": "Apply security controls to library management. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Security Hardening for Library Management",
+        "description": "Implement the security controls required for library management. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
         "priority": "high",
-        "type": "backend",
+        "type": "security",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Access control rules for library management are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in library management are audited and protected against misuse",
-          "Security validation for library management passes review and automated checks"
+          "Security controls for library management enforce the required authentication, authorization, or data-protection rules.",
+          "Sensitive operations and failure scenarios for library management are logged, validated, and protected against misuse.",
+          "The implementation of library management satisfies the relevant privacy, audit, or compliance expectations in the SRS."
         ]
       },
       {
-        "title": "Implement Library Management Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for library management. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
-        "priority": "medium",
-        "type": "backend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Notification triggers for library management fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for library management are configurable and testable",
-          "Notification failures for library management are observable and recoverable"
-        ]
-      },
-      {
-        "title": "Write Library Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for library management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Library Management Functionality",
+        "description": "Create and execute tests for library management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Happy path and failure cases for library management are covered by automated tests",
-          "Permission checks and validation rules for library management are verified",
-          "Regression coverage exists for the most critical library management scenarios"
+          "Tests cover the main success and failure scenarios for library management.",
+          "Security, validation, and permission checks for library management are verified.",
+          "Regression coverage exists for the most important library management behaviors."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Plan Transport Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for transport management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Define bus routes with stops; Assign students to routes; Driver and vehicle tracking.",
+        "title": "Design Transport Management UI",
+        "description": "Design the user interface for transport management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The end-to-end workflow for transport management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for transport management are explicitly defined",
-          "Implementation subtasks for transport management can be picked up independently by engineering"
+          "UI design for transport management is complete and reviewable.",
+          "The transport management design is responsive and accessible.",
+          "The design for transport management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Transport Management Backend Services",
-        "description": "Build the backend services for transport management on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Define bus routes with stops; Assign students to routes; Driver and vehicle tracking.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Core transport management business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for transport management",
-          "API/service behavior for transport management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Transport Management Frontend Flow",
-        "description": "Build the frontend flow for transport management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Transport Management",
+        "description": "Implement the frontend behavior for transport management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Define bus routes with stops; Assign students to routes; Driver and vehicle tracking.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The transport management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for transport management behave correctly",
-          "The transport management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required transport management user interactions.",
+          "Validation, loading, and error states for transport management are handled in the UI.",
+          "Frontend behavior for transport management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Transport Management Persistence Model",
-        "description": "Design the persistence layer for transport management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Transport Management",
+        "description": "Implement the backend logic for transport management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Define bus routes with stops; Assign students to routes; Driver and vehicle tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Backend logic for transport management is implemented and testable.",
+          "APIs and business rules for transport management enforce validation and security requirements.",
+          "Data handling for transport management is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Transport Management",
+        "description": "Design the data model and persistence strategy for transport management. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The persistence model for transport management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for transport management are defined correctly",
-          "Migrations for transport management can be applied safely in target environments"
+          "The data model for transport management supports the required workflow.",
+          "Relationships, constraints, and indexes for transport management are defined correctly.",
+          "Schema changes for transport management can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Transport Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for transport management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Transport Management Functionality",
+        "description": "Create and execute tests for transport management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Happy path and failure cases for transport management are covered by automated tests",
-          "Permission checks and validation rules for transport management are verified",
-          "Regression coverage exists for the most critical transport management scenarios"
+          "Tests cover the main success and failure scenarios for transport management.",
+          "Security, validation, and permission checks for transport management are verified.",
+          "Regression coverage exists for the most important transport management behaviors."
         ]
       }
     ],
     "FR-11": [
       {
-        "title": "Plan Announcement and Events Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for announcement and events and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Admin publishes announcements to all or specific classes; Event calendar with details; RSVP for events.",
+        "title": "Design Announcement and Events UI",
+        "description": "Design the user interface for announcement and events. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The end-to-end workflow for announcement and events is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for announcement and events are explicitly defined",
-          "Implementation subtasks for announcement and events can be picked up independently by engineering"
+          "UI design for announcement and events is complete and reviewable.",
+          "The announcement and events design is responsive and accessible.",
+          "The design for announcement and events aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Announcement and Events Backend Services",
-        "description": "Build the backend services for announcement and events on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Admin publishes announcements to all or specific classes; Event calendar with details; RSVP for events.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "Core announcement and events business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for announcement and events",
-          "API/service behavior for announcement and events is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Announcement and Events Frontend Flow",
-        "description": "Build the frontend flow for announcement and events with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Announcement and Events",
+        "description": "Implement the frontend behavior for announcement and events. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Admin publishes announcements to all or specific classes; Event calendar with details; RSVP for events.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The announcement and events user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for announcement and events behave correctly",
-          "The announcement and events UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required announcement and events user interactions.",
+          "Validation, loading, and error states for announcement and events are handled in the UI.",
+          "Frontend behavior for announcement and events is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Announcement and Events Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for announcement and events. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Announcement and Events",
+        "description": "Implement the backend logic for announcement and events. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Admin publishes announcements to all or specific classes; Event calendar with details; RSVP for events.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Backend logic for announcement and events is implemented and testable.",
+          "APIs and business rules for announcement and events enforce validation and security requirements.",
+          "Data handling for announcement and events is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Announcement and Events Functionality",
+        "description": "Create and execute tests for announcement and events. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "Happy path and failure cases for announcement and events are covered by automated tests",
-          "Permission checks and validation rules for announcement and events are verified",
-          "Regression coverage exists for the most critical announcement and events scenarios"
+          "Tests cover the main success and failure scenarios for announcement and events.",
+          "Security, validation, and permission checks for announcement and events are verified.",
+          "Regression coverage exists for the most important announcement and events behaviors."
         ]
       }
     ],
     "FR-12": [
       {
-        "title": "Plan Admin Dashboard and Reports Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for admin dashboard and reports and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Overview of total students, teachers, and revenue; Enrollment trends; Attendance summary across school.",
+        "title": "Design Admin Dashboard and Reports UI",
+        "description": "Design the user interface for admin dashboard and reports. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The end-to-end workflow for admin dashboard and reports is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for admin dashboard and reports are explicitly defined",
-          "Implementation subtasks for admin dashboard and reports can be picked up independently by engineering"
+          "UI design for admin dashboard and reports is complete and reviewable.",
+          "The admin dashboard and reports design is responsive and accessible.",
+          "The design for admin dashboard and reports aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Admin Dashboard and Reports Backend Services",
-        "description": "Build the backend services for admin dashboard and reports on Angular, ASP.NET Core, SQL Server. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Overview of total students, teachers, and revenue; Enrollment trends; Attendance summary across school.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "Core admin dashboard and reports business rules are implemented for School Management System",
-          "Validation, authorization, and error handling are covered for admin dashboard and reports",
-          "API/service behavior for admin dashboard and reports is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Admin Dashboard and Reports Frontend Flow",
-        "description": "Build the frontend flow for admin dashboard and reports with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Admin Dashboard and Reports",
+        "description": "Implement the frontend behavior for admin dashboard and reports. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Overview of total students, teachers, and revenue; Enrollment trends; Attendance summary across school.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The admin dashboard and reports user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for admin dashboard and reports behave correctly",
-          "The admin dashboard and reports UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required admin dashboard and reports user interactions.",
+          "Validation, loading, and error states for admin dashboard and reports are handled in the UI.",
+          "Frontend behavior for admin dashboard and reports is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Admin Dashboard and Reports Persistence Model",
-        "description": "Design the persistence layer for admin dashboard and reports. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Admin Dashboard and Reports",
+        "description": "Implement the backend logic for admin dashboard and reports. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Overview of total students, teachers, and revenue; Enrollment trends; Attendance summary across school.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Backend logic for admin dashboard and reports is implemented and testable.",
+          "APIs and business rules for admin dashboard and reports enforce validation and security requirements.",
+          "Data handling for admin dashboard and reports is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Admin Dashboard and Reports",
+        "description": "Design the data model and persistence strategy for admin dashboard and reports. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The persistence model for admin dashboard and reports supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for admin dashboard and reports are defined correctly",
-          "Migrations for admin dashboard and reports can be applied safely in target environments"
+          "The data model for admin dashboard and reports supports the required workflow.",
+          "Relationships, constraints, and indexes for admin dashboard and reports are defined correctly.",
+          "Schema changes for admin dashboard and reports can be applied safely in target environments."
         ]
       },
       {
-        "title": "Build Admin Dashboard and Reports Reporting and KPI Logic",
-        "description": "Implement the reporting layer for admin dashboard and reports, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
-        "type": "backend",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "KPI and reporting calculations for admin dashboard and reports return accurate results",
-          "Filters, grouping, and export-ready structures for admin dashboard and reports work correctly",
-          "Reporting queries for admin dashboard and reports perform within acceptable limits"
-        ]
-      },
-      {
-        "title": "Write Admin Dashboard and Reports Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for admin dashboard and reports. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Admin Dashboard and Reports Functionality",
+        "description": "Create and execute tests for admin dashboard and reports. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Happy path and failure cases for admin dashboard and reports are covered by automated tests",
-          "Permission checks and validation rules for admin dashboard and reports are verified",
-          "Regression coverage exists for the most critical admin dashboard and reports scenarios"
+          "Tests cover the main success and failure scenarios for admin dashboard and reports.",
+          "Security, validation, and permission checks for admin dashboard and reports are verified.",
+          "Regression coverage exists for the most important admin dashboard and reports behaviors."
         ]
       }
     ]

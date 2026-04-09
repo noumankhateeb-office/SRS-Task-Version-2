@@ -233,907 +233,871 @@
   "output": {
     "FR-01": [
       {
-        "title": "Plan Property Listing Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for property listing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Agents can list properties with details, photos, and video tours; Properties categorized by type (house, apartment, condo, land); Set listing status (for sale, for rent, sold).",
+        "title": "Design Property Listing UI",
+        "description": "Design the user interface for property listing. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The end-to-end workflow for property listing is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for property listing are explicitly defined",
-          "Implementation subtasks for property listing can be picked up independently by engineering"
+          "UI design for property listing is complete and reviewable.",
+          "The property listing design is responsive and accessible.",
+          "The design for property listing aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Property Listing Backend Services",
-        "description": "Build the backend services for property listing on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Agents can list properties with details, photos, and video tours; Properties categorized by type (house, apartment, condo, land); Set listing status (for sale, for rent, sold).",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Core property listing business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for property listing",
-          "API/service behavior for property listing is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Property Listing Frontend Flow",
-        "description": "Build the frontend flow for property listing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Property Listing",
+        "description": "Implement the frontend behavior for property listing. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Agents can list properties with details, photos, and video tours; Properties categorized by type (house, apartment, condo, land); Set listing status (for sale, for rent, sold).",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The property listing user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for property listing behave correctly",
-          "The property listing UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required property listing user interactions.",
+          "Validation, loading, and error states for property listing are handled in the UI.",
+          "Frontend behavior for property listing is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Property Listing Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for property listing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Property Listing",
+        "description": "Implement the backend logic for property listing. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Agents can list properties with details, photos, and video tours; Properties categorized by type (house, apartment, condo, land); Set listing status (for sale, for rent, sold).",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Backend logic for property listing is implemented and testable.",
+          "APIs and business rules for property listing enforce validation and security requirements.",
+          "Data handling for property listing is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Property Listing Functionality",
+        "description": "Create and execute tests for property listing. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Happy path and failure cases for property listing are covered by automated tests",
-          "Permission checks and validation rules for property listing are verified",
-          "Regression coverage exists for the most critical property listing scenarios"
+          "Tests cover the main success and failure scenarios for property listing.",
+          "Security, validation, and permission checks for property listing are verified.",
+          "Regression coverage exists for the most important property listing behaviors."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Plan Property Search Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for property search and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Search by location, price range, bedrooms, and type; Map view showing property pins with price labels; Save searches with email alerts for new matches.",
+        "title": "Design Property Search UI",
+        "description": "Design the user interface for property search. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The end-to-end workflow for property search is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for property search are explicitly defined",
-          "Implementation subtasks for property search can be picked up independently by engineering"
+          "UI design for property search is complete and reviewable.",
+          "The property search design is responsive and accessible.",
+          "The design for property search aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Property Search Backend Services",
-        "description": "Build the backend services for property search on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Search by location, price range, bedrooms, and type; Map view showing property pins with price labels; Save searches with email alerts for new matches.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Core property search business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for property search",
-          "API/service behavior for property search is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Property Search Frontend Flow",
-        "description": "Build the frontend flow for property search with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Property Search",
+        "description": "Implement the frontend behavior for property search. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Search by location, price range, bedrooms, and type; Map view showing property pins with price labels; Save searches with email alerts for new matches.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The property search user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for property search behave correctly",
-          "The property search UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required property search user interactions.",
+          "Validation, loading, and error states for property search are handled in the UI.",
+          "Frontend behavior for property search is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Property Search",
-        "description": "Implement the external integration points used by property search, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "title": "Backend Implementation of Property Search",
+        "description": "Implement the backend logic for property search. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Search by location, price range, bedrooms, and type; Map view showing property pins with price labels; Save searches with email alerts for new matches.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "External dependencies used by property search are connected through stable integration layers",
-          "Timeout, retry, and failure handling for property search integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for property search are handled securely"
+          "Backend logic for property search is implemented and testable.",
+          "APIs and business rules for property search enforce validation and security requirements.",
+          "Data handling for property search is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Implement Property Search Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for property search. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "title": "Integrate Property Search with External Services",
+        "description": "Integrate property search with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
-        "type": "backend",
+        "type": "integration",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Notification triggers for property search fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for property search are configurable and testable",
-          "Notification failures for property search are observable and recoverable"
+          "External or cross-system integrations required by property search exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for property search integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by property search are configured and secured correctly."
         ]
       },
       {
-        "title": "Write Property Search Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for property search. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "DevOps Setup for Property Search",
+        "description": "Set up the operational support for property search. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
         "priority": "medium",
+        "type": "devops",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Operational setup for property search covers deployment, configuration, and environment readiness.",
+          "Monitoring, alerting, backup, or recovery controls relevant to property search are in place and verifiable.",
+          "The runtime behavior of property search can be observed, supported, and recovered in target environments."
+        ]
+      },
+      {
+        "title": "Testing Property Search Functionality",
+        "description": "Create and execute tests for property search. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Happy path and failure cases for property search are covered by automated tests",
-          "Permission checks and validation rules for property search are verified",
-          "Regression coverage exists for the most critical property search scenarios"
+          "Tests cover the main success and failure scenarios for property search.",
+          "Security, validation, and permission checks for property search are verified.",
+          "Regression coverage exists for the most important property search behaviors."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Plan Property Detail Page Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for property detail page and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Photo gallery with fullscreen and slideshow; Property details: price, beds, baths, sqft, year, description; Floor plan viewer.",
+        "title": "Design Property Detail Page UI",
+        "description": "Design the user interface for property detail page. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The end-to-end workflow for property detail page is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for property detail page are explicitly defined",
-          "Implementation subtasks for property detail page can be picked up independently by engineering"
+          "UI design for property detail page is complete and reviewable.",
+          "The property detail page design is responsive and accessible.",
+          "The design for property detail page aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Property Detail Page Backend Services",
-        "description": "Build the backend services for property detail page on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Photo gallery with fullscreen and slideshow; Property details: price, beds, baths, sqft, year, description; Floor plan viewer.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Core property detail page business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for property detail page",
-          "API/service behavior for property detail page is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Property Detail Page Frontend Flow",
-        "description": "Build the frontend flow for property detail page with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Property Detail Page",
+        "description": "Implement the frontend behavior for property detail page. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Photo gallery with fullscreen and slideshow; Property details: price, beds, baths, sqft, year, description; Floor plan viewer.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The property detail page user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for property detail page behave correctly",
-          "The property detail page UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required property detail page user interactions.",
+          "Validation, loading, and error states for property detail page are handled in the UI.",
+          "Frontend behavior for property detail page is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Property Detail Page Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for property detail page. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Property Detail Page",
+        "description": "Implement the backend logic for property detail page. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Photo gallery with fullscreen and slideshow; Property details: price, beds, baths, sqft, year, description; Floor plan viewer.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Backend logic for property detail page is implemented and testable.",
+          "APIs and business rules for property detail page enforce validation and security requirements.",
+          "Data handling for property detail page is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Property Detail Page Functionality",
+        "description": "Create and execute tests for property detail page. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Happy path and failure cases for property detail page are covered by automated tests",
-          "Permission checks and validation rules for property detail page are verified",
-          "Regression coverage exists for the most critical property detail page scenarios"
+          "Tests cover the main success and failure scenarios for property detail page.",
+          "Security, validation, and permission checks for property detail page are verified.",
+          "Regression coverage exists for the most important property detail page behaviors."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Plan Mortgage Calculator Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for mortgage calculator and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Calculate monthly payment based on price, down payment, rate, and term; Compare different loan scenarios side by side; Pre-qualification form for lender connection.",
+        "title": "Design Mortgage Calculator UI",
+        "description": "Design the user interface for mortgage calculator. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The end-to-end workflow for mortgage calculator is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for mortgage calculator are explicitly defined",
-          "Implementation subtasks for mortgage calculator can be picked up independently by engineering"
+          "UI design for mortgage calculator is complete and reviewable.",
+          "The mortgage calculator design is responsive and accessible.",
+          "The design for mortgage calculator aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Mortgage Calculator Backend Services",
-        "description": "Build the backend services for mortgage calculator on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Calculate monthly payment based on price, down payment, rate, and term; Compare different loan scenarios side by side; Pre-qualification form for lender connection.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Core mortgage calculator business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for mortgage calculator",
-          "API/service behavior for mortgage calculator is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Mortgage Calculator Frontend Flow",
-        "description": "Build the frontend flow for mortgage calculator with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Mortgage Calculator",
+        "description": "Implement the frontend behavior for mortgage calculator. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Calculate monthly payment based on price, down payment, rate, and term; Compare different loan scenarios side by side; Pre-qualification form for lender connection.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The mortgage calculator user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for mortgage calculator behave correctly",
-          "The mortgage calculator UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required mortgage calculator user interactions.",
+          "Validation, loading, and error states for mortgage calculator are handled in the UI.",
+          "Frontend behavior for mortgage calculator is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Mortgage Calculator",
-        "description": "Implement the external integration points used by mortgage calculator, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "title": "Backend Implementation of Mortgage Calculator",
+        "description": "Implement the backend logic for mortgage calculator. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Calculate monthly payment based on price, down payment, rate, and term; Compare different loan scenarios side by side; Pre-qualification form for lender connection.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "External dependencies used by mortgage calculator are connected through stable integration layers",
-          "Timeout, retry, and failure handling for mortgage calculator integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for mortgage calculator are handled securely"
+          "Backend logic for mortgage calculator is implemented and testable.",
+          "APIs and business rules for mortgage calculator enforce validation and security requirements.",
+          "Data handling for mortgage calculator is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Harden Mortgage Calculator Security and Access Rules",
-        "description": "Apply security controls to mortgage calculator. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Database Design for Mortgage Calculator",
+        "description": "Design the data model and persistence strategy for mortgage calculator. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
-        "type": "backend",
+        "type": "database",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Access control rules for mortgage calculator are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in mortgage calculator are audited and protected against misuse",
-          "Security validation for mortgage calculator passes review and automated checks"
+          "The data model for mortgage calculator supports the required workflow.",
+          "Relationships, constraints, and indexes for mortgage calculator are defined correctly.",
+          "Schema changes for mortgage calculator can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Mortgage Calculator Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for mortgage calculator. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Mortgage Calculator with External Services",
+        "description": "Integrate mortgage calculator with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by mortgage calculator exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for mortgage calculator integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by mortgage calculator are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Mortgage Calculator Functionality",
+        "description": "Create and execute tests for mortgage calculator. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Happy path and failure cases for mortgage calculator are covered by automated tests",
-          "Permission checks and validation rules for mortgage calculator are verified",
-          "Regression coverage exists for the most critical mortgage calculator scenarios"
+          "Tests cover the main success and failure scenarios for mortgage calculator.",
+          "Security, validation, and permission checks for mortgage calculator are verified.",
+          "Regression coverage exists for the most important mortgage calculator behaviors."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Plan Agent Profiles Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for agent profiles and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Agent profile with photo, bio, certifications, and listings; Client reviews and ratings for agents; Contact agent form with message.",
+        "title": "Design Agent Profiles UI",
+        "description": "Design the user interface for agent profiles. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The end-to-end workflow for agent profiles is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for agent profiles are explicitly defined",
-          "Implementation subtasks for agent profiles can be picked up independently by engineering"
+          "UI design for agent profiles is complete and reviewable.",
+          "The agent profiles design is responsive and accessible.",
+          "The design for agent profiles aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Agent Profiles Backend Services",
-        "description": "Build the backend services for agent profiles on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Agent profile with photo, bio, certifications, and listings; Client reviews and ratings for agents; Contact agent form with message.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Core agent profiles business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for agent profiles",
-          "API/service behavior for agent profiles is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Agent Profiles Frontend Flow",
-        "description": "Build the frontend flow for agent profiles with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Agent Profiles",
+        "description": "Implement the frontend behavior for agent profiles. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Agent profile with photo, bio, certifications, and listings; Client reviews and ratings for agents; Contact agent form with message.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The agent profiles user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for agent profiles behave correctly",
-          "The agent profiles UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required agent profiles user interactions.",
+          "Validation, loading, and error states for agent profiles are handled in the UI.",
+          "Frontend behavior for agent profiles is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Agent Profiles Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for agent profiles. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Agent Profiles",
+        "description": "Implement the backend logic for agent profiles. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Agent profile with photo, bio, certifications, and listings; Client reviews and ratings for agents; Contact agent form with message.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Backend logic for agent profiles is implemented and testable.",
+          "APIs and business rules for agent profiles enforce validation and security requirements.",
+          "Data handling for agent profiles is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Agent Profiles",
+        "description": "Design the data model and persistence strategy for agent profiles. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The data model for agent profiles supports the required workflow.",
+          "Relationships, constraints, and indexes for agent profiles are defined correctly.",
+          "Schema changes for agent profiles can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing Agent Profiles Functionality",
+        "description": "Create and execute tests for agent profiles. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Happy path and failure cases for agent profiles are covered by automated tests",
-          "Permission checks and validation rules for agent profiles are verified",
-          "Regression coverage exists for the most critical agent profiles scenarios"
+          "Tests cover the main success and failure scenarios for agent profiles.",
+          "Security, validation, and permission checks for agent profiles are verified.",
+          "Regression coverage exists for the most important agent profiles behaviors."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Plan Scheduling Property Tours Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for scheduling property tours and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Request tour with preferred dates and times; Agent confirms or suggests alternatives; Calendar integration for reminders.",
+        "title": "Design Scheduling Property Tours UI",
+        "description": "Design the user interface for scheduling property tours. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The end-to-end workflow for scheduling property tours is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for scheduling property tours are explicitly defined",
-          "Implementation subtasks for scheduling property tours can be picked up independently by engineering"
+          "UI design for scheduling property tours is complete and reviewable.",
+          "The scheduling property tours design is responsive and accessible.",
+          "The design for scheduling property tours aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Scheduling Property Tours Backend Services",
-        "description": "Build the backend services for scheduling property tours on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Request tour with preferred dates and times; Agent confirms or suggests alternatives; Calendar integration for reminders.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Core scheduling property tours business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for scheduling property tours",
-          "API/service behavior for scheduling property tours is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Scheduling Property Tours Frontend Flow",
-        "description": "Build the frontend flow for scheduling property tours with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Scheduling Property Tours",
+        "description": "Implement the frontend behavior for scheduling property tours. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Request tour with preferred dates and times; Agent confirms or suggests alternatives; Calendar integration for reminders.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The scheduling property tours user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for scheduling property tours behave correctly",
-          "The scheduling property tours UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required scheduling property tours user interactions.",
+          "Validation, loading, and error states for scheduling property tours are handled in the UI.",
+          "Frontend behavior for scheduling property tours is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Implement Scheduling Property Tours Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for scheduling property tours. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
-        "priority": "medium",
+        "title": "Backend Implementation of Scheduling Property Tours",
+        "description": "Implement the backend logic for scheduling property tours. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Request tour with preferred dates and times; Agent confirms or suggests alternatives; Calendar integration for reminders.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Notification triggers for scheduling property tours fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for scheduling property tours are configurable and testable",
-          "Notification failures for scheduling property tours are observable and recoverable"
+          "Backend logic for scheduling property tours is implemented and testable.",
+          "APIs and business rules for scheduling property tours enforce validation and security requirements.",
+          "Data handling for scheduling property tours is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Scheduling Property Tours Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for scheduling property tours. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Scheduling Property Tours Functionality",
+        "description": "Create and execute tests for scheduling property tours. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Happy path and failure cases for scheduling property tours are covered by automated tests",
-          "Permission checks and validation rules for scheduling property tours are verified",
-          "Regression coverage exists for the most critical scheduling property tours scenarios"
+          "Tests cover the main success and failure scenarios for scheduling property tours.",
+          "Security, validation, and permission checks for scheduling property tours are verified.",
+          "Regression coverage exists for the most important scheduling property tours behaviors."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Plan Saved Properties and Favorites Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for saved properties and favorites and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Save properties to favorites list; Compare up to 4 properties side by side; Price drop alerts for saved properties.",
+        "title": "Design Saved Properties and Favorites UI",
+        "description": "Design the user interface for saved properties and favorites. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The end-to-end workflow for saved properties and favorites is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for saved properties and favorites are explicitly defined",
-          "Implementation subtasks for saved properties and favorites can be picked up independently by engineering"
+          "UI design for saved properties and favorites is complete and reviewable.",
+          "The saved properties and favorites design is responsive and accessible.",
+          "The design for saved properties and favorites aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Saved Properties and Favorites Backend Services",
-        "description": "Build the backend services for saved properties and favorites on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Save properties to favorites list; Compare up to 4 properties side by side; Price drop alerts for saved properties.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Core saved properties and favorites business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for saved properties and favorites",
-          "API/service behavior for saved properties and favorites is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Saved Properties and Favorites Frontend Flow",
-        "description": "Build the frontend flow for saved properties and favorites with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Saved Properties and Favorites",
+        "description": "Implement the frontend behavior for saved properties and favorites. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Save properties to favorites list; Compare up to 4 properties side by side; Price drop alerts for saved properties.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The saved properties and favorites user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for saved properties and favorites behave correctly",
-          "The saved properties and favorites UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required saved properties and favorites user interactions.",
+          "Validation, loading, and error states for saved properties and favorites are handled in the UI.",
+          "Frontend behavior for saved properties and favorites is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Implement Saved Properties and Favorites Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for saved properties and favorites. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
-        "priority": "medium",
+        "title": "Backend Implementation of Saved Properties and Favorites",
+        "description": "Implement the backend logic for saved properties and favorites. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Save properties to favorites list; Compare up to 4 properties side by side; Price drop alerts for saved properties.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Notification triggers for saved properties and favorites fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for saved properties and favorites are configurable and testable",
-          "Notification failures for saved properties and favorites are observable and recoverable"
+          "Backend logic for saved properties and favorites is implemented and testable.",
+          "APIs and business rules for saved properties and favorites enforce validation and security requirements.",
+          "Data handling for saved properties and favorites is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Saved Properties and Favorites Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for saved properties and favorites. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "DevOps Setup for Saved Properties and Favorites",
+        "description": "Set up the operational support for saved properties and favorites. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
         "priority": "medium",
+        "type": "devops",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Operational setup for saved properties and favorites covers deployment, configuration, and environment readiness.",
+          "Monitoring, alerting, backup, or recovery controls relevant to saved properties and favorites are in place and verifiable.",
+          "The runtime behavior of saved properties and favorites can be observed, supported, and recovered in target environments."
+        ]
+      },
+      {
+        "title": "Testing Saved Properties and Favorites Functionality",
+        "description": "Create and execute tests for saved properties and favorites. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Happy path and failure cases for saved properties and favorites are covered by automated tests",
-          "Permission checks and validation rules for saved properties and favorites are verified",
-          "Regression coverage exists for the most critical saved properties and favorites scenarios"
+          "Tests cover the main success and failure scenarios for saved properties and favorites.",
+          "Security, validation, and permission checks for saved properties and favorites are verified.",
+          "Regression coverage exists for the most important saved properties and favorites behaviors."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Plan Lead Management for Agents Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for lead management for agents and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Track inquiries and interested buyers; Assign leads to pipeline stages; Follow-up reminders and task creation.",
+        "title": "Design Lead Management for Agents UI",
+        "description": "Design the user interface for lead management for agents. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The end-to-end workflow for lead management for agents is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for lead management for agents are explicitly defined",
-          "Implementation subtasks for lead management for agents can be picked up independently by engineering"
+          "UI design for lead management for agents is complete and reviewable.",
+          "The lead management for agents design is responsive and accessible.",
+          "The design for lead management for agents aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Lead Management for Agents Backend Services",
-        "description": "Build the backend services for lead management for agents on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Track inquiries and interested buyers; Assign leads to pipeline stages; Follow-up reminders and task creation.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Core lead management for agents business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for lead management for agents",
-          "API/service behavior for lead management for agents is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Lead Management for Agents Frontend Flow",
-        "description": "Build the frontend flow for lead management for agents with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Lead Management for Agents",
+        "description": "Implement the frontend behavior for lead management for agents. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Track inquiries and interested buyers; Assign leads to pipeline stages; Follow-up reminders and task creation.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The lead management for agents user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for lead management for agents behave correctly",
-          "The lead management for agents UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required lead management for agents user interactions.",
+          "Validation, loading, and error states for lead management for agents are handled in the UI.",
+          "Frontend behavior for lead management for agents is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Lead Management for Agents Persistence Model",
-        "description": "Design the persistence layer for lead management for agents. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Lead Management for Agents",
+        "description": "Implement the backend logic for lead management for agents. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Track inquiries and interested buyers; Assign leads to pipeline stages; Follow-up reminders and task creation.",
         "priority": "high",
-        "type": "database",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "The persistence model for lead management for agents supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for lead management for agents are defined correctly",
-          "Migrations for lead management for agents can be applied safely in target environments"
-        ]
-      },
-      {
-        "title": "Implement Lead Management for Agents Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for lead management for agents. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
-        "priority": "medium",
         "type": "backend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Notification triggers for lead management for agents fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for lead management for agents are configurable and testable",
-          "Notification failures for lead management for agents are observable and recoverable"
+          "Backend logic for lead management for agents is implemented and testable.",
+          "APIs and business rules for lead management for agents enforce validation and security requirements.",
+          "Data handling for lead management for agents is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Lead Management for Agents Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for lead management for agents. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Lead Management for Agents Functionality",
+        "description": "Create and execute tests for lead management for agents. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Happy path and failure cases for lead management for agents are covered by automated tests",
-          "Permission checks and validation rules for lead management for agents are verified",
-          "Regression coverage exists for the most critical lead management for agents scenarios"
+          "Tests cover the main success and failure scenarios for lead management for agents.",
+          "Security, validation, and permission checks for lead management for agents are verified.",
+          "Regression coverage exists for the most important lead management for agents behaviors."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Plan Document Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for document management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Upload and store property documents (title, inspection, disclosure); Document sharing with buyers and agents; E-signature integration for contracts.",
+        "title": "Design Document Management UI",
+        "description": "Design the user interface for document management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The end-to-end workflow for document management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for document management are explicitly defined",
-          "Implementation subtasks for document management can be picked up independently by engineering"
+          "UI design for document management is complete and reviewable.",
+          "The document management design is responsive and accessible.",
+          "The design for document management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Document Management Backend Services",
-        "description": "Build the backend services for document management on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Upload and store property documents (title, inspection, disclosure); Document sharing with buyers and agents; E-signature integration for contracts.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Core document management business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for document management",
-          "API/service behavior for document management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Document Management Frontend Flow",
-        "description": "Build the frontend flow for document management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Document Management",
+        "description": "Implement the frontend behavior for document management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Upload and store property documents (title, inspection, disclosure); Document sharing with buyers and agents; E-signature integration for contracts.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The document management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for document management behave correctly",
-          "The document management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required document management user interactions.",
+          "Validation, loading, and error states for document management are handled in the UI.",
+          "Frontend behavior for document management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Document Management Persistence Model",
-        "description": "Design the persistence layer for document management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Document Management",
+        "description": "Implement the backend logic for document management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Upload and store property documents (title, inspection, disclosure); Document sharing with buyers and agents; E-signature integration for contracts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Backend logic for document management is implemented and testable.",
+          "APIs and business rules for document management enforce validation and security requirements.",
+          "Data handling for document management is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Document Management",
+        "description": "Design the data model and persistence strategy for document management. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The persistence model for document management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for document management are defined correctly",
-          "Migrations for document management can be applied safely in target environments"
+          "The data model for document management supports the required workflow.",
+          "Relationships, constraints, and indexes for document management are defined correctly.",
+          "Schema changes for document management can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Document Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for document management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Document Management Functionality",
+        "description": "Create and execute tests for document management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Happy path and failure cases for document management are covered by automated tests",
-          "Permission checks and validation rules for document management are verified",
-          "Regression coverage exists for the most critical document management scenarios"
+          "Tests cover the main success and failure scenarios for document management.",
+          "Security, validation, and permission checks for document management are verified.",
+          "Regression coverage exists for the most important document management behaviors."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Plan Market Analytics Dashboard Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for market analytics dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Average listing prices by neighborhood; Days on market trends; Price per square foot analysis.",
+        "title": "Design Market Analytics Dashboard UI",
+        "description": "Design the user interface for market analytics dashboard. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The end-to-end workflow for market analytics dashboard is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for market analytics dashboard are explicitly defined",
-          "Implementation subtasks for market analytics dashboard can be picked up independently by engineering"
+          "UI design for market analytics dashboard is complete and reviewable.",
+          "The market analytics dashboard design is responsive and accessible.",
+          "The design for market analytics dashboard aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Market Analytics Dashboard Backend Services",
-        "description": "Build the backend services for market analytics dashboard on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Average listing prices by neighborhood; Days on market trends; Price per square foot analysis.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Core market analytics dashboard business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for market analytics dashboard",
-          "API/service behavior for market analytics dashboard is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Market Analytics Dashboard Frontend Flow",
-        "description": "Build the frontend flow for market analytics dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Market Analytics Dashboard",
+        "description": "Implement the frontend behavior for market analytics dashboard. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Average listing prices by neighborhood; Days on market trends; Price per square foot analysis.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The market analytics dashboard user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for market analytics dashboard behave correctly",
-          "The market analytics dashboard UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required market analytics dashboard user interactions.",
+          "Validation, loading, and error states for market analytics dashboard are handled in the UI.",
+          "Frontend behavior for market analytics dashboard is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Build Market Analytics Dashboard Reporting and KPI Logic",
-        "description": "Implement the reporting layer for market analytics dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
+        "title": "Backend Implementation of Market Analytics Dashboard",
+        "description": "Implement the backend logic for market analytics dashboard. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Average listing prices by neighborhood; Days on market trends; Price per square foot analysis.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "KPI and reporting calculations for market analytics dashboard return accurate results",
-          "Filters, grouping, and export-ready structures for market analytics dashboard work correctly",
-          "Reporting queries for market analytics dashboard perform within acceptable limits"
+          "Backend logic for market analytics dashboard is implemented and testable.",
+          "APIs and business rules for market analytics dashboard enforce validation and security requirements.",
+          "Data handling for market analytics dashboard is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Market Analytics Dashboard Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for market analytics dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Database Design for Market Analytics Dashboard",
+        "description": "Design the data model and persistence strategy for market analytics dashboard. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "The data model for market analytics dashboard supports the required workflow.",
+          "Relationships, constraints, and indexes for market analytics dashboard are defined correctly.",
+          "Schema changes for market analytics dashboard can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing Market Analytics Dashboard Functionality",
+        "description": "Create and execute tests for market analytics dashboard. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Happy path and failure cases for market analytics dashboard are covered by automated tests",
-          "Permission checks and validation rules for market analytics dashboard are verified",
-          "Regression coverage exists for the most critical market analytics dashboard scenarios"
+          "Tests cover the main success and failure scenarios for market analytics dashboard.",
+          "Security, validation, and permission checks for market analytics dashboard are verified.",
+          "Regression coverage exists for the most important market analytics dashboard behaviors."
         ]
       }
     ],
     "FR-11": [
       {
-        "title": "Plan Open House Management Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for open house management and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Schedule open house events for listings; Public event page with RSVP; Visitor sign-in via mobile.",
+        "title": "Design Open House Management UI",
+        "description": "Design the user interface for open house management. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The end-to-end workflow for open house management is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for open house management are explicitly defined",
-          "Implementation subtasks for open house management can be picked up independently by engineering"
+          "UI design for open house management is complete and reviewable.",
+          "The open house management design is responsive and accessible.",
+          "The design for open house management aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Open House Management Backend Services",
-        "description": "Build the backend services for open house management on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Schedule open house events for listings; Public event page with RSVP; Visitor sign-in via mobile.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "Core open house management business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for open house management",
-          "API/service behavior for open house management is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Open House Management Frontend Flow",
-        "description": "Build the frontend flow for open house management with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Open House Management",
+        "description": "Implement the frontend behavior for open house management. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Schedule open house events for listings; Public event page with RSVP; Visitor sign-in via mobile.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The open house management user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for open house management behave correctly",
-          "The open house management UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required open house management user interactions.",
+          "Validation, loading, and error states for open house management are handled in the UI.",
+          "Frontend behavior for open house management is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Open House Management Persistence Model",
-        "description": "Design the persistence layer for open house management. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Open House Management",
+        "description": "Implement the backend logic for open house management. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Schedule open house events for listings; Public event page with RSVP; Visitor sign-in via mobile.",
         "priority": "high",
-        "type": "database",
+        "type": "backend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The persistence model for open house management supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for open house management are defined correctly",
-          "Migrations for open house management can be applied safely in target environments"
+          "Backend logic for open house management is implemented and testable.",
+          "APIs and business rules for open house management enforce validation and security requirements.",
+          "Data handling for open house management is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Open House Management Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for open house management. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Open House Management Functionality",
+        "description": "Create and execute tests for open house management. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "Happy path and failure cases for open house management are covered by automated tests",
-          "Permission checks and validation rules for open house management are verified",
-          "Regression coverage exists for the most critical open house management scenarios"
+          "Tests cover the main success and failure scenarios for open house management.",
+          "Security, validation, and permission checks for open house management are verified.",
+          "Regression coverage exists for the most important open house management behaviors."
         ]
       }
     ],
     "FR-12": [
       {
-        "title": "Plan Rental Application Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for rental application and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Online rental application form; Background and credit check integration; Application status tracking.",
+        "title": "Design Rental Application UI",
+        "description": "Design the user interface for rental application. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The end-to-end workflow for rental application is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for rental application are explicitly defined",
-          "Implementation subtasks for rental application can be picked up independently by engineering"
+          "UI design for rental application is complete and reviewable.",
+          "The rental application design is responsive and accessible.",
+          "The design for rental application aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Rental Application Backend Services",
-        "description": "Build the backend services for rental application on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Online rental application form; Background and credit check integration; Application status tracking.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "Core rental application business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for rental application",
-          "API/service behavior for rental application is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Rental Application Frontend Flow",
-        "description": "Build the frontend flow for rental application with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Rental Application",
+        "description": "Implement the frontend behavior for rental application. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Online rental application form; Background and credit check integration; Application status tracking.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The rental application user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for rental application behave correctly",
-          "The rental application UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required rental application user interactions.",
+          "Validation, loading, and error states for rental application are handled in the UI.",
+          "Frontend behavior for rental application is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Rental Application Persistence Model",
-        "description": "Design the persistence layer for rental application. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Rental Application",
+        "description": "Implement the backend logic for rental application. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Online rental application form; Background and credit check integration; Application status tracking.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Backend logic for rental application is implemented and testable.",
+          "APIs and business rules for rental application enforce validation and security requirements.",
+          "Data handling for rental application is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Rental Application",
+        "description": "Design the data model and persistence strategy for rental application. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The persistence model for rental application supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for rental application are defined correctly",
-          "Migrations for rental application can be applied safely in target environments"
+          "The data model for rental application supports the required workflow.",
+          "Relationships, constraints, and indexes for rental application are defined correctly.",
+          "Schema changes for rental application can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Rental Application Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for rental application. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Rental Application Functionality",
+        "description": "Create and execute tests for rental application. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Happy path and failure cases for rental application are covered by automated tests",
-          "Permission checks and validation rules for rental application are verified",
-          "Regression coverage exists for the most critical rental application scenarios"
+          "Tests cover the main success and failure scenarios for rental application.",
+          "Security, validation, and permission checks for rental application are verified.",
+          "Regression coverage exists for the most important rental application behaviors."
         ]
       }
     ],
     "FR-13": [
       {
-        "title": "Plan Property Valuation Tool Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for property valuation tool and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Estimate property value using comparable sales; Adjust estimate based on condition and upgrades; Historical value trends for address.",
+        "title": "Design Property Valuation Tool UI",
+        "description": "Design the user interface for property valuation tool. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-13",
         "acceptance_criteria": [
-          "The end-to-end workflow for property valuation tool is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for property valuation tool are explicitly defined",
-          "Implementation subtasks for property valuation tool can be picked up independently by engineering"
+          "UI design for property valuation tool is complete and reviewable.",
+          "The property valuation tool design is responsive and accessible.",
+          "The design for property valuation tool aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Property Valuation Tool Backend Services",
-        "description": "Build the backend services for property valuation tool on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Estimate property value using comparable sales; Adjust estimate based on condition and upgrades; Historical value trends for address.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-13",
-        "acceptance_criteria": [
-          "Core property valuation tool business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for property valuation tool",
-          "API/service behavior for property valuation tool is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Property Valuation Tool Frontend Flow",
-        "description": "Build the frontend flow for property valuation tool with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Property Valuation Tool",
+        "description": "Implement the frontend behavior for property valuation tool. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Estimate property value using comparable sales; Adjust estimate based on condition and upgrades; Historical value trends for address.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-13",
         "acceptance_criteria": [
-          "The property valuation tool user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for property valuation tool behave correctly",
-          "The property valuation tool UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required property valuation tool user interactions.",
+          "Validation, loading, and error states for property valuation tool are handled in the UI.",
+          "Frontend behavior for property valuation tool is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Property Valuation Tool Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for property valuation tool. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Property Valuation Tool",
+        "description": "Implement the backend logic for property valuation tool. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Estimate property value using comparable sales; Adjust estimate based on condition and upgrades; Historical value trends for address.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "acceptance_criteria": [
+          "Backend logic for property valuation tool is implemented and testable.",
+          "APIs and business rules for property valuation tool enforce validation and security requirements.",
+          "Data handling for property valuation tool is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Property Valuation Tool Functionality",
+        "description": "Create and execute tests for property valuation tool. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-13",
         "acceptance_criteria": [
-          "Happy path and failure cases for property valuation tool are covered by automated tests",
-          "Permission checks and validation rules for property valuation tool are verified",
-          "Regression coverage exists for the most critical property valuation tool scenarios"
+          "Tests cover the main success and failure scenarios for property valuation tool.",
+          "Security, validation, and permission checks for property valuation tool are verified.",
+          "Regression coverage exists for the most important property valuation tool behaviors."
         ]
       }
     ],
     "FR-14": [
       {
-        "title": "Plan Notification System Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for notification system and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: New listing alerts matching saved searches; Price change notifications; Tour confirmation and reminder notifications.",
+        "title": "Design Notification System UI",
+        "description": "Design the user interface for notification system. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-14",
         "acceptance_criteria": [
-          "The end-to-end workflow for notification system is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for notification system are explicitly defined",
-          "Implementation subtasks for notification system can be picked up independently by engineering"
+          "UI design for notification system is complete and reviewable.",
+          "The notification system design is responsive and accessible.",
+          "The design for notification system aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Notification System Backend Services",
-        "description": "Build the backend services for notification system on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: New listing alerts matching saved searches; Price change notifications; Tour confirmation and reminder notifications.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-14",
-        "acceptance_criteria": [
-          "Core notification system business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for notification system",
-          "API/service behavior for notification system is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Notification System Frontend Flow",
-        "description": "Build the frontend flow for notification system with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Notification System",
+        "description": "Implement the frontend behavior for notification system. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: New listing alerts matching saved searches; Price change notifications; Tour confirmation and reminder notifications.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-14",
         "acceptance_criteria": [
-          "The notification system user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for notification system behave correctly",
-          "The notification system UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required notification system user interactions.",
+          "Validation, loading, and error states for notification system are handled in the UI.",
+          "Frontend behavior for notification system is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Implement Notification System Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for notification system. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
-        "priority": "medium",
+        "title": "Backend Implementation of Notification System",
+        "description": "Implement the backend logic for notification system. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: New listing alerts matching saved searches; Price change notifications; Tour confirmation and reminder notifications.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-14",
         "acceptance_criteria": [
-          "Notification triggers for notification system fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for notification system are configurable and testable",
-          "Notification failures for notification system are observable and recoverable"
+          "Backend logic for notification system is implemented and testable.",
+          "APIs and business rules for notification system enforce validation and security requirements.",
+          "Data handling for notification system is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Notification System Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for notification system. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "DevOps Setup for Notification System",
+        "description": "Set up the operational support for notification system. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
         "priority": "medium",
+        "type": "devops",
+        "related_requirement": "FR-14",
+        "acceptance_criteria": [
+          "Operational setup for notification system covers deployment, configuration, and environment readiness.",
+          "Monitoring, alerting, backup, or recovery controls relevant to notification system are in place and verifiable.",
+          "The runtime behavior of notification system can be observed, supported, and recovered in target environments."
+        ]
+      },
+      {
+        "title": "Testing Notification System Functionality",
+        "description": "Create and execute tests for notification system. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-14",
         "acceptance_criteria": [
-          "Happy path and failure cases for notification system are covered by automated tests",
-          "Permission checks and validation rules for notification system are verified",
-          "Regression coverage exists for the most critical notification system scenarios"
+          "Tests cover the main success and failure scenarios for notification system.",
+          "Security, validation, and permission checks for notification system are verified.",
+          "Regression coverage exists for the most important notification system behaviors."
         ]
       }
     ],
     "FR-15": [
       {
-        "title": "Plan Admin Content Moderation Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for admin content moderation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Review and approve new listings before publishing; Flag and remove inappropriate content; Verify agent credentials and licenses.",
+        "title": "Design Admin Content Moderation UI",
+        "description": "Design the user interface for admin content moderation. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-15",
         "acceptance_criteria": [
-          "The end-to-end workflow for admin content moderation is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for admin content moderation are explicitly defined",
-          "Implementation subtasks for admin content moderation can be picked up independently by engineering"
+          "UI design for admin content moderation is complete and reviewable.",
+          "The admin content moderation design is responsive and accessible.",
+          "The design for admin content moderation aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Admin Content Moderation Backend Services",
-        "description": "Build the backend services for admin content moderation on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Review and approve new listings before publishing; Flag and remove inappropriate content; Verify agent credentials and licenses.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-15",
-        "acceptance_criteria": [
-          "Core admin content moderation business rules are implemented for Real Estate Listing Platform",
-          "Validation, authorization, and error handling are covered for admin content moderation",
-          "API/service behavior for admin content moderation is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Admin Content Moderation Frontend Flow",
-        "description": "Build the frontend flow for admin content moderation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Admin Content Moderation",
+        "description": "Implement the frontend behavior for admin content moderation. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Review and approve new listings before publishing; Flag and remove inappropriate content; Verify agent credentials and licenses.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-15",
         "acceptance_criteria": [
-          "The admin content moderation user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for admin content moderation behave correctly",
-          "The admin content moderation UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required admin content moderation user interactions.",
+          "Validation, loading, and error states for admin content moderation are handled in the UI.",
+          "Frontend behavior for admin content moderation is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Admin Content Moderation Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for admin content moderation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Admin Content Moderation",
+        "description": "Implement the backend logic for admin content moderation. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Review and approve new listings before publishing; Flag and remove inappropriate content; Verify agent credentials and licenses.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "acceptance_criteria": [
+          "Backend logic for admin content moderation is implemented and testable.",
+          "APIs and business rules for admin content moderation enforce validation and security requirements.",
+          "Data handling for admin content moderation is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Admin Content Moderation Functionality",
+        "description": "Create and execute tests for admin content moderation. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-15",
         "acceptance_criteria": [
-          "Happy path and failure cases for admin content moderation are covered by automated tests",
-          "Permission checks and validation rules for admin content moderation are verified",
-          "Regression coverage exists for the most critical admin content moderation scenarios"
+          "Tests cover the main success and failure scenarios for admin content moderation.",
+          "Security, validation, and permission checks for admin content moderation are verified.",
+          "Regression coverage exists for the most important admin content moderation behaviors."
         ]
       }
     ]

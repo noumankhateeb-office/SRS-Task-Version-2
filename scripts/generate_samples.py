@@ -319,38 +319,66 @@ def build_task_acceptance_criteria(task_type, fr_title, domain_title):
     """Create task-level definition of done for training outputs."""
     feature_lower = fr_title.lower()
 
-    if task_type == "backend":
+    if task_type == "design":
         return [
-            f"Core {feature_lower} business rules are implemented for {domain_title}",
-            f"Validation, authorization, and error handling are covered for {feature_lower}",
-            f"API/service behavior for {feature_lower} is testable and documented for integration",
+            f"UI design for {feature_lower} is complete and reviewable.",
+            f"The {feature_lower} design is responsive and accessible.",
+            f"The design for {feature_lower} aligns with the documented user flow and validation states.",
         ]
 
     if task_type == "frontend":
         return [
-            f"The {feature_lower} user flow is accessible and responsive across supported browsers",
-            f"Forms, filters, tables, and feedback states for {feature_lower} behave correctly",
-            f"The {feature_lower} UI is fully integrated with backend APIs and handles loading and error states",
+            f"Frontend implements the required {feature_lower} user interactions.",
+            f"Validation, loading, and error states for {feature_lower} are handled in the UI.",
+            f"Frontend behavior for {feature_lower} is integrated correctly with backend APIs.",
         ]
 
-    if task_type == "database":
+    if task_type == "backend":
         return [
-            f"The persistence model for {feature_lower} supports required workflows and reporting needs",
-            f"Indexes, constraints, and relationships for {feature_lower} are defined correctly",
-            f"Migrations for {feature_lower} can be applied safely in target environments",
+            f"Backend logic for {feature_lower} is implemented and testable.",
+            f"APIs and business rules for {feature_lower} enforce validation and security requirements.",
+            f"Data handling for {feature_lower} is reliable and supports the required workflow.",
         ]
 
     if task_type == "testing":
         return [
-            f"Happy path and failure cases for {feature_lower} are covered by automated tests",
-            f"Permission checks and validation rules for {feature_lower} are verified",
-            f"Regression coverage exists for the most critical {feature_lower} scenarios",
+            f"Tests cover the main success and failure scenarios for {feature_lower}.",
+            f"Security, validation, and permission checks for {feature_lower} are verified.",
+            f"Regression coverage exists for the most important {feature_lower} behaviors.",
+        ]
+
+    if task_type == "database":
+        return [
+            f"The data model for {feature_lower} supports the required workflow.",
+            f"Relationships, constraints, and indexes for {feature_lower} are defined correctly.",
+            f"Schema changes for {feature_lower} can be applied safely in target environments.",
+        ]
+
+    if task_type == "security":
+        return [
+            f"Security controls for {feature_lower} enforce the required authentication, authorization, or data-protection rules.",
+            f"Sensitive operations and failure scenarios for {feature_lower} are logged, validated, and protected against misuse.",
+            f"The implementation of {feature_lower} satisfies the relevant privacy, audit, or compliance expectations in the SRS.",
+        ]
+
+    if task_type == "integration":
+        return [
+            f"External or cross-system integrations required by {feature_lower} exchange the expected payloads successfully.",
+            f"Retry, timeout, and failure handling for {feature_lower} integrations are implemented and observable.",
+            f"Credentials, tokens, and outbound calls used by {feature_lower} are configured and secured correctly.",
+        ]
+
+    if task_type == "devops":
+        return [
+            f"Operational setup for {feature_lower} covers deployment, configuration, and environment readiness.",
+            f"Monitoring, alerting, backup, or recovery controls relevant to {feature_lower} are in place and verifiable.",
+            f"The runtime behavior of {feature_lower} can be observed, supported, and recovered in target environments.",
         ]
 
     return [
-        f"The {feature_lower} task is implemented and verifiable",
-        f"Edge cases for {feature_lower} are handled cleanly",
-        f"Relevant stakeholders can validate the completed {feature_lower} workflow",
+        f"The {feature_lower} task is implemented and verifiable.",
+        f"Edge cases for {feature_lower} are handled cleanly.",
+        f"Relevant stakeholders can validate the completed {feature_lower} workflow.",
     ]
 
 
@@ -358,6 +386,11 @@ def summarize_requirements(requirements, limit=3):
     """Extract the most important requirement bullets for task descriptions."""
     cleaned = [str(item).strip().rstrip(".") for item in (requirements or []) if str(item).strip()]
     return cleaned[:limit]
+
+
+def has_any_signal(signals, keywords):
+    """Check whether any keyword or phrase appears in the normalized signal text."""
+    return any(keyword in signals for keyword in keywords)
 
 
 def create_task(fr_id, fr_title, domain_title, task_title, description, priority, task_type, acceptance_criteria):
@@ -373,69 +406,93 @@ def create_task(fr_id, fr_title, domain_title, task_title, description, priority
 
 
 def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs, fr_data=None):
-    """Generate multiple detailed tasks for a given FR."""
+    """Generate realistic role-based tasks for a functional requirement."""
     feature_lower = fr_title.lower()
     requirements = summarize_requirements((fr_data or {}).get("requirements", []), limit=4)
     requirement_summary = "; ".join(requirements[:3]) if requirements else f"core {feature_lower} workflow requirements"
-    stack_summary = ", ".join(techs[:4]) if techs else "the target application stack"
-
     signals = " ".join([feature_lower, requirement_summary]).lower()
-    needs_database = any(keyword in signals for keyword in [
-        "inventory", "management", "tracking", "history", "reports", "billing",
-        "payroll", "supplier", "vendor", "document", "project", "asset", "order",
-        "record", "transaction", "attendance", "evaluation", "customer", "ticket",
-    ])
-    needs_security = any(keyword in signals for keyword in [
-        "auth", "access", "encryption", "audit", "backup", "restore", "payment",
-        "tax", "role", "permission", "rbac", "sso",
-    ])
-    needs_reporting = any(keyword in signals for keyword in [
-        "dashboard", "report", "analytics", "monitoring", "kpi", "history",
-    ])
-    needs_notifications = any(keyword in signals for keyword in [
-        "notification", "alert", "reminder", "approval", "deadline",
-    ])
-    needs_integration = any(keyword in signals for keyword in [
-        "email", "sms", "payment", "api", "import", "export", "sso", "gateway",
-        "bank", "restore", "backup",
-    ])
 
-    tasks = [
+    integration_keywords = [
+        "sso", "google", "facebook", "microsoft", "payment", "gateway",
+        "email", "sms", "api", "import", "export", "bank", "provider",
+        "third-party", "third party", "webhook", "insurance", "currency",
+    ]
+    security_keywords = [
+        "authentication", "authorization", "role-based", "rbac", "permission",
+        "security", "privacy", "encryption", "audit", "log", "compliance",
+        "fraud", "verification", "controlled substance", "access control",
+    ]
+    database_keywords = [
+        "record", "records", "profile", "inventory", "order", "payment",
+        "transaction", "document", "supplier", "vendor", "ticket", "asset",
+        "employee", "patient", "history", "tracking", "queue", "catalog",
+        "report", "dashboard", "booking", "reservation", "reconciliation",
+        "upload", "storage", "batch", "attendance", "payroll", "campaign",
+    ]
+    devops_keywords = [
+        "backup", "restore", "availability", "downtime", "monitoring",
+        "observability", "logging", "alert", "alerts", "scaling", "scalability",
+        "deployment", "infrastructure", "recovery", "uptime", "disaster",
+        "firmware", "health monitoring", "system availability",
+    ]
+    backend_only_keywords = [
+        "encryption", "backup", "restore", "availability", "downtime",
+        "deployment", "infrastructure", "observability", "fraud", "reconciliation",
+    ]
+    ux_override_keywords = [
+        "dashboard", "portal", "management", "settings", "configuration",
+        "report", "analytics", "monitoring", "alert", "notification", "tracking",
+    ]
+
+    needs_integration = has_any_signal(signals, integration_keywords)
+    needs_security = has_any_signal(signals, security_keywords)
+    needs_database = has_any_signal(signals, database_keywords)
+    needs_devops = has_any_signal(signals, devops_keywords)
+    needs_design_frontend = (
+        not has_any_signal(signals, backend_only_keywords)
+        or has_any_signal(signals, ux_override_keywords)
+    )
+
+    tasks = []
+
+    if needs_design_frontend:
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Design {fr_title} UI",
+                f"Design the user interface for {feature_lower}. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
+                "high",
+                "design",
+                build_task_acceptance_criteria("design", fr_title, domain_title),
+            )
+        )
+        tasks.append(
+            create_task(
+                fr_id,
+                fr_title,
+                domain_title,
+                f"Frontend Implementation of {fr_title}",
+                f"Implement the frontend behavior for {feature_lower}. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: {requirement_summary}.",
+                "high",
+                "frontend",
+                build_task_acceptance_criteria("frontend", fr_title, domain_title),
+            )
+        )
+
+    tasks.append(
         create_task(
             fr_id,
             fr_title,
             domain_title,
-            f"Plan {fr_title} Workflow and Contracts",
-            f"Review the SRS requirement bullets for {feature_lower} and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: {requirement_summary}.",
-            "high",
-            "backend",
-            [
-                f"The end-to-end workflow for {feature_lower} is documented from trigger to completion",
-                f"Validation rules, role restrictions, and error scenarios for {feature_lower} are explicitly defined",
-                f"Implementation subtasks for {feature_lower} can be picked up independently by engineering",
-            ],
-        ),
-        create_task(
-            fr_id,
-            fr_title,
-            domain_title,
-            f"Implement {fr_title} Backend Services",
-            f"Build the backend services for {feature_lower} on {stack_summary}. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: {requirement_summary}.",
+            f"Backend Implementation of {fr_title}",
+            f"Implement the backend logic for {feature_lower}. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: {requirement_summary}.",
             "high",
             "backend",
             build_task_acceptance_criteria("backend", fr_title, domain_title),
-        ),
-        create_task(
-            fr_id,
-            fr_title,
-            domain_title,
-            f"Implement {fr_title} Frontend Flow",
-            f"Build the frontend flow for {feature_lower} with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
-            "high",
-            "frontend",
-            build_task_acceptance_criteria("frontend", fr_title, domain_title),
-        ),
-    ]
+        )
+    )
 
     if needs_database:
         tasks.append(
@@ -443,29 +500,11 @@ def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs, fr_data=None):
                 fr_id,
                 fr_title,
                 domain_title,
-                f"Design {fr_title} Persistence Model",
-                f"Design the persistence layer for {feature_lower}. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+                f"Database Design for {fr_title}",
+                f"Design the data model and persistence strategy for {feature_lower}. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
                 "high",
                 "database",
                 build_task_acceptance_criteria("database", fr_title, domain_title),
-            )
-        )
-
-    if needs_integration:
-        tasks.append(
-            create_task(
-                fr_id,
-                fr_title,
-                domain_title,
-                f"Integrate External Dependencies for {fr_title}",
-                f"Implement the external integration points used by {feature_lower}, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
-                "high",
-                "backend",
-                [
-                    f"External dependencies used by {feature_lower} are connected through stable integration layers",
-                    f"Timeout, retry, and failure handling for {feature_lower} integrations are implemented and testable",
-                    f"Secrets, credentials, and integration logs for {feature_lower} are handled securely",
-                ],
             )
         )
 
@@ -475,51 +514,39 @@ def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs, fr_data=None):
                 fr_id,
                 fr_title,
                 domain_title,
-                f"Harden {fr_title} Security and Access Rules",
-                f"Apply security controls to {feature_lower}. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+                f"Security Hardening for {fr_title}",
+                f"Implement the security controls required for {feature_lower}. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
                 "high",
-                "backend",
-                [
-                    f"Access control rules for {feature_lower} are enforced consistently across API and UI layers",
-                    f"Sensitive operations and data paths in {feature_lower} are audited and protected against misuse",
-                    f"Security validation for {feature_lower} passes review and automated checks",
-                ],
+                "security",
+                build_task_acceptance_criteria("security", fr_title, domain_title),
             )
         )
 
-    if needs_reporting:
+    if needs_integration:
         tasks.append(
             create_task(
                 fr_id,
                 fr_title,
                 domain_title,
-                f"Build {fr_title} Reporting and KPI Logic",
-                f"Implement the reporting layer for {feature_lower}, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
+                f"Integrate {fr_title} with External Services",
+                f"Integrate {feature_lower} with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
                 "medium",
-                "backend",
-                [
-                    f"KPI and reporting calculations for {feature_lower} return accurate results",
-                    f"Filters, grouping, and export-ready structures for {feature_lower} work correctly",
-                    f"Reporting queries for {feature_lower} perform within acceptable limits",
-                ],
+                "integration",
+                build_task_acceptance_criteria("integration", fr_title, domain_title),
             )
         )
 
-    if needs_notifications:
+    if needs_devops:
         tasks.append(
             create_task(
                 fr_id,
                 fr_title,
                 domain_title,
-                f"Implement {fr_title} Notifications and Workflow Triggers",
-                f"Add notifications and event-driven workflow triggers for {feature_lower}. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+                f"DevOps Setup for {fr_title}",
+                f"Set up the operational support for {feature_lower}. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
                 "medium",
-                "backend",
-                [
-                    f"Notification triggers for {feature_lower} fire on the correct workflow events",
-                    f"Recipients, templates, and delivery channels for {feature_lower} are configurable and testable",
-                    f"Notification failures for {feature_lower} are observable and recoverable",
-                ],
+                "devops",
+                build_task_acceptance_criteria("devops", fr_title, domain_title),
             )
         )
 
@@ -528,9 +555,9 @@ def generate_tasks_for_fr(fr_id, fr_title, domain_title, techs, fr_data=None):
             fr_id,
             fr_title,
             domain_title,
-            f"Write {fr_title} Automated and End-to-End Tests",
-            f"Write unit, integration, and end-to-end tests for {feature_lower}. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-            "medium",
+            f"Testing {fr_title} Functionality",
+            f"Create and execute tests for {feature_lower}. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+            "high",
             "testing",
             build_task_acceptance_criteria("testing", fr_title, domain_title),
         )
@@ -755,6 +782,40 @@ def create_sample(filepath, title, techs, fr_titles):
         json.dump(sample, f, indent=2)
     
     print(f"  Created {os.path.basename(filepath)}: {len(fr_titles)} FRs")
+
+
+def normalize_existing_sample_outputs(directory: Path):
+    """Rewrite task outputs for existing samples using the current task template."""
+    for sample_path in sorted(directory.glob("*.json")):
+        with open(sample_path, "r", encoding="utf-8") as f:
+            sample = json.load(f)
+
+        project_input = sample.get("input", {})
+        functional_requirements = project_input.get("functional_requirements", {})
+        if not isinstance(functional_requirements, dict) or not functional_requirements:
+            print(f"  Skipped {sample_path.name}: no functional requirements found")
+            continue
+
+        project_title = project_input.get("title", sample_path.stem)
+        technologies = project_input.get("technologies", [])
+        normalized_output = {}
+
+        for fr_id, fr_data in functional_requirements.items():
+            fr_payload = fr_data if isinstance(fr_data, dict) else {}
+            normalized_output[fr_id] = generate_tasks_for_fr(
+                fr_id,
+                fr_payload.get("title", fr_id),
+                project_title,
+                technologies,
+                fr_payload,
+            )
+
+        sample["output"] = normalized_output
+        with open(sample_path, "w", encoding="utf-8") as f:
+            json.dump(sample, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+
+        print(f"  Normalized {sample_path.name}: {len(normalized_output)} FRs")
 
 
 def main():
@@ -1036,6 +1097,9 @@ def main():
     for filename, title, techs, fr_titles in evaluation_domains:
         filepath = os.path.join(EVALUATION_DIR, filename)
         create_sample(filepath, title, techs, fr_titles)
+
+    normalize_existing_sample_outputs(TRAINING_DIR)
+    normalize_existing_sample_outputs(EVALUATION_DIR)
 
     training_total = len(list(TRAINING_DIR.glob("*.json")))
     evaluation_total = len(list(EVALUATION_DIR.glob("*.json")))

@@ -205,697 +205,709 @@
   "output": {
     "FR-01": [
       {
-        "title": "Plan User Registration and Authentication Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for user registration and authentication and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can register with email or social media accounts; Password must be securely hashed; System sends verification email after registration.",
+        "title": "Design User Registration and Authentication UI",
+        "description": "Design the user interface for user registration and authentication. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The end-to-end workflow for user registration and authentication is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for user registration and authentication are explicitly defined",
-          "Implementation subtasks for user registration and authentication can be picked up independently by engineering"
+          "UI design for user registration and authentication is complete and reviewable.",
+          "The user registration and authentication design is responsive and accessible.",
+          "The design for user registration and authentication aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement User Registration and Authentication Backend Services",
-        "description": "Build the backend services for user registration and authentication on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can register with email or social media accounts; Password must be securely hashed; System sends verification email after registration.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Core user registration and authentication business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for user registration and authentication",
-          "API/service behavior for user registration and authentication is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement User Registration and Authentication Frontend Flow",
-        "description": "Build the frontend flow for user registration and authentication with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of User Registration and Authentication",
+        "description": "Implement the frontend behavior for user registration and authentication. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can register with email or social media accounts; Password must be securely hashed; System sends verification email after registration.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The user registration and authentication user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for user registration and authentication behave correctly",
-          "The user registration and authentication UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required user registration and authentication user interactions.",
+          "Validation, loading, and error states for user registration and authentication are handled in the UI.",
+          "Frontend behavior for user registration and authentication is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Integrate External Dependencies for User Registration and Authentication",
-        "description": "Implement the external integration points used by user registration and authentication, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "title": "Backend Implementation of User Registration and Authentication",
+        "description": "Implement the backend logic for user registration and authentication. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can register with email or social media accounts; Password must be securely hashed; System sends verification email after registration.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "External dependencies used by user registration and authentication are connected through stable integration layers",
-          "Timeout, retry, and failure handling for user registration and authentication integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for user registration and authentication are handled securely"
+          "Backend logic for user registration and authentication is implemented and testable.",
+          "APIs and business rules for user registration and authentication enforce validation and security requirements.",
+          "Data handling for user registration and authentication is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Harden User Registration and Authentication Security and Access Rules",
-        "description": "Apply security controls to user registration and authentication. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Security Hardening for User Registration and Authentication",
+        "description": "Implement the security controls required for user registration and authentication. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
         "priority": "high",
-        "type": "backend",
+        "type": "security",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Access control rules for user registration and authentication are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in user registration and authentication are audited and protected against misuse",
-          "Security validation for user registration and authentication passes review and automated checks"
+          "Security controls for user registration and authentication enforce the required authentication, authorization, or data-protection rules.",
+          "Sensitive operations and failure scenarios for user registration and authentication are logged, validated, and protected against misuse.",
+          "The implementation of user registration and authentication satisfies the relevant privacy, audit, or compliance expectations in the SRS."
         ]
       },
       {
-        "title": "Write User Registration and Authentication Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for user registration and authentication. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate User Registration and Authentication with External Services",
+        "description": "Integrate user registration and authentication with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by user registration and authentication exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for user registration and authentication integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by user registration and authentication are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing User Registration and Authentication Functionality",
+        "description": "Create and execute tests for user registration and authentication. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Happy path and failure cases for user registration and authentication are covered by automated tests",
-          "Permission checks and validation rules for user registration and authentication are verified",
-          "Regression coverage exists for the most critical user registration and authentication scenarios"
+          "Tests cover the main success and failure scenarios for user registration and authentication.",
+          "Security, validation, and permission checks for user registration and authentication are verified.",
+          "Regression coverage exists for the most important user registration and authentication behaviors."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Plan User Profile Creation Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for user profile creation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can create profile with name, bio, and profile picture; Profile picture supports JPEG and PNG up to 5MB; Username must be unique and 3-20 characters.",
+        "title": "Design User Profile Creation UI",
+        "description": "Design the user interface for user profile creation. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The end-to-end workflow for user profile creation is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for user profile creation are explicitly defined",
-          "Implementation subtasks for user profile creation can be picked up independently by engineering"
+          "UI design for user profile creation is complete and reviewable.",
+          "The user profile creation design is responsive and accessible.",
+          "The design for user profile creation aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement User Profile Creation Backend Services",
-        "description": "Build the backend services for user profile creation on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can create profile with name, bio, and profile picture; Profile picture supports JPEG and PNG up to 5MB; Username must be unique and 3-20 characters.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Core user profile creation business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for user profile creation",
-          "API/service behavior for user profile creation is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement User Profile Creation Frontend Flow",
-        "description": "Build the frontend flow for user profile creation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of User Profile Creation",
+        "description": "Implement the frontend behavior for user profile creation. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can create profile with name, bio, and profile picture; Profile picture supports JPEG and PNG up to 5MB; Username must be unique and 3-20 characters.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The user profile creation user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for user profile creation behave correctly",
-          "The user profile creation UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required user profile creation user interactions.",
+          "Validation, loading, and error states for user profile creation are handled in the UI.",
+          "Frontend behavior for user profile creation is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write User Profile Creation Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for user profile creation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of User Profile Creation",
+        "description": "Implement the backend logic for user profile creation. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can create profile with name, bio, and profile picture; Profile picture supports JPEG and PNG up to 5MB; Username must be unique and 3-20 characters.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Backend logic for user profile creation is implemented and testable.",
+          "APIs and business rules for user profile creation enforce validation and security requirements.",
+          "Data handling for user profile creation is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for User Profile Creation",
+        "description": "Design the data model and persistence strategy for user profile creation. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The data model for user profile creation supports the required workflow.",
+          "Relationships, constraints, and indexes for user profile creation are defined correctly.",
+          "Schema changes for user profile creation can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing User Profile Creation Functionality",
+        "description": "Create and execute tests for user profile creation. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Happy path and failure cases for user profile creation are covered by automated tests",
-          "Permission checks and validation rules for user profile creation are verified",
-          "Regression coverage exists for the most critical user profile creation scenarios"
+          "Tests cover the main success and failure scenarios for user profile creation.",
+          "Security, validation, and permission checks for user profile creation are verified.",
+          "Regression coverage exists for the most important user profile creation behaviors."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Plan Post Creation and Sharing Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for post creation and sharing and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can create posts with text, images, and videos; Posts can be public or private; Users can tag other users in posts.",
+        "title": "Design Post Creation and Sharing UI",
+        "description": "Design the user interface for post creation and sharing. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The end-to-end workflow for post creation and sharing is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for post creation and sharing are explicitly defined",
-          "Implementation subtasks for post creation and sharing can be picked up independently by engineering"
+          "UI design for post creation and sharing is complete and reviewable.",
+          "The post creation and sharing design is responsive and accessible.",
+          "The design for post creation and sharing aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Post Creation and Sharing Backend Services",
-        "description": "Build the backend services for post creation and sharing on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can create posts with text, images, and videos; Posts can be public or private; Users can tag other users in posts.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Core post creation and sharing business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for post creation and sharing",
-          "API/service behavior for post creation and sharing is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Post Creation and Sharing Frontend Flow",
-        "description": "Build the frontend flow for post creation and sharing with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Post Creation and Sharing",
+        "description": "Implement the frontend behavior for post creation and sharing. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can create posts with text, images, and videos; Posts can be public or private; Users can tag other users in posts.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The post creation and sharing user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for post creation and sharing behave correctly",
-          "The post creation and sharing UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required post creation and sharing user interactions.",
+          "Validation, loading, and error states for post creation and sharing are handled in the UI.",
+          "Frontend behavior for post creation and sharing is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Post Creation and Sharing Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for post creation and sharing. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Post Creation and Sharing",
+        "description": "Implement the backend logic for post creation and sharing. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can create posts with text, images, and videos; Posts can be public or private; Users can tag other users in posts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Backend logic for post creation and sharing is implemented and testable.",
+          "APIs and business rules for post creation and sharing enforce validation and security requirements.",
+          "Data handling for post creation and sharing is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Post Creation and Sharing Functionality",
+        "description": "Create and execute tests for post creation and sharing. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Happy path and failure cases for post creation and sharing are covered by automated tests",
-          "Permission checks and validation rules for post creation and sharing are verified",
-          "Regression coverage exists for the most critical post creation and sharing scenarios"
+          "Tests cover the main success and failure scenarios for post creation and sharing.",
+          "Security, validation, and permission checks for post creation and sharing are verified.",
+          "Regression coverage exists for the most important post creation and sharing behaviors."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Plan News Feed Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for news feed and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Display posts from followed users in chronological order; Infinite scroll loading for feed; Pull-to-refresh for latest posts.",
+        "title": "Design News Feed UI",
+        "description": "Design the user interface for news feed. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The end-to-end workflow for news feed is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for news feed are explicitly defined",
-          "Implementation subtasks for news feed can be picked up independently by engineering"
+          "UI design for news feed is complete and reviewable.",
+          "The news feed design is responsive and accessible.",
+          "The design for news feed aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement News Feed Backend Services",
-        "description": "Build the backend services for news feed on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Display posts from followed users in chronological order; Infinite scroll loading for feed; Pull-to-refresh for latest posts.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Core news feed business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for news feed",
-          "API/service behavior for news feed is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement News Feed Frontend Flow",
-        "description": "Build the frontend flow for news feed with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of News Feed",
+        "description": "Implement the frontend behavior for news feed. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Display posts from followed users in chronological order; Infinite scroll loading for feed; Pull-to-refresh for latest posts.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The news feed user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for news feed behave correctly",
-          "The news feed UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required news feed user interactions.",
+          "Validation, loading, and error states for news feed are handled in the UI.",
+          "Frontend behavior for news feed is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design News Feed Persistence Model",
-        "description": "Design the persistence layer for news feed. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of News Feed",
+        "description": "Implement the backend logic for news feed. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Display posts from followed users in chronological order; Infinite scroll loading for feed; Pull-to-refresh for latest posts.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Backend logic for news feed is implemented and testable.",
+          "APIs and business rules for news feed enforce validation and security requirements.",
+          "Data handling for news feed is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for News Feed",
+        "description": "Design the data model and persistence strategy for news feed. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The persistence model for news feed supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for news feed are defined correctly",
-          "Migrations for news feed can be applied safely in target environments"
+          "The data model for news feed supports the required workflow.",
+          "Relationships, constraints, and indexes for news feed are defined correctly.",
+          "Schema changes for news feed can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write News Feed Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for news feed. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Security Hardening for News Feed",
+        "description": "Implement the security controls required for news feed. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "priority": "high",
+        "type": "security",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Security controls for news feed enforce the required authentication, authorization, or data-protection rules.",
+          "Sensitive operations and failure scenarios for news feed are logged, validated, and protected against misuse.",
+          "The implementation of news feed satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+        ]
+      },
+      {
+        "title": "Testing News Feed Functionality",
+        "description": "Create and execute tests for news feed. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Happy path and failure cases for news feed are covered by automated tests",
-          "Permission checks and validation rules for news feed are verified",
-          "Regression coverage exists for the most critical news feed scenarios"
+          "Tests cover the main success and failure scenarios for news feed.",
+          "Security, validation, and permission checks for news feed are verified.",
+          "Regression coverage exists for the most important news feed behaviors."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Plan Like and Comment System Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for like and comment system and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can like and unlike posts; Users can comment on posts; Comments support text and emoji.",
+        "title": "Design Like and Comment System UI",
+        "description": "Design the user interface for like and comment system. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The end-to-end workflow for like and comment system is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for like and comment system are explicitly defined",
-          "Implementation subtasks for like and comment system can be picked up independently by engineering"
+          "UI design for like and comment system is complete and reviewable.",
+          "The like and comment system design is responsive and accessible.",
+          "The design for like and comment system aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Like and Comment System Backend Services",
-        "description": "Build the backend services for like and comment system on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can like and unlike posts; Users can comment on posts; Comments support text and emoji.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Core like and comment system business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for like and comment system",
-          "API/service behavior for like and comment system is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Like and Comment System Frontend Flow",
-        "description": "Build the frontend flow for like and comment system with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Like and Comment System",
+        "description": "Implement the frontend behavior for like and comment system. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can like and unlike posts; Users can comment on posts; Comments support text and emoji.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The like and comment system user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for like and comment system behave correctly",
-          "The like and comment system UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required like and comment system user interactions.",
+          "Validation, loading, and error states for like and comment system are handled in the UI.",
+          "Frontend behavior for like and comment system is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Like and Comment System Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for like and comment system. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Like and Comment System",
+        "description": "Implement the backend logic for like and comment system. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can like and unlike posts; Users can comment on posts; Comments support text and emoji.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Backend logic for like and comment system is implemented and testable.",
+          "APIs and business rules for like and comment system enforce validation and security requirements.",
+          "Data handling for like and comment system is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Like and Comment System Functionality",
+        "description": "Create and execute tests for like and comment system. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Happy path and failure cases for like and comment system are covered by automated tests",
-          "Permission checks and validation rules for like and comment system are verified",
-          "Regression coverage exists for the most critical like and comment system scenarios"
+          "Tests cover the main success and failure scenarios for like and comment system.",
+          "Security, validation, and permission checks for like and comment system are verified.",
+          "Regression coverage exists for the most important like and comment system behaviors."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Plan Follow and Unfollow Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for follow and unfollow and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can follow other users; Users can unfollow users they follow; Follower and following counts displayed on profile.",
+        "title": "Design Follow and Unfollow UI",
+        "description": "Design the user interface for follow and unfollow. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The end-to-end workflow for follow and unfollow is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for follow and unfollow are explicitly defined",
-          "Implementation subtasks for follow and unfollow can be picked up independently by engineering"
+          "UI design for follow and unfollow is complete and reviewable.",
+          "The follow and unfollow design is responsive and accessible.",
+          "The design for follow and unfollow aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Follow and Unfollow Backend Services",
-        "description": "Build the backend services for follow and unfollow on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can follow other users; Users can unfollow users they follow; Follower and following counts displayed on profile.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Core follow and unfollow business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for follow and unfollow",
-          "API/service behavior for follow and unfollow is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Follow and Unfollow Frontend Flow",
-        "description": "Build the frontend flow for follow and unfollow with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Follow and Unfollow",
+        "description": "Implement the frontend behavior for follow and unfollow. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can follow other users; Users can unfollow users they follow; Follower and following counts displayed on profile.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The follow and unfollow user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for follow and unfollow behave correctly",
-          "The follow and unfollow UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required follow and unfollow user interactions.",
+          "Validation, loading, and error states for follow and unfollow are handled in the UI.",
+          "Frontend behavior for follow and unfollow is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Follow and Unfollow Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for follow and unfollow. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Follow and Unfollow",
+        "description": "Implement the backend logic for follow and unfollow. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can follow other users; Users can unfollow users they follow; Follower and following counts displayed on profile.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Backend logic for follow and unfollow is implemented and testable.",
+          "APIs and business rules for follow and unfollow enforce validation and security requirements.",
+          "Data handling for follow and unfollow is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Follow and Unfollow",
+        "description": "Design the data model and persistence strategy for follow and unfollow. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "The data model for follow and unfollow supports the required workflow.",
+          "Relationships, constraints, and indexes for follow and unfollow are defined correctly.",
+          "Schema changes for follow and unfollow can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing Follow and Unfollow Functionality",
+        "description": "Create and execute tests for follow and unfollow. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Happy path and failure cases for follow and unfollow are covered by automated tests",
-          "Permission checks and validation rules for follow and unfollow are verified",
-          "Regression coverage exists for the most critical follow and unfollow scenarios"
+          "Tests cover the main success and failure scenarios for follow and unfollow.",
+          "Security, validation, and permission checks for follow and unfollow are verified.",
+          "Regression coverage exists for the most important follow and unfollow behaviors."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Plan Direct Messaging Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for direct messaging and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can send private text messages; Messages delivered in real-time; Users can block and report abusive messages.",
+        "title": "Design Direct Messaging UI",
+        "description": "Design the user interface for direct messaging. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The end-to-end workflow for direct messaging is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for direct messaging are explicitly defined",
-          "Implementation subtasks for direct messaging can be picked up independently by engineering"
+          "UI design for direct messaging is complete and reviewable.",
+          "The direct messaging design is responsive and accessible.",
+          "The design for direct messaging aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Direct Messaging Backend Services",
-        "description": "Build the backend services for direct messaging on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can send private text messages; Messages delivered in real-time; Users can block and report abusive messages.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Core direct messaging business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for direct messaging",
-          "API/service behavior for direct messaging is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Direct Messaging Frontend Flow",
-        "description": "Build the frontend flow for direct messaging with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Direct Messaging",
+        "description": "Implement the frontend behavior for direct messaging. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can send private text messages; Messages delivered in real-time; Users can block and report abusive messages.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The direct messaging user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for direct messaging behave correctly",
-          "The direct messaging UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required direct messaging user interactions.",
+          "Validation, loading, and error states for direct messaging are handled in the UI.",
+          "Frontend behavior for direct messaging is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Build Direct Messaging Reporting and KPI Logic",
-        "description": "Implement the reporting layer for direct messaging, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
+        "title": "Backend Implementation of Direct Messaging",
+        "description": "Implement the backend logic for direct messaging. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can send private text messages; Messages delivered in real-time; Users can block and report abusive messages.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "KPI and reporting calculations for direct messaging return accurate results",
-          "Filters, grouping, and export-ready structures for direct messaging work correctly",
-          "Reporting queries for direct messaging perform within acceptable limits"
+          "Backend logic for direct messaging is implemented and testable.",
+          "APIs and business rules for direct messaging enforce validation and security requirements.",
+          "Data handling for direct messaging is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Direct Messaging Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for direct messaging. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Database Design for Direct Messaging",
+        "description": "Design the data model and persistence strategy for direct messaging. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The data model for direct messaging supports the required workflow.",
+          "Relationships, constraints, and indexes for direct messaging are defined correctly.",
+          "Schema changes for direct messaging can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing Direct Messaging Functionality",
+        "description": "Create and execute tests for direct messaging. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Happy path and failure cases for direct messaging are covered by automated tests",
-          "Permission checks and validation rules for direct messaging are verified",
-          "Regression coverage exists for the most critical direct messaging scenarios"
+          "Tests cover the main success and failure scenarios for direct messaging.",
+          "Security, validation, and permission checks for direct messaging are verified.",
+          "Regression coverage exists for the most important direct messaging behaviors."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Plan Story Feature Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for story feature and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can post stories that disappear after 24 hours; Stories support images and short videos; Stories show viewer list to the author.",
+        "title": "Design Story Feature UI",
+        "description": "Design the user interface for story feature. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The end-to-end workflow for story feature is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for story feature are explicitly defined",
-          "Implementation subtasks for story feature can be picked up independently by engineering"
+          "UI design for story feature is complete and reviewable.",
+          "The story feature design is responsive and accessible.",
+          "The design for story feature aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Story Feature Backend Services",
-        "description": "Build the backend services for story feature on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can post stories that disappear after 24 hours; Stories support images and short videos; Stories show viewer list to the author.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Core story feature business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for story feature",
-          "API/service behavior for story feature is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Story Feature Frontend Flow",
-        "description": "Build the frontend flow for story feature with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Story Feature",
+        "description": "Implement the frontend behavior for story feature. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can post stories that disappear after 24 hours; Stories support images and short videos; Stories show viewer list to the author.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The story feature user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for story feature behave correctly",
-          "The story feature UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required story feature user interactions.",
+          "Validation, loading, and error states for story feature are handled in the UI.",
+          "Frontend behavior for story feature is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Harden Story Feature Security and Access Rules",
-        "description": "Apply security controls to story feature. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Backend Implementation of Story Feature",
+        "description": "Implement the backend logic for story feature. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can post stories that disappear after 24 hours; Stories support images and short videos; Stories show viewer list to the author.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Access control rules for story feature are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in story feature are audited and protected against misuse",
-          "Security validation for story feature passes review and automated checks"
+          "Backend logic for story feature is implemented and testable.",
+          "APIs and business rules for story feature enforce validation and security requirements.",
+          "Data handling for story feature is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Story Feature Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for story feature. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Story Feature Functionality",
+        "description": "Create and execute tests for story feature. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Happy path and failure cases for story feature are covered by automated tests",
-          "Permission checks and validation rules for story feature are verified",
-          "Regression coverage exists for the most critical story feature scenarios"
+          "Tests cover the main success and failure scenarios for story feature.",
+          "Security, validation, and permission checks for story feature are verified.",
+          "Regression coverage exists for the most important story feature behaviors."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Plan User Search and Discovery Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for user search and discovery and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Search bar to find users by name or username; Explore page showing trending posts; Suggested users based on mutual connections.",
+        "title": "Design User Search and Discovery UI",
+        "description": "Design the user interface for user search and discovery. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The end-to-end workflow for user search and discovery is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for user search and discovery are explicitly defined",
-          "Implementation subtasks for user search and discovery can be picked up independently by engineering"
+          "UI design for user search and discovery is complete and reviewable.",
+          "The user search and discovery design is responsive and accessible.",
+          "The design for user search and discovery aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement User Search and Discovery Backend Services",
-        "description": "Build the backend services for user search and discovery on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Search bar to find users by name or username; Explore page showing trending posts; Suggested users based on mutual connections.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Core user search and discovery business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for user search and discovery",
-          "API/service behavior for user search and discovery is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement User Search and Discovery Frontend Flow",
-        "description": "Build the frontend flow for user search and discovery with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of User Search and Discovery",
+        "description": "Implement the frontend behavior for user search and discovery. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Search bar to find users by name or username; Explore page showing trending posts; Suggested users based on mutual connections.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The user search and discovery user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for user search and discovery behave correctly",
-          "The user search and discovery UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required user search and discovery user interactions.",
+          "Validation, loading, and error states for user search and discovery are handled in the UI.",
+          "Frontend behavior for user search and discovery is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write User Search and Discovery Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for user search and discovery. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of User Search and Discovery",
+        "description": "Implement the backend logic for user search and discovery. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Search bar to find users by name or username; Explore page showing trending posts; Suggested users based on mutual connections.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-09",
+        "acceptance_criteria": [
+          "Backend logic for user search and discovery is implemented and testable.",
+          "APIs and business rules for user search and discovery enforce validation and security requirements.",
+          "Data handling for user search and discovery is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing User Search and Discovery Functionality",
+        "description": "Create and execute tests for user search and discovery. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Happy path and failure cases for user search and discovery are covered by automated tests",
-          "Permission checks and validation rules for user search and discovery are verified",
-          "Regression coverage exists for the most critical user search and discovery scenarios"
+          "Tests cover the main success and failure scenarios for user search and discovery.",
+          "Security, validation, and permission checks for user search and discovery are verified.",
+          "Regression coverage exists for the most important user search and discovery behaviors."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Plan Push Notifications Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for push notifications and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Notifications for likes, comments, follows, and messages; Users can customize notification preferences; Notification center shows all recent activity.",
+        "title": "Design Push Notifications UI",
+        "description": "Design the user interface for push notifications. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The end-to-end workflow for push notifications is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for push notifications are explicitly defined",
-          "Implementation subtasks for push notifications can be picked up independently by engineering"
+          "UI design for push notifications is complete and reviewable.",
+          "The push notifications design is responsive and accessible.",
+          "The design for push notifications aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Push Notifications Backend Services",
-        "description": "Build the backend services for push notifications on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Notifications for likes, comments, follows, and messages; Users can customize notification preferences; Notification center shows all recent activity.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Core push notifications business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for push notifications",
-          "API/service behavior for push notifications is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Push Notifications Frontend Flow",
-        "description": "Build the frontend flow for push notifications with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Push Notifications",
+        "description": "Implement the frontend behavior for push notifications. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Notifications for likes, comments, follows, and messages; Users can customize notification preferences; Notification center shows all recent activity.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The push notifications user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for push notifications behave correctly",
-          "The push notifications UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required push notifications user interactions.",
+          "Validation, loading, and error states for push notifications are handled in the UI.",
+          "Frontend behavior for push notifications is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Implement Push Notifications Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for push notifications. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
-        "priority": "medium",
+        "title": "Backend Implementation of Push Notifications",
+        "description": "Implement the backend logic for push notifications. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Notifications for likes, comments, follows, and messages; Users can customize notification preferences; Notification center shows all recent activity.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Notification triggers for push notifications fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for push notifications are configurable and testable",
-          "Notification failures for push notifications are observable and recoverable"
+          "Backend logic for push notifications is implemented and testable.",
+          "APIs and business rules for push notifications enforce validation and security requirements.",
+          "Data handling for push notifications is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Push Notifications Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for push notifications. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Push Notifications Functionality",
+        "description": "Create and execute tests for push notifications. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Happy path and failure cases for push notifications are covered by automated tests",
-          "Permission checks and validation rules for push notifications are verified",
-          "Regression coverage exists for the most critical push notifications scenarios"
+          "Tests cover the main success and failure scenarios for push notifications.",
+          "Security, validation, and permission checks for push notifications are verified.",
+          "Regression coverage exists for the most important push notifications behaviors."
         ]
       }
     ],
     "FR-11": [
       {
-        "title": "Plan Content Moderation Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for content moderation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can report inappropriate content; Admin dashboard for reviewing reports; Automatic content filtering for profanity.",
+        "title": "Design Content Moderation UI",
+        "description": "Design the user interface for content moderation. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The end-to-end workflow for content moderation is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for content moderation are explicitly defined",
-          "Implementation subtasks for content moderation can be picked up independently by engineering"
+          "UI design for content moderation is complete and reviewable.",
+          "The content moderation design is responsive and accessible.",
+          "The design for content moderation aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Content Moderation Backend Services",
-        "description": "Build the backend services for content moderation on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can report inappropriate content; Admin dashboard for reviewing reports; Automatic content filtering for profanity.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "Core content moderation business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for content moderation",
-          "API/service behavior for content moderation is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Content Moderation Frontend Flow",
-        "description": "Build the frontend flow for content moderation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Content Moderation",
+        "description": "Implement the frontend behavior for content moderation. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can report inappropriate content; Admin dashboard for reviewing reports; Automatic content filtering for profanity.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The content moderation user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for content moderation behave correctly",
-          "The content moderation UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required content moderation user interactions.",
+          "Validation, loading, and error states for content moderation are handled in the UI.",
+          "Frontend behavior for content moderation is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Content Moderation Persistence Model",
-        "description": "Design the persistence layer for content moderation. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Content Moderation",
+        "description": "Implement the backend logic for content moderation. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can report inappropriate content; Admin dashboard for reviewing reports; Automatic content filtering for profanity.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-11",
+        "acceptance_criteria": [
+          "Backend logic for content moderation is implemented and testable.",
+          "APIs and business rules for content moderation enforce validation and security requirements.",
+          "Data handling for content moderation is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Content Moderation",
+        "description": "Design the data model and persistence strategy for content moderation. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "The persistence model for content moderation supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for content moderation are defined correctly",
-          "Migrations for content moderation can be applied safely in target environments"
+          "The data model for content moderation supports the required workflow.",
+          "Relationships, constraints, and indexes for content moderation are defined correctly.",
+          "Schema changes for content moderation can be applied safely in target environments."
         ]
       },
       {
-        "title": "Build Content Moderation Reporting and KPI Logic",
-        "description": "Implement the reporting layer for content moderation, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
-        "type": "backend",
-        "related_requirement": "FR-11",
-        "acceptance_criteria": [
-          "KPI and reporting calculations for content moderation return accurate results",
-          "Filters, grouping, and export-ready structures for content moderation work correctly",
-          "Reporting queries for content moderation perform within acceptable limits"
-        ]
-      },
-      {
-        "title": "Write Content Moderation Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for content moderation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Content Moderation Functionality",
+        "description": "Create and execute tests for content moderation. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-11",
         "acceptance_criteria": [
-          "Happy path and failure cases for content moderation are covered by automated tests",
-          "Permission checks and validation rules for content moderation are verified",
-          "Regression coverage exists for the most critical content moderation scenarios"
+          "Tests cover the main success and failure scenarios for content moderation.",
+          "Security, validation, and permission checks for content moderation are verified.",
+          "Regression coverage exists for the most important content moderation behaviors."
         ]
       }
     ],
     "FR-12": [
       {
-        "title": "Plan Privacy Settings Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for privacy settings and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Users can set account to private; Users can control who can message them; Users can hide online status.",
+        "title": "Design Privacy Settings UI",
+        "description": "Design the user interface for privacy settings. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The end-to-end workflow for privacy settings is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for privacy settings are explicitly defined",
-          "Implementation subtasks for privacy settings can be picked up independently by engineering"
+          "UI design for privacy settings is complete and reviewable.",
+          "The privacy settings design is responsive and accessible.",
+          "The design for privacy settings aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Privacy Settings Backend Services",
-        "description": "Build the backend services for privacy settings on React Native, Node.js, Firebase. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Users can set account to private; Users can control who can message them; Users can hide online status.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-12",
-        "acceptance_criteria": [
-          "Core privacy settings business rules are implemented for Social Media Application",
-          "Validation, authorization, and error handling are covered for privacy settings",
-          "API/service behavior for privacy settings is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Privacy Settings Frontend Flow",
-        "description": "Build the frontend flow for privacy settings with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Privacy Settings",
+        "description": "Implement the frontend behavior for privacy settings. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Users can set account to private; Users can control who can message them; Users can hide online status.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "The privacy settings user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for privacy settings behave correctly",
-          "The privacy settings UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required privacy settings user interactions.",
+          "Validation, loading, and error states for privacy settings are handled in the UI.",
+          "Frontend behavior for privacy settings is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Privacy Settings Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for privacy settings. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Privacy Settings",
+        "description": "Implement the backend logic for privacy settings. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Users can set account to private; Users can control who can message them; Users can hide online status.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Backend logic for privacy settings is implemented and testable.",
+          "APIs and business rules for privacy settings enforce validation and security requirements.",
+          "Data handling for privacy settings is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Security Hardening for Privacy Settings",
+        "description": "Implement the security controls required for privacy settings. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "priority": "high",
+        "type": "security",
+        "related_requirement": "FR-12",
+        "acceptance_criteria": [
+          "Security controls for privacy settings enforce the required authentication, authorization, or data-protection rules.",
+          "Sensitive operations and failure scenarios for privacy settings are logged, validated, and protected against misuse.",
+          "The implementation of privacy settings satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+        ]
+      },
+      {
+        "title": "Testing Privacy Settings Functionality",
+        "description": "Create and execute tests for privacy settings. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-12",
         "acceptance_criteria": [
-          "Happy path and failure cases for privacy settings are covered by automated tests",
-          "Permission checks and validation rules for privacy settings are verified",
-          "Regression coverage exists for the most critical privacy settings scenarios"
+          "Tests cover the main success and failure scenarios for privacy settings.",
+          "Security, validation, and permission checks for privacy settings are verified.",
+          "Regression coverage exists for the most important privacy settings behaviors."
         ]
       }
     ]

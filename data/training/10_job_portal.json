@@ -168,461 +168,497 @@
   "output": {
     "FR-01": [
       {
-        "title": "Plan Job Seeker Registration Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for job seeker registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with email and create profile; Upload resume in PDF or DOCX format; Add skills, experience, and education.",
+        "title": "Design Job Seeker Registration UI",
+        "description": "Design the user interface for job seeker registration. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The end-to-end workflow for job seeker registration is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for job seeker registration are explicitly defined",
-          "Implementation subtasks for job seeker registration can be picked up independently by engineering"
+          "UI design for job seeker registration is complete and reviewable.",
+          "The job seeker registration design is responsive and accessible.",
+          "The design for job seeker registration aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Job Seeker Registration Backend Services",
-        "description": "Build the backend services for job seeker registration on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with email and create profile; Upload resume in PDF or DOCX format; Add skills, experience, and education.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Core job seeker registration business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for job seeker registration",
-          "API/service behavior for job seeker registration is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Job Seeker Registration Frontend Flow",
-        "description": "Build the frontend flow for job seeker registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Job Seeker Registration",
+        "description": "Implement the frontend behavior for job seeker registration. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Register with email and create profile; Upload resume in PDF or DOCX format; Add skills, experience, and education.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The job seeker registration user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for job seeker registration behave correctly",
-          "The job seeker registration UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required job seeker registration user interactions.",
+          "Validation, loading, and error states for job seeker registration are handled in the UI.",
+          "Frontend behavior for job seeker registration is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Job Seeker Registration",
-        "description": "Implement the external integration points used by job seeker registration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "title": "Backend Implementation of Job Seeker Registration",
+        "description": "Implement the backend logic for job seeker registration. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Register with email and create profile; Upload resume in PDF or DOCX format; Add skills, experience, and education.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "External dependencies used by job seeker registration are connected through stable integration layers",
-          "Timeout, retry, and failure handling for job seeker registration integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for job seeker registration are handled securely"
+          "Backend logic for job seeker registration is implemented and testable.",
+          "APIs and business rules for job seeker registration enforce validation and security requirements.",
+          "Data handling for job seeker registration is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Job Seeker Registration Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for job seeker registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Database Design for Job Seeker Registration",
+        "description": "Design the data model and persistence strategy for job seeker registration. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "The data model for job seeker registration supports the required workflow.",
+          "Relationships, constraints, and indexes for job seeker registration are defined correctly.",
+          "Schema changes for job seeker registration can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Integrate Job Seeker Registration with External Services",
+        "description": "Integrate job seeker registration with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by job seeker registration exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for job seeker registration integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by job seeker registration are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Job Seeker Registration Functionality",
+        "description": "Create and execute tests for job seeker registration. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Happy path and failure cases for job seeker registration are covered by automated tests",
-          "Permission checks and validation rules for job seeker registration are verified",
-          "Regression coverage exists for the most critical job seeker registration scenarios"
+          "Tests cover the main success and failure scenarios for job seeker registration.",
+          "Security, validation, and permission checks for job seeker registration are verified.",
+          "Regression coverage exists for the most important job seeker registration behaviors."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Plan Employer Registration Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for employer registration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register company with verification; Add company profile with logo and description; Company verification via business email domain.",
+        "title": "Design Employer Registration UI",
+        "description": "Design the user interface for employer registration. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The end-to-end workflow for employer registration is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for employer registration are explicitly defined",
-          "Implementation subtasks for employer registration can be picked up independently by engineering"
+          "UI design for employer registration is complete and reviewable.",
+          "The employer registration design is responsive and accessible.",
+          "The design for employer registration aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Employer Registration Backend Services",
-        "description": "Build the backend services for employer registration on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register company with verification; Add company profile with logo and description; Company verification via business email domain.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "Core employer registration business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for employer registration",
-          "API/service behavior for employer registration is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Employer Registration Frontend Flow",
-        "description": "Build the frontend flow for employer registration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Employer Registration",
+        "description": "Implement the frontend behavior for employer registration. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Register company with verification; Add company profile with logo and description; Company verification via business email domain.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The employer registration user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for employer registration behave correctly",
-          "The employer registration UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required employer registration user interactions.",
+          "Validation, loading, and error states for employer registration are handled in the UI.",
+          "Frontend behavior for employer registration is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Employer Registration",
-        "description": "Implement the external integration points used by employer registration, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "title": "Backend Implementation of Employer Registration",
+        "description": "Implement the backend logic for employer registration. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Register company with verification; Add company profile with logo and description; Company verification via business email domain.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "External dependencies used by employer registration are connected through stable integration layers",
-          "Timeout, retry, and failure handling for employer registration integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for employer registration are handled securely"
+          "Backend logic for employer registration is implemented and testable.",
+          "APIs and business rules for employer registration enforce validation and security requirements.",
+          "Data handling for employer registration is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Employer Registration Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for employer registration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Database Design for Employer Registration",
+        "description": "Design the data model and persistence strategy for employer registration. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "The data model for employer registration supports the required workflow.",
+          "Relationships, constraints, and indexes for employer registration are defined correctly.",
+          "Schema changes for employer registration can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Security Hardening for Employer Registration",
+        "description": "Implement the security controls required for employer registration. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "priority": "high",
+        "type": "security",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Security controls for employer registration enforce the required authentication, authorization, or data-protection rules.",
+          "Sensitive operations and failure scenarios for employer registration are logged, validated, and protected against misuse.",
+          "The implementation of employer registration satisfies the relevant privacy, audit, or compliance expectations in the SRS."
+        ]
+      },
+      {
+        "title": "Integrate Employer Registration with External Services",
+        "description": "Integrate employer registration with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by employer registration exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for employer registration integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by employer registration are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Employer Registration Functionality",
+        "description": "Create and execute tests for employer registration. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Happy path and failure cases for employer registration are covered by automated tests",
-          "Permission checks and validation rules for employer registration are verified",
-          "Regression coverage exists for the most critical employer registration scenarios"
+          "Tests cover the main success and failure scenarios for employer registration.",
+          "Security, validation, and permission checks for employer registration are verified.",
+          "Regression coverage exists for the most important employer registration behaviors."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Plan Job Posting Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for job posting and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Post job with title, description, requirements, and salary range; Set job type (full-time, part-time, contract, remote); Add required skills and experience level.",
+        "title": "Design Job Posting UI",
+        "description": "Design the user interface for job posting. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The end-to-end workflow for job posting is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for job posting are explicitly defined",
-          "Implementation subtasks for job posting can be picked up independently by engineering"
+          "UI design for job posting is complete and reviewable.",
+          "The job posting design is responsive and accessible.",
+          "The design for job posting aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Job Posting Backend Services",
-        "description": "Build the backend services for job posting on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Post job with title, description, requirements, and salary range; Set job type (full-time, part-time, contract, remote); Add required skills and experience level.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Core job posting business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for job posting",
-          "API/service behavior for job posting is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Job Posting Frontend Flow",
-        "description": "Build the frontend flow for job posting with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Job Posting",
+        "description": "Implement the frontend behavior for job posting. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Post job with title, description, requirements, and salary range; Set job type (full-time, part-time, contract, remote); Add required skills and experience level.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The job posting user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for job posting behave correctly",
-          "The job posting UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required job posting user interactions.",
+          "Validation, loading, and error states for job posting are handled in the UI.",
+          "Frontend behavior for job posting is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Job Posting Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for job posting. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Job Posting",
+        "description": "Implement the backend logic for job posting. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Post job with title, description, requirements, and salary range; Set job type (full-time, part-time, contract, remote); Add required skills and experience level.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Backend logic for job posting is implemented and testable.",
+          "APIs and business rules for job posting enforce validation and security requirements.",
+          "Data handling for job posting is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Job Posting Functionality",
+        "description": "Create and execute tests for job posting. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Happy path and failure cases for job posting are covered by automated tests",
-          "Permission checks and validation rules for job posting are verified",
-          "Regression coverage exists for the most critical job posting scenarios"
+          "Tests cover the main success and failure scenarios for job posting.",
+          "Security, validation, and permission checks for job posting are verified.",
+          "Regression coverage exists for the most important job posting behaviors."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Plan Job Search and Discovery Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for job search and discovery and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Search jobs by keyword, location, and skills; Filter by salary, job type, experience level, and date posted; Save searches for quick access.",
+        "title": "Design Job Search and Discovery UI",
+        "description": "Design the user interface for job search and discovery. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The end-to-end workflow for job search and discovery is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for job search and discovery are explicitly defined",
-          "Implementation subtasks for job search and discovery can be picked up independently by engineering"
+          "UI design for job search and discovery is complete and reviewable.",
+          "The job search and discovery design is responsive and accessible.",
+          "The design for job search and discovery aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Job Search and Discovery Backend Services",
-        "description": "Build the backend services for job search and discovery on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Search jobs by keyword, location, and skills; Filter by salary, job type, experience level, and date posted; Save searches for quick access.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "Core job search and discovery business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for job search and discovery",
-          "API/service behavior for job search and discovery is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Job Search and Discovery Frontend Flow",
-        "description": "Build the frontend flow for job search and discovery with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Job Search and Discovery",
+        "description": "Implement the frontend behavior for job search and discovery. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Search jobs by keyword, location, and skills; Filter by salary, job type, experience level, and date posted; Save searches for quick access.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The job search and discovery user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for job search and discovery behave correctly",
-          "The job search and discovery UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required job search and discovery user interactions.",
+          "Validation, loading, and error states for job search and discovery are handled in the UI.",
+          "Frontend behavior for job search and discovery is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Harden Job Search and Discovery Security and Access Rules",
-        "description": "Apply security controls to job search and discovery. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Backend Implementation of Job Search and Discovery",
+        "description": "Implement the backend logic for job search and discovery. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Search jobs by keyword, location, and skills; Filter by salary, job type, experience level, and date posted; Save searches for quick access.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Access control rules for job search and discovery are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in job search and discovery are audited and protected against misuse",
-          "Security validation for job search and discovery passes review and automated checks"
+          "Backend logic for job search and discovery is implemented and testable.",
+          "APIs and business rules for job search and discovery enforce validation and security requirements.",
+          "Data handling for job search and discovery is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Write Job Search and Discovery Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for job search and discovery. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Job Search and Discovery Functionality",
+        "description": "Create and execute tests for job search and discovery. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Happy path and failure cases for job search and discovery are covered by automated tests",
-          "Permission checks and validation rules for job search and discovery are verified",
-          "Regression coverage exists for the most critical job search and discovery scenarios"
+          "Tests cover the main success and failure scenarios for job search and discovery.",
+          "Security, validation, and permission checks for job search and discovery are verified.",
+          "Regression coverage exists for the most important job search and discovery behaviors."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Plan Job Application Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for job application and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Apply with resume and cover letter; Track application status; Withdraw application before review.",
+        "title": "Design Job Application UI",
+        "description": "Design the user interface for job application. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The end-to-end workflow for job application is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for job application are explicitly defined",
-          "Implementation subtasks for job application can be picked up independently by engineering"
+          "UI design for job application is complete and reviewable.",
+          "The job application design is responsive and accessible.",
+          "The design for job application aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Job Application Backend Services",
-        "description": "Build the backend services for job application on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Apply with resume and cover letter; Track application status; Withdraw application before review.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Core job application business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for job application",
-          "API/service behavior for job application is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Job Application Frontend Flow",
-        "description": "Build the frontend flow for job application with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Job Application",
+        "description": "Implement the frontend behavior for job application. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Apply with resume and cover letter; Track application status; Withdraw application before review.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The job application user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for job application behave correctly",
-          "The job application UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required job application user interactions.",
+          "Validation, loading, and error states for job application are handled in the UI.",
+          "Frontend behavior for job application is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Job Application Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for job application. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Job Application",
+        "description": "Implement the backend logic for job application. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Apply with resume and cover letter; Track application status; Withdraw application before review.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Backend logic for job application is implemented and testable.",
+          "APIs and business rules for job application enforce validation and security requirements.",
+          "Data handling for job application is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Job Application Functionality",
+        "description": "Create and execute tests for job application. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Happy path and failure cases for job application are covered by automated tests",
-          "Permission checks and validation rules for job application are verified",
-          "Regression coverage exists for the most critical job application scenarios"
+          "Tests cover the main success and failure scenarios for job application.",
+          "Security, validation, and permission checks for job application are verified.",
+          "Regression coverage exists for the most important job application behaviors."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Plan Applicant Tracking for Employers Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for applicant tracking for employers and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View all applicants for a job posting; Filter applicants by skills and experience; Move applicants through hiring pipeline stages.",
+        "title": "Design Applicant Tracking for Employers UI",
+        "description": "Design the user interface for applicant tracking for employers. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The end-to-end workflow for applicant tracking for employers is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for applicant tracking for employers are explicitly defined",
-          "Implementation subtasks for applicant tracking for employers can be picked up independently by engineering"
+          "UI design for applicant tracking for employers is complete and reviewable.",
+          "The applicant tracking for employers design is responsive and accessible.",
+          "The design for applicant tracking for employers aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Applicant Tracking for Employers Backend Services",
-        "description": "Build the backend services for applicant tracking for employers on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View all applicants for a job posting; Filter applicants by skills and experience; Move applicants through hiring pipeline stages.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Core applicant tracking for employers business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for applicant tracking for employers",
-          "API/service behavior for applicant tracking for employers is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Applicant Tracking for Employers Frontend Flow",
-        "description": "Build the frontend flow for applicant tracking for employers with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Applicant Tracking for Employers",
+        "description": "Implement the frontend behavior for applicant tracking for employers. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View all applicants for a job posting; Filter applicants by skills and experience; Move applicants through hiring pipeline stages.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The applicant tracking for employers user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for applicant tracking for employers behave correctly",
-          "The applicant tracking for employers UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required applicant tracking for employers user interactions.",
+          "Validation, loading, and error states for applicant tracking for employers are handled in the UI.",
+          "Frontend behavior for applicant tracking for employers is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Applicant Tracking for Employers Persistence Model",
-        "description": "Design the persistence layer for applicant tracking for employers. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Applicant Tracking for Employers",
+        "description": "Implement the backend logic for applicant tracking for employers. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View all applicants for a job posting; Filter applicants by skills and experience; Move applicants through hiring pipeline stages.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Backend logic for applicant tracking for employers is implemented and testable.",
+          "APIs and business rules for applicant tracking for employers enforce validation and security requirements.",
+          "Data handling for applicant tracking for employers is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Applicant Tracking for Employers",
+        "description": "Design the data model and persistence strategy for applicant tracking for employers. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The persistence model for applicant tracking for employers supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for applicant tracking for employers are defined correctly",
-          "Migrations for applicant tracking for employers can be applied safely in target environments"
+          "The data model for applicant tracking for employers supports the required workflow.",
+          "Relationships, constraints, and indexes for applicant tracking for employers are defined correctly.",
+          "Schema changes for applicant tracking for employers can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Applicant Tracking for Employers Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for applicant tracking for employers. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Applicant Tracking for Employers Functionality",
+        "description": "Create and execute tests for applicant tracking for employers. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Happy path and failure cases for applicant tracking for employers are covered by automated tests",
-          "Permission checks and validation rules for applicant tracking for employers are verified",
-          "Regression coverage exists for the most critical applicant tracking for employers scenarios"
+          "Tests cover the main success and failure scenarios for applicant tracking for employers.",
+          "Security, validation, and permission checks for applicant tracking for employers are verified.",
+          "Regression coverage exists for the most important applicant tracking for employers behaviors."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Plan Resume Builder Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for resume builder and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Guided resume builder with templates; Auto-fill from profile data; Multiple resume versions.",
+        "title": "Design Resume Builder UI",
+        "description": "Design the user interface for resume builder. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The end-to-end workflow for resume builder is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for resume builder are explicitly defined",
-          "Implementation subtasks for resume builder can be picked up independently by engineering"
+          "UI design for resume builder is complete and reviewable.",
+          "The resume builder design is responsive and accessible.",
+          "The design for resume builder aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Resume Builder Backend Services",
-        "description": "Build the backend services for resume builder on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Guided resume builder with templates; Auto-fill from profile data; Multiple resume versions.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Core resume builder business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for resume builder",
-          "API/service behavior for resume builder is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Resume Builder Frontend Flow",
-        "description": "Build the frontend flow for resume builder with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Resume Builder",
+        "description": "Implement the frontend behavior for resume builder. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Guided resume builder with templates; Auto-fill from profile data; Multiple resume versions.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The resume builder user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for resume builder behave correctly",
-          "The resume builder UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required resume builder user interactions.",
+          "Validation, loading, and error states for resume builder are handled in the UI.",
+          "Frontend behavior for resume builder is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Resume Builder Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for resume builder. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Resume Builder",
+        "description": "Implement the backend logic for resume builder. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Guided resume builder with templates; Auto-fill from profile data; Multiple resume versions.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "Backend logic for resume builder is implemented and testable.",
+          "APIs and business rules for resume builder enforce validation and security requirements.",
+          "Data handling for resume builder is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Resume Builder",
+        "description": "Design the data model and persistence strategy for resume builder. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "The data model for resume builder supports the required workflow.",
+          "Relationships, constraints, and indexes for resume builder are defined correctly.",
+          "Schema changes for resume builder can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing Resume Builder Functionality",
+        "description": "Create and execute tests for resume builder. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Happy path and failure cases for resume builder are covered by automated tests",
-          "Permission checks and validation rules for resume builder are verified",
-          "Regression coverage exists for the most critical resume builder scenarios"
+          "Tests cover the main success and failure scenarios for resume builder.",
+          "Security, validation, and permission checks for resume builder are verified.",
+          "Regression coverage exists for the most important resume builder behaviors."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Plan Company Reviews Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for company reviews and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Employees can review companies anonymously; Rate work-life balance, salary, culture, and management; Company can respond to reviews.",
+        "title": "Design Company Reviews UI",
+        "description": "Design the user interface for company reviews. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The end-to-end workflow for company reviews is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for company reviews are explicitly defined",
-          "Implementation subtasks for company reviews can be picked up independently by engineering"
+          "UI design for company reviews is complete and reviewable.",
+          "The company reviews design is responsive and accessible.",
+          "The design for company reviews aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Company Reviews Backend Services",
-        "description": "Build the backend services for company reviews on Next.js, Express, PostgreSQL, Elasticsearch. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Employees can review companies anonymously; Rate work-life balance, salary, culture, and management; Company can respond to reviews.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Core company reviews business rules are implemented for Job Portal Platform",
-          "Validation, authorization, and error handling are covered for company reviews",
-          "API/service behavior for company reviews is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Company Reviews Frontend Flow",
-        "description": "Build the frontend flow for company reviews with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Company Reviews",
+        "description": "Implement the frontend behavior for company reviews. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Employees can review companies anonymously; Rate work-life balance, salary, culture, and management; Company can respond to reviews.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The company reviews user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for company reviews behave correctly",
-          "The company reviews UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required company reviews user interactions.",
+          "Validation, loading, and error states for company reviews are handled in the UI.",
+          "Frontend behavior for company reviews is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Company Reviews Persistence Model",
-        "description": "Design the persistence layer for company reviews. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Company Reviews",
+        "description": "Implement the backend logic for company reviews. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Employees can review companies anonymously; Rate work-life balance, salary, culture, and management; Company can respond to reviews.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Backend logic for company reviews is implemented and testable.",
+          "APIs and business rules for company reviews enforce validation and security requirements.",
+          "Data handling for company reviews is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Company Reviews",
+        "description": "Design the data model and persistence strategy for company reviews. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The persistence model for company reviews supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for company reviews are defined correctly",
-          "Migrations for company reviews can be applied safely in target environments"
+          "The data model for company reviews supports the required workflow.",
+          "Relationships, constraints, and indexes for company reviews are defined correctly.",
+          "Schema changes for company reviews can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Company Reviews Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for company reviews. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Company Reviews Functionality",
+        "description": "Create and execute tests for company reviews. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Happy path and failure cases for company reviews are covered by automated tests",
-          "Permission checks and validation rules for company reviews are verified",
-          "Regression coverage exists for the most critical company reviews scenarios"
+          "Tests cover the main success and failure scenarios for company reviews.",
+          "Security, validation, and permission checks for company reviews are verified.",
+          "Regression coverage exists for the most important company reviews behaviors."
         ]
       }
     ]

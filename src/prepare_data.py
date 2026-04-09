@@ -34,7 +34,8 @@ INSTRUCTION_PREFIX = (
     "Each task object must contain exactly these keys: "
     "title, description, priority, type, related_requirement, acceptance_criteria.\n"
     "Allowed priority values: high, medium, low.\n"
-    "Allowed type values: backend, frontend, database, testing, general.\n"
+    "Allowed type values: design, frontend, backend, database, testing, security, integration, devops, general.\n"
+    "Use only the task types relevant to the requirement; do not force every type for every requirement.\n"
     "Keep tasks concise, concrete, and directly tied to the requirement.\n\n"
     "SRS JSON:\n"
 )
