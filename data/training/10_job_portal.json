@@ -1,0 +1,510 @@
+{
+  "input": {
+    "title": "Enterprise Job Portal & Applicant Tracking System (ATS)",
+    "description": "A comprehensive two-sided marketplace connecting job seekers with prospective employers. Job seekers can build their digital resumes, search for opportunities, apply with one click, and access salary insights. Employers utilize a built-in Applicant Tracking System (ATS) to post jobs, manage candidate pipelines via Kanban boards, parse uploaded resumes via OCR, and automate interview scheduling. The platform leans heavily on AI-driven matching algorithms to score candidate suitability for specific job postings.",
+    "technologies": [
+      "Next.js",
+      "Python / FastAPI",
+      "Elasticsearch",
+      "MongoDB",
+      "Redis",
+      "AWS S3",
+      "Stripe"
+    ],
+    "actors": [
+      "Job Seeker",
+      "Employer / Recruiter",
+      "System Admin"
+    ],
+    "user_classes": {
+      "Job Seeker": "An individual user searching for open positions, building their profile, and submitting applications.",
+      "Employer / Recruiter": "A company representative who posts job requirements, reviews candidate applications, schedules interviews, and manages company branding.",
+      "System Admin": "A platform administrator responsible for general content moderation, managing billing disputes, resolving flagged postings, and monitoring overall system health."
+    },
+    "definitions": {
+      "ATS": "Applicant Tracking System — a software application that enables the electronic handling of recruitment and hiring needs.",
+      "Resume Parser": "An optical character recognition (OCR) and NLP engine that extracts structured data (education, skills, experience) from a raw PDF or DOCX file.",
+      "Easy Apply": "A feature allowing seekers to submit an application using their saved platform profile rather than redirecting to an external site."
+    },
+    "modules": [
+      "Identity & Onboarding",
+      "Candidate Profile & Resume Engine",
+      "Employer Branding & Setup",
+      "Job Posting Management",
+      "Search & AI Matchmaking",
+      "Applicant Tracking System (ATS)",
+      "Assessments & Testing",
+      "Communications & Scheduling",
+      "Analytics & Insights",
+      "Monetization & Billing"
+    ],
+    "scope": [
+      "Extensive job search interface powered by Elasticsearch for geographic and text relevance",
+      "Automated resume parsing utilizing machine learning models to extract metadata",
+      "Kanban-style candidate pipeline management for recruiters",
+      "Integrated live chat and automated email sequencing for interview coordination",
+      "Tiered subscription billing for employers (Pay-per-post and Unlimited monthly models)",
+      "Anonymous company reviews and crowdsourced salary data collection"
+    ],
+    "out_of_scope": [
+      "Fully integrated payroll and HRIS (Human Resources Information System) post-hire",
+      "Background check execution (system will only provide a placeholder flag, execution requires third-party API in v2)",
+      "Video streaming infrastructure for live interviews (will rely on generating links to external providers like Zoom/Google Meet)"
+    ],
+    "constraints": [
+      "Search results must render in under 500ms using Elasticsearch regardless of dataset size",
+      "Resume files uploaded by applicants must be heavily sanitized to prevent malicious execution",
+      "Candidate PII (Personally Identifiable Information) must be encrypted at rest and compliant with CCPA/GDPR"
+    ],
+    "operating_environment": {
+      "frontend": "Next.js enabling server-side rendering (SSR) crucial for Job Posting SEO visibility.",
+      "backend": "Python FastAPI powering the main microservices and Machine Learning inference pipelines.",
+      "database": "MongoDB for flexible schema management of generic resumes, Redis for session states."
+    },
+    "functional_requirements": {
+      "FR-01": {
+        "title": "Authentication & Dual Role Architecture",
+        "requirements": [
+          "Users must select their account type explicitly upon registration (Job Seeker vs Employer)",
+          "Authentication leverages JWTs securely stored in HttpOnly cookies",
+          "Social login integrations are supported for Google and LinkedIn",
+          "Employers are required to verify their corporate email domain before publishing jobs"
+        ]
+      },
+      "FR-02": {
+        "title": "Job Seeker Profile Builder",
+        "requirements": [
+          "Seekers construct profiles featuring Education, Experience, Skills, Certifications, and Portfolios",
+          "A visual progress bar encourages users to reach 100% profile completion",
+          "Seekers can toggle their profile visibility between 'Publicly Searchable' or 'Private/Direct Apply Only'"
+        ]
+      },
+      "FR-03": {
+        "title": "AI Resume Parsing engine",
+        "requirements": [
+          "Seekers uploading a PDF or DOCX resume trigger an NLP parsing engine",
+          "The engine extracts text and automatically maps it into the Seeker Profile fields sequentially",
+          "Users are prompted to manually review and edit the parsed data for inaccuracies"
+        ]
+      },
+      "FR-04": {
+        "title": "Employer Company Profile",
+        "requirements": [
+          "Employers construct a company page featuring a logo, banner, 'About Us' section, and employee benefits",
+          "The company profile aggregates all active job postings natively",
+          "System links verified employees automatically to the company page roster"
+        ]
+      },
+      "FR-05": {
+        "title": "Job Posting Workflow",
+        "requirements": [
+          "Employers create job drafts requiring Title, Location (Remote/On-site), Salary Range, Description, and required Skills",
+          "System must highlight specific keyword recommendations to optimize posting visibility",
+          "Publishing a job requires an active subscription or a successful single-post payment processing"
+        ]
+      },
+      "FR-06": {
+        "title": "Advanced Search & Filters",
+        "requirements": [
+          "Seekers query a global search bar matching job titles, skills, or company names",
+          "Results map precisely to geographic filters supporting 'Within X miles' radius logic",
+          "Users can filter by job type (Contract, Full-time), Salary bounds, and 'Easy Apply' availability"
+        ]
+      },
+      "FR-07": {
+        "title": "AI Candidate Matchmaking",
+        "requirements": [
+          "Algorithm calculates a 'Match Percentage' comparing Seeker skills against Job Posting requirements",
+          "High match percentages subtly boost a job's ranking in the Seeker's customized daily feed",
+          "Employers see a prioritized list of 'Recommended Candidates' for their active roles"
+        ]
+      },
+      "FR-08": {
+        "title": "Application Workflow (Easy Apply)",
+        "requirements": [
+          "Seekers apply instantly using their stored profile, avoiding external redirects",
+          "The workflow allows optional attachment of a custom Cover Letter or supplemental portfolio link",
+          "Submission immediately triggers a confirmation email and appends the record to the Seeker's 'Applied Jobs' tracking tab"
+        ]
+      },
+      "FR-09": {
+        "title": "Employer ATS Kanban Board",
+        "requirements": [
+          "Employers view applicants within a specific job posting on a drag-and-drop Kanban board",
+          "Default columns include 'In Review', 'Sourced', 'Interview', 'Offer', and 'Rejected'",
+          "Dragging a candidate to 'Rejected' prompts an optional automated courteous rejection email dispatch"
+        ]
+      },
+      "FR-10": {
+        "title": "Saved Jobs & Alerts",
+        "requirements": [
+          "Seekers can bookmark postings to a 'Saved Jobs' list for future review",
+          "Users can save specific search parameters (e.g., 'React Developer in Austin') and subscribe to a Daily or Weekly digest email containing new matches"
+        ]
+      },
+      "FR-11": {
+        "title": "Interview Scheduling Configuration",
+        "requirements": [
+          "Employers can connect Google Workspace or Microsoft Outlook calendars via OAuth",
+          "Moving a candidate to the 'Interview' stage generates a Calendly-style link allowing the seeker to pick an available 30-minute block",
+          "Confirmation automatically dispatches calendar invites containing Zoom/Meet links to both parties"
+        ]
+      },
+      "FR-12": {
+        "title": "Skill Assessments & Challenges",
+        "requirements": [
+          "Employers can mandate a short multiple-choice technical or behavioral quiz upon application",
+          "The platform evaluates the quiz dynamically, appending the score directly onto the candidate's ATS card",
+          "Seekers can optionally take standardized platform tests (e.g., 'Python Basics') to earn verified badges on their profile"
+        ]
+      },
+      "FR-13": {
+        "title": "Anonymous Company Reviews",
+        "requirements": [
+          "Verified current or former employees can leave 1-5 star ratings identifying Work-Life Balance, Compensation, and Management",
+          "Reviews strictly mandate a minimum character count and undergo an automated profanity check before visibility",
+          "Employers access a verified portal to publicly reply to reviews"
+        ]
+      },
+      "FR-14": {
+        "title": "Salary Insights Collection",
+        "requirements": [
+          "Seekers conditionally input anonymous salary data for their roles in exchange for unlocking aggregate insights",
+          "Algorithm normalizes inputs, throwing out statistical outliers organically",
+          "Provides a dynamic graph indicating the 25th, 50th, and 75th percentiles of compensation for specific job titles by major city"
+        ]
+      },
+      "FR-15": {
+        "title": "Direct Messaging & Chat",
+        "requirements": [
+          "Employers can initiate direct text chats with applicants who pass the initial screening phase",
+          "The application secures sender identities conditionally to prevent spam, rejecting attachments naturally to mitigate malware",
+          "Both parties receive push/email notifications for unread chat bubbles"
+        ]
+      },
+      "FR-16": {
+        "title": "Employer Subscriptions & Billing",
+        "requirements": [
+          "Integration with Stripe enabling Employers to purchase single 'Post Credits' or subscribe to limitless monthly Enterprise tiers",
+          "Invoices generate seamlessly to the account billing portal in PDF formats",
+          "Cancelled subscriptions gracefully lapse at the term’s end without interrupting active standard listings"
+        ]
+      },
+      "FR-17": {
+        "title": "Analytics Dashboard for Employers",
+        "requirements": [
+          "Visual graph depicting total views, clicks, and apply-rates horizontally across active postings",
+          "Provides funnel statistics quantifying the drop-off rate between 'Views' and 'Started Application'",
+          "Allows data export to standard CSV matrices"
+        ]
+      },
+      "FR-18": {
+        "title": "Resume Data Export",
+        "requirements": [
+          "Employers can bulk-select candidates from a specific ATS column and export their metadata into a zipped array of raw resumes and parsed CSV logic",
+          "Action strictly tracks into an audit log to maintain compliance protocols"
+        ]
+      },
+      "FR-19": {
+        "title": "Admin Moderation & Dispute Handling",
+        "requirements": [
+          "System Admins view a specialized queued list of 'Flagged' job postings reported by the community",
+          "Admins can temporarily suspend employers accused of multi-level marketing (MLM) schemes or fraudulent practices",
+          "Administrative actions issue systematic warnings via standardized email templates"
+        ]
+      },
+      "FR-20": {
+        "title": "Diversity, Equity & Inclusion (DEI) Reporting",
+        "requirements": [
+          "Seekers optionally input demographic data (Race, Gender, Veteran Status) safely isolated from the Employer's direct ATS view during screening",
+          "Employers receive heavily anonymized aggregate reports describing the funnel demographic split to audit hiring bias"
+        ]
+      }
+    },
+    "non_functional_requirements": {
+      "NFR-01": {
+        "title": "Global Search Performance",
+        "requirements": [
+          "Elasticsearch clusters must resolve complicated multivariable queries in under 500ms universally",
+          "Typeahead autocomplete results must invoke under 150ms limiting user interaction friction"
+        ]
+      },
+      "NFR-02": {
+        "title": "SEO Discoverability",
+        "requirements": [
+          "All public Job Detail pages must render statically natively supporting OpenGraph tags and precise Schema.org 'JobPosting' metadata ensuring rich results on Google Jobs Engine"
+        ]
+      }
+    },
+    "system_attributes": {
+      "security": "Resume extraction models operate entirely in a sandboxed, ephemeral docker environment actively preventing macro-based malware execution upon upload.",
+      "scalability": "Search indices shard geographically avoiding index exhaustion when supporting multinational localized job hunting parameters."
+    }
+  },
+  "output": {
+    "FR-01": [
+      {
+        "title": "Develop User Registration and Role Allocation API",
+        "description": "Construct FastAPI endpoints validating standard Email/Password inputs issuing HttpOnly JWTs. Mutate explicit Role definitions strictly within the claims enforcing separation between Employer and Seeker tables.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Rejects registrations without specific explicit role flags natively.",
+          "Verifies unique emails cross-referencing collections globally."
+        ]
+      }
+    ],
+    "FR-02": [
+      {
+        "title": "Design Profile Builder and Completion Wizard",
+        "description": "Design an interactive, clean profile wizard explicitly stepping seekers through varied components. Include visual elements dynamically filling a circular progress indicator based on required field arrays.",
+        "priority": "high",
+        "type": "design",
+        "related_requirement": "FR-02",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Form supports heavily nested arrays for multiple work experiences.",
+          "Ensures inputs natively limit characters preventing visual dashboard blowout."
+        ]
+      }
+    ],
+    "FR-03": [
+      {
+        "title": "Implement OCR Resume Parsing Pipeline",
+        "description": "Deploy an isolated microservice integrating Apache Tika or explicit AWS Textract reading uploaded PDFs mapping identified blocks heavily into a structured JSON string returning seamlessly to the client.",
+        "priority": "critical",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "assignee_role": "Data Scientist",
+        "acceptance_criteria": [
+          "Handles standard single-column and complex two-column structures efficiently.",
+          "Extracts 'Dates' and 'Company Names' into distinct keys securely."
+        ]
+      }
+    ],
+    "FR-04": [
+      {
+        "title": "Develop Employer Branding Verification Sequence",
+        "description": "Build an interaction sequence forcing validation of the User's Domain Name matching explicitly against the requested Company Profile claiming rights before exposing brand management utilities natively.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-04",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Prevents individuals claiming domains natively assigned generically (e.g. gmail.com)."
+        ]
+      }
+    ],
+    "FR-05": [
+      {
+        "title": "Construct Job Creation SEO Form Components",
+        "description": "Build the Next.js form supporting rich text descriptions. Integrate a side-panel dynamically displaying specific highly-searched keywords resolving relevantly based on the entered Job Title.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-05",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Rich text explicitly filters dangerous XSS payloads before committing state.",
+          "Draft functionality permits abandoning flow maintaining inputs securely."
+        ]
+      }
+    ],
+    "FR-06": [
+      {
+        "title": "Establish Elasticsearch Indices and Sync Logic",
+        "description": "Configure MongoDB connector securely synchronizing 'JobPostings' collections strictly onto localized Elasticsearch indices. Formulate complex generic multi-match query DSLs mapping text against location constraints simultaneously.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-06",
+        "assignee_role": "Database Administrator",
+        "acceptance_criteria": [
+          "Index mappings aggressively stem English words cleanly resolving 'Engineer' when querying 'Engineering'."
+        ]
+      }
+    ],
+    "FR-07": [
+      {
+        "title": "Design Skill Matching Heuristic Algorithm",
+        "description": "Create python scoring functions executing dot product comparisons referencing seeker 'Skills' arrays natively against the Job Post 'Requirements' pushing a normalized 1-100% score dynamically.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-07",
+        "assignee_role": "Data Scientist",
+        "acceptance_criteria": [
+          "Normalizes synonymous string inputs resolving explicitly (e.g., 'React.js' = 'React')."
+        ]
+      }
+    ],
+    "FR-08": [
+      {
+        "title": "Implement Easy Apply Transaction Payload",
+        "description": "Wire the frontend 'Apply' button constructing massive JSON payloads referencing generic profile IDs resolving into Applicant Tracking pipelines seamlessly triggering async confirm emails simultaneously.",
+        "priority": "high",
+        "type": "fullstack",
+        "related_requirement": "FR-08",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Idempotency heavily strictly prevents users double-applying creating duplicates."
+        ]
+      }
+    ],
+    "FR-09": [
+      {
+        "title": "Develop Drag and Drop ATS Kanban UI",
+        "description": "Implement React-beautiful-dnd explicitly driving customizable vertical columns natively rendering generic applicant snapshot cards cleanly handling drag events firing mutating APIs securely.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-09",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Dropping heavily prompts explicit confirmation modal if state mutates natively triggering external rejection emails."
+        ]
+      }
+    ],
+    "FR-10": [
+      {
+        "title": "Configure Job Alert Email Cron Workers",
+        "description": "Write isolated celery workers waking heavily daily running Elasticsearch queries matching explicitly saved parameters per User dispatching structured HTML emails aggregating new matches cleanly.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Caps generic sent alerts resolving strictly to 1 combined payload natively per user."
+        ]
+      }
+    ],
+    "FR-11": [
+      {
+        "title": "Integrate Google/Outlook Calendar OAuth",
+        "description": "Set up external OAuth apps securely negotiating generic read/write permissions directly generating event blocks containing isolated generic video link strings mapping natively.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-11",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Refreshes tokens securely mitigating generic timeout failures seamlessly."
+        ]
+      }
+    ],
+    "FR-12": [
+      {
+        "title": "Build Dynamic Assessment Quiz Interfaces",
+        "description": "Construct generic standardized quiz models rendering randomized questions cleanly imposing strict timer bounds securely resolving results pushing directly onto ATS cards natively.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-12",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Navigating abruptly off-screen triggers generic auto-submit forcing strict compliance."
+        ]
+      }
+    ],
+    "FR-13": [
+      {
+        "title": "Implement Moderated Review Pipeline",
+        "description": "Deploy generic profanity string arrays intersecting inputs isolating explicit flagged content immediately suspending publication forcing Administrator terminal inspections securely.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-13",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Permits employers formal reply thread completely locked organically."
+        ]
+      }
+    ],
+    "FR-14": [
+      {
+        "title": "Design Normalizing Salary Insights Graph",
+        "description": "Assemble data aggregation pipelines parsing generalized inputs rendering precise box-and-whisker plots securely depicting generic industry bounds explicitly.",
+        "priority": "medium",
+        "type": "design",
+        "related_requirement": "FR-14",
+        "assignee_role": "UI/UX Designer",
+        "acceptance_criteria": [
+          "Ensures localized filtering seamlessly isolating granular geographic cost differences cleanly."
+        ]
+      }
+    ],
+    "FR-15": [
+      {
+        "title": "Develop Applicant-Employer Messaging Bus",
+        "description": "Construct lightweight generic Websocket tunnels persisting chat logs isolating employer contact strings replacing generic names utilizing specific blind aliases natively until connection formally mutual.",
+        "priority": "medium",
+        "type": "backend",
+        "related_requirement": "FR-15",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Emails explicit generic fallback notification completely if applicant disconnected extensively."
+        ]
+      }
+    ],
+    "FR-16": [
+      {
+        "title": "Setup Stripe Subscription Portal Integrations",
+        "description": "Configure generic heavily tested webhooks securely matching isolated Local generic Employer schemas granting/revoking precise 'Publishing Credits' dynamically matching billing realities effortlessly.",
+        "priority": "high",
+        "type": "integration",
+        "related_requirement": "FR-16",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Discards posting inputs generically informing strict Paywall limits if depleted."
+        ]
+      }
+    ],
+    "FR-17": [
+      {
+        "title": "Construct Employer Funnel Analytics Dashboard",
+        "description": "Leverage Recharts generic library completely rendering simple generic funnels visually interpreting raw arrays into actionable graphical insights easily consumed implicitly.",
+        "priority": "medium",
+        "type": "frontend",
+        "related_requirement": "FR-17",
+        "assignee_role": "Frontend Developer",
+        "acceptance_criteria": [
+          "Supports timeframe modification dynamically recalculating entirely organically."
+        ]
+      }
+    ],
+    "FR-18": [
+      {
+        "title": "Build Zipped Resume Export Logic",
+        "description": "Write generic python generators buffering individual explicit PDF blobs seamlessly wrapping universally matching CSV tracking lists cleanly streaming massive bytes reliably preventing generalized timeouts explicitly.",
+        "priority": "low",
+        "type": "backend",
+        "related_requirement": "FR-18",
+        "assignee_role": "Backend Developer",
+        "acceptance_criteria": [
+          "Limits explicit extraction isolating batches to generic 100 counts concurrently securely."
+        ]
+      }
+    ],
+    "FR-19": [
+      {
+        "title": "Admin Flagging & Moderation Console",
+        "description": "Create explicit heavily guarded URL generic paths loading expansive specialized lists detailing explicitly flagged reasons natively permitting generic hard deletes cleanly cascading universally.",
+        "priority": "high",
+        "type": "frontend",
+        "related_requirement": "FR-19",
+        "assignee_role": "Full Stack Developer",
+        "acceptance_criteria": [
+          "Only SuperAdmins dynamically invoke suspending actions seamlessly bypassing regular generics."
+        ]
+      }
+    ],
+    "FR-20": [
+      {
+        "title": "Develop Anonymized DEI Reporting Engine",
+        "description": "Configure isolated databases specifically hashing demographic arrays explicitly stripping specific identifiers grouping purely statistically rendering completely secure employer reports cleanly.",
+        "priority": "medium",
+        "type": "database",
+        "related_requirement": "FR-20",
+        "assignee_role": "Data Engineer",
+        "acceptance_criteria": [
+          "Conceals groups completely explicitly if the returned set resolves fewer than specific 5 applicants securely preventing deduction natively."
+        ]
+      }
+    ]
+  }
+}
