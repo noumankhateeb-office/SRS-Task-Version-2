@@ -188,645 +188,633 @@
   "output": {
     "FR-01": [
       {
-        "title": "Plan Patient Onboarding Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for patient onboarding and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Register with personal and insurance details; Health questionnaire and medical history form; ID verification for identity confirmation.",
+        "title": "Design Patient Onboarding UI",
+        "description": "Design the user interface for patient onboarding. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The end-to-end workflow for patient onboarding is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for patient onboarding are explicitly defined",
-          "Implementation subtasks for patient onboarding can be picked up independently by engineering"
+          "UI design for patient onboarding is complete and reviewable.",
+          "The patient onboarding design is responsive and accessible.",
+          "The design for patient onboarding aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Patient Onboarding Backend Services",
-        "description": "Build the backend services for patient onboarding on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Register with personal and insurance details; Health questionnaire and medical history form; ID verification for identity confirmation.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-01",
-        "acceptance_criteria": [
-          "Core patient onboarding business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for patient onboarding",
-          "API/service behavior for patient onboarding is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Patient Onboarding Frontend Flow",
-        "description": "Build the frontend flow for patient onboarding with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Patient Onboarding",
+        "description": "Implement the frontend behavior for patient onboarding. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Register with personal and insurance details; Health questionnaire and medical history form; ID verification for identity confirmation.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The patient onboarding user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for patient onboarding behave correctly",
-          "The patient onboarding UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required patient onboarding user interactions.",
+          "Validation, loading, and error states for patient onboarding are handled in the UI.",
+          "Frontend behavior for patient onboarding is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Patient Onboarding Persistence Model",
-        "description": "Design the persistence layer for patient onboarding. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Patient Onboarding",
+        "description": "Implement the backend logic for patient onboarding. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Register with personal and insurance details; Health questionnaire and medical history form; ID verification for identity confirmation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "Backend logic for patient onboarding is implemented and testable.",
+          "APIs and business rules for patient onboarding enforce validation and security requirements.",
+          "Data handling for patient onboarding is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Patient Onboarding",
+        "description": "Design the data model and persistence strategy for patient onboarding. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "The persistence model for patient onboarding supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for patient onboarding are defined correctly",
-          "Migrations for patient onboarding can be applied safely in target environments"
+          "The data model for patient onboarding supports the required workflow.",
+          "Relationships, constraints, and indexes for patient onboarding are defined correctly.",
+          "Schema changes for patient onboarding can be applied safely in target environments."
         ]
       },
       {
-        "title": "Build Patient Onboarding Reporting and KPI Logic",
-        "description": "Implement the reporting layer for patient onboarding, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
-        "type": "backend",
+        "title": "Security Hardening for Patient Onboarding",
+        "description": "Implement the security controls required for patient onboarding. Cover authentication, authorization, encryption, auditing, abuse prevention, and compliance checks where the SRS or workflow calls for them.",
+        "priority": "high",
+        "type": "security",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "KPI and reporting calculations for patient onboarding return accurate results",
-          "Filters, grouping, and export-ready structures for patient onboarding work correctly",
-          "Reporting queries for patient onboarding perform within acceptable limits"
+          "Security controls for patient onboarding enforce the required authentication, authorization, or data-protection rules.",
+          "Sensitive operations and failure scenarios for patient onboarding are logged, validated, and protected against misuse.",
+          "The implementation of patient onboarding satisfies the relevant privacy, audit, or compliance expectations in the SRS."
         ]
       },
       {
-        "title": "Write Patient Onboarding Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for patient onboarding. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Patient Onboarding with External Services",
+        "description": "Integrate patient onboarding with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-01",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by patient onboarding exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for patient onboarding integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by patient onboarding are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Patient Onboarding Functionality",
+        "description": "Create and execute tests for patient onboarding. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-01",
         "acceptance_criteria": [
-          "Happy path and failure cases for patient onboarding are covered by automated tests",
-          "Permission checks and validation rules for patient onboarding are verified",
-          "Regression coverage exists for the most critical patient onboarding scenarios"
+          "Tests cover the main success and failure scenarios for patient onboarding.",
+          "Security, validation, and permission checks for patient onboarding are verified.",
+          "Regression coverage exists for the most important patient onboarding behaviors."
         ]
       }
     ],
     "FR-02": [
       {
-        "title": "Plan Doctor Search and Selection Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for doctor search and selection and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Search doctors by specialty, language, and availability; View doctor profile with credentials and reviews; Filter by insurance acceptance.",
+        "title": "Backend Implementation of Doctor Search and Selection",
+        "description": "Implement the backend logic for doctor search and selection. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Search doctors by specialty, language, and availability; View doctor profile with credentials and reviews; Filter by insurance acceptance.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "The end-to-end workflow for doctor search and selection is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for doctor search and selection are explicitly defined",
-          "Implementation subtasks for doctor search and selection can be picked up independently by engineering"
+          "Backend logic for doctor search and selection is implemented and testable.",
+          "APIs and business rules for doctor search and selection enforce validation and security requirements.",
+          "Data handling for doctor search and selection is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Implement Doctor Search and Selection Backend Services",
-        "description": "Build the backend services for doctor search and selection on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Search doctors by specialty, language, and availability; View doctor profile with credentials and reviews; Filter by insurance acceptance.",
+        "title": "Database Design for Doctor Search and Selection",
+        "description": "Design the data model and persistence strategy for doctor search and selection. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
-        "type": "backend",
+        "type": "database",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Core doctor search and selection business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for doctor search and selection",
-          "API/service behavior for doctor search and selection is testable and documented for integration"
+          "The data model for doctor search and selection supports the required workflow.",
+          "Relationships, constraints, and indexes for doctor search and selection are defined correctly.",
+          "Schema changes for doctor search and selection can be applied safely in target environments."
         ]
       },
       {
-        "title": "Implement Doctor Search and Selection Frontend Flow",
-        "description": "Build the frontend flow for doctor search and selection with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-02",
-        "acceptance_criteria": [
-          "The doctor search and selection user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for doctor search and selection behave correctly",
-          "The doctor search and selection UI is fully integrated with backend APIs and handles loading and error states"
-        ]
-      },
-      {
-        "title": "Write Doctor Search and Selection Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for doctor search and selection. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Doctor Search and Selection with External Services",
+        "description": "Integrate doctor search and selection with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by doctor search and selection exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for doctor search and selection integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by doctor search and selection are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "DevOps Setup for Doctor Search and Selection",
+        "description": "Set up the operational support for doctor search and selection. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
+        "priority": "medium",
+        "type": "devops",
+        "related_requirement": "FR-02",
+        "acceptance_criteria": [
+          "Operational setup for doctor search and selection covers deployment, configuration, and environment readiness.",
+          "Monitoring, alerting, backup, or recovery controls relevant to doctor search and selection are in place and verifiable.",
+          "The runtime behavior of doctor search and selection can be observed, supported, and recovered in target environments."
+        ]
+      },
+      {
+        "title": "Testing Doctor Search and Selection Functionality",
+        "description": "Create and execute tests for doctor search and selection. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-02",
         "acceptance_criteria": [
-          "Happy path and failure cases for doctor search and selection are covered by automated tests",
-          "Permission checks and validation rules for doctor search and selection are verified",
-          "Regression coverage exists for the most critical doctor search and selection scenarios"
+          "Tests cover the main success and failure scenarios for doctor search and selection.",
+          "Security, validation, and permission checks for doctor search and selection are verified.",
+          "Regression coverage exists for the most important doctor search and selection behaviors."
         ]
       }
     ],
     "FR-03": [
       {
-        "title": "Plan Video Consultation Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for video consultation and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: HD video call between patient and doctor; Screen sharing for reports and images; In-call notes for doctor.",
+        "title": "Design Video Consultation UI",
+        "description": "Design the user interface for video consultation. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The end-to-end workflow for video consultation is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for video consultation are explicitly defined",
-          "Implementation subtasks for video consultation can be picked up independently by engineering"
+          "UI design for video consultation is complete and reviewable.",
+          "The video consultation design is responsive and accessible.",
+          "The design for video consultation aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Video Consultation Backend Services",
-        "description": "Build the backend services for video consultation on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: HD video call between patient and doctor; Screen sharing for reports and images; In-call notes for doctor.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "Core video consultation business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for video consultation",
-          "API/service behavior for video consultation is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Video Consultation Frontend Flow",
-        "description": "Build the frontend flow for video consultation with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Video Consultation",
+        "description": "Implement the frontend behavior for video consultation. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: HD video call between patient and doctor; Screen sharing for reports and images; In-call notes for doctor.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The video consultation user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for video consultation behave correctly",
-          "The video consultation UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required video consultation user interactions.",
+          "Validation, loading, and error states for video consultation are handled in the UI.",
+          "Frontend behavior for video consultation is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Video Consultation Persistence Model",
-        "description": "Design the persistence layer for video consultation. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Video Consultation",
+        "description": "Implement the backend logic for video consultation. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: HD video call between patient and doctor; Screen sharing for reports and images; In-call notes for doctor.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-03",
+        "acceptance_criteria": [
+          "Backend logic for video consultation is implemented and testable.",
+          "APIs and business rules for video consultation enforce validation and security requirements.",
+          "Data handling for video consultation is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Video Consultation",
+        "description": "Design the data model and persistence strategy for video consultation. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "The persistence model for video consultation supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for video consultation are defined correctly",
-          "Migrations for video consultation can be applied safely in target environments"
+          "The data model for video consultation supports the required workflow.",
+          "Relationships, constraints, and indexes for video consultation are defined correctly.",
+          "Schema changes for video consultation can be applied safely in target environments."
         ]
       },
       {
-        "title": "Build Video Consultation Reporting and KPI Logic",
-        "description": "Implement the reporting layer for video consultation, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
-        "type": "backend",
-        "related_requirement": "FR-03",
-        "acceptance_criteria": [
-          "KPI and reporting calculations for video consultation return accurate results",
-          "Filters, grouping, and export-ready structures for video consultation work correctly",
-          "Reporting queries for video consultation perform within acceptable limits"
-        ]
-      },
-      {
-        "title": "Write Video Consultation Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for video consultation. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Video Consultation Functionality",
+        "description": "Create and execute tests for video consultation. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-03",
         "acceptance_criteria": [
-          "Happy path and failure cases for video consultation are covered by automated tests",
-          "Permission checks and validation rules for video consultation are verified",
-          "Regression coverage exists for the most critical video consultation scenarios"
+          "Tests cover the main success and failure scenarios for video consultation.",
+          "Security, validation, and permission checks for video consultation are verified.",
+          "Regression coverage exists for the most important video consultation behaviors."
         ]
       }
     ],
     "FR-04": [
       {
-        "title": "Plan Appointment Scheduling Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for appointment scheduling and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Book appointment with selected doctor; View doctor availability calendar; Urgent care queue for immediate consultations.",
+        "title": "Backend Implementation of Appointment Scheduling",
+        "description": "Implement the backend logic for appointment scheduling. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Book appointment with selected doctor; View doctor availability calendar; Urgent care queue for immediate consultations.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "The end-to-end workflow for appointment scheduling is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for appointment scheduling are explicitly defined",
-          "Implementation subtasks for appointment scheduling can be picked up independently by engineering"
+          "Backend logic for appointment scheduling is implemented and testable.",
+          "APIs and business rules for appointment scheduling enforce validation and security requirements.",
+          "Data handling for appointment scheduling is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Implement Appointment Scheduling Backend Services",
-        "description": "Build the backend services for appointment scheduling on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Book appointment with selected doctor; View doctor availability calendar; Urgent care queue for immediate consultations.",
+        "title": "Database Design for Appointment Scheduling",
+        "description": "Design the data model and persistence strategy for appointment scheduling. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
-        "type": "backend",
+        "type": "database",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Core appointment scheduling business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for appointment scheduling",
-          "API/service behavior for appointment scheduling is testable and documented for integration"
+          "The data model for appointment scheduling supports the required workflow.",
+          "Relationships, constraints, and indexes for appointment scheduling are defined correctly.",
+          "Schema changes for appointment scheduling can be applied safely in target environments."
         ]
       },
       {
-        "title": "Implement Appointment Scheduling Frontend Flow",
-        "description": "Build the frontend flow for appointment scheduling with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
-        "priority": "high",
-        "type": "frontend",
-        "related_requirement": "FR-04",
-        "acceptance_criteria": [
-          "The appointment scheduling user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for appointment scheduling behave correctly",
-          "The appointment scheduling UI is fully integrated with backend APIs and handles loading and error states"
-        ]
-      },
-      {
-        "title": "Write Appointment Scheduling Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for appointment scheduling. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "DevOps Setup for Appointment Scheduling",
+        "description": "Set up the operational support for appointment scheduling. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
         "priority": "medium",
+        "type": "devops",
+        "related_requirement": "FR-04",
+        "acceptance_criteria": [
+          "Operational setup for appointment scheduling covers deployment, configuration, and environment readiness.",
+          "Monitoring, alerting, backup, or recovery controls relevant to appointment scheduling are in place and verifiable.",
+          "The runtime behavior of appointment scheduling can be observed, supported, and recovered in target environments."
+        ]
+      },
+      {
+        "title": "Testing Appointment Scheduling Functionality",
+        "description": "Create and execute tests for appointment scheduling. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-04",
         "acceptance_criteria": [
-          "Happy path and failure cases for appointment scheduling are covered by automated tests",
-          "Permission checks and validation rules for appointment scheduling are verified",
-          "Regression coverage exists for the most critical appointment scheduling scenarios"
+          "Tests cover the main success and failure scenarios for appointment scheduling.",
+          "Security, validation, and permission checks for appointment scheduling are verified.",
+          "Regression coverage exists for the most important appointment scheduling behaviors."
         ]
       }
     ],
     "FR-05": [
       {
-        "title": "Plan E-Prescription Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for e-prescription and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Doctor issues digital prescriptions; Prescriptions sent to patient's preferred pharmacy; Medication interaction checks.",
+        "title": "Design E-Prescription UI",
+        "description": "Design the user interface for e-prescription. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The end-to-end workflow for e-prescription is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for e-prescription are explicitly defined",
-          "Implementation subtasks for e-prescription can be picked up independently by engineering"
+          "UI design for e-prescription is complete and reviewable.",
+          "The e-prescription design is responsive and accessible.",
+          "The design for e-prescription aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement E-Prescription Backend Services",
-        "description": "Build the backend services for e-prescription on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Doctor issues digital prescriptions; Prescriptions sent to patient's preferred pharmacy; Medication interaction checks.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-05",
-        "acceptance_criteria": [
-          "Core e-prescription business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for e-prescription",
-          "API/service behavior for e-prescription is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement E-Prescription Frontend Flow",
-        "description": "Build the frontend flow for e-prescription with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of E-Prescription",
+        "description": "Implement the frontend behavior for e-prescription. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Doctor issues digital prescriptions; Prescriptions sent to patient's preferred pharmacy; Medication interaction checks.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "The e-prescription user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for e-prescription behave correctly",
-          "The e-prescription UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required e-prescription user interactions.",
+          "Validation, loading, and error states for e-prescription are handled in the UI.",
+          "Frontend behavior for e-prescription is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write E-Prescription Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for e-prescription. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of E-Prescription",
+        "description": "Implement the backend logic for e-prescription. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Doctor issues digital prescriptions; Prescriptions sent to patient's preferred pharmacy; Medication interaction checks.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "Backend logic for e-prescription is implemented and testable.",
+          "APIs and business rules for e-prescription enforce validation and security requirements.",
+          "Data handling for e-prescription is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for E-Prescription",
+        "description": "Design the data model and persistence strategy for e-prescription. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
+        "priority": "high",
+        "type": "database",
+        "related_requirement": "FR-05",
+        "acceptance_criteria": [
+          "The data model for e-prescription supports the required workflow.",
+          "Relationships, constraints, and indexes for e-prescription are defined correctly.",
+          "Schema changes for e-prescription can be applied safely in target environments."
+        ]
+      },
+      {
+        "title": "Testing E-Prescription Functionality",
+        "description": "Create and execute tests for e-prescription. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-05",
         "acceptance_criteria": [
-          "Happy path and failure cases for e-prescription are covered by automated tests",
-          "Permission checks and validation rules for e-prescription are verified",
-          "Regression coverage exists for the most critical e-prescription scenarios"
+          "Tests cover the main success and failure scenarios for e-prescription.",
+          "Security, validation, and permission checks for e-prescription are verified.",
+          "Regression coverage exists for the most important e-prescription behaviors."
         ]
       }
     ],
     "FR-06": [
       {
-        "title": "Plan Medical Records Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for medical records and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Comprehensive patient medical record; Consultation notes and diagnoses; Lab results integration.",
+        "title": "Design Medical Records UI",
+        "description": "Design the user interface for medical records. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The end-to-end workflow for medical records is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for medical records are explicitly defined",
-          "Implementation subtasks for medical records can be picked up independently by engineering"
+          "UI design for medical records is complete and reviewable.",
+          "The medical records design is responsive and accessible.",
+          "The design for medical records aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Medical Records Backend Services",
-        "description": "Build the backend services for medical records on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Comprehensive patient medical record; Consultation notes and diagnoses; Lab results integration.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-06",
-        "acceptance_criteria": [
-          "Core medical records business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for medical records",
-          "API/service behavior for medical records is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Medical Records Frontend Flow",
-        "description": "Build the frontend flow for medical records with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Medical Records",
+        "description": "Implement the frontend behavior for medical records. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Comprehensive patient medical record; Consultation notes and diagnoses; Lab results integration.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The medical records user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for medical records behave correctly",
-          "The medical records UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required medical records user interactions.",
+          "Validation, loading, and error states for medical records are handled in the UI.",
+          "Frontend behavior for medical records is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Medical Records Persistence Model",
-        "description": "Design the persistence layer for medical records. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Medical Records",
+        "description": "Implement the backend logic for medical records. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Comprehensive patient medical record; Consultation notes and diagnoses; Lab results integration.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-06",
+        "acceptance_criteria": [
+          "Backend logic for medical records is implemented and testable.",
+          "APIs and business rules for medical records enforce validation and security requirements.",
+          "Data handling for medical records is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Medical Records",
+        "description": "Design the data model and persistence strategy for medical records. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "The persistence model for medical records supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for medical records are defined correctly",
-          "Migrations for medical records can be applied safely in target environments"
+          "The data model for medical records supports the required workflow.",
+          "Relationships, constraints, and indexes for medical records are defined correctly.",
+          "Schema changes for medical records can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Medical Records Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for medical records. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Medical Records Functionality",
+        "description": "Create and execute tests for medical records. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-06",
         "acceptance_criteria": [
-          "Happy path and failure cases for medical records are covered by automated tests",
-          "Permission checks and validation rules for medical records are verified",
-          "Regression coverage exists for the most critical medical records scenarios"
+          "Tests cover the main success and failure scenarios for medical records.",
+          "Security, validation, and permission checks for medical records are verified.",
+          "Regression coverage exists for the most important medical records behaviors."
         ]
       }
     ],
     "FR-07": [
       {
-        "title": "Plan Payment and Insurance Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for payment and insurance and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Consultation fee payment at booking; Insurance claim submission; Copay calculation based on plan.",
+        "title": "Design Payment and Insurance UI",
+        "description": "Design the user interface for payment and insurance. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The end-to-end workflow for payment and insurance is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for payment and insurance are explicitly defined",
-          "Implementation subtasks for payment and insurance can be picked up independently by engineering"
+          "UI design for payment and insurance is complete and reviewable.",
+          "The payment and insurance design is responsive and accessible.",
+          "The design for payment and insurance aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Payment and Insurance Backend Services",
-        "description": "Build the backend services for payment and insurance on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Consultation fee payment at booking; Insurance claim submission; Copay calculation based on plan.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-07",
-        "acceptance_criteria": [
-          "Core payment and insurance business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for payment and insurance",
-          "API/service behavior for payment and insurance is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Payment and Insurance Frontend Flow",
-        "description": "Build the frontend flow for payment and insurance with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Payment and Insurance",
+        "description": "Implement the frontend behavior for payment and insurance. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Consultation fee payment at booking; Insurance claim submission; Copay calculation based on plan.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "The payment and insurance user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for payment and insurance behave correctly",
-          "The payment and insurance UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required payment and insurance user interactions.",
+          "Validation, loading, and error states for payment and insurance are handled in the UI.",
+          "Frontend behavior for payment and insurance is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Integrate External Dependencies for Payment and Insurance",
-        "description": "Implement the external integration points used by payment and insurance, such as third-party APIs, SSO, messaging gateways, payment rails, import/export pipelines, or bank feeds. Add retry-safe behavior, timeout handling, observability, and fallback behavior for downstream failures.",
+        "title": "Backend Implementation of Payment and Insurance",
+        "description": "Implement the backend logic for payment and insurance. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Consultation fee payment at booking; Insurance claim submission; Copay calculation based on plan.",
         "priority": "high",
         "type": "backend",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "External dependencies used by payment and insurance are connected through stable integration layers",
-          "Timeout, retry, and failure handling for payment and insurance integrations are implemented and testable",
-          "Secrets, credentials, and integration logs for payment and insurance are handled securely"
+          "Backend logic for payment and insurance is implemented and testable.",
+          "APIs and business rules for payment and insurance enforce validation and security requirements.",
+          "Data handling for payment and insurance is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Harden Payment and Insurance Security and Access Rules",
-        "description": "Apply security controls to payment and insurance. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Database Design for Payment and Insurance",
+        "description": "Design the data model and persistence strategy for payment and insurance. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
-        "type": "backend",
+        "type": "database",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Access control rules for payment and insurance are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in payment and insurance are audited and protected against misuse",
-          "Security validation for payment and insurance passes review and automated checks"
+          "The data model for payment and insurance supports the required workflow.",
+          "Relationships, constraints, and indexes for payment and insurance are defined correctly.",
+          "Schema changes for payment and insurance can be applied safely in target environments."
         ]
       },
       {
-        "title": "Write Payment and Insurance Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for payment and insurance. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
+        "title": "Integrate Payment and Insurance with External Services",
+        "description": "Integrate payment and insurance with the external services or providers referenced by the SRS. Implement secure service connections, payload validation, error handling, and recovery behavior for any third-party dependency involved in the workflow.",
         "priority": "medium",
+        "type": "integration",
+        "related_requirement": "FR-07",
+        "acceptance_criteria": [
+          "External or cross-system integrations required by payment and insurance exchange the expected payloads successfully.",
+          "Retry, timeout, and failure handling for payment and insurance integrations are implemented and observable.",
+          "Credentials, tokens, and outbound calls used by payment and insurance are configured and secured correctly."
+        ]
+      },
+      {
+        "title": "Testing Payment and Insurance Functionality",
+        "description": "Create and execute tests for payment and insurance. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-07",
         "acceptance_criteria": [
-          "Happy path and failure cases for payment and insurance are covered by automated tests",
-          "Permission checks and validation rules for payment and insurance are verified",
-          "Regression coverage exists for the most critical payment and insurance scenarios"
+          "Tests cover the main success and failure scenarios for payment and insurance.",
+          "Security, validation, and permission checks for payment and insurance are verified.",
+          "Regression coverage exists for the most important payment and insurance behaviors."
         ]
       }
     ],
     "FR-08": [
       {
-        "title": "Plan Chat Messaging Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for chat messaging and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Async text messaging with doctor; Share images of symptoms; Chat available before and after consultation.",
+        "title": "Design Chat Messaging UI",
+        "description": "Design the user interface for chat messaging. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The end-to-end workflow for chat messaging is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for chat messaging are explicitly defined",
-          "Implementation subtasks for chat messaging can be picked up independently by engineering"
+          "UI design for chat messaging is complete and reviewable.",
+          "The chat messaging design is responsive and accessible.",
+          "The design for chat messaging aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Chat Messaging Backend Services",
-        "description": "Build the backend services for chat messaging on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Async text messaging with doctor; Share images of symptoms; Chat available before and after consultation.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-08",
-        "acceptance_criteria": [
-          "Core chat messaging business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for chat messaging",
-          "API/service behavior for chat messaging is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Chat Messaging Frontend Flow",
-        "description": "Build the frontend flow for chat messaging with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Chat Messaging",
+        "description": "Implement the frontend behavior for chat messaging. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Async text messaging with doctor; Share images of symptoms; Chat available before and after consultation.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "The chat messaging user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for chat messaging behave correctly",
-          "The chat messaging UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required chat messaging user interactions.",
+          "Validation, loading, and error states for chat messaging are handled in the UI.",
+          "Frontend behavior for chat messaging is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Write Chat Messaging Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for chat messaging. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Backend Implementation of Chat Messaging",
+        "description": "Implement the backend logic for chat messaging. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Async text messaging with doctor; Share images of symptoms; Chat available before and after consultation.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-08",
+        "acceptance_criteria": [
+          "Backend logic for chat messaging is implemented and testable.",
+          "APIs and business rules for chat messaging enforce validation and security requirements.",
+          "Data handling for chat messaging is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Testing Chat Messaging Functionality",
+        "description": "Create and execute tests for chat messaging. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-08",
         "acceptance_criteria": [
-          "Happy path and failure cases for chat messaging are covered by automated tests",
-          "Permission checks and validation rules for chat messaging are verified",
-          "Regression coverage exists for the most critical chat messaging scenarios"
+          "Tests cover the main success and failure scenarios for chat messaging.",
+          "Security, validation, and permission checks for chat messaging are verified.",
+          "Regression coverage exists for the most important chat messaging behaviors."
         ]
       }
     ],
     "FR-09": [
       {
-        "title": "Plan Health Monitoring Integration Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for health monitoring integration and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: Connect wearable devices for vital signs; Display heart rate, BP, glucose trends; Alert doctor for abnormal readings.",
+        "title": "Design Health Monitoring Integration UI",
+        "description": "Design the user interface for health monitoring integration. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The end-to-end workflow for health monitoring integration is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for health monitoring integration are explicitly defined",
-          "Implementation subtasks for health monitoring integration can be picked up independently by engineering"
+          "UI design for health monitoring integration is complete and reviewable.",
+          "The health monitoring integration design is responsive and accessible.",
+          "The design for health monitoring integration aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Health Monitoring Integration Backend Services",
-        "description": "Build the backend services for health monitoring integration on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: Connect wearable devices for vital signs; Display heart rate, BP, glucose trends; Alert doctor for abnormal readings.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-09",
-        "acceptance_criteria": [
-          "Core health monitoring integration business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for health monitoring integration",
-          "API/service behavior for health monitoring integration is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Health Monitoring Integration Frontend Flow",
-        "description": "Build the frontend flow for health monitoring integration with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Health Monitoring Integration",
+        "description": "Implement the frontend behavior for health monitoring integration. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: Connect wearable devices for vital signs; Display heart rate, BP, glucose trends; Alert doctor for abnormal readings.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "The health monitoring integration user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for health monitoring integration behave correctly",
-          "The health monitoring integration UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required health monitoring integration user interactions.",
+          "Validation, loading, and error states for health monitoring integration are handled in the UI.",
+          "Frontend behavior for health monitoring integration is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Build Health Monitoring Integration Reporting and KPI Logic",
-        "description": "Implement the reporting layer for health monitoring integration, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
+        "title": "Backend Implementation of Health Monitoring Integration",
+        "description": "Implement the backend logic for health monitoring integration. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: Connect wearable devices for vital signs; Display heart rate, BP, glucose trends; Alert doctor for abnormal readings.",
+        "priority": "high",
         "type": "backend",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "KPI and reporting calculations for health monitoring integration return accurate results",
-          "Filters, grouping, and export-ready structures for health monitoring integration work correctly",
-          "Reporting queries for health monitoring integration perform within acceptable limits"
+          "Backend logic for health monitoring integration is implemented and testable.",
+          "APIs and business rules for health monitoring integration enforce validation and security requirements.",
+          "Data handling for health monitoring integration is reliable and supports the required workflow."
         ]
       },
       {
-        "title": "Implement Health Monitoring Integration Notifications and Workflow Triggers",
-        "description": "Add notifications and event-driven workflow triggers for health monitoring integration. Define when alerts should fire, how recipients are selected, which delivery channels are supported, and how notification failures are retried or surfaced to operations teams.",
+        "title": "DevOps Setup for Health Monitoring Integration",
+        "description": "Set up the operational support for health monitoring integration. Configure deployment settings, secrets, background jobs, monitoring, alerting, backup, restore, or recovery controls needed for the feature to run safely in target environments.",
         "priority": "medium",
-        "type": "backend",
+        "type": "devops",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Notification triggers for health monitoring integration fire on the correct workflow events",
-          "Recipients, templates, and delivery channels for health monitoring integration are configurable and testable",
-          "Notification failures for health monitoring integration are observable and recoverable"
+          "Operational setup for health monitoring integration covers deployment, configuration, and environment readiness.",
+          "Monitoring, alerting, backup, or recovery controls relevant to health monitoring integration are in place and verifiable.",
+          "The runtime behavior of health monitoring integration can be observed, supported, and recovered in target environments."
         ]
       },
       {
-        "title": "Write Health Monitoring Integration Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for health monitoring integration. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
+        "title": "Testing Health Monitoring Integration Functionality",
+        "description": "Create and execute tests for health monitoring integration. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
+        "priority": "high",
         "type": "testing",
         "related_requirement": "FR-09",
         "acceptance_criteria": [
-          "Happy path and failure cases for health monitoring integration are covered by automated tests",
-          "Permission checks and validation rules for health monitoring integration are verified",
-          "Regression coverage exists for the most critical health monitoring integration scenarios"
+          "Tests cover the main success and failure scenarios for health monitoring integration.",
+          "Security, validation, and permission checks for health monitoring integration are verified.",
+          "Regression coverage exists for the most important health monitoring integration behaviors."
         ]
       }
     ],
     "FR-10": [
       {
-        "title": "Plan Doctor Dashboard Workflow and Contracts",
-        "description": "Review the SRS requirement bullets for doctor dashboard and break them into executable API, UI, data, security, and reporting subtasks. Define the workflow states, user roles, field-level validations, request/response contracts, and failure cases before implementation starts. Use these requirement drivers as the baseline: View schedule and upcoming appointments; Patient queue management; Quick access to patient records.",
+        "title": "Design Doctor Dashboard UI",
+        "description": "Design the user interface for doctor dashboard. Create the screens, forms, dashboards, or status views needed by the SRS and make the workflow clear, responsive, and accessible for the target users.",
         "priority": "high",
-        "type": "backend",
+        "type": "design",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The end-to-end workflow for doctor dashboard is documented from trigger to completion",
-          "Validation rules, role restrictions, and error scenarios for doctor dashboard are explicitly defined",
-          "Implementation subtasks for doctor dashboard can be picked up independently by engineering"
+          "UI design for doctor dashboard is complete and reviewable.",
+          "The doctor dashboard design is responsive and accessible.",
+          "The design for doctor dashboard aligns with the documented user flow and validation states."
         ]
       },
       {
-        "title": "Implement Doctor Dashboard Backend Services",
-        "description": "Build the backend services for doctor dashboard on React, Node.js, PostgreSQL, WebRTC. Create route handlers or service endpoints, model the core business operations, enforce validation and authorization rules, persist workflow state changes, and add structured error handling and audit logging. Make sure the implementation covers these behaviors: View schedule and upcoming appointments; Patient queue management; Quick access to patient records.",
-        "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Core doctor dashboard business rules are implemented for Telemedicine Platform",
-          "Validation, authorization, and error handling are covered for doctor dashboard",
-          "API/service behavior for doctor dashboard is testable and documented for integration"
-        ]
-      },
-      {
-        "title": "Implement Doctor Dashboard Frontend Flow",
-        "description": "Build the frontend flow for doctor dashboard with the exact forms, tables, filters, wizards, status indicators, and action buttons required by the SRS. Connect the UI to the backend contract, handle optimistic updates or refresh flows where needed, and provide user-facing validation, permissions feedback, loading states, and recovery states.",
+        "title": "Frontend Implementation of Doctor Dashboard",
+        "description": "Implement the frontend behavior for doctor dashboard. Build the required user interactions, validation states, loading states, and error handling so the interface supports these behaviors: View schedule and upcoming appointments; Patient queue management; Quick access to patient records.",
         "priority": "high",
         "type": "frontend",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The doctor dashboard user flow is accessible and responsive across supported browsers",
-          "Forms, filters, tables, and feedback states for doctor dashboard behave correctly",
-          "The doctor dashboard UI is fully integrated with backend APIs and handles loading and error states"
+          "Frontend implements the required doctor dashboard user interactions.",
+          "Validation, loading, and error states for doctor dashboard are handled in the UI.",
+          "Frontend behavior for doctor dashboard is integrated correctly with backend APIs."
         ]
       },
       {
-        "title": "Design Doctor Dashboard Persistence Model",
-        "description": "Design the persistence layer for doctor dashboard. Identify the core entities, relationships, indexes, status fields, history/audit tables, and reporting attributes required to support the workflow. Add migrations and seed or fixture data where that helps engineering validate the feature early.",
+        "title": "Backend Implementation of Doctor Dashboard",
+        "description": "Implement the backend logic for doctor dashboard. Build the required APIs, business rules, validation, permissions, persistence, and processing needed to support these behaviors: View schedule and upcoming appointments; Patient queue management; Quick access to patient records.",
+        "priority": "high",
+        "type": "backend",
+        "related_requirement": "FR-10",
+        "acceptance_criteria": [
+          "Backend logic for doctor dashboard is implemented and testable.",
+          "APIs and business rules for doctor dashboard enforce validation and security requirements.",
+          "Data handling for doctor dashboard is reliable and supports the required workflow."
+        ]
+      },
+      {
+        "title": "Database Design for Doctor Dashboard",
+        "description": "Design the data model and persistence strategy for doctor dashboard. Define entities, relationships, indexes, retention rules, and migration changes needed to store and query the workflow reliably.",
         "priority": "high",
         "type": "database",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "The persistence model for doctor dashboard supports required workflows and reporting needs",
-          "Indexes, constraints, and relationships for doctor dashboard are defined correctly",
-          "Migrations for doctor dashboard can be applied safely in target environments"
+          "The data model for doctor dashboard supports the required workflow.",
+          "Relationships, constraints, and indexes for doctor dashboard are defined correctly.",
+          "Schema changes for doctor dashboard can be applied safely in target environments."
         ]
       },
       {
-        "title": "Harden Doctor Dashboard Security and Access Rules",
-        "description": "Apply security controls to doctor dashboard. Implement role checks, field-level protections, data masking where appropriate, secure defaults, audit trails, and abuse-prevention rules. Verify that sensitive operations are guarded both in the API layer and in the UI visibility rules.",
+        "title": "Testing Doctor Dashboard Functionality",
+        "description": "Create and execute tests for doctor dashboard. Cover the main success flows, failure scenarios, permission checks, validation rules, integrations, and operational edge cases described in the SRS so the implementation is safe to release.",
         "priority": "high",
-        "type": "backend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "Access control rules for doctor dashboard are enforced consistently across API and UI layers",
-          "Sensitive operations and data paths in doctor dashboard are audited and protected against misuse",
-          "Security validation for doctor dashboard passes review and automated checks"
-        ]
-      },
-      {
-        "title": "Build Doctor Dashboard Reporting and KPI Logic",
-        "description": "Implement the reporting layer for doctor dashboard, including aggregate queries, KPI calculations, filters, drill-down behavior, and export-ready payloads. Ensure data shown in dashboards or reports can be traced back to transactional records and remains performant at realistic dataset sizes.",
-        "priority": "medium",
-        "type": "backend",
-        "related_requirement": "FR-10",
-        "acceptance_criteria": [
-          "KPI and reporting calculations for doctor dashboard return accurate results",
-          "Filters, grouping, and export-ready structures for doctor dashboard work correctly",
-          "Reporting queries for doctor dashboard perform within acceptable limits"
-        ]
-      },
-      {
-        "title": "Write Doctor Dashboard Automated and End-to-End Tests",
-        "description": "Write unit, integration, and end-to-end tests for doctor dashboard. Cover valid flows, invalid inputs, permission failures, state transitions, data integrity checks, and regression-prone edge cases pulled from the SRS. Add fixtures or mocks that make the feature verifiable in CI and local development.",
-        "priority": "medium",
         "type": "testing",
         "related_requirement": "FR-10",
         "acceptance_criteria": [
-          "Happy path and failure cases for doctor dashboard are covered by automated tests",
-          "Permission checks and validation rules for doctor dashboard are verified",
-          "Regression coverage exists for the most critical doctor dashboard scenarios"
+          "Tests cover the main success and failure scenarios for doctor dashboard.",
+          "Security, validation, and permission checks for doctor dashboard are verified.",
+          "Regression coverage exists for the most important doctor dashboard behaviors."
         ]
       }
     ]

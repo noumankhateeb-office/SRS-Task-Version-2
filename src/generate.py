@@ -49,7 +49,17 @@ GENERATION_CONFIG = {
 }
 
 ALLOWED_PRIORITIES = {"high", "medium", "low"}
-ALLOWED_TYPES = {"backend", "frontend", "database", "testing", "general"}
+ALLOWED_TYPES = {
+    "design",
+    "frontend",
+    "backend",
+    "database",
+    "testing",
+    "security",
+    "integration",
+    "devops",
+    "general",
+}
 
 
 # ---------------------------------------------------------------------------
